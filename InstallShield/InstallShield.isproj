@@ -29,4 +29,10 @@
 	</ItemGroup>
 	<Import Project="$(MSBuildExtensionsPath32)\InstallShield\2015Limited\InstallShield.targets"/>
 	<ItemGroup/>
+	<ItemGroup>
+		<ProjectReference Include="..\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper.csproj">
+			<Name>ExorLive.Client.WebWrapper</Name>
+			<Project>{D8CEFDAD-9109-4676-AC60-44428404049B}</Project>
+		</ProjectReference>
+	</ItemGroup>
 </Project>

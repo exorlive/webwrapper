@@ -15,7 +15,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="AppUrl" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://localhost:50000/app/?debug</Value>
+      <Value Profile="(Default)">https://exorlive.com/app/</Value>
     </Setting>
     <Setting Name="DistributorName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">ExorLive</Value>

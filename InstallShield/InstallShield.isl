@@ -346,7 +346,9 @@
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
 		<row><td>ExorLive.Client.WebWrapper.Content_Files</td><td>{09FCB56F-7BD7-4C27-B7B0-3F41E853E3D8}</td><td>INSTALLDIR</td><td>2</td><td/><td>exorlive.client.webwrapper.content_files</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ExorLive.Client.WebWrapper.Content_Files1</td><td>{AF74DAAE-998E-4D4E-AC45-542FAA8C5490}</td><td>INSTALLDIR</td><td>2</td><td/><td>exorlive.client.webwrapper.c</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ExorLive.Client.WebWrapper.Primary_output</td><td>{9C01B0DC-A056-4816-B17C-1F62CD3ED674}</td><td>INSTALLDIR</td><td>2</td><td/><td>exorlive.client.webwrapper.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ExorLive.Client.WebWrapper.Primary_output1</td><td>{188DF2BD-E19B-46B6-B9F8-9D7451BBBB35}</td><td>INSTALLDIR</td><td>2</td><td/><td>exorlive.client.webwrapper.p</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISO19770_LocalTag</td><td>{9624CB21-2206-489D-A12C-C64173797400}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISO19770_SystemTag</td><td>{73704B41-EB35-4543-BF5F-AFD565055406}</td><td>CommonAppDataFolder</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td>{E4C16A5B-AC48-44D0-A78A-6FDE7851D2AE}</td><td>LocalAppDataFolder</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
@@ -1067,7 +1069,9 @@
 		<row><td>AppDataFolder</td><td>ISX_DEFAULTCOMPONENT3</td></row>
 		<row><td>CommonAppDataFolder</td><td>ISO19770_SystemTag</td></row>
 		<row><td>INSTALLDIR</td><td>ExorLive.Client.WebWrapper.Content_Files</td></row>
+		<row><td>INSTALLDIR</td><td>ExorLive.Client.WebWrapper.Content_Files1</td></row>
 		<row><td>INSTALLDIR</td><td>ExorLive.Client.WebWrapper.Primary_output</td></row>
+		<row><td>INSTALLDIR</td><td>ExorLive.Client.WebWrapper.Primary_output1</td></row>
 		<row><td>INSTALLDIR</td><td>ISO19770_LocalTag</td></row>
 		<row><td>INSTALLDIR</td><td>ISO19770_SystemTag</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT</td></row>
@@ -1892,6 +1896,8 @@
 	<table name="FeatureComponents">
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
+		<row><td>AlwaysInstall</td><td>ExorLive.Client.WebWrapper.Content_Files1</td></row>
+		<row><td>AlwaysInstall</td><td>ExorLive.Client.WebWrapper.Primary_output1</td></row>
 		<row><td>AlwaysInstall</td><td>ISO19770_LocalTag</td></row>
 		<row><td>AlwaysInstall</td><td>ISO19770_SystemTag</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT</td></row>
@@ -1914,6 +1920,8 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
+		<row><td>exorlive.client.webwrapper.c</td><td>ExorLive.Client.WebWrapper.Content_Files1</td><td>ExorLive.Client.WebWrapper.Content Files</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ExorLive.Client.WebWrapper&gt;|ContentFiles</td><td>3</td><td/></row>
+		<row><td>exorlive.client.webwrapper.p</td><td>ExorLive.Client.WebWrapper.Primary_output1</td><td>ExorLive.Client.WebWrapper.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ExorLive.Client.WebWrapper&gt;|Built</td><td>3</td><td/></row>
 		<row><td>webwrapper.content_files</td><td>WebWrapper.Content_Files</td><td>WebWrapper.Content Files</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;WebWrapper&gt;|ContentFiles</td><td>3</td><td/></row>
 		<row><td>webwrapper.primary_output</td><td>WebWrapper.Primary_output</td><td>WebWrapper.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;WebWrapper&gt;|Built</td><td>3</td><td/></row>
 	</table>
@@ -2059,6 +2067,8 @@
 		<col def="S0">FTPLocation</col>
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
+		<row><td>ExorLive.Client.WebWrapper.Content_Files1</td><td/><td/><td>_4A25EAA6_294C_42A7_B792_561D5B8343C2_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ExorLive.Client.WebWrapper.Primary_output1</td><td/><td/><td>_8ED53BB7_A2F9_4364_9055_0076F9A5355D_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISO19770_LocalTag</td><td/><td/><td>_79C09EB9_FB16_4CF9_8DC4_2C024088BF2D_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISO19770_SystemTag</td><td/><td/><td>_F400A35E_30E7_4EE8_88FF_E13A99557A96_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_E042B48E_48D4_4152_A740_DCB444170DE7_FILTER</td><td/><td/><td/><td/></row>
@@ -2345,6 +2355,8 @@
 		<col def="S255">TestValue</col>
 		<col def="i4">Type</col>
 		<row><td>CommonFilesFolder</td><td/><td/><td>1</td></row>
+		<row><td>ExorLive.Client.WebWrapper</td><td>ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper.csproj</td><td/><td>2</td></row>
+		<row><td>ExorLive.Desktop</td><td>ExorLive.Desktop\ExorLive.Desktop.vbproj</td><td/><td>2</td></row>
 		<row><td>ISPROJECTDIR</td><td/><td/><td>1</td></row>
 		<row><td>ISProductFolder</td><td/><td/><td>1</td></row>
 		<row><td>ISProjectDataFolder</td><td/><td/><td>1</td></row>
@@ -2656,7 +2668,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>ExorLive</td><td>0</td><td/><td>1629762091</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>ExorLive</td><td>0</td><td/><td>1369724204</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>1629766888</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>1629766888</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION40CLIENT</td><td>1033</td><td>Microsoft .NET Framework 4.0 Client Package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1629756713</td></row>
@@ -3761,13 +3773,13 @@
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>1629766888</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>1629766888</td></row>
 		<row><td>ID_STRING1</td><td>1033</td><td/><td>0</td><td/><td>1629768936</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>http://www.ExorLive.com</td><td>0</td><td/><td>1629762091</td></row>
-		<row><td>ID_STRING3</td><td>1033</td><td>ExorLive</td><td>0</td><td/><td>1629762091</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>http://www.ExorLive.com</td><td>0</td><td/><td>1369724204</td></row>
+		<row><td>ID_STRING3</td><td>1033</td><td>ExorLive</td><td>0</td><td/><td>1369724204</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>1629762952</td></row>
 		<row><td>ID_STRING5</td><td>1033</td><td>+47 22540870</td><td>0</td><td/><td>1629763211</td></row>
 		<row><td>ID_STRING6</td><td>1033</td><td>http://webwrapper.exorlive.com/</td><td>0</td><td/><td>1629779595</td></row>
 		<row><td>ID_STRING7</td><td>1033</td><td>ExorLive Support</td><td>0</td><td/><td>1629785739</td></row>
-		<row><td>ID_STRING8</td><td>1033</td><td>http://exorlive.com/support</td><td>0</td><td/><td>1629793931</td></row>
+		<row><td>ID_STRING8</td><td>1033</td><td>http://exorlive.com/support</td><td>0</td><td/><td>1369724204</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>1629766888</td></row>
 	</table>
 
@@ -3923,6 +3935,8 @@
 		<row><td>_BA8ED9872367431594C8A8EA2DFFBAAD.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
 		<row><td>_BB64FC4C26444196AADE8FA0A728014B.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
 		<row><td>_BB8C1669205246DC80A5D5FBA898AED7.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_Built1_E100A7CF91FA460AAE555E41A5FDB0A9.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\exorlive.ico</td><td>0</td></row>
+		<row><td>_Built_87998FC6E4904314B46CB31A88F5B865.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\exorlive.ico</td><td>0</td></row>
 		<row><td>_C49BA145B5EA47FB86C3DF7062F1CF37.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
 		<row><td>_CF07A99861D24AF8A640140B2B94192D.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
 		<row><td>_D01AE55816DB4D77AE49D55B5B0226CB.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
@@ -4071,7 +4085,7 @@ RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>Classic.theme</td></row>
 		<row><td>ISUSLock</td><td>{1FEA22A7-9E69-4D09-8F91-B9582ED67181}</td></row>
 		<row><td>ISUSSignature</td><td>{A7408939-F477-4F3D-B08B-3A7F7C852535}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewProject,viewUpgradePaths,viewUpdateService,viewAppFiles,viewObjects,viewShortcuts,viewFileExtensions,viewIniFiles,viewRegistry,viewEnvironmentVariables,viewRelease,viewCustomActions,viewSystemSearch,viewUI,viewTextMessages,viewISToday,viewLearnMore</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewProject,viewUpgradePaths,viewUpdateService,viewAppFiles,viewObjects,viewShortcuts,viewFileExtensions,viewIniFiles,viewRegistry,viewEnvironmentVariables,viewRelease,viewCustomActions,viewSystemSearch,viewUI,viewTextMessages,viewISToday,viewLearnMore,viewVRoots,viewServices</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4382,7 +4396,6 @@ RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
 		<col key="yes" def="s72">Property</col>
 		<col def="L0">Value</col>
 		<col def="S255">ISComments</col>
-		<row><td>ALLUSERS</td><td>2</td><td/></row>
 		<row><td>ARPCONTACT</td><td>##ID_STRING7##</td><td/></row>
 		<row><td>ARPHELPLINK</td><td>##ID_STRING8##</td><td/></row>
 		<row><td>ARPHELPTELEPHONE</td><td>##ID_STRING5##</td><td/></row>
@@ -4458,9 +4471,9 @@ RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]WebWrapper.Primary output</td><td/></row>
-		<row><td>ProductCode</td><td>{666546E8-915C-4F64-B4B5-3B9FB8EB929B}</td><td/></row>
+		<row><td>ProductCode</td><td>{E86F1549-0BFB-4179-BE1D-70165B476EBA}</td><td/></row>
 		<row><td>ProductName</td><td>ExorLive Webwrapper</td><td/></row>
-		<row><td>ProductVersion</td><td>2.0.1.0</td><td/></row>
+		<row><td>ProductVersion</td><td>2.0.1.1</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
@@ -4625,8 +4638,8 @@ RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>_Built</td><td>webwra_1_webwrapper</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>WebWrapper.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td/><td/><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>_Built1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>WebWrapper.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td/><td/><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>_Built</td><td>webwra_1_webwrapper</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>ExorLive.Client.WebWrapper.Primary_output1</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built_87998FC6E4904314B46CB31A88F5B865.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>_Built1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>ExorLive.Client.WebWrapper.Primary_output1</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built1_E100A7CF91FA460AAE555E41A5FDB0A9.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">
