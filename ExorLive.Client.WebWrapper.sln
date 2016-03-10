@@ -1,0 +1,68 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ExorLive.Desktop", "ExorLive.Desktop\ExorLive.Desktop.vbproj", "{504BDA99-040A-41CB-A186-67A306EE7A16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExorLive.Client.WebWrapper", "ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper.csproj", "{D8CEFDAD-9109-4676-AC60-44428404049B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webpage", "Webpage\Webpage.csproj", "{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{085B871F-12F1-410B-8674-1624CC79E77F} = {085B871F-12F1-410B-8674-1624CC79E77F}
+	EndProjectSection
+EndProject
+Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "InstallShield", "InstallShield\InstallShield.isproj", "{085B871F-12F1-410B-8674-1624CC79E77F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D8CEFDAD-9109-4676-AC60-44428404049B} = {D8CEFDAD-9109-4676-AC60-44428404049B}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7DEA7ACB-2867-44A2-B990-946300CB2C82}"
+	ProjectSection(SolutionItems) = preProject
+		Readme.md = Readme.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{504BDA99-040A-41CB-A186-67A306EE7A16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{504BDA99-040A-41CB-A186-67A306EE7A16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{504BDA99-040A-41CB-A186-67A306EE7A16}.Debug|x86.ActiveCfg = Debug|x86
+		{504BDA99-040A-41CB-A186-67A306EE7A16}.Debug|x86.Build.0 = Debug|x86
+		{504BDA99-040A-41CB-A186-67A306EE7A16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{504BDA99-040A-41CB-A186-67A306EE7A16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{504BDA99-040A-41CB-A186-67A306EE7A16}.Release|x86.ActiveCfg = Release|x86
+		{504BDA99-040A-41CB-A186-67A306EE7A16}.Release|x86.Build.0 = Release|x86
+		{D8CEFDAD-9109-4676-AC60-44428404049B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8CEFDAD-9109-4676-AC60-44428404049B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8CEFDAD-9109-4676-AC60-44428404049B}.Debug|x86.ActiveCfg = Debug|x86
+		{D8CEFDAD-9109-4676-AC60-44428404049B}.Debug|x86.Build.0 = Debug|x86
+		{D8CEFDAD-9109-4676-AC60-44428404049B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8CEFDAD-9109-4676-AC60-44428404049B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8CEFDAD-9109-4676-AC60-44428404049B}.Release|x86.ActiveCfg = Release|x86
+		{D8CEFDAD-9109-4676-AC60-44428404049B}.Release|x86.Build.0 = Release|x86
+		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.Debug|x86.ActiveCfg = Debug|x86
+		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.Debug|x86.Build.0 = Debug|x86
+		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.Release|x86.ActiveCfg = Release|x86
+		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.Release|x86.Build.0 = Release|x86
+		{085B871F-12F1-410B-8674-1624CC79E77F}.Debug|Any CPU.ActiveCfg = SingleImage
+		{085B871F-12F1-410B-8674-1624CC79E77F}.Debug|Any CPU.Build.0 = SingleImage
+		{085B871F-12F1-410B-8674-1624CC79E77F}.Debug|x86.ActiveCfg = SingleImage
+		{085B871F-12F1-410B-8674-1624CC79E77F}.Debug|x86.Build.0 = SingleImage
+		{085B871F-12F1-410B-8674-1624CC79E77F}.Release|Any CPU.ActiveCfg = SingleImage
+		{085B871F-12F1-410B-8674-1624CC79E77F}.Release|Any CPU.Build.0 = SingleImage
+		{085B871F-12F1-410B-8674-1624CC79E77F}.Release|x86.ActiveCfg = SingleImage
+		{085B871F-12F1-410B-8674-1624CC79E77F}.Release|x86.Build.0 = SingleImage
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

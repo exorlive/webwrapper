@@ -1,0 +1,25 @@
+<?xml version = "1.0" encoding="Windows-1252" standalone="yes"?>
+<VFPData>
+	<curexor>
+		<nr>112</nr>
+		<navn>Hubba, Bubba</navn>
+		<adresse>Jarveien 1</adresse>
+		<postnr>1342</postnr>
+		<sted>Jar</sted>
+		<fodt>1911-11-12</fodt>
+		<tlf_jobb>44 33 44 56</tlf_jobb>
+		<tlf_hjem>22 33 44 55</tlf_hjem>
+		<mobil>99 88 77 66</mobil>
+		<epost>epost@her.no</epost>
+		<bruker>Terapeut</bruker>
+		<kommentar>
+			Kommentar fra Promed, hurlumhei.
+			Linje 2
+		</kommentar>
+		<set_id>13426911-c10f-4ee6-b7b3-71a09cf0b1a8</set_id>
+		<beskr/>
+		<regdato/>
+	</curexor>
+</VFPData>
+
+

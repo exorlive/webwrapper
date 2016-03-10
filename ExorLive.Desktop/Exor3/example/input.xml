@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="Windows-1252" standalone="yes" ?>
+<exorinput>
+	<source>JournalProgram ABC</source>
+	<source_user>Borge</source_user>
+	<source_customerno>112</source_customerno>
+	<firstname>Ali</firstname>
+	<lastname>Baba</lastname>
+	<address>Veien 1</address>
+	<address2></address2>
+	<postalcode>1342</postalcode>
+	<place>Jar</place>
+	<country>Norge</country>
+	<born>1911-11-12</born>
+	<phone_work>44 33 44 56</phone_work>
+	<phone_home>22 33 44 55</phone_home>
+	<mobile>99 88 77 66</mobile>
+	<email>ali.baba@mail.com</email>
+	<instructor>BORGE</instructor>
+	<comment>
+		Linje 1
+		Linje 2
+	</comment>
+	<program_id>12</program_id>
+	<program_name>Opptrening av legg</program_name>
+</exorinput>
