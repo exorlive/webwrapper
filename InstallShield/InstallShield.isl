@@ -253,7 +253,7 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<row><td>ISExpHlp.dll</td><td/><td>&lt;ISRedistPlatformDependentFolder&gt;\ISExpHlp.dll</td></row>
 		<row><td>ISSELFREG.DLL</td><td/><td>&lt;ISRedistPlatformDependentFolder&gt;\isregsvr.dll</td></row>
-		<row><td>NewBinary1</td><td/><td>C:\Users\tom\Documents\source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\Resources\install-big.png</td></row>
+		<row><td>NewBinary1</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\Resources\install-big.png</td></row>
 		<row><td>NewBinary10</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\CompleteSetupIco.ibd</td></row>
 		<row><td>NewBinary11</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\CustomSetupIco.ibd</td></row>
 		<row><td>NewBinary12</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\DestIcon.ibd</td></row>
@@ -263,15 +263,17 @@
 		<row><td>NewBinary16</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\InstallFirstUse.ico</td></row>
 		<row><td>NewBinary17</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\InstallPartial.ico</td></row>
 		<row><td>NewBinary18</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\InstallStateMenu.ico</td></row>
-		<row><td>NewBinary19</td><td/><td>C:\Users\tom\Documents\source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\Resources\install-big.png</td></row>
+		<row><td>NewBinary19</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\Resources\install-big.png</td></row>
 		<row><td>NewBinary2</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\New.ibd</td></row>
 		<row><td>NewBinary20</td><td/><td>&lt;ISProductFolder&gt;\redist\Language independent\i386\SerialNumCAHelper.dll</td></row>
-		<row><td>NewBinary21</td><td/><td>C:\Users\tom\Documents\source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\Resources\killprocess.vbs</td></row>
-		<row><td>NewBinary25</td><td/><td>C:\Users\tom\Documents\source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\Resources\install-big.png</td></row>
-		<row><td>NewBinary26</td><td/><td>C:\Users\tom\Documents\source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\Resources\install.png</td></row>
+		<row><td>NewBinary21</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\Resources\killprocess.vbs</td></row>
+		<row><td>NewBinary22</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\Resources\install-big.png</td></row>
+		<row><td>NewBinary23</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\Resources\install.png</td></row>
+		<row><td>NewBinary25</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\Resources\install-big.png</td></row>
+		<row><td>NewBinary26</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\Resources\install.png</td></row>
 		<row><td>NewBinary3</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\Up.ibd</td></row>
 		<row><td>NewBinary4</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\WarningIcon.ibd</td></row>
-		<row><td>NewBinary5</td><td/><td>C:\Users\tom\Documents\source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\Resources\install.png</td></row>
+		<row><td>NewBinary5</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\Resources\install.png</td></row>
 		<row><td>NewBinary6</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\CustomSetupIco.ibd</td></row>
 		<row><td>NewBinary7</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\ReinstIco.ibd</td></row>
 		<row><td>NewBinary8</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\RemoveIco.ibd</td></row>
@@ -380,7 +382,7 @@
 		<col def="I4">ISControlId</col>
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="S72">Binary_</col>
-		<row><td>AdminChangeFolder</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary5</td></row>
+		<row><td>AdminChangeFolder</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary23</td></row>
 		<row><td>AdminChangeFolder</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>AdminChangeFolder</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>##IDS_INSTALLSHIELD_FORMATTED##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>AdminChangeFolder</td><td>Branding2</td><td>Text</td><td>3</td><td>228</td><td>50</td><td>13</td><td>65537</td><td/><td>##IDS_INSTALLSHIELD##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -397,7 +399,7 @@
 		<row><td>AdminChangeFolder</td><td>TailText</td><td>Text</td><td>21</td><td>193</td><td>99</td><td>13</td><td>3</td><td/><td>##IDS__IsAdminInstallBrowse_FolderName##</td><td>Tail</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>AdminChangeFolder</td><td>Up</td><td>PushButton</td><td>310</td><td>66</td><td>19</td><td>19</td><td>3670019</td><td/><td/><td>NewFolder</td><td>##IDS__IsAdminInstallBrowse_UpOneLevel##</td><td>0</td><td/><td/><td>NewBinary3</td></row>
 		<row><td>AdminNetworkLocation</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_BACK##</td><td>InstallNow</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>AdminNetworkLocation</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary5</td></row>
+		<row><td>AdminNetworkLocation</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary23</td></row>
 		<row><td>AdminNetworkLocation</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>AdminNetworkLocation</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>##IDS_INSTALLSHIELD_FORMATTED##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>AdminNetworkLocation</td><td>Branding2</td><td>Text</td><td>3</td><td>228</td><td>50</td><td>13</td><td>65537</td><td/><td>##IDS_INSTALLSHIELD##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -413,7 +415,7 @@
 		<row><td>AdminWelcome</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>1</td><td/><td>##IDS_BACK##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>AdminWelcome</td><td>Cancel</td><td>PushButton</td><td>301</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_CANCEL##</td><td>Back</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>AdminWelcome</td><td>DlgLine</td><td>Line</td><td>0</td><td>234</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>AdminWelcome</td><td>Image</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>234</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary1</td></row>
+		<row><td>AdminWelcome</td><td>Image</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>234</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary22</td></row>
 		<row><td>AdminWelcome</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>Cancel</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>AdminWelcome</td><td>TextLine1</td><td>Text</td><td>135</td><td>8</td><td>225</td><td>45</td><td>196611</td><td/><td>##IDS__IsAdminInstallPointWelcome_Wizard##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>AdminWelcome</td><td>TextLine2</td><td>Text</td><td>135</td><td>55</td><td>228</td><td>45</td><td>196611</td><td/><td>##IDS__IsAdminInstallPointWelcome_ServerImage##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -422,7 +424,7 @@
 		<row><td>CancelSetup</td><td>Text</td><td>Text</td><td>48</td><td>15</td><td>194</td><td>30</td><td>131075</td><td/><td>##IDS__IsCancelDlg_ConfirmCancel##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>CancelSetup</td><td>Yes</td><td>PushButton</td><td>62</td><td>57</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS__IsCancelDlg_Yes##</td><td>No</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>CustomSetup</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_BACK##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>CustomSetup</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary5</td></row>
+		<row><td>CustomSetup</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary23</td></row>
 		<row><td>CustomSetup</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>CustomSetup</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>##IDS_INSTALLSHIELD_FORMATTED##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>CustomSetup</td><td>Branding2</td><td>Text</td><td>3</td><td>228</td><td>50</td><td>13</td><td>65537</td><td/><td>##IDS_INSTALLSHIELD##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -441,7 +443,7 @@
 		<row><td>CustomSetup</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>Cancel</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>CustomSetup</td><td>Size</td><td>Text</td><td>241</td><td>133</td><td>120</td><td>50</td><td>3</td><td/><td>##IDS__IsCustomSelectionDlg_FeatureSize##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>CustomSetup</td><td>Tree</td><td>SelectionTree</td><td>8</td><td>70</td><td>220</td><td>118</td><td>7</td><td>_BrowseProperty</td><td/><td>ChangeFolder</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>CustomSetupTips</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary5</td></row>
+		<row><td>CustomSetupTips</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary23</td></row>
 		<row><td>CustomSetupTips</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>CustomSetupTips</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>##IDS_INSTALLSHIELD_FORMATTED##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>CustomSetupTips</td><td>Branding2</td><td>Text</td><td>3</td><td>228</td><td>50</td><td>13</td><td>65537</td><td/><td>##IDS_INSTALLSHIELD##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -463,7 +465,7 @@
 		<row><td>CustomSetupTips</td><td>OK</td><td>PushButton</td><td>301</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_SetupTips_OK##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>CustomSetupTips</td><td>PartialText</td><td>Text</td><td>60</td><td>130</td><td>300</td><td>20</td><td>3</td><td/><td>##IDS_SetupTips_SubFeaturesInstalledLocal##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>CustomerInformation</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_BACK##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>CustomerInformation</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary5</td></row>
+		<row><td>CustomerInformation</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary23</td></row>
 		<row><td>CustomerInformation</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>CustomerInformation</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>##IDS_INSTALLSHIELD_FORMATTED##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>CustomerInformation</td><td>Branding2</td><td>Text</td><td>3</td><td>228</td><td>50</td><td>13</td><td>65537</td><td/><td>##IDS_INSTALLSHIELD##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -481,7 +483,7 @@
 		<row><td>CustomerInformation</td><td>SerialLabel</td><td>Text</td><td>21</td><td>127</td><td>109</td><td>10</td><td>2</td><td/><td>##IDS__IsRegisterUserDlg_SerialNumber##</td><td>SerialNumber</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>CustomerInformation</td><td>SerialNumber</td><td>MaskedEdit</td><td>21</td><td>138</td><td>237</td><td>17</td><td>2</td><td>ISX_SERIALNUM</td><td/><td>RadioGroup</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>DatabaseFolder</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_BACK##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>DatabaseFolder</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary5</td></row>
+		<row><td>DatabaseFolder</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary23</td></row>
 		<row><td>DatabaseFolder</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>DatabaseFolder</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>##IDS_INSTALLSHIELD_FORMATTED##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>DatabaseFolder</td><td>Branding2</td><td>Text</td><td>3</td><td>228</td><td>50</td><td>13</td><td>65537</td><td/><td>##IDS_INSTALLSHIELD##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -495,7 +497,7 @@
 		<row><td>DatabaseFolder</td><td>Location</td><td>Text</td><td>57</td><td>65</td><td>240</td><td>40</td><td>3</td><td>_BrowseProperty</td><td>##IDS__DatabaseFolder_DatabaseDir##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>DatabaseFolder</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>Cancel</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>DestinationFolder</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_BACK##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>DestinationFolder</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary5</td></row>
+		<row><td>DestinationFolder</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary23</td></row>
 		<row><td>DestinationFolder</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>DestinationFolder</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>##IDS_INSTALLSHIELD_FORMATTED##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>DestinationFolder</td><td>Branding2</td><td>Text</td><td>3</td><td>228</td><td>50</td><td>13</td><td>65537</td><td/><td>##IDS_INSTALLSHIELD##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -508,7 +510,7 @@
 		<row><td>DestinationFolder</td><td>LocLabel</td><td>Text</td><td>57</td><td>52</td><td>290</td><td>10</td><td>131075</td><td/><td>##IDS__DestinationFolder_InstallTo##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>DestinationFolder</td><td>Location</td><td>Text</td><td>57</td><td>65</td><td>240</td><td>40</td><td>3</td><td>_BrowseProperty</td><td>##IDS_INSTALLDIR##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>DestinationFolder</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>Cancel</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>DiskSpaceRequirements</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary5</td></row>
+		<row><td>DiskSpaceRequirements</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary23</td></row>
 		<row><td>DiskSpaceRequirements</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>DiskSpaceRequirements</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>##IDS_INSTALLSHIELD_FORMATTED##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>DiskSpaceRequirements</td><td>Branding2</td><td>Text</td><td>3</td><td>228</td><td>50</td><td>13</td><td>65537</td><td/><td>##IDS_INSTALLSHIELD##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -518,7 +520,7 @@
 		<row><td>DiskSpaceRequirements</td><td>DlgTitle</td><td>Text</td><td>9</td><td>6</td><td>292</td><td>25</td><td>65539</td><td/><td>##IDS__IsFeatureDetailsDlg_DiskSpaceRequirements##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>DiskSpaceRequirements</td><td>List</td><td>VolumeCostList</td><td>8</td><td>55</td><td>358</td><td>125</td><td>393223</td><td/><td>##IDS__IsFeatureDetailsDlg_Numbers##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>DiskSpaceRequirements</td><td>OK</td><td>PushButton</td><td>301</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS__IsFeatureDetailsDlg_OK##</td><td/><td/><td>0</td><td/><td/><td/></row>
-		<row><td>FilesInUse</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary5</td></row>
+		<row><td>FilesInUse</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary23</td></row>
 		<row><td>FilesInUse</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>FilesInUse</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>##IDS_INSTALLSHIELD_FORMATTED##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>FilesInUse</td><td>Branding2</td><td>Text</td><td>3</td><td>228</td><td>50</td><td>13</td><td>65537</td><td/><td>##IDS_INSTALLSHIELD##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -530,7 +532,7 @@
 		<row><td>FilesInUse</td><td>Ignore</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS__IsFilesInUse_Ignore##</td><td>Exit</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>FilesInUse</td><td>List</td><td>ListBox</td><td>21</td><td>87</td><td>331</td><td>135</td><td>7</td><td>FileInUseProcess</td><td/><td>Retry</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>FilesInUse</td><td>Retry</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS__IsFilesInUse_Retry##</td><td>Ignore</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>InstallChangeFolder</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary5</td></row>
+		<row><td>InstallChangeFolder</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary23</td></row>
 		<row><td>InstallChangeFolder</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>InstallChangeFolder</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>##IDS_INSTALLSHIELD_FORMATTED##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>InstallChangeFolder</td><td>Branding2</td><td>Text</td><td>3</td><td>228</td><td>50</td><td>13</td><td>65537</td><td/><td>##IDS_INSTALLSHIELD##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -550,13 +552,13 @@
 		<row><td>InstallWelcome</td><td>Cancel</td><td>PushButton</td><td>301</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_CANCEL##</td><td>Back</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>InstallWelcome</td><td>Copyright</td><td>Text</td><td>135</td><td>144</td><td>228</td><td>73</td><td>65538</td><td/><td>##IDS__IsWelcomeDlg_WarningCopyright##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>InstallWelcome</td><td>DlgLine</td><td>Line</td><td>0</td><td>234</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>InstallWelcome</td><td>Image</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>234</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary1</td></row>
+		<row><td>InstallWelcome</td><td>Image</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>234</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary22</td></row>
 		<row><td>InstallWelcome</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>Cancel</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>InstallWelcome</td><td>TextLine1</td><td>Text</td><td>135</td><td>8</td><td>225</td><td>45</td><td>196611</td><td/><td>##IDS__IsWelcomeDlg_WelcomeProductName##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>InstallWelcome</td><td>TextLine2</td><td>Text</td><td>135</td><td>55</td><td>228</td><td>45</td><td>196611</td><td/><td>##IDS__IsWelcomeDlg_InstallProductName##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>LicenseAgreement</td><td>Agree</td><td>RadioButtonGroup</td><td>8</td><td>190</td><td>291</td><td>40</td><td>3</td><td>AgreeToLicense</td><td/><td>Back</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>LicenseAgreement</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_BACK##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>LicenseAgreement</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary5</td></row>
+		<row><td>LicenseAgreement</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary23</td></row>
 		<row><td>LicenseAgreement</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>LicenseAgreement</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>##IDS_INSTALLSHIELD_FORMATTED##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>LicenseAgreement</td><td>Branding2</td><td>Text</td><td>3</td><td>228</td><td>50</td><td>13</td><td>65537</td><td/><td>##IDS_INSTALLSHIELD##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -568,7 +570,7 @@
 		<row><td>LicenseAgreement</td><td>Memo</td><td>ScrollableText</td><td>8</td><td>55</td><td>358</td><td>130</td><td>7</td><td/><td/><td/><td/><td>0</td><td/><td>&lt;ISProductFolder&gt;\Redist\0409\Eula.rtf</td><td/></row>
 		<row><td>LicenseAgreement</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>Cancel</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>MaintenanceType</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_BACK##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>MaintenanceType</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary5</td></row>
+		<row><td>MaintenanceType</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary23</td></row>
 		<row><td>MaintenanceType</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>MaintenanceType</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>##IDS_INSTALLSHIELD_FORMATTED##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>MaintenanceType</td><td>Branding2</td><td>Text</td><td>3</td><td>228</td><td>50</td><td>13</td><td>65537</td><td/><td>##IDS_INSTALLSHIELD##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -587,11 +589,11 @@
 		<row><td>MaintenanceWelcome</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>1</td><td/><td>##IDS_BACK##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>MaintenanceWelcome</td><td>Cancel</td><td>PushButton</td><td>301</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_CANCEL##</td><td>Back</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>MaintenanceWelcome</td><td>DlgLine</td><td>Line</td><td>0</td><td>234</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>MaintenanceWelcome</td><td>Image</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>234</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary1</td></row>
+		<row><td>MaintenanceWelcome</td><td>Image</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>234</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary22</td></row>
 		<row><td>MaintenanceWelcome</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>Cancel</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>MaintenanceWelcome</td><td>TextLine1</td><td>Text</td><td>135</td><td>8</td><td>225</td><td>45</td><td>196611</td><td/><td>##IDS__IsMaintenanceWelcome_WizardWelcome##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>MaintenanceWelcome</td><td>TextLine2</td><td>Text</td><td>135</td><td>55</td><td>228</td><td>50</td><td>196611</td><td/><td>##IDS__IsMaintenanceWelcome_MaintenanceOptionsDescription##</td><td/><td/><td>0</td><td/><td/><td/></row>
-		<row><td>MsiRMFilesInUse</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary5</td></row>
+		<row><td>MsiRMFilesInUse</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary23</td></row>
 		<row><td>MsiRMFilesInUse</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>MsiRMFilesInUse</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>##IDS_INSTALLSHIELD_FORMATTED##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>MsiRMFilesInUse</td><td>Branding2</td><td>Text</td><td>3</td><td>228</td><td>50</td><td>13</td><td>65537</td><td/><td>##IDS_INSTALLSHIELD##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -603,7 +605,7 @@
 		<row><td>MsiRMFilesInUse</td><td>List</td><td>ListBox</td><td>21</td><td>66</td><td>331</td><td>130</td><td>3</td><td>FileInUseProcess</td><td/><td>OK</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>MsiRMFilesInUse</td><td>OK</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_OK##</td><td>Cancel</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>MsiRMFilesInUse</td><td>Restart</td><td>RadioButtonGroup</td><td>19</td><td>187</td><td>343</td><td>40</td><td>3</td><td>RestartManagerOption</td><td/><td>List</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>OutOfSpace</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary5</td></row>
+		<row><td>OutOfSpace</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary23</td></row>
 		<row><td>OutOfSpace</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>OutOfSpace</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>##IDS_INSTALLSHIELD_FORMATTED##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>OutOfSpace</td><td>Branding2</td><td>Text</td><td>3</td><td>228</td><td>50</td><td>13</td><td>65537</td><td/><td>##IDS_INSTALLSHIELD##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -621,7 +623,7 @@
 		<row><td>PatchWelcome</td><td>TextLine1</td><td>Text</td><td>135</td><td>8</td><td>225</td><td>45</td><td>196611</td><td/><td>##IDS__IsPatchDlg_WelcomePatchWizard##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>PatchWelcome</td><td>TextLine2</td><td>Text</td><td>135</td><td>54</td><td>228</td><td>45</td><td>196611</td><td/><td>##IDS__IsPatchDlg_PatchClickUpdate##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>ReadmeInformation</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>1048579</td><td/><td>##IDS_BACK##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>ReadmeInformation</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td>DlgTitle</td><td/><td/><td/><td/><td>NewBinary5</td></row>
+		<row><td>ReadmeInformation</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td>DlgTitle</td><td/><td/><td/><td/><td>NewBinary23</td></row>
 		<row><td>ReadmeInformation</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>ReadmeInformation</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>##IDS_INSTALLSHIELD_FORMATTED##</td><td/><td/><td>0</td><td>0</td><td/><td/></row>
 		<row><td>ReadmeInformation</td><td>Branding2</td><td>Text</td><td>3</td><td>228</td><td>50</td><td>13</td><td>65537</td><td/><td>##IDS_INSTALLSHIELD##</td><td/><td/><td>0</td><td>0</td><td/><td/></row>
@@ -632,7 +634,7 @@
 		<row><td>ReadmeInformation</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>1048579</td><td/><td>##IDS_NEXT##</td><td>Cancel</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>ReadmeInformation</td><td>Readme</td><td>ScrollableText</td><td>10</td><td>55</td><td>353</td><td>166</td><td>3</td><td/><td/><td>Banner</td><td/><td>0</td><td/><td>&lt;ISProductFolder&gt;\Redist\0409\Readme.rtf</td><td/></row>
 		<row><td>ReadyToInstall</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_BACK##</td><td>GroupBox1</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>ReadyToInstall</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary5</td></row>
+		<row><td>ReadyToInstall</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary23</td></row>
 		<row><td>ReadyToInstall</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>ReadyToInstall</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>##IDS_INSTALLSHIELD_FORMATTED##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>ReadyToInstall</td><td>Branding2</td><td>Text</td><td>3</td><td>228</td><td>50</td><td>13</td><td>65537</td><td/><td>##IDS_INSTALLSHIELD##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -677,7 +679,7 @@
 		<row><td>SetupCompleteError</td><td>Finish</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS__IsFatalError_Finish##</td><td>Image</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupCompleteError</td><td>FinishText1</td><td>Text</td><td>135</td><td>80</td><td>228</td><td>50</td><td>65539</td><td/><td>##IDS__IsFatalError_NotModified##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupCompleteError</td><td>FinishText2</td><td>Text</td><td>135</td><td>135</td><td>228</td><td>25</td><td>65539</td><td/><td>##IDS__IsFatalError_ClickFinish##</td><td/><td/><td>0</td><td/><td/><td/></row>
-		<row><td>SetupCompleteError</td><td>Image</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>234</td><td>1</td><td/><td/><td>CheckShowMsiLog</td><td/><td/><td/><td/><td>NewBinary1</td></row>
+		<row><td>SetupCompleteError</td><td>Image</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>234</td><td>1</td><td/><td/><td>CheckShowMsiLog</td><td/><td/><td/><td/><td>NewBinary22</td></row>
 		<row><td>SetupCompleteError</td><td>RestContText1</td><td>Text</td><td>135</td><td>80</td><td>228</td><td>50</td><td>65539</td><td/><td>##IDS__IsFatalError_KeepOrRestore##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupCompleteError</td><td>RestContText2</td><td>Text</td><td>135</td><td>135</td><td>228</td><td>25</td><td>65539</td><td/><td>##IDS__IsFatalError_RestoreOrContinueLater##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupCompleteError</td><td>ShowMsiLogText</td><td>Text</td><td>164</td><td>172</td><td>198</td><td>10</td><td>65538</td><td/><td>##IDS__IsSetupComplete_ShowMsiLog##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -691,7 +693,7 @@
 		<row><td>SetupCompleteSuccess</td><td>CheckLaunchReadme</td><td>CheckBox</td><td>151</td><td>148</td><td>10</td><td>9</td><td>2</td><td>LAUNCHREADME</td><td/><td>CheckBoxUpdates</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupCompleteSuccess</td><td>CheckShowMsiLog</td><td>CheckBox</td><td>151</td><td>182</td><td>10</td><td>9</td><td>2</td><td>ISSHOWMSILOG</td><td/><td>Back</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupCompleteSuccess</td><td>DlgLine</td><td>Line</td><td>0</td><td>234</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>SetupCompleteSuccess</td><td>Image</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>234</td><td>1</td><td/><td/><td>CheckLaunchProgram</td><td/><td/><td/><td/><td>NewBinary1</td></row>
+		<row><td>SetupCompleteSuccess</td><td>Image</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>234</td><td>1</td><td/><td/><td>CheckLaunchProgram</td><td/><td/><td/><td/><td>NewBinary22</td></row>
 		<row><td>SetupCompleteSuccess</td><td>LaunchProgramText</td><td>Text</td><td>164</td><td>112</td><td>98</td><td>15</td><td>65538</td><td/><td>##IDS__IsExitDialog_LaunchProgram##</td><td/><td/><td>0</td><td>0</td><td/><td/></row>
 		<row><td>SetupCompleteSuccess</td><td>LaunchReadmeText</td><td>Text</td><td>164</td><td>148</td><td>120</td><td>13</td><td>65538</td><td/><td>##IDS__IsExitDialog_ShowReadMe##</td><td/><td/><td>0</td><td>0</td><td/><td/></row>
 		<row><td>SetupCompleteSuccess</td><td>OK</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS__IsExitDialog_Finish##</td><td>Cancel</td><td/><td>0</td><td/><td/><td/></row>
@@ -716,7 +718,7 @@
 		<row><td>SetupInitialization</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>1</td><td/><td>##IDS_BACK##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupInitialization</td><td>Cancel</td><td>PushButton</td><td>301</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_CANCEL##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupInitialization</td><td>DlgLine</td><td>Line</td><td>0</td><td>234</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>SetupInitialization</td><td>Image</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>234</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary1</td></row>
+		<row><td>SetupInitialization</td><td>Image</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>234</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary22</td></row>
 		<row><td>SetupInitialization</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>1</td><td/><td>##IDS_NEXT##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupInitialization</td><td>TextLine1</td><td>Text</td><td>135</td><td>8</td><td>225</td><td>45</td><td>196611</td><td/><td>##IDS__IsInitDlg_WelcomeWizard##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupInitialization</td><td>TextLine2</td><td>Text</td><td>135</td><td>55</td><td>228</td><td>30</td><td>196611</td><td/><td>##IDS__IsInitDlg_PreparingWizard##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -727,7 +729,7 @@
 		<row><td>SetupInterrupted</td><td>Finish</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS__IsUserExit_Finish##</td><td>Cancel</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupInterrupted</td><td>FinishText1</td><td>Text</td><td>135</td><td>80</td><td>228</td><td>50</td><td>65539</td><td/><td>##IDS__IsUserExit_NotModified##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupInterrupted</td><td>FinishText2</td><td>Text</td><td>135</td><td>135</td><td>228</td><td>25</td><td>65539</td><td/><td>##IDS__IsUserExit_ClickFinish##</td><td/><td/><td>0</td><td/><td/><td/></row>
-		<row><td>SetupInterrupted</td><td>Image</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>234</td><td>1</td><td/><td/><td>CheckShowMsiLog</td><td/><td/><td/><td/><td>NewBinary1</td></row>
+		<row><td>SetupInterrupted</td><td>Image</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>234</td><td>1</td><td/><td/><td>CheckShowMsiLog</td><td/><td/><td/><td/><td>NewBinary22</td></row>
 		<row><td>SetupInterrupted</td><td>RestContText1</td><td>Text</td><td>135</td><td>80</td><td>228</td><td>50</td><td>65539</td><td/><td>##IDS__IsUserExit_KeepOrRestore##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupInterrupted</td><td>RestContText2</td><td>Text</td><td>135</td><td>135</td><td>228</td><td>25</td><td>65539</td><td/><td>##IDS__IsUserExit_RestoreOrContinue##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupInterrupted</td><td>ShowMsiLogText</td><td>Text</td><td>164</td><td>172</td><td>198</td><td>10</td><td>65538</td><td/><td>##IDS__IsSetupComplete_ShowMsiLog##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -736,7 +738,7 @@
 		<row><td>SetupProgress</td><td>ActionProgress95</td><td>ProgressBar</td><td>59</td><td>113</td><td>275</td><td>12</td><td>65537</td><td/><td>##IDS__IsProgressDlg_ProgressDone##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupProgress</td><td>ActionText</td><td>Text</td><td>59</td><td>100</td><td>275</td><td>12</td><td>3</td><td/><td>##IDS__IsProgressDlg_2##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupProgress</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>1</td><td/><td>##IDS_BACK##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>SetupProgress</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary5</td></row>
+		<row><td>SetupProgress</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td>NewBinary23</td></row>
 		<row><td>SetupProgress</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>SetupProgress</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>##IDS_INSTALLSHIELD_FORMATTED##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupProgress</td><td>Branding2</td><td>Text</td><td>3</td><td>228</td><td>50</td><td>13</td><td>65537</td><td/><td>##IDS_INSTALLSHIELD##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -2423,9 +2425,9 @@
 		<row><td>Custom</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>2</td><td>1033</td><td>0</td><td>2</td><td>Intel</td><td/><td>1033</td><td>0</td><td>100</td><td>0</td><td>1024</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75805</td><td/><td/><td/><td>3</td></row>
 		<row><td>DVD-10</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>3</td><td>1033</td><td>0</td><td>2</td><td>Intel</td><td/><td>1033</td><td>0</td><td>8.75</td><td>1</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75805</td><td/><td/><td/><td>3</td></row>
 		<row><td>DVD-18</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>3</td><td>1033</td><td>0</td><td>2</td><td>Intel</td><td/><td>1033</td><td>0</td><td>15.83</td><td>1</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75805</td><td/><td/><td/><td>3</td></row>
-		<row><td>DVD-5</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>3</td><td>1033</td><td>0</td><td>1</td><td>Intel</td><td/><td>1033</td><td>2</td><td>4.38</td><td>1</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://exorlive.com</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\exorlive.pfx</td><td/><td/><td>536946719</td><td/><td/><td/><td>3</td></row>
+		<row><td>DVD-5</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>3</td><td>1033</td><td>0</td><td>1</td><td>Intel</td><td/><td>1033</td><td>2</td><td>4.38</td><td>1</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://exorlive.com</td><td/><td>&lt;VSSolutionFolder&gt;\exorlive.pfx</td><td/><td/><td>536946719</td><td/><td/><td/><td>3</td></row>
 		<row><td>DVD-9</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>3</td><td>1033</td><td>0</td><td>2</td><td>Intel</td><td/><td>1033</td><td>0</td><td>7.95</td><td>1</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75805</td><td/><td/><td/><td>3</td></row>
-		<row><td>SingleImage</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>PackageName</td><td>1</td><td>1033</td><td>0</td><td>1</td><td>Intel</td><td/><td>1033</td><td>0</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://exorlive.com/</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\exorlive.pfx</td><td/><td/><td>536979484</td><td/><td/><td/><td>3</td></row>
+		<row><td>SingleImage</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>PackageName</td><td>1</td><td>1033</td><td>0</td><td>1</td><td>Intel</td><td/><td>1033</td><td>0</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://exorlive.com/</td><td/><td>*MY*User:ExorLive AS</td><td/><td/><td>536979484</td><td/><td/><td/><td>3</td></row>
 		<row><td>WebDeployment</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>PackageName</td><td>4</td><td>1033</td><td>2</td><td>1</td><td>Intel</td><td/><td>1033</td><td>0</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>124941</td><td/><td/><td/><td>3</td></row>
 	</table>
 
@@ -3483,7 +3485,7 @@
 		<row><td>IDS_PROGMSG_XML_UPDATE_FILE</td><td>1033</td><td>Updating XML file %s...</td><td>0</td><td/><td>1629766888</td></row>
 		<row><td>IDS_SETUPEXE_EXPIRE_MSG</td><td>1033</td><td>This setup works until %s. The setup will now exit.</td><td>0</td><td/><td>1629766888</td></row>
 		<row><td>IDS_SETUPEXE_LAUNCH_COND_E</td><td>1033</td><td>This setup was built with an evaluation version of InstallShield and can only be launched from setup.exe.</td><td>0</td><td/><td>1629766888</td></row>
-		<row><td>IDS_SHORTCUT_DISPLAY_NAME1</td><td>1033</td><td>ExorLive</td><td>0</td><td/><td>1629767753</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME1</td><td>1033</td><td>EXORLI~1|ExorLive (New)</td><td>0</td><td/><td>1369757235</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO</td><td>1033</td><td>From the list of servers below, select the database server you would like to target.</td><td>0</td><td/><td>1629766888</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_DB</td><td>1033</td><td>From the list of catalog names below, select the database catalog you would like to target.</td><td>0</td><td/><td>1629766888</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_TEMPLATE</td><td>1033</td><td>[IS_SQLBROWSE_INTRO]</td><td>0</td><td/><td>1629766888</td></row>
@@ -3898,60 +3900,60 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\exorlive.ico</td><td>0</td></row>
-		<row><td>_0672AA57E2C741E6B621F2462BEC8F63.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_09B162E8B7114802B878C140E1ADBEF4.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_0CF8D7D54A1E4B26A70BE9AB8F6D564F.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_0F06B555A93C48FDB0EC86F9863784AE.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_1003D07CFB884AE9BFF31DF48A158196.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_1464090D2CED49A39F23AF1813BA563E.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_1680A07E0C494114A19F823C2C2E4EE3.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_2174F26EEFEE4ED38312147643A48ED4.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_25141FEB78A9479EB53EB72E28AC582A.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_26D418A516454F409B8478D26944C4BB.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_3DD673331DA746B1954C722BEB0ECA3B.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_3E96B595F7664531A4B16EAC2B2B3842.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_407C89C6F92648DB8DD8D0FF32F2D9BB.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_4A6C6E280EFE41D0B0EE763FA205D90A.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_4E7435B12E9546DB91733C564DAA7A43.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_505E59E7351D4307A4BC5D6BD9CD1E57.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_5AA7AE97B7F14D1D9CE15E3B9E318763.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_68B893DC605E4FC4BAF13BC451BEF2A8.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_74B5FA3BDE0348BBB7BFF56AEBADF052.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_792966731F4E4543BCDC65B7897D995D.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_7ACB86DBFDBB440D87BB7696F4C552B0.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_86309A2A388E4DB4B601E5AA0719AFC9.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_88FAB3F11F0D496897B2E4D40BA9854C.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_8B5E5E412A1846D2A86B1A30818EAD88.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_8D20C1D962B745D6B33277E68CA8CC60.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_8E4FBD80C1FB4CD996456AB0FB89F430.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_9242356E225F4F2DB0958D2F05FAEB3E.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_9595D7DDC5024F6C92ED6490B814F9C3.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_9AF8DD2C5B73432A8856C13801CE6150.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_9D472594E91A4705AC6677073F70FFA4.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_A64A509DFBE444409C3C5190D9B51D0F.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_A934E6F390454672890DC96369667A6B.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_B2D9F48841264CB091032F587A80C9B2.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_B682CE697827481F9C5F1A37ACE650FF.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_BA8ED9872367431594C8A8EA2DFFBAAD.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_BB64FC4C26444196AADE8FA0A728014B.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_BB8C1669205246DC80A5D5FBA898AED7.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_0672AA57E2C741E6B621F2462BEC8F63.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_09B162E8B7114802B878C140E1ADBEF4.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_0CF8D7D54A1E4B26A70BE9AB8F6D564F.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_0F06B555A93C48FDB0EC86F9863784AE.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_1003D07CFB884AE9BFF31DF48A158196.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_1464090D2CED49A39F23AF1813BA563E.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_1680A07E0C494114A19F823C2C2E4EE3.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_2174F26EEFEE4ED38312147643A48ED4.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_25141FEB78A9479EB53EB72E28AC582A.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_26D418A516454F409B8478D26944C4BB.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_3DD673331DA746B1954C722BEB0ECA3B.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_3E96B595F7664531A4B16EAC2B2B3842.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_407C89C6F92648DB8DD8D0FF32F2D9BB.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_4A6C6E280EFE41D0B0EE763FA205D90A.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_4E7435B12E9546DB91733C564DAA7A43.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_505E59E7351D4307A4BC5D6BD9CD1E57.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_5AA7AE97B7F14D1D9CE15E3B9E318763.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_68B893DC605E4FC4BAF13BC451BEF2A8.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_74B5FA3BDE0348BBB7BFF56AEBADF052.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_792966731F4E4543BCDC65B7897D995D.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_7ACB86DBFDBB440D87BB7696F4C552B0.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_86309A2A388E4DB4B601E5AA0719AFC9.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_88FAB3F11F0D496897B2E4D40BA9854C.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_8B5E5E412A1846D2A86B1A30818EAD88.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_8D20C1D962B745D6B33277E68CA8CC60.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_8E4FBD80C1FB4CD996456AB0FB89F430.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_9242356E225F4F2DB0958D2F05FAEB3E.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_9595D7DDC5024F6C92ED6490B814F9C3.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_9AF8DD2C5B73432A8856C13801CE6150.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_9D472594E91A4705AC6677073F70FFA4.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_A64A509DFBE444409C3C5190D9B51D0F.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_A934E6F390454672890DC96369667A6B.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_B2D9F48841264CB091032F587A80C9B2.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_B682CE697827481F9C5F1A37ACE650FF.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_BA8ED9872367431594C8A8EA2DFFBAAD.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_BB64FC4C26444196AADE8FA0A728014B.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_BB8C1669205246DC80A5D5FBA898AED7.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
 		<row><td>_Built1_E100A7CF91FA460AAE555E41A5FDB0A9.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\exorlive.ico</td><td>0</td></row>
 		<row><td>_Built_87998FC6E4904314B46CB31A88F5B865.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\exorlive.ico</td><td>0</td></row>
-		<row><td>_C49BA145B5EA47FB86C3DF7062F1CF37.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_CF07A99861D24AF8A640140B2B94192D.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_D01AE55816DB4D77AE49D55B5B0226CB.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_D3CE29897A1D460FA8935EEE903AB8CF.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_D92D44F50EB74F1A89C9988E90E451B8.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_DC897E5A528D4C8DB76F24AF073C59ED.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_DCB6D59DD66D46268B2C03E27C4004FA.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_DDC20E288C7A4916AF11A8356DE555A1.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_E191310CE8FC4D8AB507574B3CB44C1F.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_E3CA0EF448834C1999094E8E5D250D71.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_EAEAABD041D84E11B82FBCE0ACDE964E.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_EB0383DEE57A418FB765BB6A7482499C.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_EECC13B561784DFD84039473AAF0CABB.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_F9DCDF2CCC3C424D9FCB7A70044D3BDC.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
-		<row><td>_FEF81E7E1D3341AFAEF38A629288550C.exe</td><td/><td>C:\Users\tom\Documents\Source\ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_C49BA145B5EA47FB86C3DF7062F1CF37.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_CF07A99861D24AF8A640140B2B94192D.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_D01AE55816DB4D77AE49D55B5B0226CB.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_D3CE29897A1D460FA8935EEE903AB8CF.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_D92D44F50EB74F1A89C9988E90E451B8.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_DC897E5A528D4C8DB76F24AF073C59ED.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_DCB6D59DD66D46268B2C03E27C4004FA.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_DDC20E288C7A4916AF11A8356DE555A1.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_E191310CE8FC4D8AB507574B3CB44C1F.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_E3CA0EF448834C1999094E8E5D250D71.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_EAEAABD041D84E11B82FBCE0ACDE964E.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_EB0383DEE57A418FB765BB6A7482499C.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_EECC13B561784DFD84039473AAF0CABB.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_F9DCDF2CCC3C424D9FCB7A70044D3BDC.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
+		<row><td>_FEF81E7E1D3341AFAEF38A629288550C.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ExorLive.Client.WebWrapper\bin\Debug\WebWrapper.exe</td><td>0</td></row>
 	</table>
 
 	<table name="IniFile">
@@ -4067,8 +4069,8 @@
 		<col def="S0">Value</col>
 		<row><td>ActiveLanguage</td><td>1033</td></row>
 		<row><td>Comments</td><td/></row>
-		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="a4f66fafb30885f14d732b73e196bba0">
-RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
+		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="de9f554a3bc05c12be9c31b998217995">
+UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 			</td></row>
 		<row><td>DefaultProductConfiguration</td><td>Express</td></row>
 		<row><td>EnableSwidtag</td><td>1</td></row>
@@ -4471,9 +4473,9 @@ RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]WebWrapper.Primary output</td><td/></row>
-		<row><td>ProductCode</td><td>{E86F1549-0BFB-4179-BE1D-70165B476EBA}</td><td/></row>
+		<row><td>ProductCode</td><td>{98085394-09EC-45A6-8FC7-64FA660B93C2}</td><td/></row>
 		<row><td>ProductName</td><td>ExorLive Webwrapper</td><td/></row>
-		<row><td>ProductVersion</td><td>2.0.1.1</td><td/></row>
+		<row><td>ProductVersion</td><td>2.0.1.2</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
