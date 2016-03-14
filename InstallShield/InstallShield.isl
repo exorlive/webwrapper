@@ -4473,9 +4473,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]WebWrapper.Primary output</td><td/></row>
-		<row><td>ProductCode</td><td>{98085394-09EC-45A6-8FC7-64FA660B93C2}</td><td/></row>
+		<row><td>ProductCode</td><td>{5860E20E-BF53-44D6-B7A2-32346307A817}</td><td/></row>
 		<row><td>ProductName</td><td>ExorLive Webwrapper</td><td/></row>
-		<row><td>ProductVersion</td><td>2.0.1.2</td><td/></row>
+		<row><td>ProductVersion</td><td>2.0.1.3</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
