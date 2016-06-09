@@ -8,7 +8,15 @@
 
 An MSI installer is available at https://webwrapper.exorlive.com/
 
-This will install to the default path of _"%appdata%\ExorLive\Webwrapper"_ but can be modified using MSI configuration.
+This will install to the default path of _"%appdata%\ExorLive\Webwrapper"_ but you can change installationpath by running the msi package trough command line using this command:
+
+
+```
+#!bat
+
+msiexec /i "ExorLiveWebWrapper.2.0.1.4.msi" INSTALLDIR="C:\myfolder" /q
+```
+
 
 ## Automatic update
 
@@ -76,7 +84,7 @@ This protocol enables you to repeatedly call the WebWrapper executable with comm
 #### Usage example
 
 ```
-#!cmd
+#!bat
 
 ExorLive.Client.WebWrapper.exe provider="ExorLive.Desktop.Arguments.Component, ExorLive.Desktop" queryexercises="squat" id="user007" firstname="James" lastname="Bond" dateofbirth="1953-04-13"
 ```
@@ -113,7 +121,7 @@ __input.xml__
 #### Usage example
 
 ```
-#!cmd
+#!bat
 
 ExorLive.Client.WebWrapper.exe provider="ExorLive.Desktop.Exor3.Component, ExorLive.Desktop" input.xml
 ```
