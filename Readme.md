@@ -2,7 +2,29 @@
 
 # ExorLive WebWrapper
 
-ExorLive is an application delivered as a single page application, and so in order for desktop applications to efficiently integrate with this, ExorLive provides an executable that wraps the web application in a controllable desktop application. This application is called "ExorLive.Client.WebWrapper", or only "WebWrapper". The WebWrapper executable is a single instance application, and if executed multiple times will pass all arguments to the running instance.
+[ExorLive](http://exorlive.com/) is an application delivered as a single page application, and so in order for desktop applications to efficiently integrate with this, ExorLive provides an executable that wraps the web application in a controllable desktop application. This application is called "ExorLive.Client.WebWrapper", or only "WebWrapper". The WebWrapper executable is a single instance application, and if executed multiple times will pass all arguments to the running instance.
+
+## Installation
+
+An MSI installer is available at https://webwrapper.exorlive.com/
+
+This will install to the default path of _"%appdata%\ExorLive\Webwrapper"_ but can be modified using MSI configuration.
+
+## Automatic update
+
+The webwrapper application will attempt to check the website https://webwrapper.exorlive.com/ at startup to see if there is an update. If so, it will show a download link to the user. This check can be disabled by editing the default configuration file (see [Configuration](#markdown-header-configuration)).
+
+## Configuration
+
+The application settings are currently saved in the default configuration file, _ExorLive.Client.WebWrapper.exe.config_, in the application root. The following options is available:
+
+* __BrowserEngine__: Default is **EoWebBrowser**, but this can be changed to **InternetExplorer** if you prefer to run the local Internet Explorer engine.
+* __MinimizeOnExit__: Default is **True**. This will make the WebWrapper stay open in the context menu if the user closes it without signing out. This is to prevent the user having to sign in anew.
+* __CheckForUpdates__: Default is **True**. This makes the webwrapper check for updates and notify the user if any updates are found.
+* __ProtocolProvider__: Default is **ExorLive.Desktop.Exor3.Component, ExorLive.Desktop**. This can be modified to use another API protocol provider. See [WebWrapper API Interface](#markdown-header-webwrapper-api-interface).
+* __DistributorName__: This should be set to whichever company built the executable. It will get sent back to ExorLive so we can recognize the app (and maybe provide app-specific updates or options).
+* __Debug__: Default is **False**. Shouldn't need to be changed.
+* __AppUrl__: Default is **https://exorlive.com/app**. Can be changed to our testing environments or localhost.
 
 ## Requirements to build
 
