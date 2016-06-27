@@ -42,6 +42,8 @@ public class WindowsBrowser : IBrowser
 	public event EventHandler IsLoaded;
 	public event EventHandler IsUnloading;
 	public event EventHandler SelectedUserChanged;
+	public event EventHandler ExportUsersDataEvent;
+
 	public void SelectPerson(
 		string externalId,
 		string firstname,
@@ -117,6 +119,11 @@ public class WindowsBrowser : IBrowser
 		_exorlive.queryExercises(query);
 	}
 
+	public void GetWorkoutsForClient(int userId, DateTime from)
+	{
+		_exorlive.getWorkoutsForUserId(userId, from);
+	}
+
 	private void browser_navigated(object sender, NavigationEventArgs e)
 	{
 		HideScriptErrors(_browser, true);
@@ -135,6 +142,8 @@ public class WindowsBrowser : IBrowser
 		}
 		objComWebBrowser.GetType().InvokeMember("Silent", BindingFlags.SetProperty, null, objComWebBrowser, new object[] { hide });
 	}
+
+	// Is called from the browser COM object
 	public void SetInterface(object obj)
 	{
 		_exorlive = new ExorLiveInterface(obj);
@@ -142,10 +151,12 @@ public class WindowsBrowser : IBrowser
 
 	public event BeforeNavigatingEventHandler BeforeNavigating;
 
+	// Is called from the browser COM object
 	public void NotifyIsLoaded()
 	{
 		IsLoaded?.Invoke(this, new EventArgs());
 	}
+	// Is called from the browser COM object
 	public void NotifySelectingUser(int id, string externalId, string firstname, string lastname, string email, string dateofbirth)
 	{
 		var person = new PersonDTO()
@@ -159,10 +170,18 @@ public class WindowsBrowser : IBrowser
 		};
 		SelectedUserChanged?.Invoke(this, new SelectedUserEventArgs(person));
 	}
+	// Is called from the browser COM object
 	public void NotifyIsUnloading()
 	{
 		IsUnloading?.Invoke(this, new EventArgs());
 	}
+
+	// Is called from the browser COM object
+	public void ExportUsersData(string jsondata)
+	{
+		ExportUsersDataEvent?.Invoke(this, new UsersDataEventArgs(jsondata));
+	}
+
 	public bool Debug => App.Debug;
 	public string ApplicationIdentifier => App.ApplicationIdentifier;
 	public UIElement GetUiElement()

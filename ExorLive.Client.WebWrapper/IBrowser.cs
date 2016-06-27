@@ -11,6 +11,8 @@ public interface IBrowser
 	event EventHandler IsLoaded;
 	event EventHandler IsUnloading;
 	event EventHandler SelectedUserChanged;
+	event EventHandler ExportUsersDataEvent;
+
 	void SelectPerson(
 		string externalId,
 		string firstname,
@@ -45,4 +47,6 @@ public interface IBrowser
 	void NotifyIsUnloading();
 	bool Debug { get; }
 	string ApplicationIdentifier { get; }
+
+	void GetWorkoutsForClient(int userId, DateTime from);
 }

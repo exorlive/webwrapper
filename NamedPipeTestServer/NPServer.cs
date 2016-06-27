@@ -47,7 +47,6 @@ namespace ExorLive.Client
 				// or disconnected.
 				catch (IOException)
 				{
-					// TODO: Log the error
 				}
 				finally
 				{

@@ -126,6 +126,10 @@ public class EoBrowser : IBrowser
 			case "notifyisunloading":
 				NotifyIsUnloading();
 				break;
+			case "exportusersdata":
+				// Callback of the call 'getWorkoutsForUserId'
+				ExportUsersData(arg);
+				break;
 		}
 	}
 	public void SetInterface(object arguments)
@@ -153,6 +157,12 @@ public class EoBrowser : IBrowser
 	/// Occurs when the instructor changes his currently active contact.
 	/// </summary>
 	public event EventHandler SelectedUserChanged;
+
+	/// <summary>
+	/// Is the callback of 'getWorkoutsForUserId'
+	/// </summary>
+	public event EventHandler ExportUsersDataEvent;
+
 	public void SelectPerson(string externalId, string firstname, string lastname, string email, string dateOfBirth)
 	{
 		_obj.InvokeFunction("selectPerson", externalId, firstname, lastname, email, dateOfBirth);
@@ -212,6 +222,18 @@ public class EoBrowser : IBrowser
 	{
 		_obj.InvokeFunction("queryExercises", query);
 	}
+	public void GetWorkoutsForClient(int userId, DateTime from)
+	{
+		try
+		{
+			// Call a Javascript method in ExorLive
+			_obj.InvokeFunction("getWorkoutsForUserId", userId, from);
+		}
+		catch (Exception ex)
+		{
+			// Ignore any error in ExorLive. Just to make WebWrapper don't crash in case of a problem in ExorLive.
+		}
+	}
 	private void NotifySelectingUser(JSExtInvokeArgs arg)
 	{
 		// To cast safely and return null if failure, use C#'s "as" keyword.
@@ -224,6 +246,7 @@ public class EoBrowser : IBrowser
 			arg.Arguments[5] as string
 		);
 	}
+
 	public void NotifySelectingUser(int id, string externalId, string firstname, string lastname, string email, string dateofbirth)
 	{
 		var person = new PersonDTO
@@ -237,6 +260,16 @@ public class EoBrowser : IBrowser
 		};
 		SelectedUserChanged?.Invoke(this, new SelectedUserEventArgs(person));
 	}
+
+	private void ExportUsersData(JSExtInvokeArgs arg)
+	{
+		string jsondata = arg.Arguments[0] as string;
+		if (!string.IsNullOrWhiteSpace(jsondata))
+		{
+			ExportUsersDataEvent?.Invoke(this, new UsersDataEventArgs(jsondata));
+		}
+	}
+
 	public void NotifyIsUnloading()
 	{
 		IsUnloading?.Invoke(this, new EventArgs());
@@ -299,4 +332,5 @@ public class EoBrowser : IBrowser
 		}
 		return sb.ToString();
 	}
+
 }

@@ -6,6 +6,7 @@ using System.Windows;
 using ExorLive.Desktop;
 using ExorLive.Properties;
 using Microsoft.Shell;
+using ExorLive.Client.WebWrapper.NamedPipe;
 
 namespace ExorLive.Client.WebWrapper
 {
@@ -19,6 +20,7 @@ namespace ExorLive.Client.WebWrapper
 		private Dictionary<string, string> _applicationArguments;
 		private string[] _cmd;
 		private IExorLiveHost _webWrapperWindow;
+		NPServer _npServer;
 
 		public static string ApplicationIdentifier
 			=> $"{Assembly.GetExecutingAssembly().FullName} ({_hostedComponent.GetName()})";
@@ -96,19 +98,35 @@ namespace ExorLive.Client.WebWrapper
 			LoadProtocolProvider();
 			_webWrapperWindow = new MainWindow();
 			_webWrapperWindow.IsLoaded += WebWrapperWindowIsLoaded;
+			_webWrapperWindow.IsUnloading += _webWrapperWindow_IsUnloading;
 			_webWrapperWindow.SelectedUserChanged += WebWrapperWindowSelectedUserChanged;
+			_webWrapperWindow.ExportUsersDataEvent += _webWrapperWindow_ExportUsersDataEvent;
 			if (_applicationArguments.ContainsKey("culture"))
 			{
 				url += $"&culture={_applicationArguments["culture"]}";
 			}
 			((MainWindow)_webWrapperWindow).Navigate(new Uri(url));
 		}
+
+		private void _webWrapperWindow_IsUnloading(object sender)
+		{
+		}
+
+		private void _webWrapperWindow_ExportUsersDataEvent(object sender, UsersDataEventArgs args)
+		{
+			if(_npServer != null)
+			{
+				_npServer.PublishDataOnNamedPipe(args.JsonData);
+			}
+		}
+
 		private static void WebWrapperWindowSelectedUserChanged(object sender, SelectedUserEventArgs args)
 		{
 		}
 		private void WebWrapperWindowIsLoaded(object sender)
 		{
 			HandleCommandLine(_cmd);
+			StartNamedPipeServer();
 		}
 		private void LoadProtocolProvider()
 		{
@@ -127,9 +145,28 @@ namespace ExorLive.Client.WebWrapper
 			_hostedComponent = (IHosted)Activator.CreateInstance(type);
 			_hostedComponent.Initialize(this, Environment.CurrentDirectory);
 		}
+
+		internal void GetWorkoutsForClient(int userId, DateTime from)
+		{
+			_webWrapperWindow.GetWorkoutsForClient(userId, from);
+		}
+
 		private static void HandleCommandLine(string[] args)
 		{
 			_hostedComponent?.ReadCommandline(args);
+		}
+
+		/// <summary>
+		/// Start a thread that listens on a Named Pipe channel. Remote clients may communicate with the Webwrapper and ExorLive on the Named Pipe channel.
+		/// </summary>
+		private void StartNamedPipeServer()
+		{
+			if (_npServer == null)
+			{
+				_npServer = new NPServer();
+				_npServer.Initialize(this);
+				_npServer.StartNPServer();
+			}
 		}
 	}
 }

@@ -8,6 +8,7 @@ using System.IO;
 using System.Net;
 using System.Reflection;
 using ExorLive.Properties;
+using System.Windows.Forms;
 
 namespace ExorLive.Client.WebWrapper
 {
@@ -20,6 +21,7 @@ namespace ExorLive.Client.WebWrapper
 		private IBrowser _browser;
 		private bool _closeOnNavigate;
 		private bool _doClose;
+		private Uri _navigateToUri;
 
 		public bool Debug => App.Debug;
 		public string ApplicationIdentifier => App.ApplicationIdentifier;
@@ -27,6 +29,7 @@ namespace ExorLive.Client.WebWrapper
 		public MainWindow()
 		{
 			InitializeComponent();
+			SetWindowSize();
 			Restore();
 			_doClose = !Settings.Default.MinimizeOnExit;
 			try
@@ -38,6 +41,54 @@ namespace ExorLive.Client.WebWrapper
 				Title += $" - No version";
 			}
 		}
+
+		private void SetWindowSize()
+		{
+			// Make sure the rectangle is visible within screens.
+			if(isPointVisibleOnAScreen(new Point(Settings.Default.Left, Settings.Default.Top)) &&
+				isPointVisibleOnAScreen(new Point(Settings.Default.Left + Settings.Default.Width, Settings.Default.Top + Settings.Default.Height)))
+			{
+				this.Top = Properties.Settings.Default.Top;
+				this.Left = Properties.Settings.Default.Left;
+				this.Height = Properties.Settings.Default.Height;
+				this.Width = Properties.Settings.Default.Width;
+				// NOTE: Do not set WindowState.Maximized here. It will break loading of browserwindow.
+			}
+		}
+
+		bool isPointVisibleOnAScreen(Point p)
+		{
+			foreach (Screen s in Screen.AllScreens)
+			{
+				if (p.X < s.Bounds.Right && p.X > s.Bounds.Left && p.Y > s.Bounds.Top && p.Y < s.Bounds.Bottom)
+					return true;
+			}
+			return false;
+		}
+
+		private void RememberWindowSize()
+		{
+			if (WindowState == WindowState.Maximized)
+			{
+				// Use the RestoreBounds as the current values will be 0, 0 and the size of the screen
+				Properties.Settings.Default.Top = RestoreBounds.Top;
+				Properties.Settings.Default.Left = RestoreBounds.Left;
+				Properties.Settings.Default.Height = RestoreBounds.Height;
+				Properties.Settings.Default.Width = RestoreBounds.Width;
+				Properties.Settings.Default.Maximized = true;
+			}
+			else
+			{
+				Properties.Settings.Default.Top = this.Top;
+				Properties.Settings.Default.Left = this.Left;
+				Properties.Settings.Default.Height = this.Height;
+				Properties.Settings.Default.Width = this.Width;
+				Properties.Settings.Default.Maximized = false;
+			}
+			Properties.Settings.Default.Save();
+		}
+
+
 		private void BrowserGrid_Loaded(object sender, RoutedEventArgs e)
 		{
 			_defaultBrowserEngine = Settings.Default.BrowserEngine;
@@ -49,11 +100,21 @@ namespace ExorLive.Client.WebWrapper
 			_browser.IsLoaded += _browser_IsLoaded;
 			_browser.IsUnloading += _browser_IsUnloading;
 			_browser.BeforeNavigating += _browser_BeforeNavigating;
+			_browser.ExportUsersDataEvent += _browser_ExportUsersDataEvent;
 			BrowserGrid.Children.Add(_browser.GetUiElement());
+			if(_navigateToUri != null)
+			{
+				_browser.Navigate(_navigateToUri);
+			}
 			if (Settings.Default.CheckForUpdates)
 			{				
 				CheckForUpdates();
 			}
+		}
+
+		private void _browser_ExportUsersDataEvent(object sender, EventArgs e)
+		{
+			ExportUsersDataEvent?.Invoke(this, (UsersDataEventArgs)e);
 		}
 
 		private void _browser_BeforeNavigating(object sender, Uri e)
@@ -108,6 +169,7 @@ namespace ExorLive.Client.WebWrapper
 		public new event IsLoadedEventHandler IsLoaded;
 		public event IsUnloadingEventHandler IsUnloading;
 		public event SelectedUserChangedEventHandler SelectedUserChanged;
+		public event ExportUsersDataEventHandler ExportUsersDataEvent;
 
 		public void SelectPerson(PersonDTO person)
 		{
@@ -179,7 +241,11 @@ namespace ExorLive.Client.WebWrapper
 		public new bool Loaded { get; private set; }
 		public void Navigate(Uri uri)
 		{
-			_browser.Navigate(uri);
+			_navigateToUri = uri;
+			if (_browser != null)
+			{
+				_browser.Navigate(uri);
+			}
 		}
 
 		/// <summary>
@@ -191,6 +257,7 @@ namespace ExorLive.Client.WebWrapper
 		/// <param name="e">The <see cref="System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
 		private void MainWIndow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
+			RememberWindowSize();
 			if (_doClose) { return; }
 			if (!Loaded) { return; }
 			e.Cancel = true;
@@ -198,6 +265,7 @@ namespace ExorLive.Client.WebWrapper
 			Hide();
 			NotTray.ShowBalloonTip("Minimize", "Exor Live has been minimized to the tray. Use 'Sign Out' to close the application.", BalloonIcon.None);
 		}
+
 
 		private void MenuItem_Click(object sender, RoutedEventArgs e)
 		{
@@ -267,6 +335,11 @@ namespace ExorLive.Client.WebWrapper
 		{
 			Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
 			e.Handled = true;
+		}
+
+		public void GetWorkoutsForClient(int userId, DateTime from)
+		{
+			_browser.GetWorkoutsForClient(userId, from);
 		}
 	}
 }

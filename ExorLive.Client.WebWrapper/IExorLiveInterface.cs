@@ -1,4 +1,5 @@
-﻿public interface IExorLiveInterface
+﻿using System;
+public interface IExorLiveInterface
 {
 	void alert(string title, string message);
 	void selectPersonById(int id);
@@ -51,4 +52,5 @@
 	void selectTab(string tab);
 	void queryWorkouts(string query);
 	void queryExercises(string query);
+	void getWorkoutsForUserId(int userId, DateTime from);
 }
