@@ -263,7 +263,7 @@ public class EoBrowser : IBrowser
 
 	private void ExportUsersData(JSExtInvokeArgs arg)
 	{
-		string jsondata = arg.Arguments[0] as string;
+		var jsondata = arg.Arguments[0] as string;
 		if (!string.IsNullOrWhiteSpace(jsondata))
 		{
 			ExportUsersDataEvent?.Invoke(this, new UsersDataEventArgs(jsondata));

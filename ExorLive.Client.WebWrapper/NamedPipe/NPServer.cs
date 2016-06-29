@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Pipes;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace ExorLive.Client.WebWrapper.NamedPipe
 {
@@ -40,7 +37,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 			{
 				try
 				{
-					NamedPipeServerStream pipeServer = new NamedPipeServerStream("exorlivepipe", PipeDirection.InOut, 1,
+					var pipeServer = new NamedPipeServerStream("exorlivepipe", PipeDirection.InOut, 1,
 						PipeTransmissionMode.Byte, PipeOptions.WriteThrough);
 					_pipeServer = pipeServer;
 					_pipeServer.WaitForConnection(); // This is a blocking call until a client connects.
@@ -52,10 +49,10 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 				}
 				try
 				{
-					StringStream ss = new StringStream(_pipeServer);
-					string request = ss.ReadString();
+					var ss = new StringStream(_pipeServer);
+					var request = ss.ReadString();
 					string jsonresult;
-					bool isSuccessfullAsyncCall = HandlePipeRequest(request, out jsonresult);
+					var isSuccessfullAsyncCall = HandlePipeRequest(request, out jsonresult);
 					if (isSuccessfullAsyncCall)
 					{
 						// Stop this loop to wait for the async call to finish
@@ -83,7 +80,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 		{
 			// Set at timer. Do not allow for more than 30 seconds until response.
 			// Assume that call failed if it took more than 30 seconds.
-			int ms = 30 * 1000;
+			var ms = 30 * 1000;
 			var timer = new System.Threading.Timer(TimeoutElapsed, null, ms, Timeout.Infinite);
 		}
 
@@ -102,7 +99,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 			{
 				try
 				{
-					StringStream ss = new StringStream(_pipeServer);
+					var ss = new StringStream(_pipeServer);
 					ss.WriteString(jsondata);
 				}
 				// Catch the IOException that is raised if the pipe is broken
@@ -126,7 +123,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 		private bool HandlePipeRequest(string requeststring, out string directResult)
 		{
 			directResult = "";
-			NamedPipeRequest request = Newtonsoft.Json.JsonConvert.DeserializeObject<NamedPipeRequest>(requeststring);
+			var request = Newtonsoft.Json.JsonConvert.DeserializeObject<NamedPipeRequest>(requeststring);
 			if (request != null)
 			{
 				if (!string.IsNullOrWhiteSpace(request.Method))
@@ -136,8 +133,8 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 						case "getworkoutsforclient":
 							if (request.Args != null && request.Args.Count > 0)
 							{
-								int userId = 0;
-								DateTime from = DateTime.MinValue;
+								var userId = 0;
+								var from = DateTime.MinValue;
 								foreach (var pair in request.Args)
 								{
 									if (pair.Key.ToLower() == "userid")

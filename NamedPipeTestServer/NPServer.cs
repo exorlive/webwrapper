@@ -2,45 +2,40 @@
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Pipes;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using ExorLive.Client.Entities;
 
 namespace ExorLive.Client
 {
-	public class NPServer
+	public class NpServer
 	{
 		private Thread _namedPipeListener;
 
-		public void StartNPServer()
+		public void StartNpServer()
 		{
 			// start a thread that is listening for Named Pipes calls.
 			_namedPipeListener = new Thread(NamedPipeThreadStart);
 			_namedPipeListener.Start();
 		}
 
-		public void StopNPServer()
+		// ReSharper disable once UnusedMember.Global
+		public void StopNpServer()
 		{
-			if (_namedPipeListener != null)
-			{
-				_namedPipeListener.Abort();
-			}
+			_namedPipeListener?.Abort();
 		}
 
 		private void NamedPipeThreadStart()
 		{
 			while (true)
 			{
-				NamedPipeServerStream pipeServer = new NamedPipeServerStream("exorlivepipe", PipeDirection.InOut, 1,
+				var pipeServer = new NamedPipeServerStream("exorlivepipe", PipeDirection.InOut, 1,
 					PipeTransmissionMode.Byte, PipeOptions.WriteThrough);
 				pipeServer.WaitForConnection();
 				try
 				{
-					StringStream ss = new StringStream(pipeServer);
-					string request = ss.ReadString();
-					string response = HandlePipeRequest(request);
+					var ss = new StringStream(pipeServer);
+					var request = ss.ReadString();
+					var response = HandlePipeRequest(request);
 					ss.WriteString(response);
 				}
 				// Catch the IOException that is raised if the pipe is broken
@@ -57,7 +52,7 @@ namespace ExorLive.Client
 
 		private string HandlePipeRequest(string requeststring)
 		{
-			NamedPipeRequest request = Newtonsoft.Json.JsonConvert.DeserializeObject<NamedPipeRequest>(requeststring);
+			var request = Newtonsoft.Json.JsonConvert.DeserializeObject<NamedPipeRequest>(requeststring);
 			if (request != null)
 			{
 				if (!string.IsNullOrWhiteSpace(request.Method))
@@ -67,8 +62,8 @@ namespace ExorLive.Client
 						case "getworkoutsforclient":
 							if (request.Args != null && request.Args.Count > 0)
 							{
-								int userId = 0;
-								DateTime from = DateTime.MinValue;
+								var userId = 0;
+								var from = DateTime.MinValue;
 								foreach (var pair in request.Args)
 								{
 									if (pair.Key.ToLower() == "userid")
@@ -99,7 +94,6 @@ namespace ExorLive.Client
 							{
 								return JsonFormatError("No arguments specified for method '{0}'.", request.Method);
 							}
-							break;
 						default:
 							return JsonFormatError("Method '{0}' not supported.", request.Method);
 					}
@@ -119,7 +113,7 @@ namespace ExorLive.Client
 		private string GetWorkoutsForClient(int userId, DateTime from)
 		{
 			var list = GetDummyWorkouts(userId, from);
-			string json = Newtonsoft.Json.JsonConvert.SerializeObject(list);
+			var json = Newtonsoft.Json.JsonConvert.SerializeObject(list);
 			return json;
 		}
 
@@ -128,12 +122,11 @@ namespace ExorLive.Client
 		private List<Workout> GetDummyWorkouts(int userId, DateTime from)
 		{
 			// Create some dummy data
-			List<Workout> workouts = new List<Workout>(12);
-			DateTime at;
-			DateTime start = new DateTime(2015,6,1);
-			for (int i = 0; i <=11; i++)
+			var workouts = new List<Workout>(12);
+			var start = new DateTime(2015,6,1);
+			for (var i = 0; i <=11; i++)
 			{
-				at = start.AddMonths(i);
+				var at = start.AddMonths(i);
 				if(at >= from)
 					workouts.Add(GetDummyWorkout(userId, at, at.ToString("MMMM"), 3 + (i%5)));
 			}
@@ -142,17 +135,17 @@ namespace ExorLive.Client
 
 		private Workout GetDummyWorkout(int userId, DateTime createdAt, string name, int exercisecount)
 		{
-			int id = userId + (int) (createdAt - new DateTime(2000, 1, 1)).TotalSeconds;
+			var id = userId + (int) (createdAt - new DateTime(2000, 1, 1)).TotalSeconds;
 			if (id < 0) id = -id;
-			int startindex = id%100;
-			List<Exercise> exercises = new List<Exercise>(exercisecount);
-			for (int i = 1; i <= exercisecount; i++)
+			var startindex = id%100;
+			var exercises = new List<Exercise>(exercisecount);
+			for (var i = 1; i <= exercisecount; i++)
 			{
-				int index = (startindex + i)%100;
+				var index = (startindex + i)%100;
 				exercises.Add(new Exercise()
 				{
-					Id = dummyexercises[index].Item1,
-					Name = dummyexercises[index].Item2,
+					Id = _dummyexercises[index].Item1,
+					Name = _dummyexercises[index].Item2,
 					Data = new List<ExerciseData>() {new ExerciseData(){Key = "Vekt", Unit = "Kg", Value = (10 + (index%10)).ToString()}}
 				});
 			}
@@ -170,7 +163,7 @@ namespace ExorLive.Client
 			return w;
 		}
 
-		private List<Tuple<int, string>> dummyexercises = new List<Tuple<int, string>>
+		private readonly List<Tuple<int, string>> _dummyexercises = new List<Tuple<int, string>>
 		{
 			new Tuple<int, string>(3, "Bekkenvipp"),
 			new Tuple<int, string>(6, "Firfotstående sidehev m/rotasjon"),
@@ -278,7 +271,7 @@ namespace ExorLive.Client
 
 		private string JsonFormatError(string error, params object[] args)
 		{
-			return string.Format("{{ \"error\": \"{0}\" }} ", string.Format(error, args).Replace('\"', '\''));
+			return $"{{ \"error\": \"{string.Format(error, args).Replace('\"', '\'')}\" }} ";
 		}
 
 	}

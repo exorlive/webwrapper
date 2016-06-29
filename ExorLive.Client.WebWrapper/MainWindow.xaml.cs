@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using ExorLive;
 using Hardcodet.Wpf.TaskbarNotification;
 using System.Deployment.Application;
 using System.Diagnostics;

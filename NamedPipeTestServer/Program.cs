@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ExorLive.Client;
+﻿using ExorLive.Client;
 
 namespace NamedPipeTestServer
 {
-	class Program
+	internal class Program
 	{
-		static void Main(string[] args)
+		private static void Main()
 		{
-			NPServer server = new NPServer();
-			server.StartNPServer();
+			var server = new NpServer();
+			server.StartNpServer();
 		}
 	}
 }

@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO.Pipes;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 using ExorLive.Client;
 
 namespace ExorLiveNamedPipeSampleClient
 {
-	class Program
+	internal class Program
 	{
-		static void Main(string[] args)
+		private static void Main()
 		{
 			Console.WriteLine("Starting Sample ExorLive client.");
 			Console.WriteLine("Will call ExorLive to get some workout data over a Named Pipe");
@@ -22,12 +18,12 @@ namespace ExorLiveNamedPipeSampleClient
 			while (true)
 			{
 				Console.Write("> ");
-				string line = Console.ReadLine().Trim();
-				if (line.ToLower() == "exit" || line.ToLower() == "quit" || line.ToLower() == "q" ||  line.ToLower() == "bye") break;
+				var line = Console.ReadLine()?.Trim();
+				if (line != null && (line.ToLower() == "exit" || line.ToLower() == "quit" || line.ToLower() == "q" ||  line.ToLower() == "bye")) break;
 
 				if (!string.IsNullOrEmpty(line))
 				{
-					int index = line.IndexOf(" ");
+					var index = line.IndexOf(" ", StringComparison.Ordinal);
 					if (index > 0)
 					{
 						Call(line.Substring(0, index), line.Substring(index+1));
@@ -45,20 +41,21 @@ namespace ExorLiveNamedPipeSampleClient
 		{
 			// TODO: Make sure that Exorlive Webwrapper is running.
 
-			NamedPipeRequest request = new NamedPipeRequest();
-			request.Method = "GetWorkoutsForClient";
-			request.Args = new Dictionary<string, string>(2);
-			request.Args.Add("userId", userid);
+			var request = new NamedPipeRequest
+			{
+				Method = "GetWorkoutsForClient",
+				Args = new Dictionary<string, string>(2) {{"userId", userid}}
+			};
 			if(from != null) request.Args.Add("from", from);
-			string json = Newtonsoft.Json.JsonConvert.SerializeObject(request);
+			var json = Newtonsoft.Json.JsonConvert.SerializeObject(request);
 
-			NamedPipeClientStream pipeClient =
+			var pipeClient =
 								new NamedPipeClientStream(".", "exorlivepipe", PipeDirection.InOut, PipeOptions.None);
 			pipeClient.Connect();
 
-			StringStream ss = new StringStream(pipeClient);
+			var ss = new StringStream(pipeClient);
 			ss.WriteString(json);
-			string response = ss.ReadString();
+			var response = ss.ReadString();
 			Console.WriteLine("------------------------------------------------------------");
 			Console.WriteLine(response);
 			Console.WriteLine("------------------------------------------------------------");

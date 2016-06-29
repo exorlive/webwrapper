@@ -18,10 +18,10 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 		public string ReadString()
 		{
 			// Use 4 bytes to describe the length
-			byte[] lengthbuffer = new byte[4];
+			var lengthbuffer = new byte[4];
 			ioStream.Read(lengthbuffer, 0, 4);
-			int length = BitConverter.ToInt32(lengthbuffer, 0);
-			byte[] inBuffer = new byte[length];
+			var length = BitConverter.ToInt32(lengthbuffer, 0);
+			var inBuffer = new byte[length];
 			ioStream.Read(inBuffer, 0, length);
 			return streamEncoding.GetString(inBuffer);
 		}
@@ -29,9 +29,9 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 		public int WriteString(string outString)
 		{
 			// Use 4 bytes to describe the length
-			byte[] outBuffer = streamEncoding.GetBytes(outString);
-			int length = outBuffer.Length;
-			byte[] lengthbuffer = BitConverter.GetBytes(length);
+			var outBuffer = streamEncoding.GetBytes(outString);
+			var length = outBuffer.Length;
+			var lengthbuffer = BitConverter.GetBytes(length);
 			ioStream.Write(lengthbuffer,0,4);
 			ioStream.Write(outBuffer, 0, length);
 			ioStream.Flush();
