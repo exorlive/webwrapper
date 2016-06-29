@@ -120,6 +120,12 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="requeststring"></param>
+		/// <param name="directResult"></param>
+		/// <returns>true if we are waiting for an asynch callback.</returns>
 		private bool HandlePipeRequest(string requeststring, out string directResult)
 		{
 			directResult = "";
@@ -169,6 +175,38 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 								directResult = JsonFormatError("No arguments specified for method '{0}'.", request.Method);
 							}
 							break;
+						case "openworkout":
+							if (request.Args != null && request.Args.Count > 0)
+							{
+								bool foundId = false;
+								foreach (var pair in request.Args)
+								{
+									if (pair.Key.ToLower() == "id")
+									{
+										foundId = true;
+										int id;
+										if (int.TryParse(pair.Value, out id))
+										{
+											OpenWorkout(id);
+											return false;
+										}
+										else
+										{
+											directResult = JsonFormatError("Value '{0}' for id is not an integer.", pair.Value);
+											return false;
+										}
+									}
+								}
+								if(!foundId)
+								{
+									directResult = JsonFormatError("Argument 'id' not specified for method '{0}'.", request.Method);
+								}
+							}
+							else
+							{
+								directResult = JsonFormatError("No arguments specified for method '{0}'.", request.Method);
+							}
+							break;
 						default:
 							directResult = JsonFormatError("Method '{0}' not supported.", request.Method);
 							break;
@@ -184,6 +222,11 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 				directResult = JsonFormatError("Failed to JSON-parse the request");
 			}
 			return false;
+		}
+
+		private void OpenWorkout(int id)
+		{
+			_app.OpenWorkout(id);
 		}
 
 		private void CallGetWorkoutsForClient(int userId, DateTime from)

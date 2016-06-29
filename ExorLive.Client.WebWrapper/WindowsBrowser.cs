@@ -123,6 +123,10 @@ public class WindowsBrowser : IBrowser
 	{
 		_exorlive.getWorkoutsForUserId(userId, from);
 	}
+	public void OpenWorkout(int id)
+	{
+		_exorlive.openWorkout(id);
+	}
 
 	private void browser_navigated(object sender, NavigationEventArgs e)
 	{

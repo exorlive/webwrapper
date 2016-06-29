@@ -49,4 +49,5 @@ public interface IBrowser
 	string ApplicationIdentifier { get; }
 
 	void GetWorkoutsForClient(int userId, DateTime from);
+	void OpenWorkout(int id);
 }

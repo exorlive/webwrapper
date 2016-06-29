@@ -48,6 +48,7 @@ Namespace Desktop.Arguments
 			If map.ContainsKey("tab") Then _host.SelectTab(map("tab"))
 			If map.ContainsKey("queryworkouts") Then _host.QueryWorkouts(map("queryworkouts").Replace("""", ""))
 			If map.ContainsKey("queryexercises") Then _host.QueryExercises(map("queryexercises").Replace("""", ""))
+			If map.ContainsKey("openworkout") Then _host.OpenWorkout(map("openworkout").Replace("""", ""))
 		End Sub
 
 		Public Sub Initialize(host As IHost, currentDirectory As String) Implements IHosted.Initialize

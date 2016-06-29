@@ -229,11 +229,25 @@ public class EoBrowser : IBrowser
 			// Call a Javascript method in ExorLive
 			_obj.InvokeFunction("getWorkoutsForUserId", userId, from);
 		}
-		catch (Exception ex)
+		catch (Exception)
 		{
 			// Ignore any error in ExorLive. Just to make WebWrapper don't crash in case of a problem in ExorLive.
 		}
 	}
+
+	public void OpenWorkout(int id)
+	{
+		try
+		{
+			// Call a Javascript method in ExorLive
+			_obj.InvokeFunction("openWorkout", id);
+		}
+		catch (Exception)
+		{
+			// Ignore any error in ExorLive. Just to make WebWrapper don't crash in case of a problem in ExorLive.
+		}
+	}
+
 	private void NotifySelectingUser(JSExtInvokeArgs arg)
 	{
 		// To cast safely and return null if failure, use C#'s "as" keyword.

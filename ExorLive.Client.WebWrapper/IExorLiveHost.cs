@@ -16,6 +16,7 @@ public interface IExorLiveHost
 	bool Loaded { get; }
 
 	void GetWorkoutsForClient(int userId, DateTime from);
+	void OpenWorkout(int id);
 }
 public delegate void SelectedUserChangedEventHandler(object sender, SelectedUserEventArgs args);
 public delegate void IsUnloadingEventHandler(object sender);

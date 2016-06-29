@@ -47,6 +47,18 @@ namespace ExorLive.Client.WebWrapper
 		{
 			_webWrapperWindow.QueryExercises(query);
 		}
+		public void OpenWorkout(string workoutIdAsString)
+		{
+			int id;
+			if(int.TryParse(workoutIdAsString, out id))
+			{
+				if(id > 0)
+				{
+					_webWrapperWindow.OpenWorkout(id);
+				}
+			}
+		}
+
 		public event IHost.WindowMinifiedEventHandler WindowMinified;
 		public event IHost.WindowClosingEventHandler WindowClosing;
 
@@ -150,6 +162,10 @@ namespace ExorLive.Client.WebWrapper
 		{
 			_webWrapperWindow.GetWorkoutsForClient(userId, from);
 		}
+		internal void OpenWorkout(int id)
+		{
+			_webWrapperWindow.OpenWorkout(id);
+		}
 
 		private static void HandleCommandLine(string[] args)
 		{
@@ -168,5 +184,6 @@ namespace ExorLive.Client.WebWrapper
 				_npServer.StartNPServer();
 			}
 		}
+
 	}
 }

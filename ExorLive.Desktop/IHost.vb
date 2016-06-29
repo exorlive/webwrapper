@@ -40,6 +40,7 @@
 		''' <remarks></remarks>
 		Sub QueryExercises(query As String)
 
+		Sub OpenWorkout(workoutIdAsString As String)
 
 		''' <summary>
 		''' This event will be fired if the main window is being minified

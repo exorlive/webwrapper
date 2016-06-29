@@ -340,5 +340,10 @@ namespace ExorLive.Client.WebWrapper
 		{
 			_browser.GetWorkoutsForClient(userId, from);
 		}
+
+		public void OpenWorkout(int id)
+		{
+			_browser.OpenWorkout(id);
+		}
 	}
 }

@@ -80,6 +80,7 @@ This protocol enables you to repeatedly call the WebWrapper executable with comm
     * __lastname__: Required. The person's lastname.
     * __dateofbirth__: Required. The person's date of birth. The date will be parsed using either the ISO 8601 defaults (YYYY-MM-DD), failing that it will attempt to parse it using Windows default culture format.
     * __email__: The person's email address.
+* __openworkout__: If filled with a workout id, will tell ExorLive to open that workout.
 
 #### Usage example
 
