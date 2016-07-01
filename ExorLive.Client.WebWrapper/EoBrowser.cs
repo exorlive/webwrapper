@@ -127,7 +127,7 @@ public class EoBrowser : IBrowser
 				NotifyIsUnloading();
 				break;
 			case "exportusersdata":
-				// Callback of the call 'getWorkoutsForUserId'
+				// Callback of the call 'getWorkoutsForCustomId'
 				ExportUsersData(arg);
 				break;
 		}
@@ -159,7 +159,7 @@ public class EoBrowser : IBrowser
 	public event EventHandler SelectedUserChanged;
 
 	/// <summary>
-	/// Is the callback of 'getWorkoutsForUserId'
+	/// Is the callback of 'getWorkoutsForUserId' and 'getWorkoutsForCustomId'
 	/// </summary>
 	public event EventHandler ExportUsersDataEvent;
 
@@ -222,12 +222,12 @@ public class EoBrowser : IBrowser
 	{
 		_obj.InvokeFunction("queryExercises", query);
 	}
-	public void GetWorkoutsForClient(int userId, DateTime from)
+	public void GetWorkoutsForClient(string customId, DateTime from)
 	{
 		try
 		{
 			// Call a Javascript method in ExorLive
-			_obj.InvokeFunction("getWorkoutsForUserId", userId, from);
+			_obj.InvokeFunction("getWorkoutsForCustomId", customId, from);
 		}
 		catch (Exception)
 		{

@@ -48,6 +48,6 @@ public interface IBrowser
 	bool Debug { get; }
 	string ApplicationIdentifier { get; }
 
-	void GetWorkoutsForClient(int userId, DateTime from);
+	void GetWorkoutsForClient(string customId, DateTime from);
 	void OpenWorkout(int id);
 }

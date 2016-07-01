@@ -15,7 +15,7 @@ public interface IExorLiveHost
 	void Restore();
 	bool Loaded { get; }
 
-	void GetWorkoutsForClient(int userId, DateTime from);
+	void GetWorkoutsForClient(string customId, DateTime from);
 	void OpenWorkout(int id);
 }
 public delegate void SelectedUserChangedEventHandler(object sender, SelectedUserEventArgs args);

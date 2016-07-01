@@ -10,49 +10,159 @@ namespace ExorLiveNamedPipeSampleClient
 		private static void Main()
 		{
 			Console.WriteLine("Starting Sample ExorLive client.");
-			Console.WriteLine("v 2.0");
+			Console.WriteLine("v 3.0");
 			Console.WriteLine("--------------------------------");
 			Console.WriteLine("Starting Sample ExorLive client.");
 			Console.WriteLine("Will call ExorLive to get some workout data over a Named Pipe");
-			Console.WriteLine();
-			Console.WriteLine("Enter userid and optionally a date.");
-			Console.WriteLine("Example: > 1234 2016-01-01");
-			Console.WriteLine();
-			Console.WriteLine("or");
-			Console.WriteLine("Tell ExorLive to open a workout with a given id");
-			Console.WriteLine("Example: > w 12345");
+			Console.WriteLine("Type 'help' for list of commands");
 			while (true)
 			{
+				char[] splitter = { ' ' };
 				Console.Write("> ");
 				var line = Console.ReadLine()?.Trim();
-				if (line != null && (line.ToLower() == "exit" || line.ToLower() == "quit" || line.ToLower() == "q" ||  line.ToLower() == "bye")) break;
-
-				line = line.ToLower().Trim();
-				if (!string.IsNullOrEmpty(line))
+				if (!string.IsNullOrWhiteSpace(line))
 				{
-					if (line.StartsWith("w"))
+					line = line.Trim();
+					string lower = line.ToLower();
+					if (lower == "exit" || lower == "quit" || lower == "q" || lower == "bye") break;
+					if (lower == "help")
 					{
-						string wid = line.Substring(1).Trim();
-						if (!string.IsNullOrEmpty(wid))
+						Console.WriteLine("--------------------------------");
+						Console.WriteLine("> get <id> [from]");
+						Console.WriteLine("> get 123 ");
+						Console.WriteLine("> get x123 2016-06-01");
+						Console.WriteLine("");
+						Console.WriteLine("> workout <workout-Id> ");
+						Console.WriteLine("> workout 123 ");
+						Console.WriteLine("");
+						Console.WriteLine("> selectperson id=<id> [<property>=<propertyvalue> <property>=<propertyvalue> ...]");
+						Console.WriteLine("   Possible properties are:");
+						Console.WriteLine("       firstname");
+						Console.WriteLine("       lastname");
+						Console.WriteLine("       email");
+						Console.WriteLine("       address");
+						Console.WriteLine("       phonehome");
+						Console.WriteLine("       phonework");
+						Console.WriteLine("       mobile");
+						Console.WriteLine("       country");
+						Console.WriteLine("       zipcode");
+						Console.WriteLine("       location");
+						Console.WriteLine("       dateOfBirth  (value in the format yyyy-MM-dd)");
+						Console.WriteLine("");
+						Console.WriteLine("> show");
+						Console.WriteLine("> hide");
+						Console.WriteLine("> close");
+						Console.WriteLine("");
+						Console.WriteLine("> exit - close this console application");
+						Console.WriteLine("--------------------------------");
+					}
+					if (lower == "show")
+					{
+						Show();
+					}
+					if (lower == "hide")
+					{
+						Hide();
+					}
+					if (lower == "close")
+					{
+						Close();
+					}
+					if (lower.StartsWith("get "))
+					{
+						string[] array = line.Split(splitter, StringSplitOptions.RemoveEmptyEntries);
+						if (array.Length == 2)
 						{
-							OpenWorkout(wid);
+							GetWorkoutData(array[1], null);
+						}
+						else if (array.Length > 2)
+						{
+							GetWorkoutData(array[1], array[2]);
 						}
 					}
-					else
+					if (lower.StartsWith("workout "))
 					{
-						int index = line.IndexOf(" ", StringComparison.Ordinal);
-						if (index > 0)
+						string[] array = line.Split(splitter, StringSplitOptions.RemoveEmptyEntries);
+						if (array.Length > 1)
 						{
-							GetWorkoutData(line.Substring(0, index), line.Substring(index + 1));
+							OpenWorkout(array[1]);
 						}
-						else
+					}
+					if (lower.StartsWith("selectperson "))
+					{
+						string[] array = line.Split(splitter, StringSplitOptions.RemoveEmptyEntries);
+						if (array.Length > 1)
 						{
-							GetWorkoutData(line, null);
+							SelectPerson(array);
 						}
 					}
 				}
 			}
 			Console.WriteLine("DONE");
+		}
+		static void SelectPerson(string[] array)
+		{
+			var request = new NamedPipeRequest
+			{
+				Method = "SelectPerson"
+			};
+			request.Args = new Dictionary<string, string>(array.Length -1);
+			foreach (string item in array)
+			{
+				int index = item.IndexOf("=");
+				if (index > 0 && index < item.Length - 1)
+				{
+					request.Args.Add(item.Substring(0, index), item.Substring(index + 1));
+				}
+			}
+			var json = Newtonsoft.Json.JsonConvert.SerializeObject(request);
+
+			var pipeClient = new NamedPipeClientStream(".", "exorlivepipe", PipeDirection.InOut, PipeOptions.None);
+			pipeClient.Connect();
+
+			var ss = new StringStream(pipeClient);
+			ss.WriteString(json);
+			var response = ss.ReadString();
+			Console.WriteLine("------------------------------------------------------------");
+			Console.WriteLine(response);
+			Console.WriteLine("------------------------------------------------------------");
+		}
+
+		static void Show()
+		{
+			NamedPipeRequest request = new NamedPipeRequest();
+			request.Method = "Show";
+			string json = Newtonsoft.Json.JsonConvert.SerializeObject(request);
+			NamedPipeClientStream pipeClient =
+								new NamedPipeClientStream(".", "exorlivepipe", PipeDirection.InOut, PipeOptions.None);
+			pipeClient.Connect();
+			StringStream ss = new StringStream(pipeClient);
+			ss.WriteString(json);
+			Console.WriteLine("------------------------------------------------------------");
+		}
+		static void Hide()
+		{
+			NamedPipeRequest request = new NamedPipeRequest();
+			request.Method = "Hide";
+			string json = Newtonsoft.Json.JsonConvert.SerializeObject(request);
+			NamedPipeClientStream pipeClient =
+								new NamedPipeClientStream(".", "exorlivepipe", PipeDirection.InOut, PipeOptions.None);
+			pipeClient.Connect();
+			StringStream ss = new StringStream(pipeClient);
+			ss.WriteString(json);
+			Console.WriteLine("------------------------------------------------------------");
+		}
+		static void Close()
+		{
+			NamedPipeRequest request = new NamedPipeRequest();
+			request.Method = "Close";
+			string json = Newtonsoft.Json.JsonConvert.SerializeObject(request);
+			NamedPipeClientStream pipeClient =
+								new NamedPipeClientStream(".", "exorlivepipe", PipeDirection.InOut, PipeOptions.None);
+			pipeClient.Connect();
+			StringStream ss = new StringStream(pipeClient);
+			ss.WriteString(json);
+			Console.WriteLine("------------------------------------------------------------");
 		}
 
 		static void OpenWorkout(string wid)
@@ -69,26 +179,20 @@ namespace ExorLiveNamedPipeSampleClient
 
 			StringStream ss = new StringStream(pipeClient);
 			ss.WriteString(json);
-			//string response = ss.ReadString();
-			//Console.WriteLine("------------------------------------------------------------");
-			//Console.WriteLine(response);
 			Console.WriteLine("------------------------------------------------------------");
 		}
 
-		static void GetWorkoutData(string userid, string from)
+		static void GetWorkoutData(string customId, string from)
 		{
-			// TODO: Make sure that Exorlive Webwrapper is running.
-
 			var request = new NamedPipeRequest
 			{
 				Method = "GetWorkoutsForClient",
-				Args = new Dictionary<string, string>(2) {{"userId", userid}}
+				Args = new Dictionary<string, string>(2) {{"customId", customId } }
 			};
 			if(from != null) request.Args.Add("from", from);
 			var json = Newtonsoft.Json.JsonConvert.SerializeObject(request);
 
-			var pipeClient =
-								new NamedPipeClientStream(".", "exorlivepipe", PipeDirection.InOut, PipeOptions.None);
+			var pipeClient = new NamedPipeClientStream(".", "exorlivepipe", PipeDirection.InOut, PipeOptions.None);
 			pipeClient.Connect();
 
 			var ss = new StringStream(pipeClient);

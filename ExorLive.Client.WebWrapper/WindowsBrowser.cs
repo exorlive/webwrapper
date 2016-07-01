@@ -119,9 +119,9 @@ public class WindowsBrowser : IBrowser
 		_exorlive.queryExercises(query);
 	}
 
-	public void GetWorkoutsForClient(int userId, DateTime from)
+	public void GetWorkoutsForClient(string customId, DateTime from)
 	{
-		_exorlive.getWorkoutsForUserId(userId, from);
+		_exorlive.getWorkoutsForCustomId(customId, from);
 	}
 	public void OpenWorkout(int id)
 	{

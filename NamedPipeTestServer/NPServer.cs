@@ -62,28 +62,25 @@ namespace ExorLive.Client
 						case "getworkoutsforclient":
 							if (request.Args != null && request.Args.Count > 0)
 							{
-								var userId = 0;
+								var customId = "";
 								var from = DateTime.MinValue;
 								foreach (var pair in request.Args)
 								{
-									if (pair.Key.ToLower() == "userid")
+									if (pair.Key.ToLower() == "customid")
 									{
-										if (! int.TryParse(pair.Value, out userId))
-										{
-											return JsonFormatError("Value '{0}' for userId is not an integer.", pair.Value);
-										}
+										customId = pair.Value;
 									}
 									if (pair.Key.ToLower() == "from")
 									{
-										if (! DateTime.TryParse(pair.Value, out from))
+										if (!DateTime.TryParse(pair.Value, out from))
 										{
 											return JsonFormatError("Value '{0}' could not be parsed to a valid datetime.", pair.Value);
 										}
 									}
 								}
-								if (userId > 0)
+								if (!string.IsNullOrWhiteSpace(customId))
 								{
-									return GetWorkoutsForClient(userId, from);
+									return GetWorkoutsForClient(customId, from);
 								}
 								else
 								{
@@ -110,8 +107,10 @@ namespace ExorLive.Client
 
 		}
 
-		private string GetWorkoutsForClient(int userId, DateTime from)
+		private string GetWorkoutsForClient(string customId, DateTime from)
 		{
+			int userId = 1;
+			int.TryParse(customId, out userId);
 			var list = GetDummyWorkouts(userId, from);
 			var json = Newtonsoft.Json.JsonConvert.SerializeObject(list);
 			return json;

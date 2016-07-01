@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.IO.Pipes;
 using System.Threading;
+using System.Windows;
+using System.Windows.Forms;
 
 namespace ExorLive.Client.WebWrapper.NamedPipe
 {
@@ -11,10 +14,12 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 		private Thread _namedPipeListener;
 		private NamedPipeServerStream _pipeServer;
 		private App _app;
+		private MainWindow _window;
 
-		public void Initialize(App app)
+		public void Initialize(App app, MainWindow window)
 		{
 			_app = app;
+			_window = window;
 		}
 
 		public void StartNPServer()
@@ -139,17 +144,13 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 						case "getworkoutsforclient":
 							if (request.Args != null && request.Args.Count > 0)
 							{
-								var userId = 0;
+								var customId = "";
 								var from = DateTime.MinValue;
 								foreach (var pair in request.Args)
 								{
-									if (pair.Key.ToLower() == "userid")
+									if (pair.Key.ToLower() == "customid")
 									{
-										if (! int.TryParse(pair.Value, out userId))
-										{
-											directResult = JsonFormatError("Value '{0}' for userId is not an integer.", pair.Value);
-											return false;
-										}
+										customId = pair.Value;
 									}
 									if (pair.Key.ToLower() == "from")
 									{
@@ -160,9 +161,9 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 										}
 									}
 								}
-								if (userId > 0)
+								if (!string.IsNullOrWhiteSpace(customId))
 								{
-									CallGetWorkoutsForClient(userId, from);
+									CallGetWorkoutsForClient(customId, from);
 									return true;
 								}
 								else
@@ -207,6 +208,83 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 								directResult = JsonFormatError("No arguments specified for method '{0}'.", request.Method);
 							}
 							break;
+						case "close":
+							_window.Dispatcher.BeginInvoke(new Action(() =>
+							{
+								_window.SignoutAndQuitApplication();
+							}));
+							break;
+						case "show":
+							_window.Dispatcher.BeginInvoke(new Action(() =>
+							{
+								_window.Restore();
+							}));
+							break;
+						case "hide":
+							_window.Dispatcher.BeginInvoke(new Action(() =>
+							{
+								_window.WindowState = System.Windows.WindowState.Minimized;
+								_window.Hide();
+							}));
+							break;
+						case "selectperson":
+								if (request.Args != null && request.Args.Count > 0)
+							{
+								PersonDTO dto = new PersonDTO();
+								foreach (var pair in request.Args)
+								{
+									string key = pair.Key.ToLower();
+									switch(key)
+									{
+										case "id": dto.ExternalId = pair.Value; break;
+										case "firstname": dto.Firstname = pair.Value; break;
+										case "lastname": dto.Lastname = pair.Value; break;
+										case "email": dto.Email = pair.Value; break;
+										case "address": dto.Address = pair.Value; break;
+										case "phonehome": dto.PhoneHome = pair.Value; break;
+										case "phonework": dto.PhoneWork = pair.Value; break;
+										case "mobile": dto.Mobile = pair.Value; break;
+										case "country": dto.Country = pair.Value; break;
+										case "zipcode": dto.ZipCode = pair.Value; break;
+										case "location": dto.Location = pair.Value; break;
+										case "dateofbirth":
+											if (!string.IsNullOrWhiteSpace(pair.Value))
+											{
+												DateTime dt;
+												if (DateTime.TryParseExact(pair.Value, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
+												{
+													dto.DateOfBirth = dt.ToString("yyyy-MM-dd");
+												}
+												else
+												{
+													// We would prefer people to use ISO 8601, but let the OS try to parse it instead:
+													if (DateTime.TryParse(pair.Value, out dt))
+													{
+														// And THEN i transform it back to a ISO 8601 valid date string:
+														dto.DateOfBirth = dt.ToString("yyyy-MM-dd");
+													}
+												}
+											}
+											break;
+									}
+								}
+								if(!string.IsNullOrWhiteSpace(dto.ExternalId))
+								{
+									_window.Dispatcher.BeginInvoke(new Action(() =>
+									{
+										_app.SelectPerson(dto);
+									}));
+								}
+								else
+								{
+									directResult = JsonFormatError("No id specified for '{0}'.", request.Method);
+								}
+							}
+							else
+							{
+								directResult = JsonFormatError("No arguments specified for method '{0}'.", request.Method);
+							}
+							break;
 						default:
 							directResult = JsonFormatError("Method '{0}' not supported.", request.Method);
 							break;
@@ -229,9 +307,9 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 			_app.OpenWorkout(id);
 		}
 
-		private void CallGetWorkoutsForClient(int userId, DateTime from)
+		private void CallGetWorkoutsForClient(string customId, DateTime from)
 		{
-			_app.GetWorkoutsForClient(userId, from);
+			_app.GetWorkoutsForClient(customId, from);
 		}
 
 		private string JsonFormatError(string error, params object[] args)

@@ -271,10 +271,15 @@ namespace ExorLive.Client.WebWrapper
 			Restore();
 		}
 
-		private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+		public void SignoutAndQuitApplication()
 		{
 			_doClose = true;
-			Navigate(new Uri(Settings.Default.AppUrl.Replace("/app/", "/signout/").Replace("exorlive.com","auth.exorlive.com")));
+			Navigate(new Uri(Settings.Default.AppUrl.Replace("/app/", "/signout/").Replace("exorlive.com", "auth.exorlive.com")));
+		}
+
+		private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+		{
+			SignoutAndQuitApplication();
 		}
 
 		private void NotTray_TrayMouseDoubleClick(object sender, RoutedEventArgs e)
@@ -336,9 +341,9 @@ namespace ExorLive.Client.WebWrapper
 			e.Handled = true;
 		}
 
-		public void GetWorkoutsForClient(int userId, DateTime from)
+		public void GetWorkoutsForClient(string customId, DateTime from)
 		{
-			_browser.GetWorkoutsForClient(userId, from);
+			_browser.GetWorkoutsForClient(customId, from);
 		}
 
 		public void OpenWorkout(int id)

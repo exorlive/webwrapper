@@ -158,9 +158,9 @@ namespace ExorLive.Client.WebWrapper
 			_hostedComponent.Initialize(this, Environment.CurrentDirectory);
 		}
 
-		internal void GetWorkoutsForClient(int userId, DateTime from)
+		internal void GetWorkoutsForClient(string customId, DateTime from)
 		{
-			_webWrapperWindow.GetWorkoutsForClient(userId, from);
+			_webWrapperWindow.GetWorkoutsForClient(customId, from);
 		}
 		internal void OpenWorkout(int id)
 		{
@@ -180,7 +180,7 @@ namespace ExorLive.Client.WebWrapper
 			if (_npServer == null)
 			{
 				_npServer = new NPServer();
-				_npServer.Initialize(this);
+				_npServer.Initialize(this, (MainWindow)_webWrapperWindow);
 				_npServer.StartNPServer();
 			}
 		}
