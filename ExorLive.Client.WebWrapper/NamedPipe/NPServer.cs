@@ -4,12 +4,10 @@ using System.Globalization;
 using System.IO;
 using System.IO.Pipes;
 using System.Threading;
-using System.Windows;
-using System.Windows.Forms;
 
 namespace ExorLive.Client.WebWrapper.NamedPipe
 {
-	public class NPServer
+	public class NpServer
 	{
 		private Thread _namedPipeListener;
 		private NamedPipeServerStream _pipeServer;
@@ -22,12 +20,15 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 			_window = window;
 		}
 
-		public void StartNPServer()
+		public void StartNpServer()
 		{
 			// start a thread that is listening for Named Pipes calls.
-			_namedPipeListener = new Thread(NamedPipeThreadStart);
-			_namedPipeListener.IsBackground = true; // To make he thread abort when the application closes down.
-			_namedPipeListener.Name = "NamedPipeListener";
+			_namedPipeListener = new Thread(NamedPipeThreadStart)
+			{
+				IsBackground = true,
+				Name = "NamedPipeListener"
+			};
+			// To make he thread abort when the application closes down.
 			_namedPipeListener.Start();
 		}
 
@@ -76,21 +77,22 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 				// or disconnected.
 				catch (IOException)
 				{
-					_pipeServer.Close();
+					_pipeServer?.Close();
 					_pipeServer = null;
 				}
 			}
 		}
 
-		public void KeepPipeOpenforReply()
+		private void KeepPipeOpenforReply()
 		{
 			// Set at timer. Do not allow for more than 30 seconds until response.
 			// Assume that call failed if it took more than 30 seconds.
-			var ms = 30 * 1000;
-			var timer = new System.Threading.Timer(TimeoutElapsed, null, ms, Timeout.Infinite);
+			const int ms = 30 * 1000;
+			// ReSharper disable once UnusedVariable
+			var timer = new Timer(TimeoutElapsed, null, ms, Timeout.Infinite);
 		}
 
-		public void TimeoutElapsed(object state)
+		private void TimeoutElapsed(object state)
 		{
 			if (_pipeServer != null && _pipeServer.IsConnected)
 			{
@@ -115,14 +117,14 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 				}
 				finally
 				{
-					_pipeServer.Close();
+					_pipeServer?.Close();
 					_pipeServer = null;
 				}
 			}
 			// Start over again - start listening for a connection again
 			if(_pipeServer == null)
 			{
-				StartNPServer();
+				StartNpServer();
 			}
 		}
 
@@ -180,11 +182,12 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 						case "openworkout":
 							if (request.Args != null && request.Args.Count > 0)
 							{
-								bool foundId = false;
+								var foundId = false;
 								foreach (var pair in request.Args)
 								{
 									if (pair.Key.ToLower() == "id")
 									{
+										// ReSharper disable once RedundantAssignment
 										foundId = true;
 										int id;
 										if (int.TryParse(pair.Value, out id))
@@ -199,7 +202,8 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 										}
 									}
 								}
-								if(!foundId)
+								// ReSharper disable once ConditionIsAlwaysTrueOrFalse
+								if(foundId == false)
 								{
 									directResult = JsonFormatError("Argument 'id' not specified for method '{0}'.", request.Method);
 								}
@@ -231,10 +235,10 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 						case "selectperson":
 								if (request.Args != null && request.Args.Count > 0)
 							{
-								PersonDTO dto = new PersonDTO();
+								var dto = new PersonDTO();
 								foreach (var pair in request.Args)
 								{
-									string key = pair.Key.ToLower();
+									var key = pair.Key.ToLower();
 									switch(key)
 									{
 										case "id": dto.ExternalId = pair.Value; break;
@@ -313,15 +317,17 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 			_app.GetWorkoutsForClient(customId, from);
 		}
 
-		private string JsonFormatError(string error, params object[] args)
+		private static string JsonFormatError(string error, params object[] args)
 		{
-			return string.Format("{{ \"error\": \"{0}\" }} ", string.Format(error, args).Replace('\"', '\''));
+			return $"{{ \"error\": \"{string.Format(error, args).Replace('\"', '\'')}\" }} ";
 		}
 	}
 
 	public class NamedPipeRequest
 	{
+		// ReSharper disable once UnusedAutoPropertyAccessor.Global
 		public string Method { get; set; }
+		// ReSharper disable once UnusedAutoPropertyAccessor.Global
 		public Dictionary<string, string> Args { get; set; }
 	}
 

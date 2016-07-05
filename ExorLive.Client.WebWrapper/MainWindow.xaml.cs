@@ -22,8 +22,10 @@ namespace ExorLive.Client.WebWrapper
 		private bool _doClose;
 		private Uri _navigateToUri;
 
+		// ReSharper disable UnusedMember.Global
 		public bool Debug => App.Debug;
 		public string ApplicationIdentifier => App.ApplicationIdentifier;
+		// ReSharper restore UnusedMember.Global
 
 		public MainWindow()
 		{
@@ -37,25 +39,25 @@ namespace ExorLive.Client.WebWrapper
 			}
 			catch (InvalidDeploymentException)
 			{
-				Title += $" - No version";
+				Title += " - No version";
 			}
 		}
 
 		private void SetWindowSize()
 		{
 			// Make sure the rectangle is visible within screens.
-			if(isPointVisibleOnAScreen(new Point(Settings.Default.Left, Settings.Default.Top)) &&
-				isPointVisibleOnAScreen(new Point(Settings.Default.Left + Settings.Default.Width, Settings.Default.Top + Settings.Default.Height)))
+			if(IsPointVisibleOnAScreen(new Point(Settings.Default.Left, Settings.Default.Top)) &&
+				IsPointVisibleOnAScreen(new Point(Settings.Default.Left + Settings.Default.Width, Settings.Default.Top + Settings.Default.Height)))
 			{
-				this.Top = Properties.Settings.Default.Top;
-				this.Left = Properties.Settings.Default.Left;
-				this.Height = Properties.Settings.Default.Height;
-				this.Width = Properties.Settings.Default.Width;
+				Top = Settings.Default.Top;
+				Left = Settings.Default.Left;
+				Height = Settings.Default.Height;
+				Width = Settings.Default.Width;
 				// NOTE: Do not set WindowState.Maximized here. It will break loading of browserwindow.
 			}
 		}
 
-		bool isPointVisibleOnAScreen(Point p)
+		private static bool IsPointVisibleOnAScreen(Point p)
 		{
 			foreach (Screen s in Screen.AllScreens)
 			{
@@ -70,21 +72,21 @@ namespace ExorLive.Client.WebWrapper
 			if (WindowState == WindowState.Maximized)
 			{
 				// Use the RestoreBounds as the current values will be 0, 0 and the size of the screen
-				Properties.Settings.Default.Top = RestoreBounds.Top;
-				Properties.Settings.Default.Left = RestoreBounds.Left;
-				Properties.Settings.Default.Height = RestoreBounds.Height;
-				Properties.Settings.Default.Width = RestoreBounds.Width;
-				Properties.Settings.Default.Maximized = true;
+				Settings.Default.Top = RestoreBounds.Top;
+				Settings.Default.Left = RestoreBounds.Left;
+				Settings.Default.Height = RestoreBounds.Height;
+				Settings.Default.Width = RestoreBounds.Width;
+				Settings.Default.Maximized = true;
 			}
 			else
 			{
-				Properties.Settings.Default.Top = this.Top;
-				Properties.Settings.Default.Left = this.Left;
-				Properties.Settings.Default.Height = this.Height;
-				Properties.Settings.Default.Width = this.Width;
-				Properties.Settings.Default.Maximized = false;
+				Settings.Default.Top = Top;
+				Settings.Default.Left = Left;
+				Settings.Default.Height = Height;
+				Settings.Default.Width = Width;
+				Settings.Default.Maximized = false;
 			}
-			Properties.Settings.Default.Save();
+			Settings.Default.Save();
 		}
 
 
@@ -136,16 +138,19 @@ namespace ExorLive.Client.WebWrapper
 		{
 			SelectedUserChanged?.Invoke(this, (SelectedUserEventArgs)e);
 		}
+		// ReSharper disable once UnusedMember.Global
 		public void SetInterface(object comObject)
 		{
 			_browser.SetInterface(comObject);
 		}
-		public void NotifyIsLoaded()
+
+		private void NotifyIsLoaded()
 		{
 			Loaded = true;
 			IsLoaded?.Invoke(this);
 			UpdateNotification.IsExpanded = false;
 		}
+		// ReSharper disable once UnusedMember.Global
 		public void NotifySelectingUser(int id, string externalId, string firstname, string lastname, string email, string dateofbirth)
 		{
 			var person = new PersonDTO()
@@ -159,7 +164,8 @@ namespace ExorLive.Client.WebWrapper
 			};
 			SelectedUserChanged?.Invoke(this, new SelectedUserEventArgs(person));
 		}
-		public void NotifyIsUnloading()
+
+		private void NotifyIsUnloading()
 		{
 			Loaded = false;
 			IsUnloading?.Invoke(this);
@@ -241,10 +247,7 @@ namespace ExorLive.Client.WebWrapper
 		public void Navigate(Uri uri)
 		{
 			_navigateToUri = uri;
-			if (_browser != null)
-			{
-				_browser.Navigate(uri);
-			}
+			_browser?.Navigate(uri);
 		}
 
 		/// <summary>
