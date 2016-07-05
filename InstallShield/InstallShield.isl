@@ -4473,9 +4473,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]WebWrapper.Primary output</td><td/></row>
-		<row><td>ProductCode</td><td>{4B906575-D68E-47A7-AB4C-F64BBCCFD1ED}</td><td/></row>
+		<row><td>ProductCode</td><td>{8FE267D8-A08F-4234-B74C-19E5CF0086A8}</td><td/></row>
 		<row><td>ProductName</td><td>ExorLive Webwrapper</td><td/></row>
-		<row><td>ProductVersion</td><td>2.0.1.4</td><td/></row>
+		<row><td>ProductVersion</td><td>2.0.2.2</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
@@ -4488,7 +4488,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>SERIALNUMBER</td><td/><td/></row>
 		<row><td>SERIALNUMVALSUCCESSRETVAL</td><td>1</td><td/></row>
 		<row><td>SHOWLAUNCHPROGRAM</td><td>0</td><td/></row>
-		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;DOTNETVERSION40CLIENT;ISACTIONPROP1</td><td/></row>
+		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;DOTNETVERSION40CLIENT;ISACTIONPROP1;ISACTIONPROP2</td><td/></row>
 		<row><td>SelectedSetupType</td><td>##IDS__DisplayName_Typical##</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
 		<row><td>UpgradeCode</td><td>{B8A04A68-0E41-448A-BAC2-D31A56D9251D}</td><td/></row>
@@ -4765,6 +4765,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S72">ISDisplayName</col>
 		<row><td>{00000000-0000-0000-0000-000000000000}</td><td>***ALL_VERSIONS***</td><td></td><td></td><td>2</td><td/><td>ISFOUNDNEWERPRODUCTVERSION</td><td>ISPreventDowngrade</td></row>
 		<row><td>{A62489F0-F3CC-4D18-BB40-CC6F5C553367}</td><td>1.0.0.0</td><td>2.5.0.0</td><td></td><td>768</td><td/><td>ISACTIONPROP1</td><td>Upgrade2</td></row>
+		<row><td>{B8A04A68-0E41-448A-BAC2-D31A56D9251D}</td><td>2.0.0.0</td><td>2.255.255.255</td><td></td><td>1792</td><td/><td>ISACTIONPROP2</td><td>Upgrade3</td></row>
 	</table>
 
 	<table name="Verb">
