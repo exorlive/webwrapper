@@ -47,7 +47,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 						PipeTransmissionMode.Byte, PipeOptions.WriteThrough);
 					_pipeServer = pipeServer;
 					_pipeServer.WaitForConnection(); // This is a blocking call until a client connects.
-					SpinWait.SpinUntil(() => _app.ExorLiveIsRunning, -1);	//Blocks the thread until the user has logged in.
+					SpinWait.SpinUntil(() => _app.ExorLiveIsRunning, -1);   //Blocks the thread until the user has logged in.
 				}
 				catch (IOException)
 				{
@@ -103,7 +103,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 
 		public void PublishDataOnNamedPipe(string jsondata)
 		{
-			if(_pipeServer != null && _pipeServer.IsConnected)
+			if (_pipeServer != null && _pipeServer.IsConnected)
 			{
 				try
 				{
@@ -122,7 +122,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 				}
 			}
 			// Start over again - start listening for a connection again
-			if(_pipeServer == null)
+			if (_pipeServer == null)
 			{
 				StartNpServer();
 			}
@@ -157,7 +157,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 									}
 									if (pair.Key.ToLower() == "from")
 									{
-										if (! DateTime.TryParse(pair.Value, out from))
+										if (!DateTime.TryParse(pair.Value, out from))
 										{
 											directResult = JsonFormatError("Value '{0}' could not be parsed to a valid datetime.", pair.Value);
 											return false;
@@ -203,7 +203,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 									}
 								}
 								// ReSharper disable once ConditionIsAlwaysTrueOrFalse
-								if(foundId == false)
+								if (foundId == false)
 								{
 									directResult = JsonFormatError("Argument 'id' not specified for method '{0}'.", request.Method);
 								}
@@ -233,13 +233,13 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 							}));
 							break;
 						case "selectperson":
-								if (request.Args != null && request.Args.Count > 0)
+							if (request.Args != null && request.Args.Count > 0)
 							{
 								var dto = new PersonDTO();
 								foreach (var pair in request.Args)
 								{
 									var key = pair.Key.ToLower();
-									switch(key)
+									switch (key)
 									{
 										case "id": dto.ExternalId = pair.Value; break;
 										case "firstname": dto.Firstname = pair.Value; break;
@@ -273,7 +273,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 											break;
 									}
 								}
-								if(!string.IsNullOrWhiteSpace(dto.ExternalId))
+								if (!string.IsNullOrWhiteSpace(dto.ExternalId))
 								{
 									_window.Dispatcher.BeginInvoke(new Action(() =>
 									{

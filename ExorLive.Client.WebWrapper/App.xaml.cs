@@ -22,6 +22,7 @@ namespace ExorLive.Client.WebWrapper
 		private IExorLiveHost _webWrapperWindow;
 		private NpServer _npServer;
 		public bool ExorLiveIsRunning;
+		public static Settings UserSettings { get; private set; }
 
 		public static string ApplicationIdentifier
 			=> $"{Assembly.GetExecutingAssembly().FullName} ({_hostedComponent.GetName()})";
@@ -90,6 +91,7 @@ namespace ExorLive.Client.WebWrapper
 			var application = new App();
 
 			application.InitializeComponent();
+			UserSettings = new Settings();
 			application.Run();
 
 			// Allow single instance code to perform cleanup operations

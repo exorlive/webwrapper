@@ -4,9 +4,9 @@ using Hardcodet.Wpf.TaskbarNotification;
 using System.Deployment.Application;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Reflection;
-using ExorLive.Properties;
 using System.Windows.Forms;
 
 namespace ExorLive.Client.WebWrapper
@@ -32,7 +32,7 @@ namespace ExorLive.Client.WebWrapper
 			InitializeComponent();
 			SetWindowSize();
 			Restore();
-			_doClose = !Settings.Default.MinimizeOnExit;
+			_doClose = !App.UserSettings.MinimizeOnExit;
 			try
 			{
 				Title += $" {Assembly.GetExecutingAssembly().GetName().Version}";
@@ -46,25 +46,20 @@ namespace ExorLive.Client.WebWrapper
 		private void SetWindowSize()
 		{
 			// Make sure the rectangle is visible within screens.
-			if (IsPointVisibleOnAScreen(new Point(Settings.Default.Left, Settings.Default.Top)) &&
-				IsPointVisibleOnAScreen(new Point(Settings.Default.Left + Settings.Default.Width, Settings.Default.Top + Settings.Default.Height)))
-			{
-				Top = Settings.Default.Top;
-				Left = Settings.Default.Left;
-				Height = Settings.Default.Height;
-				Width = Settings.Default.Width;
+			if (IsPointVisibleOnAScreen(new Point(App.UserSettings.Left, App.UserSettings.Top)) &&
+				IsPointVisibleOnAScreen(new Point(App.UserSettings.Left + App.UserSettings.Width, App.UserSettings.Top + App.UserSettings.Height)))
+			{				
+				Top = App.UserSettings.Top;
+				Left = App.UserSettings.Left;
+				Height = App.UserSettings.Height;
+				Width = App.UserSettings.Width;
 				// NOTE: Do not set WindowState.Maximized here. It will break loading of browserwindow.
 			}
 		}
 
 		private static bool IsPointVisibleOnAScreen(Point p)
 		{
-			foreach (Screen s in Screen.AllScreens)
-			{
-				if (p.X < s.Bounds.Right && p.X > s.Bounds.Left && p.Y > s.Bounds.Top && p.Y < s.Bounds.Bottom)
-					return true;
-			}
-			return false;
+			return Screen.AllScreens.Any(s => p.X < s.Bounds.Right && p.X > s.Bounds.Left && p.Y > s.Bounds.Top && p.Y < s.Bounds.Bottom);
 		}
 
 		private void RememberWindowSize()
@@ -72,27 +67,27 @@ namespace ExorLive.Client.WebWrapper
 			if (WindowState == WindowState.Maximized)
 			{
 				// Use the RestoreBounds as the current values will be 0, 0 and the size of the screen
-				Settings.Default.Top = RestoreBounds.Top;
-				Settings.Default.Left = RestoreBounds.Left;
-				Settings.Default.Height = RestoreBounds.Height;
-				Settings.Default.Width = RestoreBounds.Width;
-				Settings.Default.Maximized = true;
+				App.UserSettings.Top = RestoreBounds.Top;
+				App.UserSettings.Left = RestoreBounds.Left;
+				App.UserSettings.Height = RestoreBounds.Height;
+				App.UserSettings.Width = RestoreBounds.Width;
+				App.UserSettings.Maximized = true;
 			}
 			else
 			{
-				Settings.Default.Top = Top;
-				Settings.Default.Left = Left;
-				Settings.Default.Height = Height;
-				Settings.Default.Width = Width;
-				Settings.Default.Maximized = false;
+				App.UserSettings.Top = Top;
+				App.UserSettings.Left = Left;
+				App.UserSettings.Height = Height;
+				App.UserSettings.Width = Width;
+				App.UserSettings.Maximized = false;
 			}
-			Settings.Default.Save();
+			App.UserSettings.Save();
 		}
 
 
 		private void BrowserGrid_Loaded(object sender, RoutedEventArgs e)
 		{
-			_defaultBrowserEngine = Settings.Default.BrowserEngine;
+			_defaultBrowserEngine = App.UserSettings.BrowserEngine;
 			_browser = (_defaultBrowserEngine == BrowserEngines.InternetExplorer) ?
 				WindowsBrowser.Instance :
 				EoBrowser.Instance;
@@ -107,7 +102,7 @@ namespace ExorLive.Client.WebWrapper
 			{
 				_browser.Navigate(_navigateToUri);
 			}
-			if (Settings.Default.CheckForUpdates)
+			if (App.UserSettings.CheckForUpdates)
 			{
 				CheckForUpdates();
 			}
@@ -277,7 +272,7 @@ namespace ExorLive.Client.WebWrapper
 		public void SignoutAndQuitApplication()
 		{
 			_doClose = true;
-			Navigate(new Uri(Settings.Default.AppUrl.Replace("/app/", "/signout/").Replace("exorlive.com", "auth.exorlive.com")));
+			Navigate(new Uri(App.UserSettings.AppUrl.Replace("/app/", "/signout/").Replace("exorlive.com", "auth.exorlive.com")));
 		}
 
 		private void MenuItem_Click_1(object sender, RoutedEventArgs e)
@@ -315,7 +310,7 @@ namespace ExorLive.Client.WebWrapper
 										int.Parse(s[1]),
 										0,
 										0
-									);	// Ignore updates that is just a build or a revision.
+									);  // Ignore updates that is just a build or a revision.
 									if (newestVersion > assemblyVersion)
 									{
 										DownloadLink.NavigateUri = new Uri(downloadLink.AbsoluteUri.Replace("x.x.x.x", newestVersion.ToString()));
