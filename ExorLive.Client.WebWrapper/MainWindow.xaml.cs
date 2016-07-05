@@ -46,7 +46,7 @@ namespace ExorLive.Client.WebWrapper
 		private void SetWindowSize()
 		{
 			// Make sure the rectangle is visible within screens.
-			if(IsPointVisibleOnAScreen(new Point(Settings.Default.Left, Settings.Default.Top)) &&
+			if (IsPointVisibleOnAScreen(new Point(Settings.Default.Left, Settings.Default.Top)) &&
 				IsPointVisibleOnAScreen(new Point(Settings.Default.Left + Settings.Default.Width, Settings.Default.Top + Settings.Default.Height)))
 			{
 				Top = Settings.Default.Top;
@@ -103,12 +103,12 @@ namespace ExorLive.Client.WebWrapper
 			_browser.BeforeNavigating += _browser_BeforeNavigating;
 			_browser.ExportUsersDataEvent += _browser_ExportUsersDataEvent;
 			BrowserGrid.Children.Add(_browser.GetUiElement());
-			if(_navigateToUri != null)
+			if (_navigateToUri != null)
 			{
 				_browser.Navigate(_navigateToUri);
 			}
 			if (Settings.Default.CheckForUpdates)
-			{				
+			{
 				CheckForUpdates();
 			}
 		}
@@ -190,7 +190,7 @@ namespace ExorLive.Client.WebWrapper
 		{
 			if (!_closeOnNavigate) return;
 			_doClose = true;
-			Close();			
+			Close();
 		}
 		public void SelectPerson2(PersonDTO person)
 		{
@@ -291,7 +291,7 @@ namespace ExorLive.Client.WebWrapper
 		}
 
 		private void CheckForUpdates()
-		{			
+		{
 			var domain = new Uri("https://webwrapper.exorlive.com/");
 			var versionFile = new Uri(domain + "msi/version.txt");
 			var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
@@ -313,9 +313,9 @@ namespace ExorLive.Client.WebWrapper
 									var newestVersion = new Version(
 										int.Parse(s[0]),
 										int.Parse(s[1]),
-										int.Parse(s[2]),
-										int.Parse(s[3])
-										);
+										0,
+										0
+									);	// Ignore updates that is just a build or a revision.
 									if (newestVersion > assemblyVersion)
 									{
 										DownloadLink.NavigateUri = new Uri(downloadLink.AbsoluteUri.Replace("x.x.x.x", newestVersion.ToString()));
