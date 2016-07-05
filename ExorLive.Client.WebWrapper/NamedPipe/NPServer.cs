@@ -49,7 +49,10 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 					_pipeServer.WaitForConnection(); // This is a blocking call until a client connects.
 					if (!_app.ExorLiveIsRunning)
 					{
-						_window.Restore();
+						_window.Dispatcher.BeginInvoke(new Action(() =>
+						{
+							_window.Restore();
+						}));
 						SpinWait.SpinUntil(() => _app.ExorLiveIsRunning, -1);   //Blocks the thread until the user has logged in.
 					}
 				}
@@ -146,7 +149,10 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 			{
 				if (!string.IsNullOrWhiteSpace(request.Method))
 				{
-					_window.Restore();
+					_window.Dispatcher.BeginInvoke(new Action(() =>
+					{
+						_window.Restore();
+					}));
 					switch (request.Method.ToLower())
 					{
 						case "getworkoutsforclient":
