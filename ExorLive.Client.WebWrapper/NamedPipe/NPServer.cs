@@ -46,6 +46,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 						PipeTransmissionMode.Byte, PipeOptions.WriteThrough);
 					_pipeServer = pipeServer;
 					_pipeServer.WaitForConnection(); // This is a blocking call until a client connects.
+					SpinWait.SpinUntil(() => _app.ExorLiveIsRunning, -1);	//Blocks the thread until the user has logged in.
 				}
 				catch (IOException)
 				{
