@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.IO.Pipes;
@@ -19,6 +20,11 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 			_app = app;
 			_window = window;
 		}
+
+        public string Pipename
+        {
+            get { return "exorlivepipe." + Process.GetCurrentProcess().Id; }
+        }
 
 		public void StartNpServer()
 		{
@@ -43,8 +49,12 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 			{
 				try
 				{
-					var pipeServer = new NamedPipeServerStream("exorlivepipe", PipeDirection.InOut, 1,
-						PipeTransmissionMode.Byte, PipeOptions.WriteThrough);
+                    PipeAccessRule rule = new PipeAccessRule("Everyone", PipeAccessRights.ReadWrite, System.Security.AccessControl.AccessControlType.Allow);
+                    PipeSecurity pipeSecurity = new PipeSecurity();
+                    pipeSecurity.AddAccessRule(rule);
+
+                    var pipeServer = new NamedPipeServerStream(Pipename, PipeDirection.InOut, 1,
+						PipeTransmissionMode.Byte, PipeOptions.WriteThrough, 1024, 1024, pipeSecurity, HandleInheritability.None, PipeAccessRights.ReadWrite);
 					_pipeServer = pipeServer;
 					_pipeServer.WaitForConnection(); // This is a blocking call until a client connects.
 					if (!_app.ExorLiveIsRunning)
