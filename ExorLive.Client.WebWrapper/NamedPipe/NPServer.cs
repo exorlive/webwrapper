@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.IO.Pipes;
+using System.Security.Principal;
 using System.Threading;
 
 namespace ExorLive.Client.WebWrapper.NamedPipe
@@ -49,7 +50,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 			{
 				try
 				{
-                    PipeAccessRule rule = new PipeAccessRule("Everyone", PipeAccessRights.ReadWrite, System.Security.AccessControl.AccessControlType.Allow);
+                    PipeAccessRule rule = new PipeAccessRule(new SecurityIdentifier("S-1-1-0"), PipeAccessRights.ReadWrite, System.Security.AccessControl.AccessControlType.Allow);
                     PipeSecurity pipeSecurity = new PipeSecurity();
                     pipeSecurity.AddAccessRule(rule);
 
