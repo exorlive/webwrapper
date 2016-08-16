@@ -22,10 +22,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 			_window = window;
 		}
 
-        public string Pipename
-        {
-            get { return "exorlivepipe." + Process.GetCurrentProcess().Id; }
-        }
+		private string Pipename => "exorlivepipe." + Process.GetCurrentProcess().Id;
 
 		public void StartNpServer()
 		{
@@ -55,7 +52,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
                     pipeSecurity.AddAccessRule(rule);
 
                     var pipeServer = new NamedPipeServerStream(Pipename, PipeDirection.InOut, 1,
-						PipeTransmissionMode.Byte, PipeOptions.WriteThrough, 1024, 1024, pipeSecurity, HandleInheritability.None, PipeAccessRights.ReadWrite);
+						PipeTransmissionMode.Byte, PipeOptions.WriteThrough, 1024, 1024, pipeSecurity, HandleInheritability.None);
 					_pipeServer = pipeServer;
 					_pipeServer.WaitForConnection(); // This is a blocking call until a client connects.
 					if (!_app.ExorLiveIsRunning)

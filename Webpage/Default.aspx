@@ -54,6 +54,10 @@
 			</ul>
 
 			<h2>Changelog</h2>
+			<h3>2.3.5</h3>
+			<ul>
+				<li>Fix for terminal server issues with named pipes.</li>
+			</ul>
 			<h3>2.0.3</h3>
 			<ul>
 				<li>Added namedpipe listeners as an API interface.</li>

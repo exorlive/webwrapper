@@ -49,8 +49,9 @@ The application settings are currently saved in the default configuration file, 
 1. Open WebWrapper\Properties\AssemblyInfo.cs and increase assemblyversion and assemblyfileversion.
 2. Open InstallShield\Organize Your Setup\GeneralInformation and increase "Product Version".
 3. Open InstallShield\Organize Your Setup\GeneralInformation and click on the button to the right of "Product Code", which creates a new product code.
-4. Right-click on ExorLive.Client.WebWrapper and select the "Publish" tab. Change the version.
-5. Right-click on Webpage project and select "Publish..."
+4. Open webwrapper\Webpage\Default.aspx and add info about the release to the changelog.
+5. Right-click on ExorLive.Client.WebWrapper and select the "Publish" tab. Change the version.
+6. Right-click on Webpage project and select "Publish..."
 
 ## WebWrapper API Interface
 
