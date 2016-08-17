@@ -308,7 +308,7 @@ namespace ExorLive.Client.WebWrapper
 									var newestVersion = new Version(
 										int.Parse(s[0]),
 										int.Parse(s[1]),
-										0,
+										int.Parse(s[2]),
 										0
 									);  // Ignore updates that is just a build or a revision.
 									if (newestVersion > assemblyVersion)
