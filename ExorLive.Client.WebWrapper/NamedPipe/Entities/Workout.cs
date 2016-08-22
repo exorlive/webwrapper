@@ -19,7 +19,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }
-		public List<ExerciseData> Data {get; set;}
+		public List<List<ExerciseData>> Data {get; set;}
 	}
 
 	public class ExerciseData
