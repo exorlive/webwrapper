@@ -201,6 +201,12 @@ namespace ExorLiveNamedPipeSampleClient
 			Console.WriteLine("------------------------------------------------------------");
 			Console.WriteLine(response);
 			Console.WriteLine("------------------------------------------------------------");
+			var workoutlist = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ExorLive.Client.Entities.Workout>>(response);
+			Console.WriteLine("Workouts: " + workoutlist.Count);
+			foreach (var workout in workoutlist)
+			{
+				Console.WriteLine("  {0}: {1} {2}", workout.Id, workout.LastChangedAt.ToString("yyyy-MM-dd"), workout.Name);
+			}
 		}
 	}
 
