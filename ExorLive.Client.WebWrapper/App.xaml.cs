@@ -20,7 +20,9 @@ namespace ExorLive.Client.WebWrapper
 		private Dictionary<string, string> _applicationArguments;
 		private string[] _cmd;
 		private IExorLiveHost _webWrapperWindow;
-		NPServer _npServer;
+		private NpServer _npServer;
+		public bool ExorLiveIsRunning;
+		public static Settings UserSettings { get; private set; }
 
 		public static string ApplicationIdentifier
 			=> $"{Assembly.GetExecutingAssembly().FullName} ({_hostedComponent.GetName()})";
@@ -89,6 +91,7 @@ namespace ExorLive.Client.WebWrapper
 			var application = new App();
 
 			application.InitializeComponent();
+			UserSettings = new Settings();
 			application.Run();
 
 			// Allow single instance code to perform cleanup operations
@@ -109,7 +112,7 @@ namespace ExorLive.Client.WebWrapper
 				.ToDictionary(argumentKey => argumentKey[0], argumentValue => argumentValue[1]);
 			LoadProtocolProvider();
 			_webWrapperWindow = new MainWindow();
-			_webWrapperWindow.IsLoaded += WebWrapperWindowIsLoaded;
+			_webWrapperWindow.IsLoaded += WebWrapperWindowExorLiveIsLoaded;
 			_webWrapperWindow.IsUnloading += _webWrapperWindow_IsUnloading;
 			_webWrapperWindow.SelectedUserChanged += WebWrapperWindowSelectedUserChanged;
 			_webWrapperWindow.ExportUsersDataEvent += _webWrapperWindow_ExportUsersDataEvent;
@@ -118,27 +121,25 @@ namespace ExorLive.Client.WebWrapper
 				url += $"&culture={_applicationArguments["culture"]}";
 			}
 			((MainWindow)_webWrapperWindow).Navigate(new Uri(url));
+			StartNamedPipeServer();
 		}
 
-		private void _webWrapperWindow_IsUnloading(object sender)
+		private static void _webWrapperWindow_IsUnloading(object sender)
 		{
 		}
 
 		private void _webWrapperWindow_ExportUsersDataEvent(object sender, UsersDataEventArgs args)
 		{
-			if(_npServer != null)
-			{
-				_npServer.PublishDataOnNamedPipe(args.JsonData);
-			}
+			_npServer?.PublishDataOnNamedPipe(args.JsonData);
 		}
 
 		private static void WebWrapperWindowSelectedUserChanged(object sender, SelectedUserEventArgs args)
 		{
 		}
-		private void WebWrapperWindowIsLoaded(object sender)
+		private void WebWrapperWindowExorLiveIsLoaded(object sender)
 		{
+			ExorLiveIsRunning = true;
 			HandleCommandLine(_cmd);
-			StartNamedPipeServer();
 		}
 		private void LoadProtocolProvider()
 		{
@@ -179,9 +180,9 @@ namespace ExorLive.Client.WebWrapper
 		{
 			if (_npServer == null)
 			{
-				_npServer = new NPServer();
+				_npServer = new NpServer();
 				_npServer.Initialize(this, (MainWindow)_webWrapperWindow);
-				_npServer.StartNPServer();
+				_npServer.StartNpServer();
 			}
 		}
 

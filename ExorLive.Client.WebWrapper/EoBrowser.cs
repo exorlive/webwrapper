@@ -58,7 +58,7 @@ public class EoBrowser : IBrowser
 				$"window.external.ApplicationIdentifier = '{EncodeJsString(ApplicationIdentifier)}'; " +
 				$"window.external.Debug = { EncodeJsString(Debug.ToString().ToLower()) }; " +
 				$"window.external.DistributorName = '{ EncodeJsString(Settings.Default.DistributorName) }'; " +
-				$"window.external.CheckForUpdates = '{ EncodeJsString(Settings.Default.CheckForUpdates.ToString()) }'; ";
+				$"window.external.CheckForUpdates = '{ EncodeJsString(App.UserSettings.CheckForUpdates.ToString()) }'; ";
 		}
 	}
 

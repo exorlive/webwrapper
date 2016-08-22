@@ -54,6 +54,16 @@
 			</ul>
 
 			<h2>Changelog</h2>
+			<h3>2.1.3</h3>
+			<ul>
+				<li>Fix for terminal server issues with named pipes.</li>
+			</ul>
+			<h3>2.0.3</h3>
+			<ul>
+				<li>Added namedpipe listeners as an API interface.</li>
+				<li>New API command: openWorkout, which opens a workout directly instead of going to the search box.</li>
+				<li>The window remembers its size after closing.</li>
+			</ul>
 			<h3>2.0.1 - March 2016</h3>
 			<ul>
 				<li>Rebuilt the webwrapper with a built-in web-browser to get around Internet Explorer specific errors.</li>

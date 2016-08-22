@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.IO.Pipes;
+using System.Security.Principal;
 using System.Threading;
-using System.Windows;
-using System.Windows.Forms;
 
 namespace ExorLive.Client.WebWrapper.NamedPipe
 {
-	public class NPServer
+	public class NpServer
 	{
 		private Thread _namedPipeListener;
 		private NamedPipeServerStream _pipeServer;
@@ -22,12 +22,17 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 			_window = window;
 		}
 
-		public void StartNPServer()
+		private string Pipename => "exorlivepipe." + Process.GetCurrentProcess().Id;
+
+		public void StartNpServer()
 		{
 			// start a thread that is listening for Named Pipes calls.
-			_namedPipeListener = new Thread(NamedPipeThreadStart);
-			_namedPipeListener.IsBackground = true; // To make he thread abort when the application closes down.
-			_namedPipeListener.Name = "NamedPipeListener";
+			_namedPipeListener = new Thread(NamedPipeThreadStart)
+			{
+				IsBackground = true,
+				Name = "NamedPipeListener"
+			};
+			// To make he thread abort when the application closes down.
 			_namedPipeListener.Start();
 		}
 
@@ -42,10 +47,22 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 			{
 				try
 				{
-					var pipeServer = new NamedPipeServerStream("exorlivepipe", PipeDirection.InOut, 1,
-						PipeTransmissionMode.Byte, PipeOptions.WriteThrough);
+                    PipeAccessRule rule = new PipeAccessRule(new SecurityIdentifier("S-1-1-0"), PipeAccessRights.ReadWrite, System.Security.AccessControl.AccessControlType.Allow);
+                    PipeSecurity pipeSecurity = new PipeSecurity();
+                    pipeSecurity.AddAccessRule(rule);
+
+                    var pipeServer = new NamedPipeServerStream(Pipename, PipeDirection.InOut, 1,
+						PipeTransmissionMode.Byte, PipeOptions.WriteThrough, 1024, 1024, pipeSecurity, HandleInheritability.None);
 					_pipeServer = pipeServer;
 					_pipeServer.WaitForConnection(); // This is a blocking call until a client connects.
+					if (!_app.ExorLiveIsRunning)
+					{
+						_window.Dispatcher.BeginInvoke(new Action(() =>
+						{
+							_window.Restore();
+						}));
+						SpinWait.SpinUntil(() => _app.ExorLiveIsRunning, -1);   //Blocks the thread until the user has logged in.
+					}
 				}
 				catch (IOException)
 				{
@@ -75,21 +92,22 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 				// or disconnected.
 				catch (IOException)
 				{
-					_pipeServer.Close();
+					_pipeServer?.Close();
 					_pipeServer = null;
 				}
 			}
 		}
 
-		public void KeepPipeOpenforReply()
+		private void KeepPipeOpenforReply()
 		{
 			// Set at timer. Do not allow for more than 30 seconds until response.
 			// Assume that call failed if it took more than 30 seconds.
-			var ms = 30 * 1000;
-			var timer = new System.Threading.Timer(TimeoutElapsed, null, ms, Timeout.Infinite);
+			const int ms = 30 * 1000;
+			// ReSharper disable once UnusedVariable
+			var timer = new Timer(TimeoutElapsed, null, ms, Timeout.Infinite);
 		}
 
-		public void TimeoutElapsed(object state)
+		private void TimeoutElapsed(object state)
 		{
 			if (_pipeServer != null && _pipeServer.IsConnected)
 			{
@@ -100,7 +118,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 
 		public void PublishDataOnNamedPipe(string jsondata)
 		{
-			if(_pipeServer != null && _pipeServer.IsConnected)
+			if (_pipeServer != null && _pipeServer.IsConnected)
 			{
 				try
 				{
@@ -114,14 +132,14 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 				}
 				finally
 				{
-					_pipeServer.Close();
+					_pipeServer?.Close();
 					_pipeServer = null;
 				}
 			}
 			// Start over again - start listening for a connection again
-			if(_pipeServer == null)
+			if (_pipeServer == null)
 			{
-				StartNPServer();
+				StartNpServer();
 			}
 		}
 
@@ -139,6 +157,10 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 			{
 				if (!string.IsNullOrWhiteSpace(request.Method))
 				{
+					_window.Dispatcher.BeginInvoke(new Action(() =>
+					{
+						_window.Restore();
+					}));
 					switch (request.Method.ToLower())
 					{
 						case "getworkoutsforclient":
@@ -154,7 +176,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 									}
 									if (pair.Key.ToLower() == "from")
 									{
-										if (! DateTime.TryParse(pair.Value, out from))
+										if (!DateTime.TryParse(pair.Value, out from))
 										{
 											directResult = JsonFormatError("Value '{0}' could not be parsed to a valid datetime.", pair.Value);
 											return false;
@@ -179,11 +201,12 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 						case "openworkout":
 							if (request.Args != null && request.Args.Count > 0)
 							{
-								bool foundId = false;
+								var foundId = false;
 								foreach (var pair in request.Args)
 								{
 									if (pair.Key.ToLower() == "id")
 									{
+										// ReSharper disable once RedundantAssignment
 										foundId = true;
 										int id;
 										if (int.TryParse(pair.Value, out id))
@@ -198,7 +221,8 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 										}
 									}
 								}
-								if(!foundId)
+								// ReSharper disable once ConditionIsAlwaysTrueOrFalse
+								if (foundId == false)
 								{
 									directResult = JsonFormatError("Argument 'id' not specified for method '{0}'.", request.Method);
 								}
@@ -228,13 +252,13 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 							}));
 							break;
 						case "selectperson":
-								if (request.Args != null && request.Args.Count > 0)
+							if (request.Args != null && request.Args.Count > 0)
 							{
-								PersonDTO dto = new PersonDTO();
+								var dto = new PersonDTO();
 								foreach (var pair in request.Args)
 								{
-									string key = pair.Key.ToLower();
-									switch(key)
+									var key = pair.Key.ToLower();
+									switch (key)
 									{
 										case "id": dto.ExternalId = pair.Value; break;
 										case "firstname": dto.Firstname = pair.Value; break;
@@ -268,7 +292,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 											break;
 									}
 								}
-								if(!string.IsNullOrWhiteSpace(dto.ExternalId))
+								if (!string.IsNullOrWhiteSpace(dto.ExternalId))
 								{
 									_window.Dispatcher.BeginInvoke(new Action(() =>
 									{
@@ -312,15 +336,17 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 			_app.GetWorkoutsForClient(customId, from);
 		}
 
-		private string JsonFormatError(string error, params object[] args)
+		private static string JsonFormatError(string error, params object[] args)
 		{
-			return string.Format("{{ \"error\": \"{0}\" }} ", string.Format(error, args).Replace('\"', '\''));
+			return $"{{ \"error\": \"{string.Format(error, args).Replace('\"', '\'')}\" }} ";
 		}
 	}
 
 	public class NamedPipeRequest
 	{
+		// ReSharper disable once UnusedAutoPropertyAccessor.Global
 		public string Method { get; set; }
+		// ReSharper disable once UnusedAutoPropertyAccessor.Global
 		public Dictionary<string, string> Args { get; set; }
 	}
 

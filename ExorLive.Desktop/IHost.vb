@@ -1,4 +1,8 @@
 ﻿Namespace Desktop
+	' ReSharper disable UnusedMember.Global
+	' ReSharper disable EventNeverInvoked.Global
+	' ReSharper disable UnusedParameter.Global
+	' ReSharper disable EventNeverSubscribedTo.Global
 	''' <summary>
 	''' This interface defines the  methods available on the Host.
 	''' </summary>
@@ -63,4 +67,8 @@
 		Sub LogException(ex As Exception, message As String)
 
 	End Interface
+	' ReSharper restore UnusedParameter.Global
+	' ReSharper restore EventNeverInvoked.Global
+	' ReSharper restore UnusedMember.Global
+	' ReSharper restore EventNeverSubscribedTo.Global
 End Namespace
