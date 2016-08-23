@@ -14,7 +14,14 @@ This will install to the default path of _"%appdata%\ExorLive\Webwrapper"_ but y
 ```
 #!bat
 
-msiexec /i "ExorLiveWebWrapper.2.0.1.4.msi" INSTALLDIR="C:\myfolder" /q
+msiexec /i "ExorLiveWebWrapper.2.0.3.4.msi" INSTALLDIR="C:\myfolder" /q
+```
+
+Or you can install it as an [advertised installation](https://msdn.microsoft.com/en-us/library/windows/desktop/aa367548(v=vs.85).aspx), which starts the installation with administrator permissions by the user when he runs the shortcut:
+```
+#!bat
+
+msiexec /jm "ExorLiveWebwrapper.2.0.3.4.msi"
 ```
 
 
