@@ -7,6 +7,8 @@ using ExorLive.Desktop;
 using ExorLive.Properties;
 using Microsoft.Shell;
 using ExorLive.Client.WebWrapper.NamedPipe;
+using System.IO;
+using System.Text;
 
 namespace ExorLive.Client.WebWrapper
 {
@@ -60,6 +62,32 @@ namespace ExorLive.Client.WebWrapper
 				}
 			}
 		}
+
+		private bool _logging = false;
+		public bool Logging
+		{
+			get { return _logging; }
+			set { _logging = value; }
+		}
+		public void Log(string format, params object[] args)
+		{
+			try
+			{
+				if (Logging)
+				{
+					string path = Directory.GetCurrentDirectory();
+					string filename = Path.Combine(path, "ExorLive.Client.Webwrapper.log");
+
+					string line = string.Format("{0}: {1}{2}", DateTime.Now, args != null ? string.Format(format, args) : format, Environment.NewLine);
+					File.AppendAllText(filename, line, Encoding.UTF8);
+				}
+			}
+			catch(Exception)
+			{
+				// Ignore any error.
+			}
+		}
+
 
 		public event IHost.WindowMinifiedEventHandler WindowMinified;
 		public event IHost.WindowClosingEventHandler WindowClosing;

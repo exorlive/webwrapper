@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.IO.Pipes;
+using System.Reflection;
 using System.Security.Principal;
 using System.Threading;
 
@@ -20,6 +21,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 		{
 			_app = app;
 			_window = window;
+			_app.Log("Initialize WebWrapper");
 		}
 
 		private string Pipename => "exorlivepipe." + Process.GetCurrentProcess().Id;
@@ -33,6 +35,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 				Name = "NamedPipeListener"
 			};
 			// To make he thread abort when the application closes down.
+			_app.Log("StartNpServer");
 			_namedPipeListener.Start();
 		}
 
@@ -64,9 +67,10 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 						SpinWait.SpinUntil(() => _app.ExorLiveIsRunning, -1);   //Blocks the thread until the user has logged in.
 					}
 				}
-				catch (IOException)
+				catch (IOException ex)
 				{
 					// The "exorlivepipe" is in use by another process / thread.
+					_app.Log("NamedPipeThreadStart(1) EXCEPTION: {0}", ex.Message);
 					return;
 				}
 				try
@@ -90,8 +94,9 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 				}
 				// Catch the IOException that is raised if the pipe is broken
 				// or disconnected.
-				catch (IOException)
+				catch (IOException ex)
 				{
+					_app.Log("NamedPipeThreadStart(2) EXCEPTION: {0}", ex.Message);
 					_pipeServer?.Close();
 					_pipeServer = null;
 				}
@@ -127,8 +132,10 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 				}
 				// Catch the IOException that is raised if the pipe is broken
 				// or disconnected.
-				catch (IOException)
+				catch (IOException ex)
 				{
+					_app.Log("PublishDataOnNamedPipe EXCEPTION: {0}", ex.Message);
+					_app.Log(jsondata);
 				}
 				finally
 				{
@@ -151,179 +158,203 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 		/// <returns>true if we are waiting for an asynch callback.</returns>
 		private bool HandlePipeRequest(string requeststring, out string directResult)
 		{
-			directResult = "";
-			var request = Newtonsoft.Json.JsonConvert.DeserializeObject<NamedPipeRequest>(requeststring);
-			if (request != null)
+			_app.Log(">> Request: {0}", requeststring);
+			try
 			{
-				if (!string.IsNullOrWhiteSpace(request.Method))
+				directResult = "";
+				var request = Newtonsoft.Json.JsonConvert.DeserializeObject<NamedPipeRequest>(requeststring);
+				if (request != null)
 				{
-					_window.Dispatcher.BeginInvoke(new Action(() =>
+					if (!string.IsNullOrWhiteSpace(request.Method))
 					{
-						_window.Restore();
-					}));
-					switch (request.Method.ToLower())
-					{
-						case "getworkoutsforclient":
-							if (request.Args != null && request.Args.Count > 0)
-							{
-								var customId = "";
-								var from = DateTime.MinValue;
-								foreach (var pair in request.Args)
+						_window.Dispatcher.BeginInvoke(new Action(() =>
+						{
+							_window.Restore();
+						}));
+						switch (request.Method.ToLower())
+						{
+							case "getworkoutsforclient":
+								if (request.Args != null && request.Args.Count > 0)
 								{
-									if (pair.Key.ToLower() == "customid")
+									var customId = "";
+									var from = DateTime.MinValue;
+									foreach (var pair in request.Args)
 									{
-										customId = pair.Value;
-									}
-									if (pair.Key.ToLower() == "from")
-									{
-										if (!DateTime.TryParse(pair.Value, out from))
+										if (pair.Key.ToLower() == "customid")
 										{
-											directResult = JsonFormatError("Value '{0}' could not be parsed to a valid datetime.", pair.Value);
-											return false;
+											customId = pair.Value;
+										}
+										if (pair.Key.ToLower() == "from")
+										{
+											if (!DateTime.TryParse(pair.Value, out from))
+											{
+												directResult = JsonFormatError("Value '{0}' could not be parsed to a valid datetime.", pair.Value);
+												_app.Log("<< Result: {0}", directResult);
+												return false;
+											}
 										}
 									}
-								}
-								if (!string.IsNullOrWhiteSpace(customId))
-								{
-									CallGetWorkoutsForClient(customId, from);
-									return true;
+									if (!string.IsNullOrWhiteSpace(customId))
+									{
+										CallGetWorkoutsForClient(customId, from);
+										return true;
+									}
+									else
+									{
+										directResult = JsonFormatError("No valid userId specified");
+									}
 								}
 								else
 								{
-									directResult = JsonFormatError("No valid userId specified");
+									directResult = JsonFormatError("No arguments specified for method '{0}'.", request.Method);
 								}
-							}
-							else
-							{
-								directResult = JsonFormatError("No arguments specified for method '{0}'.", request.Method);
-							}
-							break;
-						case "openworkout":
-							if (request.Args != null && request.Args.Count > 0)
-							{
-								var foundId = false;
-								foreach (var pair in request.Args)
+								break;
+							case "openworkout":
+								if (request.Args != null && request.Args.Count > 0)
 								{
-									if (pair.Key.ToLower() == "id")
+									var foundId = false;
+									foreach (var pair in request.Args)
 									{
-										// ReSharper disable once RedundantAssignment
-										foundId = true;
-										int id;
-										if (int.TryParse(pair.Value, out id))
+										if (pair.Key.ToLower() == "id")
 										{
-											OpenWorkout(id);
-											return false;
-										}
-										else
-										{
-											directResult = JsonFormatError("Value '{0}' for id is not an integer.", pair.Value);
-											return false;
+											// ReSharper disable once RedundantAssignment
+											foundId = true;
+											int id;
+											if (int.TryParse(pair.Value, out id))
+											{
+												OpenWorkout(id);
+												return false;
+											}
+											else
+											{
+												directResult = JsonFormatError("Value '{0}' for id is not an integer.", pair.Value);
+												_app.Log("<< Result: {0}", directResult);
+												return false;
+											}
 										}
 									}
-								}
-								// ReSharper disable once ConditionIsAlwaysTrueOrFalse
-								if (foundId == false)
-								{
-									directResult = JsonFormatError("Argument 'id' not specified for method '{0}'.", request.Method);
-								}
-							}
-							else
-							{
-								directResult = JsonFormatError("No arguments specified for method '{0}'.", request.Method);
-							}
-							break;
-						case "close":
-							_window.Dispatcher.BeginInvoke(new Action(() =>
-							{
-								_window.SignoutAndQuitApplication();
-							}));
-							break;
-						case "show":
-							_window.Dispatcher.BeginInvoke(new Action(() =>
-							{
-								_window.Restore();
-							}));
-							break;
-						case "hide":
-							_window.Dispatcher.BeginInvoke(new Action(() =>
-							{
-								_window.WindowState = System.Windows.WindowState.Minimized;
-								_window.Hide();
-							}));
-							break;
-						case "selectperson":
-							if (request.Args != null && request.Args.Count > 0)
-							{
-								var dto = new PersonDTO();
-								foreach (var pair in request.Args)
-								{
-									var key = pair.Key.ToLower();
-									switch (key)
+									// ReSharper disable once ConditionIsAlwaysTrueOrFalse
+									if (foundId == false)
 									{
-										case "id": dto.ExternalId = pair.Value; break;
-										case "firstname": dto.Firstname = pair.Value; break;
-										case "lastname": dto.Lastname = pair.Value; break;
-										case "email": dto.Email = pair.Value; break;
-										case "address": dto.Address = pair.Value; break;
-										case "phonehome": dto.PhoneHome = pair.Value; break;
-										case "phonework": dto.PhoneWork = pair.Value; break;
-										case "mobile": dto.Mobile = pair.Value; break;
-										case "country": dto.Country = pair.Value; break;
-										case "zipcode": dto.ZipCode = pair.Value; break;
-										case "location": dto.Location = pair.Value; break;
-										case "dateofbirth":
-											if (!string.IsNullOrWhiteSpace(pair.Value))
-											{
-												DateTime dt;
-												if (DateTime.TryParseExact(pair.Value, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
+										directResult = JsonFormatError("Argument 'id' not specified for method '{0}'.", request.Method);
+									}
+								}
+								else
+								{
+									directResult = JsonFormatError("No arguments specified for method '{0}'.", request.Method);
+								}
+								break;
+							case "close":
+								_window.Dispatcher.BeginInvoke(new Action(() =>
+								{
+									_window.SignoutAndQuitApplication();
+								}));
+								break;
+							case "log":
+								_app.Logging = true;
+								_app.Log("Starting logging");
+								break;
+							case "show":
+								_window.Dispatcher.BeginInvoke(new Action(() =>
+								{
+									_window.Restore();
+								}));
+								break;
+							case "hide":
+								_window.Dispatcher.BeginInvoke(new Action(() =>
+								{
+									_window.WindowState = System.Windows.WindowState.Minimized;
+									_window.Hide();
+								}));
+								break;
+							case "version":
+								directResult = Assembly.GetEntryAssembly().GetName().Version.ToString();
+								break;
+							case "selectperson":
+								if (request.Args != null && request.Args.Count > 0)
+								{
+									var dto = new PersonDTO();
+									foreach (var pair in request.Args)
+									{
+										var key = pair.Key.ToLower();
+										switch (key)
+										{
+											case "id": dto.ExternalId = pair.Value; break;
+											case "firstname": dto.Firstname = pair.Value; break;
+											case "lastname": dto.Lastname = pair.Value; break;
+											case "email": dto.Email = pair.Value; break;
+											case "address": dto.Address = pair.Value; break;
+											case "phonehome": dto.PhoneHome = pair.Value; break;
+											case "phonework": dto.PhoneWork = pair.Value; break;
+											case "mobile": dto.Mobile = pair.Value; break;
+											case "country": dto.Country = pair.Value; break;
+											case "zipcode": dto.ZipCode = pair.Value; break;
+											case "location": dto.Location = pair.Value; break;
+											case "dateofbirth":
+												if (!string.IsNullOrWhiteSpace(pair.Value))
 												{
-													dto.DateOfBirth = dt.ToString("yyyy-MM-dd");
-												}
-												else
-												{
-													// We would prefer people to use ISO 8601, but let the OS try to parse it instead:
-													if (DateTime.TryParse(pair.Value, out dt))
+													DateTime dt;
+													if (DateTime.TryParseExact(pair.Value, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
 													{
-														// And THEN i transform it back to a ISO 8601 valid date string:
 														dto.DateOfBirth = dt.ToString("yyyy-MM-dd");
 													}
+													else
+													{
+														// We would prefer people to use ISO 8601, but let the OS try to parse it instead:
+														if (DateTime.TryParse(pair.Value, out dt))
+														{
+															// And THEN i transform it back to a ISO 8601 valid date string:
+															dto.DateOfBirth = dt.ToString("yyyy-MM-dd");
+														}
+													}
 												}
-											}
-											break;
+												break;
+										}
 									}
-								}
-								if (!string.IsNullOrWhiteSpace(dto.ExternalId))
-								{
-									_window.Dispatcher.BeginInvoke(new Action(() =>
+									if (!string.IsNullOrWhiteSpace(dto.ExternalId))
 									{
-										_app.SelectPerson(dto);
-									}));
+										_window.Dispatcher.BeginInvoke(new Action(() =>
+										{
+											_app.SelectPerson(dto);
+											_app.Log("    SelectPerson ExternalId:'{0}' Firstname:'{1}', Lastname:'{2}', Email:'{3}', DoB: '{4}'", dto.ExternalId, dto.Firstname, dto.Lastname, dto.Email, dto.DateOfBirth);
+										}));
+									}
+									else
+									{
+										directResult = JsonFormatError("No id specified for '{0}'.", request.Method);
+									}
 								}
 								else
 								{
-									directResult = JsonFormatError("No id specified for '{0}'.", request.Method);
+									directResult = JsonFormatError("No arguments specified for method '{0}'.", request.Method);
 								}
-							}
-							else
-							{
-								directResult = JsonFormatError("No arguments specified for method '{0}'.", request.Method);
-							}
-							break;
-						default:
-							directResult = JsonFormatError("Method '{0}' not supported.", request.Method);
-							break;
+								break;
+							default:
+								directResult = JsonFormatError("Method '{0}' not supported.", request.Method);
+								break;
+						}
+					}
+					else
+					{
+						directResult = JsonFormatError("No method specified");
 					}
 				}
 				else
 				{
-					directResult = JsonFormatError("No method specified");
+					directResult = JsonFormatError("Failed to JSON-parse the request");
 				}
+				if(!string.IsNullOrWhiteSpace(directResult))
+				{
+					_app.Log("<< Result: {0}", directResult);
+				}
+				return false;
 			}
-			else
+			catch (Exception ex)
 			{
-				directResult = JsonFormatError("Failed to JSON-parse the request");
+				directResult = JsonFormatError("Exception: {0}", ex.Message);
+				_app.Log("<< Result: {0}", directResult);
+				return false;
 			}
-			return false;
 		}
 
 		private void OpenWorkout(int id)
