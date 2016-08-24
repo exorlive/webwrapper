@@ -5,34 +5,27 @@ using System.IO.Pipes;
 using System.Threading;
 using ExorLive.Client.Entities;
 
-namespace ExorLive.Client
-{
-	public class NpServer
-	{
+namespace ExorLive.Client {
+	public class NpServer {
 		private Thread _namedPipeListener;
 
-		public void StartNpServer()
-		{
+		public void StartNpServer() {
 			// start a thread that is listening for Named Pipes calls.
 			_namedPipeListener = new Thread(NamedPipeThreadStart);
 			_namedPipeListener.Start();
 		}
 
 		// ReSharper disable once UnusedMember.Global
-		public void StopNpServer()
-		{
+		public void StopNpServer() {
 			_namedPipeListener?.Abort();
 		}
 
-		private void NamedPipeThreadStart()
-		{
-			while (true)
-			{
+		private void NamedPipeThreadStart() {
+			while (true) {
 				var pipeServer = new NamedPipeServerStream("exorlivepipe", PipeDirection.InOut, 1,
 					PipeTransmissionMode.Byte, PipeOptions.WriteThrough);
 				pipeServer.WaitForConnection();
-				try
-				{
+				try {
 					var ss = new StringStream(pipeServer);
 					var request = ss.ReadString();
 					var response = HandlePipeRequest(request);
@@ -40,75 +33,53 @@ namespace ExorLive.Client
 				}
 				// Catch the IOException that is raised if the pipe is broken
 				// or disconnected.
-				catch (IOException)
-				{
-				}
-				finally
-				{
+				catch (IOException) {
+				} finally {
 					pipeServer.Close();
 				}
 			}
 		}
 
-		private string HandlePipeRequest(string requeststring)
-		{
+		private string HandlePipeRequest(string requeststring) {
 			var request = Newtonsoft.Json.JsonConvert.DeserializeObject<NamedPipeRequest>(requeststring);
-			if (request != null)
-			{
-				if (!string.IsNullOrWhiteSpace(request.Method))
-				{
-					switch (request.Method.ToLower())
-					{
+			if (request != null) {
+				if (!string.IsNullOrWhiteSpace(request.Method)) {
+					switch (request.Method.ToLower()) {
 						case "getworkoutsforclient":
-							if (request.Args != null && request.Args.Count > 0)
-							{
+							if (request.Args != null && request.Args.Count > 0) {
 								var customId = "";
 								var from = DateTime.MinValue;
-								foreach (var pair in request.Args)
-								{
-									if (pair.Key.ToLower() == "customid")
-									{
+								foreach (var pair in request.Args) {
+									if (pair.Key.ToLower() == "customid") {
 										customId = pair.Value;
 									}
-									if (pair.Key.ToLower() == "from")
-									{
-										if (!DateTime.TryParse(pair.Value, out from))
-										{
+									if (pair.Key.ToLower() == "from") {
+										if (!DateTime.TryParse(pair.Value, out from)) {
 											return JsonFormatError("Value '{0}' could not be parsed to a valid datetime.", pair.Value);
 										}
 									}
 								}
-								if (!string.IsNullOrWhiteSpace(customId))
-								{
+								if (!string.IsNullOrWhiteSpace(customId)) {
 									return GetWorkoutsForClient(customId, from);
-								}
-								else
-								{
+								} else {
 									return JsonFormatError("No valid userId specified");
 								}
-							}
-							else
-							{
+							} else {
 								return JsonFormatError("No arguments specified for method '{0}'.", request.Method);
 							}
 						default:
 							return JsonFormatError("Method '{0}' not supported.", request.Method);
 					}
-				}
-				else
-				{
+				} else {
 					return JsonFormatError("No method specified");
 				}
-			}
-			else
-			{
+			} else {
 				return JsonFormatError("Failed to JSON-parse the request");
 			}
 
 		}
 
-		private string GetWorkoutsForClient(string customId, DateTime from)
-		{
+		private string GetWorkoutsForClient(string customId, DateTime from) {
 			int userId = 1;
 			int.TryParse(customId, out userId);
 			var list = GetDummyWorkouts(userId, from);
@@ -118,38 +89,44 @@ namespace ExorLive.Client
 
 		#region dummydata
 
-		private List<Workout> GetDummyWorkouts(int userId, DateTime from)
-		{
+		private List<Workout> GetDummyWorkouts(int userId, DateTime from) {
 			// Create some dummy data
 			var workouts = new List<Workout>(12);
-			var start = new DateTime(2015,6,1);
-			for (var i = 0; i <=11; i++)
-			{
+			var start = new DateTime(2015, 6, 1);
+			for (var i = 0; i <= 11; i++) {
 				var at = start.AddMonths(i);
-				if(at >= from)
-					workouts.Add(GetDummyWorkout(userId, at, at.ToString("MMMM"), 3 + (i%5)));
+				if (at >= from)
+					workouts.Add(GetDummyWorkout(userId, at, at.ToString("MMMM"), 3 + (i % 5)));
 			}
 			return workouts;
 		}
 
-		private Workout GetDummyWorkout(int userId, DateTime createdAt, string name, int exercisecount)
-		{
-			var id = userId + (int) (createdAt - new DateTime(2000, 1, 1)).TotalSeconds;
+		private Workout GetDummyWorkout(int userId, DateTime createdAt, string name, int exercisecount) {
+			var id = userId + (int)(createdAt - new DateTime(2000, 1, 1)).TotalSeconds;
 			if (id < 0) id = -id;
-			var startindex = id%100;
+			var startindex = id % 100;
 			var exercises = new List<Exercise>(exercisecount);
-			for (var i = 1; i <= exercisecount; i++)
-			{
-				var index = (startindex + i)%100;
+			for (var i = 1; i <= exercisecount; i++) {
+				var index = (startindex + i) % 100;
 				exercises.Add(new Exercise()
 				{
 					Id = _dummyexercises[index].Item1,
 					Name = _dummyexercises[index].Item2,
-					Data = new List<ExerciseData>() {new ExerciseData(){Key = "Vekt", Unit = "Kg", Value = (10 + (index%10)).ToString()}}
+					Data = new List<List<ExerciseData>>
+					{
+						new List<ExerciseData>
+						{
+							new ExerciseData()
+							{
+								Key = "Vekt",
+								Unit = "Kg",
+								Value = (10 + (index%10)).ToString()
+							}
+						}
+					}
 				});
 			}
-			var w = new Workout()
-			{
+			var w = new Workout() {
 				Id = id,
 				Name = name,
 				Description = "Dette er en beskrivelse av dette treningsprogrammet.",
@@ -268,15 +245,13 @@ namespace ExorLive.Client
 		#endregion
 
 
-		private string JsonFormatError(string error, params object[] args)
-		{
+		private string JsonFormatError(string error, params object[] args) {
 			return $"{{ \"error\": \"{string.Format(error, args).Replace('\"', '\'')}\" }} ";
 		}
 
 	}
 
-	public class NamedPipeRequest
-	{
+	public class NamedPipeRequest {
 		public string Method { get; set; }
 		public Dictionary<string, string> Args { get; set; }
 	}

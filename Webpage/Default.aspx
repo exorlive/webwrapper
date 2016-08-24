@@ -54,9 +54,10 @@
 			</ul>
 
 			<h2>Changelog</h2>
-			<h3>2.1.3</h3>
+			<h3>2.1</h3>
 			<ul>
 				<li>Fix for terminal server issues with named pipes.</li>
+				<li>Added named pipe version query</li>
 			</ul>
 			<h3>2.0.3</h3>
 			<ul>
