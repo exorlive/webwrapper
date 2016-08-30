@@ -165,6 +165,16 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 					switch (key)
 					{
 						case "id": dto.ExternalId = value; break;
+						case "userid":
+							{
+								int idAsInt;
+								if(int.TryParse(value, out idAsInt))
+								{
+									dto.Id = idAsInt;
+								}
+							}
+							break;
+						case "customid": dto.ExternalId = value; break;
 						case "firstname": dto.Firstname = value; break;
 						case "lastname": dto.Lastname = value; break;
 						case "email": dto.Email = value; break;
@@ -242,12 +252,12 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 							break;
 					}
 				}
-				if (!string.IsNullOrWhiteSpace(dto.ExternalId))
+				if (dto.Id > 0 || (!string.IsNullOrWhiteSpace(dto.ExternalId)))
 				{
 					_window.Dispatcher.BeginInvoke(new Action(() =>
 					{
 						_app.SelectPerson(dto);
-						_app.Log("    SelectPerson ExternalId:'{0}' Firstname:'{1}', Lastname:'{2}', Email:'{3}', DoB: '{4}'", dto.ExternalId, dto.Firstname, dto.Lastname, dto.Email, dto.DateOfBirth);
+						_app.Log("    SelectPerson Id:'{0}' ExternalId:'{1}' Firstname:'{2}', Lastname:'{3}', Email:'{4}', DoB: '{5}'", dto.Id, dto.ExternalId, dto.Firstname, dto.Lastname, dto.Email, dto.DateOfBirth);
 					}));
 				}
 				else
@@ -304,6 +314,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 								case "getworkoutsforclient":
 									if (request.Args != null && request.Args.Count > 0)
 									{
+										int userId = 0;
 										var customId = "";
 										var from = DateTime.MinValue;
 										foreach (var pair in request.Args)
@@ -311,6 +322,14 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 											if (pair.Key.ToLower() == "customid")
 											{
 												customId = pair.Value;
+											}
+											if (pair.Key.ToLower() == "userid")
+											{
+												if(!int.TryParse(pair.Value, out userId))
+												{
+													directResult = JsonFormatError("Invalid userId specified");
+													return false;
+												}
 											}
 											if (pair.Key.ToLower() == "from")
 											{
@@ -322,9 +341,9 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 												}
 											}
 										}
-										if (!string.IsNullOrWhiteSpace(customId))
+										if (userId > 0 || (!string.IsNullOrWhiteSpace(customId)))
 										{
-											CallGetWorkoutsForClient(customId, from);
+											CallGetWorkoutsForClient(userId, customId, from);
 											return true;
 										}
 										else
@@ -506,9 +525,9 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 			_app.OpenWorkout(id);
 		}
 
-		private void CallGetWorkoutsForClient(string customId, DateTime from)
+		private void CallGetWorkoutsForClient(int userId, string customId, DateTime from)
 		{
-			_app.GetWorkoutsForClient(customId, from);
+			_app.GetWorkoutsForClient(userId, customId, from);
 		}
 		private void CallGetListOfUsers(string customId)
 		{

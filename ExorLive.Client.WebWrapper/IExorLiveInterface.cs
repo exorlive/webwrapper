@@ -52,7 +52,7 @@ public interface IExorLiveInterface
 	void selectTab(string tab);
 	void queryWorkouts(string query);
 	void queryExercises(string query);
-	void getWorkoutsForCustomId(string customId, DateTime from);
+	void getWorkoutsForCustomId(int userId, string customId, DateTime from);
 	void getListOfUsers(string customId);
 	void openWorkout(int id);
 }

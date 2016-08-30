@@ -196,24 +196,31 @@ namespace ExorLive.Client.WebWrapper
 		}
 		public void SelectPerson2(PersonDTO person)
 		{
-			_browser.SelectPerson2(
-				person.ExternalId,
-				person.Firstname,
-				person.Lastname,
-				person.Email,
-				person.DateOfBirth,
-				person.Address,
-				person.ZipCode,
-				person.Location,
-				person.Mobile,
-				person.PhoneWork,
-				person.Gender,
-				person.HomePage,
-				person.Employer,
-				person.Comment,
-				person.Country,
-				person.PhoneHome
-			);
+			if(person.Id > 0)
+			{
+				SelectPersonById(person.Id);
+			}
+			else if(!string.IsNullOrWhiteSpace(person.ExternalId))
+			{
+				_browser.SelectPerson2(
+					person.ExternalId,
+					person.Firstname,
+					person.Lastname,
+					person.Email,
+					person.DateOfBirth,
+					person.Address,
+					person.ZipCode,
+					person.Location,
+					person.Mobile,
+					person.PhoneWork,
+					person.Gender,
+					person.HomePage,
+					person.Employer,
+					person.Comment,
+					person.Country,
+					person.PhoneHome
+				);
+			}
 			Restore();
 		}
 		public void SelectPersonById(int id)
@@ -369,9 +376,9 @@ namespace ExorLive.Client.WebWrapper
 			e.Handled = true;
 		}
 
-		public void GetWorkoutsForClient(string customId, DateTime from)
+		public void GetWorkoutsForClient(int userId, string customId, DateTime from)
 		{
-			_browser.GetWorkoutsForClient(customId, from);
+			_browser.GetWorkoutsForClient(userId, customId, from);
 		}
 		public void GetListOfUsers(string customId)
 		{

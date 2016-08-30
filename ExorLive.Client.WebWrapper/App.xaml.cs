@@ -192,9 +192,9 @@ namespace ExorLive.Client.WebWrapper
 			_hostedComponent.Initialize(this, Environment.CurrentDirectory);
 		}
 
-		internal void GetWorkoutsForClient(string customId, DateTime from)
+		internal void GetWorkoutsForClient(int userId, string customId, DateTime from)
 		{
-			_webWrapperWindow.GetWorkoutsForClient(customId, from);
+			_webWrapperWindow.GetWorkoutsForClient(userId, customId, from);
 		}
 
 		internal void GetListOfUsers(string customId)

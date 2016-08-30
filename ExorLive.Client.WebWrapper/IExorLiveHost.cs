@@ -18,7 +18,7 @@ public interface IExorLiveHost
 	void Restore();
 	bool Loaded { get; }
 
-	void GetWorkoutsForClient(string customId, DateTime from);
+	void GetWorkoutsForClient(int userId, string customId, DateTime from);
 	void GetListOfUsers(string customId);
 	void OpenWorkout(int id);
 }

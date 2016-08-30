@@ -232,12 +232,20 @@ public class EoBrowser : IBrowser
 	{
 		_obj.InvokeFunction("queryExercises", query);
 	}
-	public void GetWorkoutsForClient(string customId, DateTime from)
+	public void GetWorkoutsForClient(int userId, string customId, DateTime from)
 	{
 		try
 		{
-			// Call a Javascript method in ExorLive
-			_obj.InvokeFunction("getWorkoutsForCustomId", customId, from);
+			if (userId <= 0)
+			{
+				// Call a Javascript method in ExorLive
+				_obj.InvokeFunction("getWorkoutsForCustomId", customId, from);
+			}
+			else
+			{
+				// Call a Javascript method in ExorLive
+				_obj.InvokeFunction("getWorkoutsForUserId", userId, from);
+			}
 		}
 		catch (Exception)
 		{

@@ -111,12 +111,20 @@ public class ExorLiveInterface : IExorLiveInterface
 		_comType.InvokeMember("queryWorkouts", BindingFlags.InvokeMethod, null, _com, new object[] { query });
 	}
 
-	public void getWorkoutsForCustomId(string customId, DateTime from)
+	public void getWorkoutsForCustomId(int userId, string customId, DateTime from)
 	{
 		try
 		{
-			// Call a Javascript method in ExorLive
-			_comType.InvokeMember("getWorkoutsForCustomId", BindingFlags.InvokeMethod, null, _com, new object[] { customId, from });
+			if (userId <= 0)
+			{
+				// Call a Javascript method in ExorLive
+				_comType.InvokeMember("getWorkoutsForCustomId", BindingFlags.InvokeMethod, null, _com, new object[] { customId, from });
+			}
+			else
+			{
+				// Call a Javascript method in ExorLive
+				_comType.InvokeMember("getWorkoutsForUserId", BindingFlags.InvokeMethod, null, _com, new object[] { userId, from });
+			}
 		} catch(Exception)
 		{
 			// Ignore any error in ExorLive. Just to make WebWrapper don't crash in case of a problem in ExorLive.

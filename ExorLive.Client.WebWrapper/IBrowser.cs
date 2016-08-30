@@ -49,7 +49,7 @@ public interface IBrowser
 	bool Debug { get; }
 	string ApplicationIdentifier { get; }
 
-	void GetWorkoutsForClient(string customId, DateTime from);
+	void GetWorkoutsForClient(int userId, string customId, DateTime from);
 	void GetListOfUsers(string customId);
 	void OpenWorkout(int id);
 }
