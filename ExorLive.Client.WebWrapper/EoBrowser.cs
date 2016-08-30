@@ -126,6 +126,10 @@ public class EoBrowser : IBrowser
 			case "notifyisunloading":
 				NotifyIsUnloading();
 				break;
+			case "exportuserlist":
+				// Callback of the call 'getListOfUsers'
+				ExportUserList(arg);
+				break;
 			case "exportusersdata":
 				// Callback of the call 'getWorkoutsForCustomId'
 				ExportUsersData(arg);
@@ -162,6 +166,12 @@ public class EoBrowser : IBrowser
 	/// Is the callback of 'getWorkoutsForUserId' and 'getWorkoutsForCustomId'
 	/// </summary>
 	public event EventHandler ExportUsersDataEvent;
+
+	/// <summary>
+	/// Is the callback of 'getListOfUsers'
+	/// </summary>
+	public event EventHandler ExportUserListEvent;
+
 
 	public void SelectPerson(string externalId, string firstname, string lastname, string email, string dateOfBirth)
 	{
@@ -235,6 +245,21 @@ public class EoBrowser : IBrowser
 		}
 	}
 
+	public void GetListOfUsers(string customId)
+	{
+		try
+		{
+			// Call a Javascript method in ExorLive
+			var arr = _obj.GetPropertyNames();
+			_obj.InvokeFunction("getListOfUsers", customId, "DUMMY");
+		}
+		catch (Exception ex)
+		{
+			MessageBox.Show(ex.Message);
+			// Ignore any error in ExorLive. Just to make WebWrapper don't crash in case of a problem in ExorLive.
+		}
+	}
+
 	public void OpenWorkout(int id)
 	{
 		try
@@ -280,9 +305,18 @@ public class EoBrowser : IBrowser
 		var jsondata = arg.Arguments[0] as string;
 		if (!string.IsNullOrWhiteSpace(jsondata))
 		{
-			ExportUsersDataEvent?.Invoke(this, new UsersDataEventArgs(jsondata));
+			ExportUsersDataEvent?.Invoke(this, new JsonEventArgs(jsondata));
 		}
 	}
+	private void ExportUserList(JSExtInvokeArgs arg)
+	{
+		var jsondata = arg.Arguments[0] as string;
+		if (!string.IsNullOrWhiteSpace(jsondata))
+		{
+			ExportUserListEvent?.Invoke(this, new JsonEventArgs(jsondata));
+		}
+	}
+
 
 	public void NotifyIsUnloading()
 	{

@@ -43,6 +43,7 @@ public class WindowsBrowser : IBrowser
 	public event EventHandler IsUnloading;
 	public event EventHandler SelectedUserChanged;
 	public event EventHandler ExportUsersDataEvent;
+	public event EventHandler ExportUserListEvent;
 
 	public void SelectPerson(
 		string externalId,
@@ -123,6 +124,13 @@ public class WindowsBrowser : IBrowser
 	{
 		_exorlive.getWorkoutsForCustomId(customId, from);
 	}
+	public void GetListOfUsers(string customId)
+	{
+		_exorlive.getListOfUsers(customId);
+	}
+
+	
+
 	public void OpenWorkout(int id)
 	{
 		_exorlive.openWorkout(id);
@@ -183,7 +191,13 @@ public class WindowsBrowser : IBrowser
 	// Is called from the browser COM object
 	public void ExportUsersData(string jsondata)
 	{
-		ExportUsersDataEvent?.Invoke(this, new UsersDataEventArgs(jsondata));
+		ExportUsersDataEvent?.Invoke(this, new JsonEventArgs(jsondata));
+	}
+
+	// Is called from the browser COM object
+	public void ExportUserList(string jsondata)
+	{
+		ExportUserListEvent?.Invoke(this, new JsonEventArgs(jsondata));
 	}
 
 	public bool Debug => App.Debug;

@@ -8,6 +8,7 @@ public interface IExorLiveHost
 	event IsUnloadingEventHandler IsUnloading;
 	event SelectedUserChangedEventHandler SelectedUserChanged;
 	event ExportUsersDataEventHandler ExportUsersDataEvent;
+	event ExportUserListEventHandler ExportUserListEvent;
 	void SelectPerson(PersonDTO person);
 	void SelectPerson2(PersonDTO person);
 	void SelectPersonById(int id);
@@ -18,9 +19,11 @@ public interface IExorLiveHost
 	bool Loaded { get; }
 
 	void GetWorkoutsForClient(string customId, DateTime from);
+	void GetListOfUsers(string customId);
 	void OpenWorkout(int id);
 }
 public delegate void SelectedUserChangedEventHandler(object sender, SelectedUserEventArgs args);
 public delegate void IsUnloadingEventHandler(object sender);
 public delegate void IsLoadedEventHandler(object sender);
-public delegate void ExportUsersDataEventHandler(object sender, UsersDataEventArgs args);
+public delegate void ExportUsersDataEventHandler(object sender, JsonEventArgs args);
+public delegate void ExportUserListEventHandler(object sender, JsonEventArgs args);

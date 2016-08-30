@@ -12,6 +12,7 @@ public interface IBrowser
 	event EventHandler IsUnloading;
 	event EventHandler SelectedUserChanged;
 	event EventHandler ExportUsersDataEvent;
+	event EventHandler ExportUserListEvent;
 
 	void SelectPerson(
 		string externalId,
@@ -49,5 +50,6 @@ public interface IBrowser
 	string ApplicationIdentifier { get; }
 
 	void GetWorkoutsForClient(string customId, DateTime from);
+	void GetListOfUsers(string customId);
 	void OpenWorkout(int id);
 }

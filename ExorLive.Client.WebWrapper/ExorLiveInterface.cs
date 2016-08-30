@@ -122,6 +122,18 @@ public class ExorLiveInterface : IExorLiveInterface
 			// Ignore any error in ExorLive. Just to make WebWrapper don't crash in case of a problem in ExorLive.
 		}
 	}
+	public void getListOfUsers(string customId)
+	{
+		try
+		{
+			// Call a Javascript method in ExorLive
+			_comType.InvokeMember("getListOfUsers", BindingFlags.InvokeMethod, null, _com, new object[] { customId });
+		}
+		catch (Exception)
+		{
+			// Ignore any error in ExorLive. Just to make WebWrapper don't crash in case of a problem in ExorLive.
+		}
+	}
 
 	public void openWorkout(int id)
 	{

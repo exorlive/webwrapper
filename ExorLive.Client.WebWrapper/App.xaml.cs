@@ -144,6 +144,7 @@ namespace ExorLive.Client.WebWrapper
 			_webWrapperWindow.IsUnloading += _webWrapperWindow_IsUnloading;
 			_webWrapperWindow.SelectedUserChanged += WebWrapperWindowSelectedUserChanged;
 			_webWrapperWindow.ExportUsersDataEvent += _webWrapperWindow_ExportUsersDataEvent;
+			_webWrapperWindow.ExportUserListEvent += _webWrapperWindow_ExportUserListEvent;
 			if (_applicationArguments.ContainsKey("culture"))
 			{
 				url += $"&culture={_applicationArguments["culture"]}";
@@ -156,7 +157,11 @@ namespace ExorLive.Client.WebWrapper
 		{
 		}
 
-		private void _webWrapperWindow_ExportUsersDataEvent(object sender, UsersDataEventArgs args)
+		private void _webWrapperWindow_ExportUsersDataEvent(object sender, JsonEventArgs args)
+		{
+			_npServer?.PublishDataOnNamedPipe(args.JsonData);
+		}
+		private void _webWrapperWindow_ExportUserListEvent(object sender, JsonEventArgs args)
 		{
 			_npServer?.PublishDataOnNamedPipe(args.JsonData);
 		}
@@ -191,6 +196,12 @@ namespace ExorLive.Client.WebWrapper
 		{
 			_webWrapperWindow.GetWorkoutsForClient(customId, from);
 		}
+
+		internal void GetListOfUsers(string customId)
+		{
+			_webWrapperWindow.GetListOfUsers(customId);
+		}
+
 		internal void OpenWorkout(int id)
 		{
 			_webWrapperWindow.OpenWorkout(id);

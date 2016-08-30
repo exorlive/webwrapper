@@ -1,9 +1,9 @@
 ﻿using System;
 
-public class UsersDataEventArgs : EventArgs
+public class JsonEventArgs : EventArgs
 {
 	public readonly string JsonData;
-	public UsersDataEventArgs(string jsondata)
+	public JsonEventArgs(string jsondata)
 	{
 		JsonData = jsondata;
 	}

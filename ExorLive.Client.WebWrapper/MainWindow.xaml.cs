@@ -97,6 +97,7 @@ namespace ExorLive.Client.WebWrapper
 			_browser.IsUnloading += _browser_IsUnloading;
 			_browser.BeforeNavigating += _browser_BeforeNavigating;
 			_browser.ExportUsersDataEvent += _browser_ExportUsersDataEvent;
+			_browser.ExportUserListEvent += _browser_ExportUserListEvent;
 			BrowserGrid.Children.Add(_browser.GetUiElement());
 			if (_navigateToUri != null)
 			{
@@ -110,7 +111,12 @@ namespace ExorLive.Client.WebWrapper
 
 		private void _browser_ExportUsersDataEvent(object sender, EventArgs e)
 		{
-			ExportUsersDataEvent?.Invoke(this, (UsersDataEventArgs)e);
+			ExportUsersDataEvent?.Invoke(this, (JsonEventArgs)e);
+		}
+
+		private void _browser_ExportUserListEvent(object sender, EventArgs e)
+		{
+			ExportUserListEvent?.Invoke(this, (JsonEventArgs)e);
 		}
 
 		private void _browser_BeforeNavigating(object sender, Uri e)
@@ -170,6 +176,7 @@ namespace ExorLive.Client.WebWrapper
 		public event IsUnloadingEventHandler IsUnloading;
 		public event SelectedUserChangedEventHandler SelectedUserChanged;
 		public event ExportUsersDataEventHandler ExportUsersDataEvent;
+		public event ExportUserListEventHandler ExportUserListEvent;
 
 		public void SelectPerson(PersonDTO person)
 		{
@@ -236,8 +243,31 @@ namespace ExorLive.Client.WebWrapper
 			{
 				WindowState = WindowState.Normal;
 			}
+			Activate();
 			Focus();
 		}
+
+		public void ForceShowForeground()
+		{
+			// Must force webwrapper to appear in front on other (calling) application when that application calls "show" command.
+			// http://stackoverflow.com/questions/257587/bring-a-window-to-the-front-in-wpf
+
+			if (!IsVisible)
+			{
+				Show();
+			}
+
+			if (WindowState == WindowState.Minimized)
+			{
+				WindowState = WindowState.Normal;
+			}
+
+			Activate();
+			Topmost = true;  // important
+			Topmost = false; // important
+			Focus();         // important
+		}
+
 		public new bool Loaded { get; private set; }
 		public void Navigate(Uri uri)
 		{
@@ -342,6 +372,10 @@ namespace ExorLive.Client.WebWrapper
 		public void GetWorkoutsForClient(string customId, DateTime from)
 		{
 			_browser.GetWorkoutsForClient(customId, from);
+		}
+		public void GetListOfUsers(string customId)
+		{
+			_browser.GetListOfUsers(customId);
 		}
 
 		public void OpenWorkout(int id)

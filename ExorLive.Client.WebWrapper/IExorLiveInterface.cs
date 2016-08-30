@@ -53,5 +53,6 @@ public interface IExorLiveInterface
 	void queryWorkouts(string query);
 	void queryExercises(string query);
 	void getWorkoutsForCustomId(string customId, DateTime from);
+	void getListOfUsers(string customId);
 	void openWorkout(int id);
 }

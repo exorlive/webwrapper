@@ -68,8 +68,11 @@ namespace ExorLiveNamedPipeSampleClient
 						Console.WriteLine("> workout <workout-Id> ");
 						Console.WriteLine("> workout 123 ");
 						Console.WriteLine("");
-						Console.WriteLine("> selectperson id=<id> [<property>=<propertyvalue> <property>=<propertyvalue> ...]");
+						Console.WriteLine("> selectperson [<property>=<propertyvalue> <property>=<propertyvalue> ...]");
 						Console.WriteLine("   Possible properties are:");
+						Console.WriteLine("       id (obsolete, but is interpreted as customid)");
+						Console.WriteLine("       customid (the id of this person in your system)");
+						Console.WriteLine("       userid (the exorlive id of this user)");
 						Console.WriteLine("       firstname");
 						Console.WriteLine("       lastname");
 						Console.WriteLine("       email");
@@ -77,11 +80,14 @@ namespace ExorLiveNamedPipeSampleClient
 						Console.WriteLine("       phonehome");
 						Console.WriteLine("       phonework");
 						Console.WriteLine("       mobile");
+						Console.WriteLine("       gender (M or F)");
 						Console.WriteLine("       country");
 						Console.WriteLine("       zipcode");
 						Console.WriteLine("       location");
 						Console.WriteLine("       dateOfBirth  (value in the format yyyy-MM-dd)");
 						Console.WriteLine("");
+						Console.WriteLine("> users <id>");
+						Console.WriteLine("       list all your users in exorlive or filter by the id (the 'id' is your id and may not be unique in ExorLive)");
 						Console.WriteLine("> show");
 						Console.WriteLine("> hide");
 						Console.WriteLine("> close");
@@ -93,6 +99,13 @@ namespace ExorLiveNamedPipeSampleClient
 						Console.WriteLine("> exit");
 						Console.WriteLine("   Close this console application");
 						Console.WriteLine("--------------------------------");
+					}
+					if (lower == "users" || lower.StartsWith("users "))
+					{
+						string customid = null;
+						string[] array = line.Split(splitter, StringSplitOptions.RemoveEmptyEntries);
+						if (array.Length > 1) customid = array[1];
+						GetListOfUsers(customid);
 					}
 					if (lower == "show")
 					{
@@ -181,11 +194,11 @@ namespace ExorLiveNamedPipeSampleClient
 
 		static void SelectPerson(string[] array)
 		{
-			var request = new NamedPipeRequest
+			var request = new NamedPipeRequest2
 			{
 				Method = "SelectPerson"
 			};
-			request.Args = new Dictionary<string, string>(array.Length -1);
+			request.Args = new Dictionary<string, object>(array.Length);
 			foreach (string item in array)
 			{
 				int index = item.IndexOf("=");
@@ -194,6 +207,13 @@ namespace ExorLiveNamedPipeSampleClient
 					request.Args.Add(item.Substring(0, index), item.Substring(index + 1));
 				}
 			}
+			// Add some ProfileData
+			List<Dictionary<string, string>> data = new List<Dictionary<string, string>>(3);
+			data.Add(new Dictionary<string, string> { { "key", "diagnosis" }, { "name", "Diagnose" }, { "value", "Lumbago" }, { "date", "2016-08-24 14:04" }, { "source", "MyJournal" } });
+			data.Add(new Dictionary<string, string> { { "key", "diagnosiscode" }, { "name", "Diagnosekode" }, { "value", "L2" }, { "unit", "ICPC-2" }, { "date", "2016-08-24 14:04" }, { "source", "MyJournal" } });
+			data.Add(new Dictionary<string, string> { { "key", "weight" }, { "name", "Vekt" }, { "value", "80" }, { "unit", "kg" }, { "date", "2016-08-23" }, { "source", "ExorLive GO" }, { "description", "På badevekta om morgenen" } });
+			request.Args.Add("profiledata", data);
+
 			var json = Newtonsoft.Json.JsonConvert.SerializeObject(request);
 
 			NamedPipeClientStream pipeClient = GetPipeClient();
@@ -299,12 +319,41 @@ namespace ExorLiveNamedPipeSampleClient
 				}
 			}
 		}
+
+		static void GetListOfUsers(string customId)
+		{
+			var request = new NamedPipeRequest
+			{
+				Method = "GetListOfUsers"
+			};
+			if(!string.IsNullOrEmpty(customId))
+			{
+				request.Args = new Dictionary<string, string>(1) { { "customId", customId } };
+			}
+			var json = Newtonsoft.Json.JsonConvert.SerializeObject(request);
+
+			NamedPipeClientStream pipeClient = GetPipeClient();
+			if (pipeClient != null)
+			{
+				var ss = new StringStream(pipeClient);
+				ss.WriteString(json);
+				var response = ss.ReadString();
+				Console.WriteLine("------------------------------------------------------------");
+				Console.WriteLine(response);
+				Console.WriteLine("------------------------------------------------------------");
+			}
+		}
 	}
 
 	public class NamedPipeRequest
 	{
 		public string Method { get; set; }
 		public Dictionary<string, string> Args { get; set; }
+	}
+	public class NamedPipeRequest2
+	{
+		public string Method { get; set; }
+		public Dictionary<string, object> Args { get; set; }
 	}
 
 }
