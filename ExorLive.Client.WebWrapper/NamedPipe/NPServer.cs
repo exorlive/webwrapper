@@ -256,6 +256,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 				{
 					_window.Dispatcher.BeginInvoke(new Action(() =>
 					{
+						_window.Restore();
 						_app.SelectPerson(dto);
 						_app.Log("    SelectPerson Id:'{0}' ExternalId:'{1}' Firstname:'{2}', Lastname:'{3}', Email:'{4}', DoB: '{5}'", dto.Id, dto.ExternalId, dto.Firstname, dto.Lastname, dto.Email, dto.DateOfBirth);
 					}));
@@ -305,10 +306,6 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 					{
 						if (!string.IsNullOrWhiteSpace(request.Method))
 						{
-							_window.Dispatcher.BeginInvoke(new Action(() =>
-							{
-								_window.Restore();
-							}));
 							switch (request.Method.ToLower())
 							{
 								case "getworkoutsforclient":
@@ -435,65 +432,65 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 									}
 									CallGetListOfUsers(customid);
 									return true;
-								case "selectperson":
-									if (request.Args != null && request.Args.Count > 0)
-									{
-										var dto = new PersonDTO();
-										foreach (var pair in request.Args)
-										{
-											var key = pair.Key.ToLower();
-											switch (key)
-											{
-												case "id": dto.ExternalId = pair.Value; break;
-												case "firstname": dto.Firstname = pair.Value; break;
-												case "lastname": dto.Lastname = pair.Value; break;
-												case "email": dto.Email = pair.Value; break;
-												case "address": dto.Address = pair.Value; break;
-												case "phonehome": dto.PhoneHome = pair.Value; break;
-												case "phonework": dto.PhoneWork = pair.Value; break;
-												case "mobile": dto.Mobile = pair.Value; break;
-												case "country": dto.Country = pair.Value; break;
-												case "zipcode": dto.ZipCode = pair.Value; break;
-												case "location": dto.Location = pair.Value; break;
-												case "dateofbirth":
-													if (!string.IsNullOrWhiteSpace(pair.Value))
-													{
-														DateTime dt;
-														if (DateTime.TryParseExact(pair.Value, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
-														{
-															dto.DateOfBirth = dt.ToString("yyyy-MM-dd");
-														}
-														else
-														{
-															// We would prefer people to use ISO 8601, but let the OS try to parse it instead:
-															if (DateTime.TryParse(pair.Value, out dt))
-															{
-																// And THEN i transform it back to a ISO 8601 valid date string:
-																dto.DateOfBirth = dt.ToString("yyyy-MM-dd");
-															}
-														}
-													}
-													break;
-											}
-										}
-										if (!string.IsNullOrWhiteSpace(dto.ExternalId))
-										{
-											_window.Dispatcher.BeginInvoke(new Action(() =>
-											{
-												_app.SelectPerson(dto);
-												_app.Log("    SelectPerson ExternalId:'{0}' Firstname:'{1}', Lastname:'{2}', Email:'{3}', DoB: '{4}'", dto.ExternalId, dto.Firstname, dto.Lastname, dto.Email, dto.DateOfBirth);
-											}));
-										}
-										else
-										{
-											directResult = JsonFormatError("No id specified for '{0}'.", request.Method);
-										}
-									}
-									else
-									{
-										directResult = JsonFormatError("No arguments specified for method '{0}'.", request.Method);
-									}
-									break;
+								//case "selectperson":
+								//	if (request.Args != null && request.Args.Count > 0)
+								//	{
+								//		var dto = new PersonDTO();
+								//		foreach (var pair in request.Args)
+								//		{
+								//			var key = pair.Key.ToLower();
+								//			switch (key)
+								//			{
+								//				case "id": dto.ExternalId = pair.Value; break;
+								//				case "firstname": dto.Firstname = pair.Value; break;
+								//				case "lastname": dto.Lastname = pair.Value; break;
+								//				case "email": dto.Email = pair.Value; break;
+								//				case "address": dto.Address = pair.Value; break;
+								//				case "phonehome": dto.PhoneHome = pair.Value; break;
+								//				case "phonework": dto.PhoneWork = pair.Value; break;
+								//				case "mobile": dto.Mobile = pair.Value; break;
+								//				case "country": dto.Country = pair.Value; break;
+								//				case "zipcode": dto.ZipCode = pair.Value; break;
+								//				case "location": dto.Location = pair.Value; break;
+								//				case "dateofbirth":
+								//					if (!string.IsNullOrWhiteSpace(pair.Value))
+								//					{
+								//						DateTime dt;
+								//						if (DateTime.TryParseExact(pair.Value, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
+								//						{
+								//							dto.DateOfBirth = dt.ToString("yyyy-MM-dd");
+								//						}
+								//						else
+								//						{
+								//							// We would prefer people to use ISO 8601, but let the OS try to parse it instead:
+								//							if (DateTime.TryParse(pair.Value, out dt))
+								//							{
+								//								// And THEN i transform it back to a ISO 8601 valid date string:
+								//								dto.DateOfBirth = dt.ToString("yyyy-MM-dd");
+								//							}
+								//						}
+								//					}
+								//					break;
+								//			}
+								//		}
+								//		if (!string.IsNullOrWhiteSpace(dto.ExternalId))
+								//		{
+								//			_window.Dispatcher.BeginInvoke(new Action(() =>
+								//			{
+								//				_app.SelectPerson(dto);
+								//				_app.Log("    SelectPerson ExternalId:'{0}' Firstname:'{1}', Lastname:'{2}', Email:'{3}', DoB: '{4}'", dto.ExternalId, dto.Firstname, dto.Lastname, dto.Email, dto.DateOfBirth);
+								//			}));
+								//		}
+								//		else
+								//		{
+								//			directResult = JsonFormatError("No id specified for '{0}'.", request.Method);
+								//		}
+								//	}
+								//	else
+								//	{
+								//		directResult = JsonFormatError("No arguments specified for method '{0}'.", request.Method);
+								//	}
+								//	break;
 								default:
 									directResult = JsonFormatError("Method '{0}' not supported.", request.Method);
 									break;
@@ -525,6 +522,10 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 
 		private void OpenWorkout(int id)
 		{
+			_window.Dispatcher.BeginInvoke(new Action(() =>
+			{
+				_window.Restore();
+			}));
 			_app.OpenWorkout(id);
 		}
 

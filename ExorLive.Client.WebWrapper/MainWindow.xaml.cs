@@ -245,13 +245,18 @@ namespace ExorLive.Client.WebWrapper
 		}
 		public void Restore()
 		{
-			Show();
+			if (!IsVisible)
+			{
+				Show();
+			}
 			if (WindowState == WindowState.Minimized)
 			{
 				WindowState = WindowState.Normal;
 			}
 			Activate();
-			Focus();
+			Topmost = true;  // important
+			Topmost = false; // important
+			Focus();         // important
 		}
 
 		public void ForceShowForeground()
