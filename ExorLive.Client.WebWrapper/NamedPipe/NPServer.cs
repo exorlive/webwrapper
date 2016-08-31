@@ -333,11 +333,14 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 											}
 											if (pair.Key.ToLower() == "from")
 											{
-												if (!DateTime.TryParse(pair.Value, out from))
+												if (!string.IsNullOrWhiteSpace(pair.Value))
 												{
-													directResult = JsonFormatError("Value '{0}' could not be parsed to a valid datetime.", pair.Value);
-													_app.Log("<< Result: {0}", directResult);
-													return false;
+													if (!DateTime.TryParse(pair.Value, out from))
+													{
+														directResult = JsonFormatError("Value '{0}' could not be parsed to a valid datetime.", pair.Value);
+														_app.Log("<< Result: {0}", directResult);
+														return false;
+													}
 												}
 											}
 										}

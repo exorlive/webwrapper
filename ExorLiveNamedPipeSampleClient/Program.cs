@@ -61,18 +61,22 @@ namespace ExorLiveNamedPipeSampleClient
 					if (lower == "help")
 					{
 						Console.WriteLine("--------------------------------");
-						Console.WriteLine("> get <id> [from]");
-						Console.WriteLine("> get 123 ");
-						Console.WriteLine("> get x123 2016-06-01");
+						Console.WriteLine("> listw <userid> [customid] [from]");
+						Console.WriteLine("> listw 0 x123 2016-06-01 ");
+						Console.WriteLine("> listw 123 0 2016-06-01");
+						Console.WriteLine("> listw 123");
+						Console.WriteLine("> listw 0 23");
+						Console.WriteLine("      get a list of workouts for the given user. Specify either userid or customid. Use 0 for unspecified id.");
 						Console.WriteLine("");
 						Console.WriteLine("> workout <workout-Id> ");
 						Console.WriteLine("> workout 123 ");
+						Console.WriteLine("       open/show the specified workout in the ExorLive GUI");
 						Console.WriteLine("");
 						Console.WriteLine("> selectperson [<property>=<propertyvalue> <property>=<propertyvalue> ...]");
 						Console.WriteLine("   Possible properties are:");
 						Console.WriteLine("       id (obsolete, but is interpreted as customid)");
 						Console.WriteLine("       customid (the id of this person in your system)");
-						Console.WriteLine("       userid (the exorlive id of this user)");
+						Console.WriteLine("       userid (the exorlive id of this user), use 0 for new contact/person.");
 						Console.WriteLine("       firstname");
 						Console.WriteLine("       lastname");
 						Console.WriteLine("       email");
@@ -87,7 +91,7 @@ namespace ExorLiveNamedPipeSampleClient
 						Console.WriteLine("       dateOfBirth  (value in the format yyyy-MM-dd)");
 						Console.WriteLine("");
 						Console.WriteLine("> users <id>");
-						Console.WriteLine("       list all your users in exorlive or filter by the id (the 'id' is your id and may not be unique in ExorLive)");
+						Console.WriteLine("       list all your users in exorlive or filter by the id (the 'id' is your id  (customid) and may not be unique in ExorLive)");
 						Console.WriteLine("> show");
 						Console.WriteLine("> hide");
 						Console.WriteLine("> close");
@@ -127,16 +131,17 @@ namespace ExorLiveNamedPipeSampleClient
 					{
 						TurnOnLogging();
 					}
-					if (lower.StartsWith("get "))
+					if (lower.StartsWith("listw "))
 					{
 						string[] array = line.Split(splitter, StringSplitOptions.RemoveEmptyEntries);
-						if (array.Length == 2)
+						if (array.Length > 1)
 						{
-							GetWorkoutData(array[1], null);
-						}
-						else if (array.Length > 2)
-						{
-							GetWorkoutData(array[1], array[2]);
+							string userId = array[1];
+							string customId = "";
+							string from = "";
+							if (array.Length > 2) customId = array[2];
+							if (array.Length > 3) from = array[3];
+							GetWorkoutData(userId, customId, from);
 						}
 					}
 					if (lower.StartsWith("workout "))
@@ -289,14 +294,16 @@ namespace ExorLiveNamedPipeSampleClient
 			}
 		}
 
-		static void GetWorkoutData(string customId, string from)
+		static void GetWorkoutData(string userId, string customId, string from)
 		{
 			var request = new NamedPipeRequest
 			{
 				Method = "GetWorkoutsForClient",
-				Args = new Dictionary<string, string>(2) {{"customId", customId } }
+				Args = new Dictionary<string, string>(3)
 			};
-			if(from != null) request.Args.Add("from", from);
+			if (!string.IsNullOrWhiteSpace(userId) && userId != "0") request.Args.Add("userid", userId);
+			if (!string.IsNullOrWhiteSpace(customId) && customId != "0") request.Args.Add("customid", customId);
+			if (!string.IsNullOrWhiteSpace(from) && from != "0") request.Args.Add("from", from);
 			var json = Newtonsoft.Json.JsonConvert.SerializeObject(request);
 
 			NamedPipeClientStream pipeClient = GetPipeClient();
@@ -314,7 +321,7 @@ namespace ExorLiveNamedPipeSampleClient
 					Console.WriteLine("Workouts: " + workoutlist.Count);
 					foreach (var workout in workoutlist)
 					{
-						Console.WriteLine("  {0}: {1} {2}", workout.Id, workout.LastChangedAt.ToString("yyyy-MM-dd"), workout.Name);
+						Console.WriteLine("  {0}: {1} Owner: {2} Executor: {3} Name: {4} ", workout.Id, workout.LastChangedAt.ToString("yyyy-MM-dd"), workout.Owner, workout.Executor, workout.Name);
 					}
 				}
 			}
@@ -341,6 +348,17 @@ namespace ExorLiveNamedPipeSampleClient
 				Console.WriteLine("------------------------------------------------------------");
 				Console.WriteLine(response);
 				Console.WriteLine("------------------------------------------------------------");
+				if (response.StartsWith("["))
+				{
+					dynamic userslist = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(response);
+					Console.WriteLine("Users: " + userslist.Count);
+					foreach (var user in userslist)
+					{
+						string date = user.DateOfBirth;
+						if (date.StartsWith("000")) date = "";
+						Console.WriteLine("  {0,8}: CustomId: {1,8} Date-of-birth: {2,11}  - {3} {4} - {5}", user.Id, user.CustomId, date, user.Firstname, user.Lastname, user.Email);
+					}
+				}
 			}
 		}
 	}

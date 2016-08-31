@@ -259,7 +259,7 @@ public class EoBrowser : IBrowser
 		{
 			// Call a Javascript method in ExorLive
 			var arr = _obj.GetPropertyNames();
-			_obj.InvokeFunction("getListOfUsers", customId, "DUMMY");
+			_obj.InvokeFunction("getListOfUsers", customId);
 		}
 		catch (Exception ex)
 		{
