@@ -402,10 +402,14 @@ strong {
 	position: relative;
 	background: #a04064;
 	padding: 0 25px;
+	-webkit-box-shadow: 0 2px 2px 0 #000000;
 	-webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
+	-moz-box-shadow: 0 2px 2px 0 #000000;
 	-moz-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
+	box-shadow: 0 2px 2px 0 #000000;
 	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
 }
+
 .navbar {
 	border: none;
 	margin: 0;
