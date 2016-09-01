@@ -16,4 +16,5 @@
 	Public Property HomePage As String
 	Public Property Employer As String
 	Public Property Comment As String
+	Public Property ProfileData As String
 End Class

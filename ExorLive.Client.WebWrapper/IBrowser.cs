@@ -39,6 +39,25 @@ public interface IBrowser
 		string country,
 		string phonehome
 	);
+	void SelectPerson3(
+		string externalId,
+		string firstname,
+		string lastname,
+		string email,
+		string dateOfBirth,
+		string address,
+		string zipCode,
+		string location,
+		string mobile,
+		string phoneWork,
+		int gender,
+		string homepage,
+		string employer,
+		string comment,
+		string country,
+		string phonehome,
+		string profiledata
+	);
 	void SelectPersonById(int id);
 	void SelectTab(string tab);
 	void QueryWorkouts(string query);

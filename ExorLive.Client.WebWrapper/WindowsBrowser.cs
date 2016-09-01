@@ -100,6 +100,47 @@ public class WindowsBrowser : IBrowser
 		);
 	}
 
+	public void SelectPerson3(
+		string externalId,
+		string firstname,
+		string lastname,
+		string email,
+		string dateOfBirth,
+		string address,
+		string zipCode,
+		string location,
+		string mobile,
+		string phoneWork,
+		int gender,
+		string homepage,
+		string employer,
+		string comment,
+		string country,
+		string phonehome,
+		string profiledata
+	)
+	{
+		_exorlive.selectPerson3(
+			externalId,
+			firstname,
+			lastname,
+			email,
+			dateOfBirth,
+			address,
+			zipCode,
+			location,
+			mobile,
+			phoneWork,
+			gender,
+			homepage,
+			employer,
+			comment,
+			country,
+			phonehome,
+			profiledata
+		);
+	}
+
 	public void SelectPersonById(int id)
 	{
 		_exorlive.selectPersonById(id);

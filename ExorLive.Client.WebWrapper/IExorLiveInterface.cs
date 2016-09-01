@@ -49,6 +49,25 @@ public interface IExorLiveInterface
 		string country,
 		string phonehome
 	);
+	void selectPerson3(
+		string externalId,
+		string firstname,
+		string lastname,
+		string email,
+		string dateofbirth,
+		string address,
+		string postalcode,
+		string place,
+		string phoneMobile,
+		string phoneWork,
+		int gender,
+		string homepage,
+		string employer,
+		string comment,
+		string country,
+		string phonehome,
+		string profiledata
+	);
 	void selectTab(string tab);
 	void queryWorkouts(string query);
 	void queryExercises(string query);

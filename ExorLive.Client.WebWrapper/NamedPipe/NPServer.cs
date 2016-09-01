@@ -220,31 +220,38 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 						case "profiledata":
 							try
 							{
+								// Format the profile as a json string, to be able to send it as a string to ExorLive.
+								string json = "";
 								JArray data = pair.Value as JArray;
 								if(data != null)
 								{
-									StringBuilder sb = new StringBuilder("SelectPerson.ProfileData").AppendLine();
+									json = Newtonsoft.Json.JsonConvert.SerializeObject(pair.Value);
+									StringBuilder sblog = new StringBuilder("SelectPerson.ProfileData").AppendLine();
 									foreach(var entry in data)
 									{
 										IList<JToken> list = entry as IList<JToken>;
 										if(list != null)
 										{
-											bool first = true;
+											bool firstProp = true;
 											foreach(JProperty prop in list)
 											{
-												if (first)
+												if (firstProp)
 												{
-													first = false;
-													sb.Append("   ");
+													firstProp = false;
+													sblog.Append("   ");
 												}
-												else sb.Append(" | ");
-												sb.Append(prop.Name).Append("=").Append(prop.Value);
+												else
+												{
+													sblog.Append(" | ");
+												}
+												sblog.Append(prop.Name).Append("=").Append(prop.Value);
 											}
-											sb.AppendLine();
+											sblog.AppendLine();
 										}
 									}
-									_app.Log(sb.ToString());
+									_app.Log(sblog.ToString());
 								}
+								dto.ProfileData = json;
 							} catch(Exception ex)
 							{
 								directResult = JsonFormatError("Failed to interpret 'profiledata' in the SelectPerson call. {0}" + ex.Message);
@@ -257,7 +264,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 					_window.Dispatcher.BeginInvoke(new Action(() =>
 					{
 						_window.Restore();
-						_app.SelectPerson(dto);
+						_app.SelectPerson3(dto);
 						_app.Log("    SelectPerson Id:'{0}' ExternalId:'{1}' Firstname:'{2}', Lastname:'{3}', Email:'{4}', DoB: '{5}'", dto.Id, dto.ExternalId, dto.Firstname, dto.Lastname, dto.Email, dto.DateOfBirth);
 					}));
 				}

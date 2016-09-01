@@ -11,6 +11,7 @@ public interface IExorLiveHost
 	event ExportUserListEventHandler ExportUserListEvent;
 	void SelectPerson(PersonDTO person);
 	void SelectPerson2(PersonDTO person);
+	void SelectPerson3(PersonDTO person);
 	void SelectPersonById(int id);
 	void SelectTab(string tab);
 	void QueryWorkouts(string query);

@@ -223,6 +223,36 @@ namespace ExorLive.Client.WebWrapper
 			}
 			Restore();
 		}
+		public void SelectPerson3(PersonDTO person)
+		{
+			if (person.Id > 0)
+			{
+				SelectPersonById(person.Id);
+			}
+			else if (!string.IsNullOrWhiteSpace(person.ExternalId))
+			{
+				_browser.SelectPerson3(
+					person.ExternalId,
+					person.Firstname,
+					person.Lastname,
+					person.Email,
+					person.DateOfBirth,
+					person.Address,
+					person.ZipCode,
+					person.Location,
+					person.Mobile,
+					person.PhoneWork,
+					person.Gender,
+					person.HomePage,
+					person.Employer,
+					person.Comment,
+					person.Country,
+					person.PhoneHome,
+					person.ProfileData
+				);
+			}
+			Restore();
+		}
 		public void SelectPersonById(int id)
 		{
 			_browser.SelectPersonById(id);

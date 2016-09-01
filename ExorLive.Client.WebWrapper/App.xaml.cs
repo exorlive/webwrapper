@@ -35,6 +35,13 @@ namespace ExorLive.Client.WebWrapper
 		{
 			_webWrapperWindow.SelectPerson2(person);
 		}
+
+		public void SelectPerson3(PersonDTO person)
+		{
+			// SelectPerson3 is used from 2016-09-01. CustomId may not be unique.
+			_webWrapperWindow.SelectPerson3(person);
+		}
+
 		public void DeletePerson(string externalId)
 		{
 			throw new NotImplementedException();

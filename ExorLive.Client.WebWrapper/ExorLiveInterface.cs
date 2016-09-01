@@ -85,6 +85,66 @@ public class ExorLiveInterface : IExorLiveInterface
 		});
 	}
 
+	/// <summary>
+	/// New 2016-09-01 - CustomId may not be unique
+	/// </summary>
+	/// <param name="externalId"></param>
+	/// <param name="firstname"></param>
+	/// <param name="lastname"></param>
+	/// <param name="email"></param>
+	/// <param name="dateofbirth"></param>
+	/// <param name="address"></param>
+	/// <param name="postalcode"></param>
+	/// <param name="place"></param>
+	/// <param name="phoneMobile"></param>
+	/// <param name="phoneWork"></param>
+	/// <param name="gender"></param>
+	/// <param name="homepage"></param>
+	/// <param name="employer"></param>
+	/// <param name="comment"></param>
+	/// <param name="country"></param>
+	/// <param name="phonehome"></param>
+	public void selectPerson3(
+		string externalId,
+		string firstname,
+		string lastname,
+		string email,
+		string dateofbirth,
+		string address,
+		string postalcode,
+		string place,
+		string phoneMobile,
+		string phoneWork,
+		int gender,
+		string homepage,
+		string employer,
+		string comment,
+		string country,
+		string phonehome,
+		string profiledata
+	)
+	{
+		_comType.InvokeMember("selectPerson3", BindingFlags.InvokeMethod, null, _com, new object[] {
+			externalId,
+			firstname,
+			lastname,
+			email,
+			dateofbirth,
+			address,
+			postalcode,
+			place,
+			phoneMobile,
+			phoneWork,
+			gender,
+			homepage,
+			employer,
+			comment,
+			country,
+			phonehome,
+			profiledata
+		});
+	}
+
 	public void selectPersonById(int id)
 	{
 		_comType.InvokeMember("selectPersonById", BindingFlags.InvokeMethod, null, _com, new object[] { id });
