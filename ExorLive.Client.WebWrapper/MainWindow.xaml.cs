@@ -98,6 +98,8 @@ namespace ExorLive.Client.WebWrapper
 			_browser.BeforeNavigating += _browser_BeforeNavigating;
 			_browser.ExportUsersDataEvent += _browser_ExportUsersDataEvent;
 			_browser.ExportUserListEvent += _browser_ExportUserListEvent;
+			_browser.SelectPersonResultEvent += _browser_SelectPersonResultEvent;
+			
 			BrowserGrid.Children.Add(_browser.GetUiElement());
 			if (_navigateToUri != null)
 			{
@@ -118,7 +120,11 @@ namespace ExorLive.Client.WebWrapper
 		{
 			ExportUserListEvent?.Invoke(this, (JsonEventArgs)e);
 		}
-
+		private void _browser_SelectPersonResultEvent(object sender, EventArgs e)
+		{
+			SelectPersonResultEvent?.Invoke(this, (JsonEventArgs)e);
+		}
+		
 		private void _browser_BeforeNavigating(object sender, Uri e)
 		{
 			if (e.AbsolutePath.Contains("signout"))
@@ -156,7 +162,7 @@ namespace ExorLive.Client.WebWrapper
 		{
 			var person = new PersonDTO()
 			{
-				Id = id,
+				UserId = id,
 				ExternalId = externalId,
 				Firstname = firstname,
 				Lastname = lastname,
@@ -177,6 +183,7 @@ namespace ExorLive.Client.WebWrapper
 		public event SelectedUserChangedEventHandler SelectedUserChanged;
 		public event ExportUsersDataEventHandler ExportUsersDataEvent;
 		public event ExportUserListEventHandler ExportUserListEvent;
+		public event SelectPersonResultEventHandler SelectPersonResultEvent;
 
 		public void SelectPerson(PersonDTO person)
 		{
@@ -196,9 +203,9 @@ namespace ExorLive.Client.WebWrapper
 		}
 		public void SelectPerson2(PersonDTO person)
 		{
-			if(person.Id > 0)
+			if(person.UserId > 0)
 			{
-				SelectPersonById(person.Id);
+				SelectPersonById(person.UserId);
 			}
 			else if(!string.IsNullOrWhiteSpace(person.ExternalId))
 			{
@@ -225,13 +232,18 @@ namespace ExorLive.Client.WebWrapper
 		}
 		public void SelectPerson3(PersonDTO person)
 		{
-			if (person.Id > 0)
+			// Logic implemented in ExorLive:
+			//   If UserId is set and is a valid userid in the organization, open and update that user.
+			//   If userId > 0 but not a user in the org, give NOTFOUND status back.
+			//   If UserId == 0, ExternalId must be set. A new contact is created in ExorLive.
+			//
+			if(person.UserId > 0 || (!string.IsNullOrWhiteSpace(person.ExternalId)))
 			{
-				SelectPersonById(person.Id);
-			}
-			else if (!string.IsNullOrWhiteSpace(person.ExternalId))
-			{
+				//// Not in use here anymore:
+				////    SelectPersonById(person.UserId);
+
 				_browser.SelectPerson3(
+					person.UserId,
 					person.ExternalId,
 					person.Firstname,
 					person.Lastname,
@@ -248,7 +260,8 @@ namespace ExorLive.Client.WebWrapper
 					person.Comment,
 					person.Country,
 					person.PhoneHome,
-					person.ProfileData
+					person.ProfileData,
+					person.Source
 				);
 			}
 			Restore();

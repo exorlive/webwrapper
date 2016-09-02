@@ -13,6 +13,7 @@ public interface IBrowser
 	event EventHandler SelectedUserChanged;
 	event EventHandler ExportUsersDataEvent;
 	event EventHandler ExportUserListEvent;
+	event EventHandler SelectPersonResultEvent;
 
 	void SelectPerson(
 		string externalId,
@@ -40,6 +41,7 @@ public interface IBrowser
 		string phonehome
 	);
 	void SelectPerson3(
+		int userId,
 		string externalId,
 		string firstname,
 		string lastname,
@@ -56,7 +58,8 @@ public interface IBrowser
 		string comment,
 		string country,
 		string phonehome,
-		string profiledata
+		string profiledata,
+		string source
 	);
 	void SelectPersonById(int id);
 	void SelectTab(string tab);

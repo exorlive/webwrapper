@@ -44,6 +44,8 @@ public class WindowsBrowser : IBrowser
 	public event EventHandler SelectedUserChanged;
 	public event EventHandler ExportUsersDataEvent;
 	public event EventHandler ExportUserListEvent;
+	public event EventHandler SelectPersonResultEvent;
+	
 
 	public void SelectPerson(
 		string externalId,
@@ -101,6 +103,7 @@ public class WindowsBrowser : IBrowser
 	}
 
 	public void SelectPerson3(
+		int userId,
 		string externalId,
 		string firstname,
 		string lastname,
@@ -117,10 +120,12 @@ public class WindowsBrowser : IBrowser
 		string comment,
 		string country,
 		string phonehome,
-		string profiledata
+		string profiledata,
+		string source
 	)
 	{
 		_exorlive.selectPerson3(
+			userId,
 			externalId,
 			firstname,
 			lastname,
@@ -137,7 +142,8 @@ public class WindowsBrowser : IBrowser
 			comment,
 			country,
 			phonehome,
-			profiledata
+			profiledata,
+			source
 		);
 	}
 
@@ -214,7 +220,7 @@ public class WindowsBrowser : IBrowser
 	{
 		var person = new PersonDTO()
 		{
-			Id = id,
+			UserId = id,
 			ExternalId = externalId,
 			Firstname = firstname,
 			Lastname = lastname,
@@ -239,6 +245,10 @@ public class WindowsBrowser : IBrowser
 	public void ExportUserList(string jsondata)
 	{
 		ExportUserListEvent?.Invoke(this, new JsonEventArgs(jsondata));
+	}
+	public void SelectPersonResult(string jsondata)
+	{
+		SelectPersonResultEvent?.Invoke(this, new JsonEventArgs(jsondata));
 	}
 
 	public bool Debug => App.Debug;

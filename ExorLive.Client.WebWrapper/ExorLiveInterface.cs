@@ -105,6 +105,7 @@ public class ExorLiveInterface : IExorLiveInterface
 	/// <param name="country"></param>
 	/// <param name="phonehome"></param>
 	public void selectPerson3(
+		int userId,
 		string externalId,
 		string firstname,
 		string lastname,
@@ -120,28 +121,31 @@ public class ExorLiveInterface : IExorLiveInterface
 		string employer,
 		string comment,
 		string country,
-		string phonehome,
-		string profiledata
+		string phoneHome,
+		string profiledata,
+		string source
 	)
 	{
 		_comType.InvokeMember("selectPerson3", BindingFlags.InvokeMethod, null, _com, new object[] {
+			userId,
 			externalId,
 			firstname,
 			lastname,
 			email,
 			dateofbirth,
+			phoneHome,
+			phoneWork,
+			phoneMobile,
 			address,
 			postalcode,
 			place,
-			phoneMobile,
-			phoneWork,
+			country,
 			gender,
 			homepage,
 			employer,
 			comment,
-			country,
-			phonehome,
-			profiledata
+			profiledata,
+			source
 		});
 	}
 

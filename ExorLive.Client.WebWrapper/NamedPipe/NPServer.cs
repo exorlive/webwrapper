@@ -170,7 +170,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 								int idAsInt;
 								if(int.TryParse(value, out idAsInt))
 								{
-									dto.Id = idAsInt;
+									dto.UserId = idAsInt;
 								}
 							}
 							break;
@@ -185,6 +185,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 						case "country": dto.Country = value; break;
 						case "zipcode": dto.ZipCode = value; break;
 						case "location": dto.Location = value; break;
+						case "source": dto.Source = value; break;
 						case "dateofbirth":
 							if (!string.IsNullOrWhiteSpace(value))
 							{
@@ -259,14 +260,27 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 							break;
 					}
 				}
-				if (dto.Id > 0 || (!string.IsNullOrWhiteSpace(dto.ExternalId)))
+				if (dto.UserId > 0 || (!string.IsNullOrWhiteSpace(dto.ExternalId)))
 				{
-					_window.Dispatcher.BeginInvoke(new Action(() =>
+					if(string.IsNullOrWhiteSpace(dto.Firstname) || string.IsNullOrWhiteSpace(dto.Lastname))
 					{
-						_window.Restore();
-						_app.SelectPerson3(dto);
-						_app.Log("    SelectPerson Id:'{0}' ExternalId:'{1}' Firstname:'{2}', Lastname:'{3}', Email:'{4}', DoB: '{5}'", dto.Id, dto.ExternalId, dto.Firstname, dto.Lastname, dto.Email, dto.DateOfBirth);
-					}));
+						directResult = JsonFormatError("Firstname and lastname are mandatory.");
+					}
+					else if (string.IsNullOrWhiteSpace(dto.Source))
+					{
+						directResult = JsonFormatError("Source (the name of your application) is mandatory.");
+					}
+					else
+					{
+						dto.Source = "WebWrapper " + dto.Source;
+						_window.Dispatcher.BeginInvoke(new Action(() =>
+						{
+							_window.Restore();
+							_app.SelectPerson3(dto);
+							_app.Log("    SelectPerson Id:'{0}' ExternalId:'{1}' Firstname:'{2}', Lastname:'{3}', Email:'{4}', DoB: '{5}'", dto.UserId, dto.ExternalId, dto.Firstname, dto.Lastname, dto.Email, dto.DateOfBirth);
+						}));
+						return true;
+					}
 				}
 				else
 				{

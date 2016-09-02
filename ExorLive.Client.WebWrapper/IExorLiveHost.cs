@@ -9,6 +9,8 @@ public interface IExorLiveHost
 	event SelectedUserChangedEventHandler SelectedUserChanged;
 	event ExportUsersDataEventHandler ExportUsersDataEvent;
 	event ExportUserListEventHandler ExportUserListEvent;
+	event SelectPersonResultEventHandler SelectPersonResultEvent;
+	
 	void SelectPerson(PersonDTO person);
 	void SelectPerson2(PersonDTO person);
 	void SelectPerson3(PersonDTO person);
@@ -28,3 +30,4 @@ public delegate void IsUnloadingEventHandler(object sender);
 public delegate void IsLoadedEventHandler(object sender);
 public delegate void ExportUsersDataEventHandler(object sender, JsonEventArgs args);
 public delegate void ExportUserListEventHandler(object sender, JsonEventArgs args);
+public delegate void SelectPersonResultEventHandler(object sender, JsonEventArgs args);

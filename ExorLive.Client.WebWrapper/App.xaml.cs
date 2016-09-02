@@ -152,6 +152,7 @@ namespace ExorLive.Client.WebWrapper
 			_webWrapperWindow.SelectedUserChanged += WebWrapperWindowSelectedUserChanged;
 			_webWrapperWindow.ExportUsersDataEvent += _webWrapperWindow_ExportUsersDataEvent;
 			_webWrapperWindow.ExportUserListEvent += _webWrapperWindow_ExportUserListEvent;
+			_webWrapperWindow.SelectPersonResultEvent += _webWrapperWindow_SelectPersonResultEvent;
 			if (_applicationArguments.ContainsKey("culture"))
 			{
 				url += $"&culture={_applicationArguments["culture"]}";
@@ -169,6 +170,11 @@ namespace ExorLive.Client.WebWrapper
 			_npServer?.PublishDataOnNamedPipe(args.JsonData);
 		}
 		private void _webWrapperWindow_ExportUserListEvent(object sender, JsonEventArgs args)
+		{
+			_npServer?.PublishDataOnNamedPipe(args.JsonData);
+		}
+
+		private void _webWrapperWindow_SelectPersonResultEvent(object sender, JsonEventArgs args)
 		{
 			_npServer?.PublishDataOnNamedPipe(args.JsonData);
 		}

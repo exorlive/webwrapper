@@ -50,6 +50,7 @@ public interface IExorLiveInterface
 		string phonehome
 	);
 	void selectPerson3(
+		int userId,
 		string externalId,
 		string firstname,
 		string lastname,
@@ -66,7 +67,8 @@ public interface IExorLiveInterface
 		string comment,
 		string country,
 		string phonehome,
-		string profiledata
+		string profiledata,
+		string source
 	);
 	void selectTab(string tab);
 	void queryWorkouts(string query);

@@ -130,6 +130,10 @@ public class EoBrowser : IBrowser
 				// Callback of the call 'getListOfUsers'
 				ExportUserList(arg);
 				break;
+			case "selectpersonresult":
+				// Callback of the call 'selectPerson'
+				SelectPersonResult(arg);
+				break;
 			case "exportusersdata":
 				// Callback of the call 'getWorkoutsForCustomId'
 				ExportUsersData(arg);
@@ -171,6 +175,10 @@ public class EoBrowser : IBrowser
 	/// Is the callback of 'getListOfUsers'
 	/// </summary>
 	public event EventHandler ExportUserListEvent;
+	/// <summary>
+	/// Is the callback of 'selectPerson'
+	/// </summary>
+	public event EventHandler SelectPersonResultEvent;
 
 
 	public void SelectPerson(string externalId, string firstname, string lastname, string email, string dateOfBirth)
@@ -217,6 +225,7 @@ public class EoBrowser : IBrowser
 		);
 	}
 	public void SelectPerson3(
+		int userId,
 		string externalId,
 		string firstname,
 		string lastname,
@@ -232,28 +241,31 @@ public class EoBrowser : IBrowser
 		string employer,
 		string comment,
 		string country,
-		string phonehome,
-		string profiledata
+		string phoneHome,
+		string profiledata,
+		string source
 	)
 	{
 		_obj.InvokeFunction("selectPerson3",
+			userId,
 			externalId,
 			firstname,
 			lastname,
 			email,
 			dateOfBirth,
+			phoneHome,
+			phoneWork,
+			mobile,
 			address,
 			zipCode,
 			location,
-			mobile,
-			phoneWork,
-			gender.ToString(),
+			country,
+			gender,
 			homepage,
 			employer,
 			comment,
-			country,
-			phonehome,
-			profiledata
+			profiledata,
+			source
 		);
 	}
 	public void SelectPersonById(int id)
@@ -337,7 +349,7 @@ public class EoBrowser : IBrowser
 	{
 		var person = new PersonDTO
 		{
-			Id = id,
+			UserId = id,
 			ExternalId = externalId,
 			Firstname = firstname,
 			Lastname = lastname,
@@ -361,6 +373,14 @@ public class EoBrowser : IBrowser
 		if (!string.IsNullOrWhiteSpace(jsondata))
 		{
 			ExportUserListEvent?.Invoke(this, new JsonEventArgs(jsondata));
+		}
+	}
+	private void SelectPersonResult(JSExtInvokeArgs arg)
+	{
+		var jsondata = arg.Arguments[0] as string;
+		if (!string.IsNullOrWhiteSpace(jsondata))
+		{
+			SelectPersonResultEvent?.Invoke(this, new JsonEventArgs(jsondata));
 		}
 	}
 
