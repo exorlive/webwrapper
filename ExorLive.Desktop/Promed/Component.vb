@@ -15,6 +15,17 @@ Namespace Desktop.Promed
 			Return "Promed XML bridge"
 		End Function
 
+		''' <summary>
+		''' Read command line and process anything that should happen before user sign in to ExorLive.
+		''' Used to tell which user may do automatic signin.
+		''' </summary>
+		''' <param name="args"></param>
+		''' <returns></returns>
+		Public Function GetSignonUser(args() As String) As String Implements IHosted.GetSignonUser
+			Return Nothing
+		End Function
+
+
 		Public Sub ReadCommandline(args() As String) Implements IHosted.ReadCommandline
 			If args.Length > 0 Then
 				Dim filepatharg = (From arg In args

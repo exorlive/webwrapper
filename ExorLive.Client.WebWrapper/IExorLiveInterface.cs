@@ -76,4 +76,6 @@ public interface IExorLiveInterface
 	void getWorkoutsForCustomId(int userId, string customId, DateTime from);
 	void getListOfUsers(string customId);
 	void openWorkout(int id);
+
+	void getOsloSignonDetails();
 }

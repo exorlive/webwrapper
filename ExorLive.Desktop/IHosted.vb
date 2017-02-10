@@ -27,5 +27,13 @@
 		''' <remarks></remarks>
 		Sub Initialize(host As IHost, currentDirectory As String)
 
+		''' <summary>
+		''' Read command line and process anything that should happen before user sign in to ExorLive.
+		''' Used to tell which user may do automatic signin.
+		''' </summary>
+		''' <param name="args"></param>
+		''' <returns></returns>
+		Function GetSignonUser(args() As String) As String
+
 	End Interface
 End Namespace

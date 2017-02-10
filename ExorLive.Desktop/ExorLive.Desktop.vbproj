@@ -120,6 +120,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Procapita\Component.vb" />
     <Compile Include="Promed\Component.vb" />
   </ItemGroup>
   <ItemGroup>

@@ -14,6 +14,7 @@ public interface IBrowser
 	event EventHandler ExportUsersDataEvent;
 	event EventHandler ExportUserListEvent;
 	event EventHandler SelectPersonResultEvent;
+	event EventHandler ExportSignonDetailsEvent;
 
 	void SelectPerson(
 		string externalId,
@@ -74,4 +75,7 @@ public interface IBrowser
 	void GetWorkoutsForClient(int userId, string customId, DateTime from);
 	void GetListOfUsers(string customId);
 	void OpenWorkout(int id);
+
+	void GetSignonDetails();
+
 }

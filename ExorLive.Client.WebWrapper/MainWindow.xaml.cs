@@ -99,7 +99,8 @@ namespace ExorLive.Client.WebWrapper
 			_browser.ExportUsersDataEvent += _browser_ExportUsersDataEvent;
 			_browser.ExportUserListEvent += _browser_ExportUserListEvent;
 			_browser.SelectPersonResultEvent += _browser_SelectPersonResultEvent;
-			
+			_browser.ExportSignonDetailsEvent += _browser_ExportSignonDetailsEvent;
+
 			BrowserGrid.Children.Add(_browser.GetUiElement());
 			if (_navigateToUri != null)
 			{
@@ -124,7 +125,11 @@ namespace ExorLive.Client.WebWrapper
 		{
 			SelectPersonResultEvent?.Invoke(this, (JsonEventArgs)e);
 		}
-		
+		private void _browser_ExportSignonDetailsEvent(object sender, EventArgs e)
+		{
+			ExportSignonDetailsEvent?.Invoke(this, (JsonEventArgs)e);
+		}
+
 		private void _browser_BeforeNavigating(object sender, Uri e)
 		{
 			if (e.AbsolutePath.Contains("signout"))
@@ -184,6 +189,7 @@ namespace ExorLive.Client.WebWrapper
 		public event ExportUsersDataEventHandler ExportUsersDataEvent;
 		public event ExportUserListEventHandler ExportUserListEvent;
 		public event SelectPersonResultEventHandler SelectPersonResultEvent;
+		public event ExportSignonDetailsEventHandler ExportSignonDetailsEvent;
 
 		public void SelectPerson(PersonDTO person)
 		{
@@ -276,7 +282,8 @@ namespace ExorLive.Client.WebWrapper
 			_browser.SelectTab(tab);
 			Restore();
 		}
-		public void QueryWorkouts(string query)
+
+        public void QueryWorkouts(string query)
 		{
 			_browser.QueryWorkouts(query);
 			Restore();
@@ -337,7 +344,7 @@ namespace ExorLive.Client.WebWrapper
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
-		private void MainWIndow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			RememberWindowSize();
 			if (_doClose) { return; }
@@ -428,6 +435,11 @@ namespace ExorLive.Client.WebWrapper
 		{
 			_browser.GetWorkoutsForClient(userId, customId, from);
 		}
+		public void GetSignonDetails()
+		{
+			_browser.GetSignonDetails();
+		}
+
 		public void GetListOfUsers(string customId)
 		{
 			_browser.GetListOfUsers(customId);

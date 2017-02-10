@@ -1,4 +1,6 @@
-﻿namespace ExorLive.Properties
+﻿using System.Configuration;
+
+namespace ExorLive.Properties
 {
 	// This class allows you to handle specific events on the settings class:
 	//  The SettingChanging event is raised before a setting's value is changed.
@@ -7,8 +9,18 @@
 	//  The SettingsSaving event is raised before the setting values are saved.
 	public sealed partial class Settings
 	{
-		//public Settings()
-		//{
-		//}
+		[UserScopedSetting()]
+		public string OsloSettings
+		{
+			get
+			{
+				return ((string)this["OsloSettings"]);
+			}
+			set
+			{
+				this["OsloSettings"] = value;
+			}
+		}
+
 	}
 }

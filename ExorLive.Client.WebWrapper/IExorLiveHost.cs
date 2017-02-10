@@ -10,7 +10,9 @@ public interface IExorLiveHost
 	event ExportUsersDataEventHandler ExportUsersDataEvent;
 	event ExportUserListEventHandler ExportUserListEvent;
 	event SelectPersonResultEventHandler SelectPersonResultEvent;
+	event ExportSignonDetailsEventHandler ExportSignonDetailsEvent;
 	
+
 	void SelectPerson(PersonDTO person);
 	void SelectPerson2(PersonDTO person);
 	void SelectPerson3(PersonDTO person);
@@ -24,10 +26,14 @@ public interface IExorLiveHost
 	void GetWorkoutsForClient(int userId, string customId, DateTime from);
 	void GetListOfUsers(string customId);
 	void OpenWorkout(int id);
+
+	void GetSignonDetails();
 }
+
 public delegate void SelectedUserChangedEventHandler(object sender, SelectedUserEventArgs args);
 public delegate void IsUnloadingEventHandler(object sender);
 public delegate void IsLoadedEventHandler(object sender);
 public delegate void ExportUsersDataEventHandler(object sender, JsonEventArgs args);
 public delegate void ExportUserListEventHandler(object sender, JsonEventArgs args);
 public delegate void SelectPersonResultEventHandler(object sender, JsonEventArgs args);
+public delegate void ExportSignonDetailsEventHandler(object sender, JsonEventArgs args);

@@ -165,7 +165,7 @@ public class ExorLiveInterface : IExorLiveInterface
 		_comType.InvokeMember("selectTab", BindingFlags.InvokeMethod, null, _com, new object[] { tab });
 	}
 
-	public void queryExercises(string query)
+    public void queryExercises(string query)
 	{
 		_comType.InvokeMember("queryExercises", BindingFlags.InvokeMethod, null, _com, new object[] { query });
 	}
@@ -194,6 +194,21 @@ public class ExorLiveInterface : IExorLiveInterface
 			// Ignore any error in ExorLive. Just to make WebWrapper don't crash in case of a problem in ExorLive.
 		}
 	}
+
+	public void getOsloSignonDetails()
+	{
+		try
+		{
+			// Call a Javascript method in ExorLive
+			_comType.InvokeMember("getOsloSignonDetails", BindingFlags.InvokeMethod, null, _com, new object[] { });
+		}
+		catch (Exception)
+		{
+			// Ignore any error in ExorLive. Just to make WebWrapper don't crash in case of a problem in ExorLive.
+		}
+	}
+
+
 	public void getListOfUsers(string customId)
 	{
 		try

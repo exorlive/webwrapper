@@ -46,11 +46,11 @@
 
 		Sub OpenWorkout(workoutIdAsString As String)
 
-		''' <summary>
-		''' This event will be fired if the main window is being minified
-		''' </summary>
-		''' <remarks></remarks>
-		Event WindowMinified()
+        ''' <summary>
+        ''' This event will be fired if the main window is being minified
+        ''' </summary>
+        ''' <remarks></remarks>
+        Event WindowMinified()
 
 		''' <summary>
 		''' This event will be fired when the window is closing

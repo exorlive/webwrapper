@@ -138,6 +138,10 @@ public class EoBrowser : IBrowser
 				// Callback of the call 'getWorkoutsForCustomId'
 				ExportUsersData(arg);
 				break;
+			case "exportsignondetails":
+				// Callback of the call 'getWorkoutsForCustomId'
+				ExportSignonDetails(arg);
+				break;
 		}
 	}
 	public void SetInterface(object arguments)
@@ -179,6 +183,11 @@ public class EoBrowser : IBrowser
 	/// Is the callback of 'selectPerson'
 	/// </summary>
 	public event EventHandler SelectPersonResultEvent;
+
+	/// <summary>
+	/// Is the callback of getOsloSignonDetails
+	/// </summary>
+	public event EventHandler ExportSignonDetailsEvent;
 
 
 	public void SelectPerson(string externalId, string firstname, string lastname, string email, string dateOfBirth)
@@ -276,7 +285,8 @@ public class EoBrowser : IBrowser
 	{
 		_obj.InvokeFunction("selectTab", tab);
 	}
-	public void QueryWorkouts(string query)
+
+    public void QueryWorkouts(string query)
 	{
 		_obj.InvokeFunction("queryWorkouts", query);
 	}
@@ -298,6 +308,19 @@ public class EoBrowser : IBrowser
 				// Call a Javascript method in ExorLive
 				_obj.InvokeFunction("getWorkoutsForUserId", userId, from);
 			}
+		}
+		catch (Exception)
+		{
+			// Ignore any error in ExorLive. Just to make WebWrapper don't crash in case of a problem in ExorLive.
+		}
+	}
+
+	public void GetSignonDetails()
+	{
+		try
+		{
+			// Call a Javascript method in ExorLive
+			_obj.InvokeFunction("getOsloSignonDetails");
 		}
 		catch (Exception)
 		{
@@ -375,6 +398,16 @@ public class EoBrowser : IBrowser
 			ExportUserListEvent?.Invoke(this, new JsonEventArgs(jsondata));
 		}
 	}
+
+	private void ExportSignonDetails(JSExtInvokeArgs arg)
+	{
+		var jsondata = arg.Arguments[0] as string;
+		if (!string.IsNullOrWhiteSpace(jsondata))
+		{
+			ExportSignonDetailsEvent?.Invoke(this, new JsonEventArgs(jsondata));
+		}
+	}
+
 	private void SelectPersonResult(JSExtInvokeArgs arg)
 	{
 		var jsondata = arg.Arguments[0] as string;

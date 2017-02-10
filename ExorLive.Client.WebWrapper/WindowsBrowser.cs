@@ -45,6 +45,7 @@ public class WindowsBrowser : IBrowser
 	public event EventHandler ExportUsersDataEvent;
 	public event EventHandler ExportUserListEvent;
 	public event EventHandler SelectPersonResultEvent;
+	public event EventHandler ExportSignonDetailsEvent;
 	
 
 	public void SelectPerson(
@@ -157,7 +158,7 @@ public class WindowsBrowser : IBrowser
 		_exorlive.selectTab(tab);
 	}
 
-	public void QueryWorkouts(string query)
+    public void QueryWorkouts(string query)
 	{
 		_exorlive.queryWorkouts(query);
 	}
@@ -171,6 +172,12 @@ public class WindowsBrowser : IBrowser
 	{
 		_exorlive.getWorkoutsForCustomId(userId, customId, from);
 	}
+
+	public void GetSignonDetails()
+	{
+		_exorlive.getOsloSignonDetails();
+	}
+
 	public void GetListOfUsers(string customId)
 	{
 		_exorlive.getListOfUsers(customId);
@@ -249,6 +256,10 @@ public class WindowsBrowser : IBrowser
 	public void SelectPersonResult(string jsondata)
 	{
 		SelectPersonResultEvent?.Invoke(this, new JsonEventArgs(jsondata));
+	}
+	public void ExportSignonDetails(string jsondata)
+	{
+		ExportSignonDetailsEvent?.Invoke(this, new JsonEventArgs(jsondata));
 	}
 
 	public bool Debug => App.Debug;

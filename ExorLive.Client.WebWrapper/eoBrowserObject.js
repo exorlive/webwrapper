@@ -6,5 +6,6 @@
 	ExportUsersData: function () { window.eoWebBrowser.extInvoke('exportUsersData', arguments); },
 	ExportUserList: function () { window.eoWebBrowser.extInvoke('exportUserList', arguments); },
 	SelectPersonResult: function () { window.eoWebBrowser.extInvoke('selectPersonResult', arguments); },
+	ExportSignonDetails: function () { window.eoWebBrowser.extInvoke('exportSignonDetails', arguments); },
 	Debug: false
 };
