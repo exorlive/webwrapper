@@ -11,7 +11,7 @@ public interface IExorLiveHost
 	event ExportUserListEventHandler ExportUserListEvent;
 	event SelectPersonResultEventHandler SelectPersonResultEvent;
 	event ExportSignonDetailsEventHandler ExportSignonDetailsEvent;
-	
+	event UserHasDisconnectedEventHandler UserHasDisconnected;
 
 	void SelectPerson(PersonDTO person);
 	void SelectPerson2(PersonDTO person);
@@ -37,3 +37,5 @@ public delegate void ExportUsersDataEventHandler(object sender, JsonEventArgs ar
 public delegate void ExportUserListEventHandler(object sender, JsonEventArgs args);
 public delegate void SelectPersonResultEventHandler(object sender, JsonEventArgs args);
 public delegate void ExportSignonDetailsEventHandler(object sender, JsonEventArgs args);
+public delegate void UserHasDisconnectedEventHandler(object sender);
+

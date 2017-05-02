@@ -23,6 +23,11 @@ Namespace Desktop.Procapita
 		'' - Konstant Data 2
 		''
 
+		'' When building WebWrapper MSI for Procapita. The following must be adjusted in the web.config file:
+		'' ProtocolProvider  = "ExorLive.Desktop.Procapita.Component, ExorLive.Desktop"
+		'' RememberLoggedInUser = True
+		'' UpdatePath = "procapita"
+
 		''' <summary>
 		''' Read command line and process anything that should happen before user sign in to ExorLive.
 		''' Used to tell which user may do automatic signin.

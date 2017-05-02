@@ -24,8 +24,9 @@
 		<tb:TaskbarIcon Grid.Row="1"  IconSource="exorlive.ico"  x:Name="NotTray" HorizontalAlignment="Left" Height="100" Margin="350,545,0,-76" VerticalAlignment="Top" Width="100" ToolTipText="ExorLive Webwrapper" TrayMouseDoubleClick="NotTray_TrayMouseDoubleClick" >
 			<tb:TaskbarIcon.ContextMenu>
 				<ContextMenu>
-					<MenuItem x:Name="MenuShow" Header="Show" Click="MenuItem_Click" FontWeight="Bold" />
-					<MenuItem x:Name="MenuSignOut" Header="Sign out" Click="MenuItem_Click_1" />
+					<MenuItem x:Name="MenuShow" Header="Show" Click="MenuItem_Click_Show" FontWeight="Bold" />
+					<MenuItem x:Name="MenuClose" Header="Close" Click="MenuItem_Click_Close" />
+					<MenuItem x:Name="MenuSignOut" Header="Sign out" Click="MenuItem_Click_SignOut" />
 				</ContextMenu>
 			</tb:TaskbarIcon.ContextMenu>
 		</tb:TaskbarIcon>

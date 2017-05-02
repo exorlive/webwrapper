@@ -108,7 +108,34 @@ namespace ExorLive.Client.WebWrapper
 				UserSettings.OsloSettings = dictstring;
 			}
 		}
-		
+
+		private void RemoveSignonDetails(string signonuser)
+		{
+			string dictstring = UserSettings.OsloSettings;
+			if (!string.IsNullOrWhiteSpace(dictstring))
+			{
+				Dictionary<string, SignonDetails> dict;
+				dict = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, SignonDetails>>(dictstring);
+				if (dict != null && dict.Count > 0)
+				{
+					SignonDetails details;
+					if (dict.TryGetValue(signonuser, out details))
+					{
+						dict.Remove(signonuser);
+						dictstring = Newtonsoft.Json.JsonConvert.SerializeObject(dict);
+						UserSettings.OsloSettings = dictstring;
+					}
+				}
+			}
+		}
+
+		public void DisconnectedCurrentUser()
+		{
+			if(!string.IsNullOrWhiteSpace(_automaticSignonExternalUser))
+			{
+				RemoveSignonDetails(_automaticSignonExternalUser);
+			}
+		}
 
 		private class SignonDetails
 		{
@@ -244,7 +271,9 @@ namespace ExorLive.Client.WebWrapper
 			_webWrapperWindow.ExportUserListEvent += _webWrapperWindow_ExportUserListEvent;
 			_webWrapperWindow.SelectPersonResultEvent += _webWrapperWindow_SelectPersonResultEvent;
 			_webWrapperWindow.ExportSignonDetailsEvent += _webWrapperWindow_ExportSignonDetailsEvent;
-			
+			_webWrapperWindow.UserHasDisconnected += _webWrapperWindow_UserHasDisconnected;
+
+
 			if (_applicationArguments.ContainsKey("culture"))
 			{
 				url = AppendUrlArg(url, $"culture={_applicationArguments["culture"]}");
@@ -297,6 +326,11 @@ namespace ExorLive.Client.WebWrapper
 
 			((MainWindow)_webWrapperWindow).Navigate(new Uri(url));
 			StartNamedPipeServer();
+		}
+
+		private void _webWrapperWindow_UserHasDisconnected(object sender)
+		{
+			DisconnectedCurrentUser();
 		}
 
 		private string AppendUrlArg(string url, string toAppend)

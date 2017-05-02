@@ -190,6 +190,7 @@ namespace ExorLive.Client.WebWrapper
 		public event ExportUserListEventHandler ExportUserListEvent;
 		public event SelectPersonResultEventHandler SelectPersonResultEvent;
 		public event ExportSignonDetailsEventHandler ExportSignonDetailsEvent;
+		public event UserHasDisconnectedEventHandler UserHasDisconnected;
 
 		public void SelectPerson(PersonDTO person)
 		{
@@ -356,21 +357,31 @@ namespace ExorLive.Client.WebWrapper
 		}
 
 
-		private void MenuItem_Click(object sender, RoutedEventArgs e)
+		private void MenuItem_Click_Show(object sender, RoutedEventArgs e)
 		{
 			Restore();
 		}
 
 		public void SignoutAndQuitApplication()
 		{
+			UserHasDisconnected?.Invoke(this);
+			QuitApplication();
+		}
+		public void QuitApplication()
+		{
 			_doClose = true;
 			Navigate(new Uri(App.UserSettings.AppUrl.Replace("/app/", "/signout/").Replace("exorlive.com", "auth.exorlive.com")));
 		}
 
-		private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+		private void MenuItem_Click_Close(object sender, RoutedEventArgs e)
+		{
+			QuitApplication();
+		}
+		private void MenuItem_Click_SignOut(object sender, RoutedEventArgs e)
 		{
 			SignoutAndQuitApplication();
 		}
+
 
 		private void NotTray_TrayMouseDoubleClick(object sender, RoutedEventArgs e)
 		{
@@ -380,6 +391,13 @@ namespace ExorLive.Client.WebWrapper
 		private void CheckForUpdates()
 		{
 			var domain = new Uri("https://webwrapper.exorlive.com/");
+
+			string subfolder = App.UserSettings.UpdatePath;
+			if (!string.IsNullOrWhiteSpace(subfolder))
+			{
+				domain = new Uri(domain + subfolder + "/");
+			}
+
 			var versionFile = new Uri(domain + "msi/version.txt");
 			var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
 			var downloadLink = new Uri(domain + "msi/ExorLiveWebWrapper.x.x.x.x.msi");
