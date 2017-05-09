@@ -43,19 +43,18 @@ The application settings are currently saved in the default configuration file, 
 
 ## Requirements to build
 
-* InstallShield 2015 Limited Edition 
-* License code for InstallShield 2015 LE
+* [WiX Toolset][0], probably with WiX's Visual Studio 2017 extension
 * Deployment password for Azure Web App exorlivewebwrapper.scm.azurewebsites.net (https://webwrapper.exorlive.com)
-* Code signing certificate.
-	* This file must exist: "C:\Program Files (x86)\Windows Kits\10\bin\x86\signtool.exe".
-	* Install the code signing certificate "exorlive.pfx" into your personal certificate store (right click on it and select Install and select location "Current User" and "Personal"). This will be used by signtool to sign the assemblies.
-	* Add the file "exorlive.pfx" into root of the solution folder. This is for InstallShields MSI-build.
+* This file must exist at this location: 
+	- "C:\Program Files (x86)\Windows Kits\10\bin\x86\signtool.exe".
+* A code signing certificate in your personal certificate store (right click on it and select Install and select location "Current User" and "Personal"). This will be used by signtool to sign the assemblies.
+
+	[0]: http://wixtoolset.org/
 
 ## TODO when publishing:
 
 1. Open WebWrapper\Properties\AssemblyInfo.cs and increase assemblyversion and assemblyfileversion.
-2. Open InstallShield\Organize Your Setup\GeneralInformation and increase "Product Version".
-3. Open InstallShield\Organize Your Setup\GeneralInformation and click on the button to the right of "Product Code", which creates a new product code.
+2. Open SetupProject\Product.wxs and increase the "Version" attribute on the Product tag.
 4. Open webwrapper\Webpage\Default.aspx and add info about the release to the changelog.
 5. Right-click on ExorLive.Client.WebWrapper and select the "Publish" tab. Change the version.
 6. Right-click on Webpage project and select "Publish..."
