@@ -58,8 +58,8 @@
 			</Component>
 			<Component Id="Comp_ExorLiveClientWebWrapperexe" Guid="{a4c04c3f-c2cd-4aaf-b61c-28f659cd0738}">
 				<File Id="File_ExorLive.Client.WebWrapper.exe" KeyPath="yes" Source="Files\ExorLive.Client.WebWrapper.exe" />
-				<Shortcut Id="Cmp_ProgramShortcut_Primary" Directory="ProgramMenuDir" Name="ExorLive (New)" Icon="exorlive.ico" Advertise="yes" />
-				<Shortcut Id="Cmp_DesktopShortcut_Primary" Directory="DesktopFolder" Name="ExorLive (New)" Icon="exorlive.ico" Advertise="yes" />
+				<Shortcut Id="Cmp_ProgramShortcut_Primary" Directory="ProgramMenuDir" Name="ExorLive" Icon="exorlive.ico" Advertise="yes" />
+				<Shortcut Id="Cmp_DesktopShortcut_Primary" Directory="DesktopFolder" Name="ExorLive" Icon="exorlive.ico" Advertise="yes" />
 				<RemoveFolder Directory="ProgramMenuDir" Id="RemoveProgramMenuDir" On="uninstall" />
 			</Component>
 		</DirectoryRef>
