@@ -14,6 +14,8 @@ using WebView = EO.WebBrowser.WebView;
 /// <summary>
 /// A interface for the Eo.WebBrowser object.
 /// http://www.essentialobjects.com/Products/WebBrowser/
+/// Documentation of the Eo browser API:
+/// https://www.essentialobjects.com/doc/webbrowser/start/overview.aspx
 /// </summary>
 public class EoBrowser : IBrowser
 {
@@ -42,6 +44,8 @@ public class EoBrowser : IBrowser
 		{
 			Runtime.AddLicense(Resources.EoBrowserLicenseFile);
 		}
+		// If you are fixing the black boxes bug, try see if uncommenting the next line helps.
+		// Engine.Default.Options.DisableGPU = true;
 		_browser = new WebControl();
 		_browser.WebView.BeforeNavigate += WebView_BeforeNavigate;
 		_browser.WebView.IsLoadingChanged += WebView_IsLoadingChanged;
