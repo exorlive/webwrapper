@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
 // <copyright file="SingleInstance.cs" company="Microsoft">
 //     Copyright (c) Microsoft Corporation.  All rights reserved.
 // </copyright>
@@ -163,9 +163,8 @@ namespace Microsoft.Shell
 			var argv = IntPtr.Zero;
 			try
 			{
-				var numArgs = 0;
 
-				argv = _CommandLineToArgvW(cmdLine, out numArgs);
+				argv = _CommandLineToArgvW(cmdLine, out var numArgs);
 				if (argv == IntPtr.Zero)
 				{
 					throw new Win32Exception();
@@ -255,11 +254,7 @@ namespace Microsoft.Shell
 		/// <summary>
 		/// Gets list of command line arguments for the application.
 		/// </summary>
-		public static IList<string> CommandLineArgs
-		{
-			get { return commandLineArgs; }
-		}
-
+		public static IList<string> CommandLineArgs => commandLineArgs;
 		#endregion
 
 		#region Public Methods
@@ -279,8 +274,7 @@ namespace Microsoft.Shell
 			var channelName = String.Concat(applicationIdentifier, Delimiter, ChannelNameSuffix);
 
 			// Create mutex based on unique application Id to check if this is the first instance of the application. 
-			bool firstInstance;
-			singleInstanceMutex = new Mutex(true, applicationIdentifier, out firstInstance);
+			singleInstanceMutex = new Mutex(true, applicationIdentifier, out var firstInstance);
 			if (firstInstance)
 			{
 				CreateRemoteService(channelName);
@@ -369,13 +363,14 @@ namespace Microsoft.Shell
 		/// <param name="channelName">Application's IPC channel name.</param>
 		private static void CreateRemoteService(string channelName)
 		{
-			var serverProvider = new BinaryServerFormatterSinkProvider();
-			serverProvider.TypeFilterLevel = TypeFilterLevel.Full;
-			IDictionary props = new Dictionary<string, string>();
-
-			props["name"] = channelName;
-			props["portName"] = channelName;
-			props["exclusiveAddressUse"] = "false";
+			var serverProvider = new BinaryServerFormatterSinkProvider() {
+				TypeFilterLevel = TypeFilterLevel.Full
+			};
+			IDictionary props = new Dictionary<string, string> {
+				["name"] = channelName,
+				["portName"] = channelName,
+				["exclusiveAddressUse"] = "false"
+			};
 
 			// Create the IPC Server channel with the channel properties
 			channel = new IpcServerChannel(props, serverProvider);

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -52,8 +52,8 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 			{
 				try
 				{
-                    PipeAccessRule rule = new PipeAccessRule(new SecurityIdentifier("S-1-1-0"), PipeAccessRights.ReadWrite, System.Security.AccessControl.AccessControlType.Allow);
-                    PipeSecurity pipeSecurity = new PipeSecurity();
+                    var rule = new PipeAccessRule(new SecurityIdentifier("S-1-1-0"), PipeAccessRights.ReadWrite, System.Security.AccessControl.AccessControlType.Allow);
+                    var pipeSecurity = new PipeSecurity();
                     pipeSecurity.AddAccessRule(rule);
 
                     var pipeServer = new NamedPipeServerStream(Pipename, PipeDirection.InOut, 1,
@@ -79,8 +79,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 				{
 					var ss = new StringStream(_pipeServer);
 					var request = ss.ReadString();
-					string jsonresult;
-					var isSuccessfullAsyncCall = HandlePipeRequest(request, out jsonresult);
+					var isSuccessfullAsyncCall = HandlePipeRequest(request, out var jsonresult);
 					if (isSuccessfullAsyncCall)
 					{
 						// Stop this loop to wait for the async call to finish
@@ -89,7 +88,10 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 					}
 					else
 					{
-						if (!string.IsNullOrWhiteSpace(jsonresult)) ss.WriteString(jsonresult);
+						if (!string.IsNullOrWhiteSpace(jsonresult)) {
+							ss.WriteString(jsonresult);
+						}
+
 						_pipeServer.Close();
 						_pipeServer = null;
 					}
@@ -161,15 +163,13 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 				foreach (var pair in request.Args)
 				{
 					var key = pair.Key.ToLower();
-					string value = pair.Value.ToString();
+					var value = pair.Value.ToString();
 					switch (key)
 					{
 						case "id": dto.ExternalId = value; break;
 						case "userid":
 							{
-								int idAsInt;
-								if(int.TryParse(value, out idAsInt))
-								{
+								if(int.TryParse(value, out var idAsInt)) {
 									dto.UserId = idAsInt;
 								}
 							}
@@ -189,16 +189,11 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 						case "dateofbirth":
 							if (!string.IsNullOrWhiteSpace(value))
 							{
-								DateTime dt;
-								if (DateTime.TryParseExact(value, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
-								{
+								if(DateTime.TryParseExact(value, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dt)) {
 									dto.DateOfBirth = dt.ToString("yyyy-MM-dd");
-								}
-								else
-								{
+								} else {
 									// We would prefer people to use ISO 8601, but let the OS try to parse it instead:
-									if (DateTime.TryParse(value, out dt))
-									{
+									if(DateTime.TryParse(value, out dt)) {
 										// And THEN i transform it back to a ISO 8601 valid date string:
 										dto.DateOfBirth = dt.ToString("yyyy-MM-dd");
 									}
@@ -222,27 +217,18 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 							try
 							{
 								// Format the profile as a json string, to be able to send it as a string to ExorLive.
-								string json = "";
-								JArray data = pair.Value as JArray;
-								if(data != null)
-								{
+								var json = "";
+								if(pair.Value is JArray data) {
 									json = Newtonsoft.Json.JsonConvert.SerializeObject(pair.Value);
 									StringBuilder sblog = new StringBuilder("SelectPerson.ProfileData").AppendLine();
-									foreach(var entry in data)
-									{
-										IList<JToken> list = entry as IList<JToken>;
-										if(list != null)
-										{
-											bool firstProp = true;
-											foreach(JProperty prop in list)
-											{
-												if (firstProp)
-												{
+									foreach(var entry in data) {
+										if(entry is IList<JToken> list) {
+											var firstProp = true;
+											foreach(JProperty prop in list) {
+												if(firstProp) {
 													firstProp = false;
 													sblog.Append("   ");
-												}
-												else
-												{
+												} else {
 													sblog.Append(" | ");
 												}
 												sblog.Append(prop.Name).Append("=").Append(prop.Value);
@@ -306,8 +292,8 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 			try
 			{
 				directResult = "";
-				int indexArgs = requeststring.IndexOf("\"Args\"", StringComparison.OrdinalIgnoreCase);
-				int indexMethodTest = requeststring.IndexOf("\"SelectPerson\"", StringComparison.OrdinalIgnoreCase);
+				var indexArgs = requeststring.IndexOf("\"Args\"", StringComparison.OrdinalIgnoreCase);
+				var indexMethodTest = requeststring.IndexOf("\"SelectPerson\"", StringComparison.OrdinalIgnoreCase);
 				if (indexMethodTest > 0 && indexMethodTest < indexArgs)
 				{
 					var request = Newtonsoft.Json.JsonConvert.DeserializeObject<NamedPipeRequest2>(requeststring);
@@ -332,7 +318,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 								case "getworkoutsforclient":
 									if (request.Args != null && request.Args.Count > 0)
 									{
-										int userId = 0;
+										var userId = 0;
 										var customId = "";
 										var from = DateTime.MinValue;
 										foreach (var pair in request.Args)
@@ -387,14 +373,10 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 											{
 												// ReSharper disable once RedundantAssignment
 												foundId = true;
-												int id;
-												if (int.TryParse(pair.Value, out id))
-												{
+												if(int.TryParse(pair.Value, out var id)) {
 													OpenWorkout(id);
 													return false;
-												}
-												else
-												{
+												} else {
 													directResult = JsonFormatError("Value '{0}' for id is not an integer.", pair.Value);
 													_app.Log("<< Result: {0}", directResult);
 													return false;

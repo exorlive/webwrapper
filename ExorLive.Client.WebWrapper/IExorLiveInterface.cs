@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 public interface IExorLiveInterface
 {
 	void alert(string title, string message);
@@ -76,6 +76,5 @@ public interface IExorLiveInterface
 	void getWorkoutsForCustomId(int userId, string customId, DateTime from);
 	void getListOfUsers(string customId);
 	void openWorkout(int id);
-
 	void getOsloSignonDetails();
 }

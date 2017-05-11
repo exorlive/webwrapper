@@ -199,7 +199,10 @@ public class WindowsBrowser : IBrowser
 	private static void HideScriptErrors(FrameworkElement wb, bool hide)
 	{
 		var fiComWebBrowser = typeof(WebBrowser).GetField("_axIWebBrowser2", BindingFlags.Instance | BindingFlags.NonPublic);
-		if (fiComWebBrowser == null) return;
+		if (fiComWebBrowser == null) {
+			return;
+		}
+
 		var objComWebBrowser = fiComWebBrowser.GetValue(wb);
 		if (objComWebBrowser == null)
 		{

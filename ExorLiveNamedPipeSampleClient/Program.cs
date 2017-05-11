@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO.Pipes;
 using ExorLive.Client;
@@ -12,14 +12,10 @@ namespace ExorLiveNamedPipeSampleClient
 		{
 			return "exorlivepipe." + processId;
 		}
-		private static string WebwrapperProcessName
-		{
-			get { return "ExorLive.Client.WebWrapper"; }
-		}
-
+		private static string WebwrapperProcessName => "ExorLive.Client.WebWrapper";
 		private static NamedPipeClientStream GetPipeClient()
 		{
-			int processId = ProcessTool.FindProcessIdByName(WebwrapperProcessName);
+			var processId = ProcessTool.FindProcessIdByName(WebwrapperProcessName);
 			if(processId==0)
 			{
 				// For running in debugging tool.
@@ -56,8 +52,11 @@ namespace ExorLiveNamedPipeSampleClient
 				if (!string.IsNullOrWhiteSpace(line))
 				{
 					line = line.Trim();
-					string lower = line.ToLower();
-					if (lower == "exit" || lower == "quit" || lower == "q" || lower == "bye") break;
+					var lower = line.ToLower();
+					if (lower == "exit" || lower == "quit" || lower == "q" || lower == "bye") {
+						break;
+					}
+
 					if (lower == "help")
 					{
 						Console.WriteLine("--------------------------------");
@@ -108,7 +107,10 @@ namespace ExorLiveNamedPipeSampleClient
 					{
 						string customid = null;
 						string[] array = line.Split(splitter, StringSplitOptions.RemoveEmptyEntries);
-						if (array.Length > 1) customid = array[1];
+						if (array.Length > 1) {
+							customid = array[1];
+						}
+
 						GetListOfUsers(customid);
 					}
 					if (lower == "show")
@@ -136,11 +138,17 @@ namespace ExorLiveNamedPipeSampleClient
 						string[] array = line.Split(splitter, StringSplitOptions.RemoveEmptyEntries);
 						if (array.Length > 1)
 						{
-							string userId = array[1];
-							string customId = "";
-							string from = "";
-							if (array.Length > 2) customId = array[2];
-							if (array.Length > 3) from = array[3];
+							var userId = array[1];
+							var customId = "";
+							var from = "";
+							if (array.Length > 2) {
+								customId = array[2];
+							}
+
+							if (array.Length > 3) {
+								from = array[3];
+							}
+
 							GetWorkoutData(userId, customId, from);
 						}
 					}
@@ -167,14 +175,15 @@ namespace ExorLiveNamedPipeSampleClient
 
 		private static void WebwrapperVersion()
 		{
-			NamedPipeRequest request = new NamedPipeRequest();
-			request.Method = "version";
-			string json = Newtonsoft.Json.JsonConvert.SerializeObject(request);
+			var request = new NamedPipeRequest() {
+				Method = "version"
+			};
+			var json = Newtonsoft.Json.JsonConvert.SerializeObject(request);
 
 			NamedPipeClientStream pipeClient = GetPipeClient();
 			if (pipeClient != null)
 			{
-				StringStream ss = new StringStream(pipeClient);
+				var ss = new StringStream(pipeClient);
 				ss.WriteString(json);
 				var response = ss.ReadString();
 				Console.WriteLine(response);
@@ -184,14 +193,15 @@ namespace ExorLiveNamedPipeSampleClient
 
 		private static void TurnOnLogging()
 		{
-			NamedPipeRequest request = new NamedPipeRequest();
-			request.Method = "log";
-			string json = Newtonsoft.Json.JsonConvert.SerializeObject(request);
+			var request = new NamedPipeRequest() {
+				Method = "log"
+			};
+			var json = Newtonsoft.Json.JsonConvert.SerializeObject(request);
 
 			NamedPipeClientStream pipeClient = GetPipeClient();
 			if (pipeClient != null)
 			{
-				StringStream ss = new StringStream(pipeClient);
+				var ss = new StringStream(pipeClient);
 				ss.WriteString(json);
 				Console.WriteLine("------------------------------------------------------------");
 			}
@@ -204,19 +214,20 @@ namespace ExorLiveNamedPipeSampleClient
 				Method = "SelectPerson"
 			};
 			request.Args = new Dictionary<string, object>(array.Length);
-			foreach (string item in array)
+			foreach (var item in array)
 			{
-				int index = item.IndexOf("=");
+				var index = item.IndexOf("=");
 				if (index > 0 && index < item.Length - 1)
 				{
 					request.Args.Add(item.Substring(0, index), item.Substring(index + 1));
 				}
 			}
 			// Add some ProfileData
-			List<Dictionary<string, string>> data = new List<Dictionary<string, string>>(3);
-			data.Add(new Dictionary<string, string> { { "key", "diagnosis" }, { "name", "Diagnose" }, { "value", "Lumbago" }, { "date", "2016-08-24 14:04" }, { "source", "MyJournal" } });
-			data.Add(new Dictionary<string, string> { { "key", "diagnosiscode" }, { "name", "Diagnosekode" }, { "value", "L2" }, { "unit", "ICPC-2" }, { "date", "2016-08-24 14:04" }, { "source", "MyJournal" } });
-			data.Add(new Dictionary<string, string> { { "key", "weight" }, { "name", "Vekt" }, { "value", "80" }, { "unit", "kg" }, { "date", "2016-08-23" }, { "source", "ExorLive GO" }, { "description", "På badevekta om morgenen" } });
+			var data = new List<Dictionary<string, string>>(3) {
+				new Dictionary<string, string> { { "key", "diagnosis" }, { "name", "Diagnose" }, { "value", "Lumbago" }, { "date", "2016-08-24 14:04" }, { "source", "MyJournal" } },
+				new Dictionary<string, string> { { "key", "diagnosiscode" }, { "name", "Diagnosekode" }, { "value", "L2" }, { "unit", "ICPC-2" }, { "date", "2016-08-24 14:04" }, { "source", "MyJournal" } },
+				new Dictionary<string, string> { { "key", "weight" }, { "name", "Vekt" }, { "value", "80" }, { "unit", "kg" }, { "date", "2016-08-23" }, { "source", "ExorLive GO" }, { "description", "På badevekta om morgenen" } }
+			};
 			request.Args.Add("profiledata", data);
 
 			var json = Newtonsoft.Json.JsonConvert.SerializeObject(request);
@@ -235,43 +246,46 @@ namespace ExorLiveNamedPipeSampleClient
 
 		static void Show()
 		{
-			NamedPipeRequest request = new NamedPipeRequest();
-			request.Method = "Show";
-			string json = Newtonsoft.Json.JsonConvert.SerializeObject(request);
+			var request = new NamedPipeRequest() {
+				Method = "Show"
+			};
+			var json = Newtonsoft.Json.JsonConvert.SerializeObject(request);
 
 			NamedPipeClientStream pipeClient = GetPipeClient();
 			if (pipeClient != null)
 			{
 
-				StringStream ss = new StringStream(pipeClient);
+				var ss = new StringStream(pipeClient);
 				ss.WriteString(json);
 				Console.WriteLine("------------------------------------------------------------");
 			}
 		}
 		static void Hide()
 		{
-			NamedPipeRequest request = new NamedPipeRequest();
-			request.Method = "Hide";
-			string json = Newtonsoft.Json.JsonConvert.SerializeObject(request);
+			var request = new NamedPipeRequest() {
+				Method = "Hide"
+			};
+			var json = Newtonsoft.Json.JsonConvert.SerializeObject(request);
 
 			NamedPipeClientStream pipeClient = GetPipeClient();
 			if (pipeClient != null)
 			{
-				StringStream ss = new StringStream(pipeClient);
+				var ss = new StringStream(pipeClient);
 				ss.WriteString(json);
 				Console.WriteLine("------------------------------------------------------------");
 			}
 		}
 		static void Close()
 		{
-			NamedPipeRequest request = new NamedPipeRequest();
-			request.Method = "Close";
-			string json = Newtonsoft.Json.JsonConvert.SerializeObject(request);
+			var request = new NamedPipeRequest() {
+				Method = "Close"
+			};
+			var json = Newtonsoft.Json.JsonConvert.SerializeObject(request);
 
 			NamedPipeClientStream pipeClient = GetPipeClient();
 			if (pipeClient != null)
 			{
-				StringStream ss = new StringStream(pipeClient);
+				var ss = new StringStream(pipeClient);
 				ss.WriteString(json);
 				Console.WriteLine("------------------------------------------------------------");
 			}
@@ -279,16 +293,17 @@ namespace ExorLiveNamedPipeSampleClient
 
 		static void OpenWorkout(string wid)
 		{
-			NamedPipeRequest request = new NamedPipeRequest();
-			request.Method = "OpenWorkout";
-			request.Args = new Dictionary<string, string>(1);
+			var request = new NamedPipeRequest() {
+				Method = "OpenWorkout",
+				Args = new Dictionary<string, string>(1)
+			};
 			request.Args.Add("id", wid);
-			string json = Newtonsoft.Json.JsonConvert.SerializeObject(request);
+			var json = Newtonsoft.Json.JsonConvert.SerializeObject(request);
 
 			NamedPipeClientStream pipeClient = GetPipeClient();
 			if (pipeClient != null)
 			{
-				StringStream ss = new StringStream(pipeClient);
+				var ss = new StringStream(pipeClient);
 				ss.WriteString(json);
 				Console.WriteLine("------------------------------------------------------------");
 			}
@@ -301,9 +316,18 @@ namespace ExorLiveNamedPipeSampleClient
 				Method = "GetWorkoutsForClient",
 				Args = new Dictionary<string, string>(3)
 			};
-			if (!string.IsNullOrWhiteSpace(userId) && userId != "0") request.Args.Add("userid", userId);
-			if (!string.IsNullOrWhiteSpace(customId) && customId != "0") request.Args.Add("customid", customId);
-			if (!string.IsNullOrWhiteSpace(from) && from != "0") request.Args.Add("from", from);
+			if (!string.IsNullOrWhiteSpace(userId) && userId != "0") {
+				request.Args.Add("userid", userId);
+			}
+
+			if (!string.IsNullOrWhiteSpace(customId) && customId != "0") {
+				request.Args.Add("customid", customId);
+			}
+
+			if (!string.IsNullOrWhiteSpace(from) && from != "0") {
+				request.Args.Add("from", from);
+			}
+
 			var json = Newtonsoft.Json.JsonConvert.SerializeObject(request);
 
 			NamedPipeClientStream pipeClient = GetPipeClient();
@@ -355,7 +379,10 @@ namespace ExorLiveNamedPipeSampleClient
 					foreach (var user in userslist)
 					{
 						string date = user.DateOfBirth;
-						if (date.StartsWith("000")) date = "";
+						if (date.StartsWith("000")) {
+							date = "";
+						}
+
 						Console.WriteLine("  {0,8}: CustomId: {1,8} Date-of-birth: {2,11}  - {3} {4} - {5}", user.Id, user.CustomId, date, user.Firstname, user.Lastname, user.Email);
 					}
 				}

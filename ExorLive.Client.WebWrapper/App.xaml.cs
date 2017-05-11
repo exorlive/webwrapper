@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -26,12 +26,9 @@ namespace ExorLive.Client.WebWrapper
 		private NpServer _npServer;
 		public bool ExorLiveIsRunning;
 		public static Settings UserSettings { get; private set; }
-
 		private string _automaticSignonExternalUser = null;
 		private bool _shallStoreAutomaticSignonUser = false;
-
-		public static string ApplicationIdentifier
-			=> $"{Assembly.GetExecutingAssembly().FullName} ({_hostedComponent.GetName()})";
+		public static string ApplicationIdentifier => $"{Assembly.GetExecutingAssembly().FullName} ({_hostedComponent.GetName()})";
 
 		public static bool Debug => Convert.ToBoolean(Settings.Default.Debug);
 
@@ -57,20 +54,15 @@ namespace ExorLive.Client.WebWrapper
 
 		private string GetSignonString(string signonuser)
 		{
-			if (ToBool(Settings.Default.RememberLoggedInUser))
-			{
-				string dictstring = UserSettings.OsloSettings;
-				if (!string.IsNullOrWhiteSpace(dictstring))
-				{
+			if(ToBool(Settings.Default.RememberLoggedInUser)) {
+				var dictstring = UserSettings.OsloSettings;
+				if(!string.IsNullOrWhiteSpace(dictstring)) {
 					Dictionary<string, SignonDetails> dict;
 					dict = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, SignonDetails>>(dictstring);
-					if (dict != null && dict.Count > 0)
-					{
-						SignonDetails details;
-						if (dict.TryGetValue(signonuser, out details))
-						{
-							string time = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
-							string crypt = GetHash(time);
+					if(dict != null && dict.Count > 0) {
+						if(dict.TryGetValue(signonuser, out SignonDetails details)) {
+							var time = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
+							var crypt = GetHash(time);
 							return string.Format("q={0}|{1}|{2}|{3}|{4}",
 								details.UserId,
 								details.Username,
@@ -86,20 +78,16 @@ namespace ExorLive.Client.WebWrapper
 
 		private void StoreSignonDetails(string signonuser, int userId, string username, string token)
 		{
-			if (ToBool(Settings.Default.RememberLoggedInUser))
-			{
+			if(ToBool(Settings.Default.RememberLoggedInUser)) {
 				Dictionary<string, SignonDetails> dict = null;
-				string dictstring = UserSettings.OsloSettings;
-				if (!string.IsNullOrWhiteSpace(dictstring))
-				{
+				var dictstring = UserSettings.OsloSettings;
+				if(!string.IsNullOrWhiteSpace(dictstring)) {
 					dict = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, SignonDetails>>(dictstring);
 				}
-				if (dict == null)
-				{
+				if(dict == null) {
 					dict = new Dictionary<string, SignonDetails>(1);
 				}
-				dict[signonuser] = new SignonDetails()
-				{
+				dict[signonuser] = new SignonDetails() {
 					UserId = userId,
 					Username = username,
 					Token = token
@@ -111,16 +99,12 @@ namespace ExorLive.Client.WebWrapper
 
 		private void RemoveSignonDetails(string signonuser)
 		{
-			string dictstring = UserSettings.OsloSettings;
-			if (!string.IsNullOrWhiteSpace(dictstring))
-			{
+			var dictstring = UserSettings.OsloSettings;
+			if(!string.IsNullOrWhiteSpace(dictstring)) {
 				Dictionary<string, SignonDetails> dict;
 				dict = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, SignonDetails>>(dictstring);
-				if (dict != null && dict.Count > 0)
-				{
-					SignonDetails details;
-					if (dict.TryGetValue(signonuser, out details))
-					{
+				if(dict != null && dict.Count > 0) {
+					if(dict.TryGetValue(signonuser, out SignonDetails details)) {
 						dict.Remove(signonuser);
 						dictstring = Newtonsoft.Json.JsonConvert.SerializeObject(dict);
 						UserSettings.OsloSettings = dictstring;
@@ -131,8 +115,7 @@ namespace ExorLive.Client.WebWrapper
 
 		public void DisconnectedCurrentUser()
 		{
-			if(!string.IsNullOrWhiteSpace(_automaticSignonExternalUser))
-			{
+			if(!string.IsNullOrWhiteSpace(_automaticSignonExternalUser)) {
 				RemoveSignonDetails(_automaticSignonExternalUser);
 			}
 		}
@@ -149,14 +132,11 @@ namespace ExorLive.Client.WebWrapper
 			var sha1 = new SHA1CryptoServiceProvider();
 			return ByteToHex(sha1.ComputeHash(Encoding.UTF8.GetBytes(txt))).ToLower();
 		}
-
 		private static string ByteToHex(byte[] ba)
 		{
-			string hex = BitConverter.ToString(ba);
+			var hex = BitConverter.ToString(ba);
 			return hex.Replace("-", "");
 		}
-		
-
 		public void QueryWorkouts(string query)
 		{
 			_webWrapperWindow.QueryWorkouts(query);
@@ -167,46 +147,35 @@ namespace ExorLive.Client.WebWrapper
 		}
 		public void OpenWorkout(string workoutIdAsString)
 		{
-			int id;
-			if(int.TryParse(workoutIdAsString, out id))
-			{
-				if(id > 0)
-				{
+			if(int.TryParse(workoutIdAsString, out var id)) {
+				if(id > 0) {
 					_webWrapperWindow.OpenWorkout(id);
 				}
 			}
 		}
-
 		private bool _logging = false;
-		public bool Logging
-		{
-			get { return _logging; }
-			set { _logging = value; }
+		public bool Logging {
+			get => _logging;
+			set => _logging = value;
 		}
 		public void Log(string format, params object[] args)
 		{
-			try
-			{
-				if (Logging)
-				{
-					string path = Directory.GetCurrentDirectory();
-					string filename = Path.Combine(path, "ExorLive.Client.Webwrapper.log");
+			try {
+				if(Logging) {
+					var path = Directory.GetCurrentDirectory();
+					var filename = Path.Combine(path, "ExorLive.Client.Webwrapper.log");
 
-					string line = string.Format("{0}: {1}{2}", DateTime.Now, args != null ? string.Format(format, args) : format, Environment.NewLine);
+					var line = string.Format("{0}: {1}{2}", DateTime.Now, args != null ? string.Format(format, args) : format, Environment.NewLine);
 					File.AppendAllText(filename, line, Encoding.UTF8);
 				}
-			}
-			catch(Exception)
-			{
+			} catch(Exception) {
 				// Ignore any error.
 			}
 		}
 
 		private bool ToBool(string s)
 		{
-			bool aBool;
-			if (Boolean.TryParse(s, out aBool))
-			{
+			if(Boolean.TryParse(s, out var aBool)) {
 				return aBool;
 			}
 			return false;
@@ -222,12 +191,9 @@ namespace ExorLive.Client.WebWrapper
 		public bool SignalExternalCommandLineArgs(IList<string> args)
 		{
 			((MainWindow)_webWrapperWindow).Restore();
-			if (_webWrapperWindow.Loaded)
-			{
+			if(_webWrapperWindow.Loaded) {
 				HandleCommandLine(args.Skip(1).ToArray());
-			}
-			else
-			{
+			} else {
 				_applicationArguments = args.Skip(1).Select(argument => argument.Split('='))
 					.Where(argumentKeyAndValue => argumentKeyAndValue.Length == 2)
 					.ToDictionary(argumentKey => argumentKey[0], argumentValue => argumentValue[1]);
@@ -238,7 +204,10 @@ namespace ExorLive.Client.WebWrapper
 		[STAThread]
 		public static void Main()
 		{
-			if (!SingleInstance<App>.InitializeAsFirstInstance(Unique)) return;
+			if(!SingleInstance<App>.InitializeAsFirstInstance(Unique)) {
+				return;
+			}
+
 			var application = new App();
 
 			application.InitializeComponent();
@@ -247,7 +216,7 @@ namespace ExorLive.Client.WebWrapper
 
 			// Allow single instance code to perform cleanup operations
 			SingleInstance<App>.Cleanup();
-		}		
+		}
 
 		/// <summary>
 		///     Handles the Startup event of the Application control.
@@ -274,34 +243,27 @@ namespace ExorLive.Client.WebWrapper
 			_webWrapperWindow.UserHasDisconnected += _webWrapperWindow_UserHasDisconnected;
 
 
-			if (_applicationArguments.ContainsKey("culture"))
-			{
+			if(_applicationArguments.ContainsKey("culture")) {
 				url = AppendUrlArg(url, $"culture={_applicationArguments["culture"]}");
 			}
-			bool hasAutoSignonUser = false;
-			if(ToBool(UserSettings.SignonWithWindowsUser))
-			{
+			var hasAutoSignonUser = false;
+			if(ToBool(UserSettings.SignonWithWindowsUser)) {
 				_automaticSignonExternalUser = Environment.UserName + "@" + Environment.UserDomainName;
-				string signonstring = GetSignonString(_automaticSignonExternalUser);
-				if (!string.IsNullOrWhiteSpace(signonstring))
-				{
+				var signonstring = GetSignonString(_automaticSignonExternalUser);
+				if(!string.IsNullOrWhiteSpace(signonstring)) {
 					url = AppendUrlArg(url, signonstring);
 					hasAutoSignonUser = true;
 				}
 				// Set flag to pick up signon details after the user has logged in manually.
 				_shallStoreAutomaticSignonUser = true;
 			}
-			if (!hasAutoSignonUser)
-			{
-				if (ToBool(Settings.Default.RememberLoggedInUser))
-				{
-					string signonuser = _hostedComponent.GetSignonUser(e.Args);
-					if (signonuser != null)
-					{
+			if(!hasAutoSignonUser) {
+				if(ToBool(Settings.Default.RememberLoggedInUser)) {
+					var signonuser = _hostedComponent.GetSignonUser(e.Args);
+					if(signonuser != null) {
 						_automaticSignonExternalUser = signonuser;
-						string signonstring = GetSignonString(signonuser);
-						if (!string.IsNullOrWhiteSpace(signonstring))
-						{
+						var signonstring = GetSignonString(signonuser);
+						if(!string.IsNullOrWhiteSpace(signonstring)) {
 							url = AppendUrlArg(url, signonstring);
 							hasAutoSignonUser = true;
 						}
@@ -311,15 +273,11 @@ namespace ExorLive.Client.WebWrapper
 				}
 			}
 
-			if(hasAutoSignonUser)
-			{
+			if(hasAutoSignonUser) {
 				// Navigate to the webwrapper.html instead of standard URL.
-				if(url.Contains("/app/?"))
-				{
+				if(url.Contains("/app/?")) {
 					url = url.Replace("/app/?", "/auth/webwrapper.html?");
-				}
-				else if (url.Contains("/app?"))
-				{
+				} else if(url.Contains("/app?")) {
 					url = url.Replace("/app?", "/auth/webwrapper.html?");
 				}
 			}
@@ -335,9 +293,12 @@ namespace ExorLive.Client.WebWrapper
 
 		private string AppendUrlArg(string url, string toAppend)
 		{
-			if(! string.IsNullOrWhiteSpace(toAppend))
-			{
-				if (url.Contains('?')) url += "&"; else url += "?";
+			if(!string.IsNullOrWhiteSpace(toAppend)) {
+				if(url.Contains('?')) {
+					url += "&";
+				} else {
+					url += "?";
+				}
 				url += toAppend;
 			}
 			return url;
@@ -363,15 +324,12 @@ namespace ExorLive.Client.WebWrapper
 
 		private void _webWrapperWindow_ExportSignonDetailsEvent(object sender, JsonEventArgs args)
 		{
-			string jsonstring = args.JsonData;
+			var jsonstring = args.JsonData;
 
 			dynamic dyn = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(jsonstring);
-			try
-			{
+			try {
 				StoreSignonDetails(_automaticSignonExternalUser, (int)dyn.userid, (string)dyn.username, (string)dyn.token);
-			}
-			catch(Exception)
-			{
+			} catch(Exception) {
 				// Bad information in json string. Ignore.
 			}
 		}
@@ -383,10 +341,8 @@ namespace ExorLive.Client.WebWrapper
 		{
 			ExorLiveIsRunning = true;
 			HandleCommandLine(_cmd);
-			if(_shallStoreAutomaticSignonUser)
-			{
-				if (ToBool(Settings.Default.RememberLoggedInUser))
-				{
+			if(_shallStoreAutomaticSignonUser) {
+				if(ToBool(Settings.Default.RememberLoggedInUser)) {
 					// Get signon-details for the logged-in user and store it in the UserSettings.
 					_webWrapperWindow.GetSignonDetails();
 				}
@@ -395,17 +351,20 @@ namespace ExorLive.Client.WebWrapper
 		private void LoadProtocolProvider()
 		{
 			var provider = string.Empty;
-			if (_applicationArguments.ContainsKey("provider"))
-			{
+			if(_applicationArguments.ContainsKey("provider")) {
 				provider = _applicationArguments["provider"];
-			}
-			else if (!string.IsNullOrEmpty(Settings.Default.ProtocolProvider))
-			{
+			} else if(!string.IsNullOrEmpty(Settings.Default.ProtocolProvider)) {
 				provider = Settings.Default.ProtocolProvider;
 			}
-			if (string.IsNullOrEmpty(provider)) return;
+			if(string.IsNullOrEmpty(provider)) {
+				return;
+			}
+
 			var type = Type.GetType(provider, true);
-			if (type == null) return;
+			if(type == null) {
+				return;
+			}
+
 			_hostedComponent = (IHosted)Activator.CreateInstance(type);
 			_hostedComponent.Initialize(this, Environment.CurrentDirectory);
 		}
@@ -435,8 +394,7 @@ namespace ExorLive.Client.WebWrapper
 		/// </summary>
 		private void StartNamedPipeServer()
 		{
-			if (_npServer == null)
-			{
+			if(_npServer == null) {
 				_npServer = new NpServer();
 				_npServer.Initialize(this, (MainWindow)_webWrapperWindow);
 				_npServer.StartNpServer();

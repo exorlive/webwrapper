@@ -80,8 +80,7 @@ namespace ExorLive.Client {
 		}
 
 		private string GetWorkoutsForClient(string customId, DateTime from) {
-			int userId = 1;
-			int.TryParse(customId, out userId);
+			int.TryParse(customId, out var userId);
 			var list = GetDummyWorkouts(userId, from);
 			var json = Newtonsoft.Json.JsonConvert.SerializeObject(list);
 			return json;
@@ -95,15 +94,19 @@ namespace ExorLive.Client {
 			var start = new DateTime(2015, 6, 1);
 			for (var i = 0; i <= 11; i++) {
 				var at = start.AddMonths(i);
-				if (at >= from)
+				if (at >= from) {
 					workouts.Add(GetDummyWorkout(userId, at, at.ToString("MMMM"), 3 + (i % 5)));
+				}
 			}
 			return workouts;
 		}
 
 		private Workout GetDummyWorkout(int userId, DateTime createdAt, string name, int exercisecount) {
 			var id = userId + (int)(createdAt - new DateTime(2000, 1, 1)).TotalSeconds;
-			if (id < 0) id = -id;
+			if (id < 0) {
+				id = -id;
+			}
+
 			var startindex = id % 100;
 			var exercises = new List<Exercise>(exercisecount);
 			for (var i = 1; i <= exercisecount; i++) {

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows;
 using Hardcodet.Wpf.TaskbarNotification;
 using System.Deployment.Application;
@@ -9,6 +9,7 @@ using System.Net;
 using System.Reflection;
 using System.Windows.Forms;
 
+#pragma warning disable IDE1006 // Naming Styles
 namespace ExorLive.Client.WebWrapper
 {
 	/// <summary>
@@ -33,12 +34,9 @@ namespace ExorLive.Client.WebWrapper
 			SetWindowSize();
 			Restore();
 			_doClose = !App.UserSettings.MinimizeOnExit;
-			try
-			{
+			try {
 				Title += $" {Assembly.GetExecutingAssembly().GetName().Version}";
-			}
-			catch (InvalidDeploymentException)
-			{
+			} catch(InvalidDeploymentException) {
 				Title += " - No version";
 			}
 		}
@@ -46,9 +44,8 @@ namespace ExorLive.Client.WebWrapper
 		private void SetWindowSize()
 		{
 			// Make sure the rectangle is visible within screens.
-			if (IsPointVisibleOnAScreen(new Point(App.UserSettings.Left, App.UserSettings.Top)) &&
-				IsPointVisibleOnAScreen(new Point(App.UserSettings.Left + App.UserSettings.Width, App.UserSettings.Top + App.UserSettings.Height)))
-			{				
+			if(IsPointVisibleOnAScreen(new Point(App.UserSettings.Left, App.UserSettings.Top)) &&
+				IsPointVisibleOnAScreen(new Point(App.UserSettings.Left + App.UserSettings.Width, App.UserSettings.Top + App.UserSettings.Height))) {
 				Top = App.UserSettings.Top;
 				Left = App.UserSettings.Left;
 				Height = App.UserSettings.Height;
@@ -64,17 +61,14 @@ namespace ExorLive.Client.WebWrapper
 
 		private void RememberWindowSize()
 		{
-			if (WindowState == WindowState.Maximized)
-			{
+			if(WindowState == WindowState.Maximized) {
 				// Use the RestoreBounds as the current values will be 0, 0 and the size of the screen
 				App.UserSettings.Top = RestoreBounds.Top;
 				App.UserSettings.Left = RestoreBounds.Left;
 				App.UserSettings.Height = RestoreBounds.Height;
 				App.UserSettings.Width = RestoreBounds.Width;
 				App.UserSettings.Maximized = true;
-			}
-			else
-			{
+			} else {
 				App.UserSettings.Top = Top;
 				App.UserSettings.Left = Left;
 				App.UserSettings.Height = Height;
@@ -102,12 +96,10 @@ namespace ExorLive.Client.WebWrapper
 			_browser.ExportSignonDetailsEvent += _browser_ExportSignonDetailsEvent;
 
 			BrowserGrid.Children.Add(_browser.GetUiElement());
-			if (_navigateToUri != null)
-			{
+			if(_navigateToUri != null) {
 				_browser.Navigate(_navigateToUri);
 			}
-			if (App.UserSettings.CheckForUpdates)
-			{
+			if(App.UserSettings.CheckForUpdates) {
 				CheckForUpdates();
 			}
 		}
@@ -132,8 +124,7 @@ namespace ExorLive.Client.WebWrapper
 
 		private void _browser_BeforeNavigating(object sender, Uri e)
 		{
-			if (e.AbsolutePath.Contains("signout"))
-			{
+			if(e.AbsolutePath.Contains("signout")) {
 				_closeOnNavigate = true;
 			}
 		}
@@ -165,8 +156,7 @@ namespace ExorLive.Client.WebWrapper
 		// ReSharper disable once UnusedMember.Global
 		public void NotifySelectingUser(int id, string externalId, string firstname, string lastname, string email, string dateofbirth)
 		{
-			var person = new PersonDTO()
-			{
+			var person = new PersonDTO() {
 				UserId = id,
 				ExternalId = externalId,
 				Firstname = firstname,
@@ -204,18 +194,15 @@ namespace ExorLive.Client.WebWrapper
 		/// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
 		private void browser_Navigated(object sender, EventArgs e)
 		{
-			if (!_closeOnNavigate) return;
+			if(!_closeOnNavigate) { return; }
 			_doClose = true;
 			Close();
 		}
 		public void SelectPerson2(PersonDTO person)
 		{
-			if(person.UserId > 0)
-			{
+			if(person.UserId > 0) {
 				SelectPersonById(person.UserId);
-			}
-			else if(!string.IsNullOrWhiteSpace(person.ExternalId))
-			{
+			} else if(!string.IsNullOrWhiteSpace(person.ExternalId)) {
 				_browser.SelectPerson2(
 					person.ExternalId,
 					person.Firstname,
@@ -244,8 +231,7 @@ namespace ExorLive.Client.WebWrapper
 			//   If userId > 0 but not a user in the org, give NOTFOUND status back.
 			//   If UserId == 0, ExternalId must be set. A new contact is created in ExorLive.
 			//
-			if(person.UserId > 0 || (!string.IsNullOrWhiteSpace(person.ExternalId)))
-			{
+			if(person.UserId > 0 || (!string.IsNullOrWhiteSpace(person.ExternalId))) {
 				//// Not in use here anymore:
 				////    SelectPersonById(person.UserId);
 
@@ -284,7 +270,7 @@ namespace ExorLive.Client.WebWrapper
 			Restore();
 		}
 
-        public void QueryWorkouts(string query)
+		public void QueryWorkouts(string query)
 		{
 			_browser.QueryWorkouts(query);
 			Restore();
@@ -296,12 +282,10 @@ namespace ExorLive.Client.WebWrapper
 		}
 		public void Restore()
 		{
-			if (!IsVisible)
-			{
+			if(!IsVisible) {
 				Show();
 			}
-			if (WindowState == WindowState.Minimized)
-			{
+			if(WindowState == WindowState.Minimized) {
 				WindowState = WindowState.Normal;
 			}
 			Activate();
@@ -315,13 +299,11 @@ namespace ExorLive.Client.WebWrapper
 			// Must force webwrapper to appear in front on other (calling) application when that application calls "show" command.
 			// http://stackoverflow.com/questions/257587/bring-a-window-to-the-front-in-wpf
 
-			if (!IsVisible)
-			{
+			if(!IsVisible) {
 				Show();
 			}
 
-			if (WindowState == WindowState.Minimized)
-			{
+			if(WindowState == WindowState.Minimized) {
 				WindowState = WindowState.Normal;
 			}
 
@@ -348,8 +330,8 @@ namespace ExorLive.Client.WebWrapper
 		private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			RememberWindowSize();
-			if (_doClose) { return; }
-			if (!Loaded) { return; }
+			if(_doClose) { return; }
+			if(!Loaded) { return; }
 			e.Cancel = true;
 			WindowState = WindowState.Minimized;
 			Hide();
@@ -392,28 +374,21 @@ namespace ExorLive.Client.WebWrapper
 		{
 			var domain = new Uri("https://webwrapper.exorlive.com/");
 
-			string subfolder = App.UserSettings.UpdatePath;
-			if (!string.IsNullOrWhiteSpace(subfolder))
-			{
+			var subfolder = App.UserSettings.UpdatePath;
+			if(!string.IsNullOrWhiteSpace(subfolder)) {
 				domain = new Uri(domain + subfolder + "/");
 			}
 
 			var versionFile = new Uri(domain + "msi/version.txt");
 			var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
 			var downloadLink = new Uri(domain + "msi/ExorLiveWebWrapper.x.x.x.x.msi");
-			try
-			{
-				using (var client = new WebClient())
-				{
-					using (var stream = client.OpenRead(versionFile))
-					{
-						if (stream != null)
-						{
-							using (var reader = new StreamReader(stream))
-							{
+			try {
+				using(var client = new WebClient()) {
+					using(var stream = client.OpenRead(versionFile)) {
+						if(stream != null) {
+							using(var reader = new StreamReader(stream)) {
 								var response = reader.ReadLine();
-								if (response != null)
-								{
+								if(response != null) {
 									var s = response.Split('.');
 									var newestVersion = new Version(
 										int.Parse(s[0]),
@@ -421,8 +396,7 @@ namespace ExorLive.Client.WebWrapper
 										int.Parse(s[2]),
 										0
 									);  // Ignore updates that is just a build or a revision.
-									if (newestVersion > assemblyVersion)
-									{
+									if(newestVersion > assemblyVersion) {
 										DownloadLink.NavigateUri = new Uri(downloadLink.AbsoluteUri.Replace("x.x.x.x", newestVersion.ToString()));
 										UpdateNotification.IsExpanded = true;
 									}
@@ -431,9 +405,7 @@ namespace ExorLive.Client.WebWrapper
 						}
 					}
 				}
-			}
-			catch (Exception)
-			{
+			} catch(Exception) {
 				// No internet? Blocked? Lets do nothing.
 			}
 		}
@@ -469,3 +441,4 @@ namespace ExorLive.Client.WebWrapper
 		}
 	}
 }
+#pragma warning restore IDE1006 // Naming Styles

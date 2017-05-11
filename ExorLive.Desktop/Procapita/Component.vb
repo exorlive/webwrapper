@@ -1,10 +1,8 @@
-﻿Imports System.Globalization
-
 Namespace Desktop.Procapita
-    ' ReSharper disable once UnusedMember.Global
-    Public Class Component
-        Implements IHosted
-        Private WithEvents _host As IHost
+	' ReSharper disable once UnusedMember.Global
+	Public Class Component
+		Implements IHosted
+		Private WithEvents _host As IHost
 		Public Function GetName() As String Implements IHosted.GetName
 			Return "Procapita API"
 		End Function
@@ -59,8 +57,8 @@ Namespace Desktop.Procapita
 		End Sub
 
 		Public Sub Initialize(host As IHost, currentDirectory As String) Implements IHosted.Initialize
-            _host = host
-        End Sub
+			_host = host
+		End Sub
 
 		Private Sub _host_WindowMinified() Handles _host.WindowMinified
 		End Sub

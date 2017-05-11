@@ -1,4 +1,4 @@
-﻿using System.Configuration;
+using System.Configuration;
 
 namespace ExorLive.Properties
 {
@@ -12,14 +12,8 @@ namespace ExorLive.Properties
 		[UserScopedSetting()]
 		public string OsloSettings
 		{
-			get
-			{
-				return ((string)this["OsloSettings"]);
-			}
-			set
-			{
-				this["OsloSettings"] = value;
-			}
+			get => ((string)this["OsloSettings"]);
+			set => this["OsloSettings"] = value;
 		}
 
 	}

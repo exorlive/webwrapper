@@ -32,20 +32,20 @@
     <Setting Name="Maximized" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="ProtocolProvider" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">ExorLive.Desktop.Procapita.Component, ExorLive.Desktop</Value>
-    </Setting>
-    <Setting Name="RememberLoggedInUser" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="SignonWithWindowsUser" Type="System.String" Scope="Application">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="AppUrl" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://exorlive.com/app/</Value>
     </Setting>
+    <Setting Name="ProtocolProvider" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">ExorLive.Desktop.Arguments.Component, ExorLive.Desktop</Value>
+    </Setting>
+    <Setting Name="RememberLoggedInUser" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
     <Setting Name="UpdatePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">procapita</Value>
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

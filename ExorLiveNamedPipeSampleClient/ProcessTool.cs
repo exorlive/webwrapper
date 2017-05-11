@@ -17,7 +17,7 @@ namespace ExorLiveNamedPipeSampleClient
 		/// <param name="name"></param>
 		public static int FindProcessIdByName(string name)
 		{
-			string currentUser = GetProcessUser(Process.GetCurrentProcess());
+			var currentUser = GetProcessUser(Process.GetCurrentProcess());
 			foreach(Process process in Process.GetProcessesByName(name))
 			{
 				if(currentUser == GetProcessUser(process))
@@ -42,8 +42,8 @@ namespace ExorLiveNamedPipeSampleClient
 			try
 			{
 				OpenProcessToken(process.Handle, 8, out processHandle);
-				WindowsIdentity wi = new WindowsIdentity(processHandle);
-				string user = wi.Name;
+				var wi = new WindowsIdentity(processHandle);
+				var user = wi.Name;
 				return user.Contains(@"\") ? user.Substring(user.IndexOf(@"\") + 1) : user;
 			}
 			catch

@@ -1,7 +1,6 @@
-﻿Imports System.Globalization
+Imports System.Globalization
 Imports System.IO
 Imports System.Linq
-Imports System.Runtime.Serialization.Formatters
 Imports System.Xml
 Imports System.Xml.XPath
 
@@ -49,18 +48,15 @@ Namespace Desktop.Exor3
 							If ni.Current.GetAttribute("delete", ns.DefaultNamespace).ToLower() = "false" Then
 								delete = False
 							End If
-
 							Dim exerciseQuery As String = ni.Current.GetAttribute("exercisequery", ns.DefaultNamespace).ToLower()
 							Dim workoutQuery As String = ni.Current.GetAttribute("workoutquery", ns.DefaultNamespace).ToLower()
-
 							Dim externalId = GetXmlValueOrNull(nav, "/exorinput/source_customerno")
 							If externalId IsNot Nothing Then
-								Dim dto As New PersonDTO
-								dto.ExternalId = externalId
-
-								dto.Address = GetXmlValueOrNull(nav, "/exorinput/address")
-								dto.Country = GetXmlValueOrNull(nav, "/exorinput/country")
-
+								Dim dto As New PersonDTO With {
+									.ExternalId = externalId,
+									.Address = GetXmlValueOrNull(nav, "/exorinput/address"),
+									.Country = GetXmlValueOrNull(nav, "/exorinput/country")
+								}
 								Dim parsedDate As DateTime
 								' Lets first try to parse it using ISO 8601:
 								If Date.TryParseExact(GetXmlValueOrNull(nav, "/exorinput/born"), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, parsedDate) Then
@@ -72,7 +68,6 @@ Namespace Desktop.Exor3
 										dto.DateOfBirth = parsedDate.ToString("yyyy-MM-dd")
 									End If
 								End If
-
 								dto.Email = GetXmlValueOrNull(nav, "/exorinput/email")
 								dto.Firstname = GetXmlValueOrNull(nav, "/exorinput/firstname")
 								dto.Lastname = GetXmlValueOrNull(nav, "/exorinput/lastname")
@@ -81,10 +76,8 @@ Namespace Desktop.Exor3
 								dto.PhoneHome = GetXmlValueOrNull(nav, "/exorinput/phone_home")
 								dto.PhoneWork = GetXmlValueOrNull(nav, "/exorinput/phone_work")
 								dto.ZipCode = GetXmlValueOrNull(nav, "/exorinput/postalcode")
-
 								_host.SelectPerson(dto)
 							End If
-
 							If delete Then
 								Try
 									My.Computer.FileSystem.DeleteFile(path)
@@ -93,10 +86,8 @@ Namespace Desktop.Exor3
 									' The file must still be opened or something
 								End Try
 							End If
-
 							If Not String.IsNullOrEmpty(exerciseQuery) Then _host.QueryExercises(exerciseQuery)
 							If Not String.IsNullOrEmpty(workoutQuery) Then _host.QueryWorkouts(workoutQuery)
-
 						Catch ex As Exception
 							_host.LogException(ex, "Unknown error reading XML")
 							'The file must be opend exclusively or something
