@@ -1,7 +1,7 @@
 [TOC]
 
 # News
-As of May 2017, a new version (v 2.2) is released. Thsi includes some new configuration settings and new functionality, and updated documentation.
+As of May 2017, a new version (v 2.2) is released. This includes some new configuration settings and new functionality, and updated documentation.
 
 # ExorLive WebWrapper
 
@@ -43,8 +43,8 @@ The application settings are currently saved in the default configuration file, 
 * __DistributorName__: This should be set to whichever company built the executable. It will get sent back to ExorLive so we can recognize the app (and maybe provide app-specific updates or options).
 * __Debug__: Default is **False**. Shouldn't need to be changed.
 * __AppUrl__: Default is **https://exorlive.com/app**. Can be changed to our testing environments or localhost.
-* __RememberLoggedInUser__: Default is **True**. See [markdown-header-single-sign-on](#single-sign-on) below.
-* __SignonWithWindowsUser__: Default is **False**. See [markdown-header-single-sign-on](#single-sign-on) below.
+* __RememberLoggedInUser__: Default is **True**. See [Single-Sign-On](#markdown-header-single-sign-on) below.
+* __SignonWithWindowsUser__: Default is **False**. See [Single-Sign-On](#markdown-header-single-sign-on) below.
 
 ## Requirements to build
 
@@ -66,8 +66,8 @@ The application settings are currently saved in the default configuration file, 
 
 ## Single Sign On
 
-If the WebWrapper is started with an parameter telling which external user is running this session and then this user logges into ExorLive with an ExorLive user, the WebWrapper will remember the link between the external user and the ExorLive user. The next time the WebWrapper is started, it logges in automatically as this ExorLive user.
-This functionality is enabled with the `RememberLoggedInUser` setting. For the `ExorLive.Desktop.Arguments` interface, the external user is specified with the `signon`-parameter.
+If the WebWrapper is started with a parameter telling which external user is running this session and then this user logges into ExorLive with an ExorLive user, the WebWrapper will remember the link between the external user and the ExorLive user. The next time the WebWrapper is started, it logges in automatically as this ExorLive user.
+This functionality is enabled with the `RememberLoggedInUser` setting. For the `ExorLive.Desktop.Arguments` interface, the external user is specified with the `signon` parameter.
 
 It is also possible to use the current logged in windows user on the computer the WebWrapper is running. It is enabled with the `SignonWithWindowsUser` setting. It behaves the same way as the `RememberLoggedInUser`.
 
