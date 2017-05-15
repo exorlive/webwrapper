@@ -1,5 +1,8 @@
 [TOC]
 
+# News
+As of May 2017, a new version (v 2.2) is released. Thsi includes some new configuration settings and new functionality, and updated documentation.
+
 # ExorLive WebWrapper
 
 [ExorLive](http://exorlive.com/) is an application delivered as a single page application, and so in order for desktop applications to efficiently integrate with this, ExorLive provides an executable that wraps the web application in a controllable desktop application. This application is called "ExorLive.Client.WebWrapper", or only "WebWrapper". The WebWrapper executable is a single instance application, and if executed multiple times will pass all arguments to the running instance.
@@ -14,14 +17,14 @@ This will install to the default path of _"%appdata%\ExorLive\Webwrapper"_ but y
 ```
 #!bat
 
-msiexec /i "ExorLiveWebWrapper.2.0.3.4.msi" INSTALLDIR="C:\myfolder" /q
+msiexec /i "ExorLiveWebWrapper.2.2.0.0.msi" INSTALLDIR="C:\myfolder" /q
 ```
 
 Or you can install it as an [advertised installation](https://msdn.microsoft.com/en-us/library/windows/desktop/aa367548(v=vs.85).aspx), which starts the installation with administrator permissions by the user when he runs the shortcut:
 ```
 #!bat
 
-msiexec /jm "ExorLiveWebwrapper.2.0.3.4.msi"
+msiexec /jm "ExorLiveWebwrapper.2.2.0.0.msi"
 ```
 
 
@@ -36,10 +39,12 @@ The application settings are currently saved in the default configuration file, 
 * __BrowserEngine__: Default is **EoWebBrowser**, but this can be changed to **InternetExplorer** if you prefer to run the local Internet Explorer engine.
 * __MinimizeOnExit__: Default is **True**. This will make the WebWrapper stay open in the context menu if the user closes it without signing out. This is to prevent the user having to sign in anew.
 * __CheckForUpdates__: Default is **True**. This makes the webwrapper check for updates and notify the user if any updates are found.
-* __ProtocolProvider__: Default is **ExorLive.Desktop.Exor3.Component, ExorLive.Desktop**. This can be modified to use another API protocol provider. See [WebWrapper API Interface](#markdown-header-webwrapper-api-interface).
+* __ProtocolProvider__: Default is **ExorLive.Desktop.Arguments.Component, ExorLive.Desktop**. This can be modified to use another API protocol provider. See [WebWrapper API Interface](#markdown-header-webwrapper-api-interface).
 * __DistributorName__: This should be set to whichever company built the executable. It will get sent back to ExorLive so we can recognize the app (and maybe provide app-specific updates or options).
 * __Debug__: Default is **False**. Shouldn't need to be changed.
 * __AppUrl__: Default is **https://exorlive.com/app**. Can be changed to our testing environments or localhost.
+* __RememberLoggedInUser__: Default is **True**. See [markdown-header-single-sign-on](#single-sign-on) below.
+* __SignonWithWindowsUser__: Default is **False**. See [markdown-header-single-sign-on](#single-sign-on) below.
 
 ## Requirements to build
 
@@ -58,6 +63,13 @@ The application settings are currently saved in the default configuration file, 
 4. Open webwrapper\Webpage\Default.aspx and add info about the release to the changelog.
 5. Right-click on ExorLive.Client.WebWrapper and select the "Publish" tab. Change the version.
 6. Right-click on Webpage project and select "Publish..."
+
+## Single Sign On
+
+If the WebWrapper is started with an parameter telling which external user is running this session and then this user logges into ExorLive with an ExorLive user, the WebWrapper will remember the link between the external user and the ExorLive user. The next time the WebWrapper is started, it logges in automatically as this ExorLive user.
+This functionality is enabled with the `RememberLoggedInUser` setting. For the `ExorLive.Desktop.Arguments` interface, the external user is specified with the `signon`-parameter.
+
+It is also possible to use the current logged in windows user on the computer the WebWrapper is running. It is enabled with the `SignonWithWindowsUser` setting. It behaves the same way as the `RememberLoggedInUser`.
 
 ## WebWrapper API Interface
 
@@ -88,6 +100,7 @@ This protocol enables you to repeatedly call the WebWrapper executable with comm
     * __dateofbirth__: Required. The person's date of birth. The date will be parsed using either the ISO 8601 defaults (YYYY-MM-DD), failing that it will attempt to parse it using Windows default culture format.
     * __email__: The person's email address.
 * __openworkout__: If filled with a workout id, will tell ExorLive to open that workout.
+* __signon__: The username/userid of the current user in the calling application.
 
 #### Usage example
 
@@ -95,7 +108,10 @@ This protocol enables you to repeatedly call the WebWrapper executable with comm
 #!bat
 
 ExorLive.Client.WebWrapper.exe provider="ExorLive.Desktop.Arguments.Component, ExorLive.Desktop" queryexercises="squat" id="user007" firstname="James" lastname="Bond" dateofbirth="1953-04-13"
+ExorLive.Client.WebWrapper.exe signon=myuser id="user007" firstname="James" lastname="Bond" dateofbirth="1953-04-13"
 ```
+
+
 
 ### ExorLive.Desktop.Exor3
 
@@ -133,3 +149,8 @@ __input.xml__
 
 ExorLive.Client.WebWrapper.exe provider="ExorLive.Desktop.Exor3.Component, ExorLive.Desktop" input.xml
 ```
+
+### ExorLive.Desktop.Procapita
+
+A tailored version for the Procapita journal system by Tieto in Sweden is available on request.
+
