@@ -42,21 +42,21 @@ The application settings are currently saved in the default configuration file, 
 * __ProtocolProvider__: Default is **ExorLive.Desktop.Arguments.Component, ExorLive.Desktop**. This can be modified to use another API protocol provider. See [WebWrapper API Interface](#markdown-header-webwrapper-api-interface).
 * __DistributorName__: This should be set to whichever company built the executable. It will get sent back to ExorLive so we can recognize the app (and maybe provide app-specific updates or options).
 * __Debug__: Default is **False**. Shouldn't need to be changed.
-* __AppUrl__: Default is **https://exorlive.com/app**. Can be changed to our testing environments or localhost.
+* __AppUrl__: Default is "<https://exorlive.com/app>". Can be changed to our testing environments or localhost.
 * __RememberLoggedInUser__: Default is **True**. See [Single-Sign-On](#markdown-header-single-sign-on) below.
 * __SignonWithWindowsUser__: Default is **False**. See [Single-Sign-On](#markdown-header-single-sign-on) below.
 
-## Requirements to build
+## Requirements to build and publish
 
 * [WiX Toolset][0], probably with WiX's Visual Studio 2017 extension
-* Deployment password for Azure Web App exorlivewebwrapper.scm.azurewebsites.net (https://webwrapper.exorlive.com)
+* Deployment password for Azure Web App "exorlivewebwrapper.scm.azurewebsites.net" (<https://webwrapper.exorlive.com>).
 * This file must exist at this location: 
 	- "C:\Program Files (x86)\Windows Kits\10\bin\x86\signtool.exe".
 * A code signing certificate in your personal certificate store (right click on it and select Install and select location "Current User" and "Personal"). This will be used by signtool to sign the assemblies.
 
 	[0]: http://wixtoolset.org/
 
-## TODO when publishing:
+## TODO when publishing
 
 1. Open WebWrapper\Properties\AssemblyInfo.cs and increase assemblyversion and assemblyfileversion.
 2. Open SetupProject\Product.wxs and increase the "Version" attribute on the Product tag.
