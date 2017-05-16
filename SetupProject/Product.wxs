@@ -25,9 +25,15 @@
 			</Component>
 		</DirectoryRef>
 		<DirectoryRef Id ="Path_ProductFolder">
+			<Component Id ="Comp_RegistryPath" Guid="{600a177e-2721-4e0e-8aa4-85561d294333}">
+				<!-- Old version registry path that should point to the new install location -->
+				<RegistryValue Root="HKCU" Key="Software\Exor Live\Exor Live WebWrapper" Name="path" Type="string" Value="[Path_ProductFolder]" KeyPath="yes" />
+				<RegistryValue Root="HKCU" Key="Software\Exor Live\Exor Live WebWrapper" Name="version" Type="string" Value="[ProductVersion]" />
+			</Component>
 			<Component Id ="Comp_ProductFolder" Guid="{f11e4c93-9c6a-4058-9e5a-6556424c76f2}" >
 				<RemoveFolder Id="Path_ProductFolder" On="uninstall" />
-				<RegistryValue Root="HKCU" Key="Software\ExorLive\ExorLive Webwrapper" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+				<RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="path" Type="string" Value="[Path_ProductFolder]" KeyPath="yes" />
+				<RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="version" Type="string" Value="[ProductVersion]" />
 			</Component>
 			<Component Id="Comp_eoBrowserObjectjs" Guid="{AF74DAAE-998E-4D4E-AC45-542FAA8C5490}">
 				<File Id="File_eoBrowserObject.js" KeyPath="yes" Source="Files\eoBrowserObject.js" />
@@ -65,6 +71,7 @@
 		</DirectoryRef>
 		<Feature Id="AlwaysInstall" Level="1" Title="Always Install">
 			<ComponentRef Id="Comp_ManufacturerFolder" />
+			<ComponentRef Id="Comp_RegistryPath" />
 			<ComponentRef Id="Comp_ProductFolder" />
 			<ComponentRef Id="Comp_eoBrowserObjectjs" />
 			<ComponentRef Id="Comp_EOBasedll" />
