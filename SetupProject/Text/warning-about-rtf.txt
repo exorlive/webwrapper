@@ -1,0 +1,1 @@
+The eula.rtf MUST be edited using Wordpad, not Word, or you'll only see a grey area until you scroll.
