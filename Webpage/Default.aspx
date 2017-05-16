@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Webpage.Default" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Webpage.Default" %>
 
 <!DOCTYPE html>
 
@@ -54,6 +54,10 @@
 			</ul>
 
 			<h2>Changelog</h2>
+			<h3>2.2 - May 2017</h3>
+			<ul>
+				<li>This includes some new configuration settings and new functionality.</li>
+			</ul>
 			<h3>2.1</h3>
 			<ul>
 				<li>Fix for terminal server issues with named pipes.</li>
