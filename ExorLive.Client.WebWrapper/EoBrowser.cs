@@ -44,6 +44,9 @@ public class EoBrowser : IBrowser
 		{
 			Runtime.AddLicense(Resources.EoBrowserLicenseFile);
 		}
+		if(App.Debug) {
+			StartRemoteDebugging();
+		}
 		// If you are fixing the black boxes bug, try see if uncommenting the next line helps.
 		// Engine.Default.Options.DisableGPU = true;
 		_browser = new WebControl();
@@ -65,6 +68,11 @@ public class EoBrowser : IBrowser
 				$"window.external.DistributorName = '{ EncodeJsString(Settings.Default.DistributorName) }'; " +
 				$"window.external.CheckForUpdates = '{ EncodeJsString(App.UserSettings.CheckForUpdates.ToString()) }'; ";
 		}
+	}
+
+	private void StartRemoteDebugging ()
+	{
+		Runtime.RemoteDebugPort = 9223;
 	}
 
 	private void WebView_LoadFailed(object sender, LoadFailedEventArgs e)
