@@ -1,181 +1,183 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-	<PropertyGroup>
-		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-		<ProductVersion>
-		</ProductVersion>
-		<SchemaVersion>2.0</SchemaVersion>
-		<ProjectGuid>{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}</ProjectGuid>
-		<ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
-		<OutputType>Library</OutputType>
-		<AppDesignerFolder>Properties</AppDesignerFolder>
-		<RootNamespace>Webpage</RootNamespace>
-		<AssemblyName>Webpage</AssemblyName>
-		<TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-		<UseIISExpress>true</UseIISExpress>
-		<IISExpressSSLPort />
-		<IISExpressAnonymousAuthentication />
-		<IISExpressWindowsAuthentication />
-		<IISExpressUseClassicPipelineMode />
-		<UseGlobalApplicationHostFile />
-	</PropertyGroup>
-	<ItemGroup>
-		<Reference Include="Microsoft.CSharp" />
-		<Reference Include="System.Web.DynamicData" />
-		<Reference Include="System.Web.Entity" />
-		<Reference Include="System.Web.ApplicationServices" />
-		<Reference Include="System.ComponentModel.DataAnnotations" />
-		<Reference Include="System" />
-		<Reference Include="System.Data" />
-		<Reference Include="System.Core" />
-		<Reference Include="System.Data.DataSetExtensions" />
-		<Reference Include="System.Web.Extensions" />
-		<Reference Include="System.Xml.Linq" />
-		<Reference Include="System.Drawing" />
-		<Reference Include="System.Web" />
-		<Reference Include="System.Xml" />
-		<Reference Include="System.Configuration" />
-		<Reference Include="System.Web.Services" />
-		<Reference Include="System.EnterpriseServices" />
-	</ItemGroup>
-	<ItemGroup>
-		<Content Include="Default.aspx" />
-		<Content Include="Default.css" />
-		<Content Include="images\exorlive_logo.svg" />
-		<Content Include="images\message.svg" />
-		<Content Include="Web.config" />
-	</ItemGroup>
-	<ItemGroup>
-		<Compile Include="Default.aspx.cs">
-			<DependentUpon>Default.aspx</DependentUpon>
-			<SubType>ASPXCodeBehind</SubType>
-		</Compile>
-		<Compile Include="Default.aspx.designer.cs">
-			<DependentUpon>Default.aspx</DependentUpon>
-		</Compile>
-		<Compile Include="Properties\AssemblyInfo.cs" />
-	</ItemGroup>
-	<ItemGroup>
-		<None Include="Properties\PublishProfiles\exorlivewebwrapper.pubxml" />
-		<None Include="Web.Debug.config">
-			<DependentUpon>Web.config</DependentUpon>
-		</None>
-		<None Include="Web.Release.config">
-			<DependentUpon>Web.config</DependentUpon>
-		</None>
-	</ItemGroup>
-	<ItemGroup>
-		<Folder Include="msi\" />
-		<Folder Include="webwrapper\" />
-	</ItemGroup>
-	<PropertyGroup>
-		<VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-		<VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-		<DebugSymbols>true</DebugSymbols>
-		<OutputPath>bin\</OutputPath>
-		<DefineConstants>DEBUG;TRACE</DefineConstants>
-		<DebugType>full</DebugType>
-		<PlatformTarget>x86</PlatformTarget>
-		<ErrorReport>prompt</ErrorReport>
-		<CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-		<FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
-		<PublishDatabases>false</PublishDatabases>
-		<ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-		<OutputPath>bin\</OutputPath>
-		<DefineConstants>TRACE</DefineConstants>
-		<Optimize>true</Optimize>
-		<DebugType>pdbonly</DebugType>
-		<PlatformTarget>x86</PlatformTarget>
-		<ErrorReport>prompt</ErrorReport>
-		<CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-		<FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
-		<PublishDatabases>false</PublishDatabases>
-		<ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-		<DebugSymbols>true</DebugSymbols>
-		<OutputPath>bin\</OutputPath>
-		<DefineConstants>DEBUG;TRACE</DefineConstants>
-		<DebugType>full</DebugType>
-		<PlatformTarget>AnyCPU</PlatformTarget>
-		<ErrorReport>prompt</ErrorReport>
-		<CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-		<OutputPath>bin\</OutputPath>
-		<DefineConstants>TRACE</DefineConstants>
-		<Optimize>true</Optimize>
-		<DebugType>pdbonly</DebugType>
-		<PlatformTarget>AnyCPU</PlatformTarget>
-		<ErrorReport>prompt</ErrorReport>
-		<CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Procapita|x86'">
-		<OutputPath>bin\</OutputPath>
-		<DefineConstants>TRACE</DefineConstants>
-		<Optimize>true</Optimize>
-		<DebugType>pdbonly</DebugType>
-		<PlatformTarget>x86</PlatformTarget>
-		<ErrorReport>prompt</ErrorReport>
-		<CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Procapita|AnyCPU'">
-		<OutputPath>bin\</OutputPath>
-		<DefineConstants>TRACE</DefineConstants>
-		<Optimize>true</Optimize>
-		<DebugType>pdbonly</DebugType>
-		<PlatformTarget>AnyCPU</PlatformTarget>
-		<ErrorReport>prompt</ErrorReport>
-		<CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug.Procapita|x86'">
-		<OutputPath>bin\</OutputPath>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug.Procapita|AnyCPU'">
-		<OutputPath>bin\</OutputPath>
-	</PropertyGroup>
-	<Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-	<Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
-	<Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
-	<ProjectExtensions>
-		<VisualStudio>
-			<FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
-				<WebProjectProperties>
-					<UseIIS>False</UseIIS>
-					<AutoAssignPort>True</AutoAssignPort>
-					<DevelopmentServerPort>53247</DevelopmentServerPort>
-					<DevelopmentServerVPath>/</DevelopmentServerVPath>
-					<IISUrl>http://localhost:53247/</IISUrl>
-					<NTLMAuthentication>False</NTLMAuthentication>
-					<UseCustomServer>False</UseCustomServer>
-					<CustomServerUrl>
-					</CustomServerUrl>
-					<SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
-				</WebProjectProperties>
-			</FlavorProperties>
-		</VisualStudio>
-	</ProjectExtensions>
-	<PropertyGroup>
-		<PostBuildEvent>
-		</PostBuildEvent>
-	</PropertyGroup>
-	<PropertyGroup>
-		<PreBuildEvent>
-		</PreBuildEvent>
-	</PropertyGroup>
-	<Target Name="AfterBuild">
-		<GetAssemblyIdentity AssemblyFiles="$(SolutionDir)SetupProject\Files\ExorLive.Client.WebWrapper.exe">
-			<Output TaskParameter="Assemblies" ItemName="GetVersionAssemblyInfo" />
-		</GetAssemblyIdentity>
-		<Copy             Condition="'$(Configuration)' == 'Debug'           Or '$(Configuration)' == 'Release'"   SourceFiles="$(SolutionDir)SetupProject\bin\SetupProject.msi" DestinationFiles="$(ProjectDir)msi\ExorLiveWebwrapper.%(GetVersionAssemblyInfo.Version).msi" />
-		<Copy             Condition="'$(Configuration)' == 'Debug.Procapita' Or '$(Configuration)' == 'Procapita'" SourceFiles="$(SolutionDir)SetupProject\bin\SetupProject.msi" DestinationFiles="$(ProjectDir)Procapita\msi\ExorLiveWebwrapper.%(GetVersionAssemblyInfo.Version).msi" />
-		<WriteLinesToFile Condition="'$(Configuration)' == 'Debug'           Or '$(Configuration)' == 'Release'"   File="$(ProjectDir)msi\version.txt" Lines="%(GetVersionAssemblyInfo.Version)" Overwrite="true" Encoding="UTF-8" />
-		<WriteLinesToFile Condition="'$(Configuration)' == 'Debug.Procapita' Or '$(Configuration)' == 'Procapita'" File="$(ProjectDir)Procapita\msi\version.txt" Lines="%(GetVersionAssemblyInfo.Version)" Overwrite="true" Encoding="UTF-8" />
-	</Target>	
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Webpage</RootNamespace>
+    <AssemblyName>Webpage</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Default.aspx" />
+    <Content Include="Default.css" />
+    <Content Include="images\exorlive_logo.svg" />
+    <Content Include="images\message.svg" />
+    <Content Include="msi\version.txt" />
+    <Content Include="Procapita\msi\ExorLiveWebwrapper.2.2.0.22936.msi" />
+    <Content Include="Procapita\msi\version.txt" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\exorlivewebwrapper.pubxml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="webwrapper\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
+    <PublishDatabases>false</PublishDatabases>
+    <ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
+    <PublishDatabases>false</PublishDatabases>
+    <ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Procapita|x86'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Procapita|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug.Procapita|x86'">
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug.Procapita|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>53247</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:53247/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <Target Name="AfterBuild">
+    <GetAssemblyIdentity AssemblyFiles="$(SolutionDir)SetupProject\Files\ExorLive.Client.WebWrapper.exe">
+      <Output TaskParameter="Assemblies" ItemName="GetVersionAssemblyInfo" />
+    </GetAssemblyIdentity>
+    <Copy Condition="'$(Configuration)' == 'Debug'           Or '$(Configuration)' == 'Release'" SourceFiles="$(SolutionDir)SetupProject\bin\SetupProject.msi" DestinationFiles="$(ProjectDir)msi\ExorLiveWebwrapper.%(GetVersionAssemblyInfo.Version).msi" />
+    <Copy Condition="'$(Configuration)' == 'Debug.Procapita' Or '$(Configuration)' == 'Procapita'" SourceFiles="$(SolutionDir)SetupProject\bin\SetupProject.msi" DestinationFiles="$(ProjectDir)Procapita\msi\ExorLiveWebwrapper.%(GetVersionAssemblyInfo.Version).msi" />
+    <WriteLinesToFile Condition="'$(Configuration)' == 'Debug'           Or '$(Configuration)' == 'Release'" File="$(ProjectDir)msi\version.txt" Lines="%(GetVersionAssemblyInfo.Version)" Overwrite="true" Encoding="UTF-8" />
+    <WriteLinesToFile Condition="'$(Configuration)' == 'Debug.Procapita' Or '$(Configuration)' == 'Procapita'" File="$(ProjectDir)Procapita\msi\version.txt" Lines="%(GetVersionAssemblyInfo.Version)" Overwrite="true" Encoding="UTF-8" />
+  </Target>
 </Project>
