@@ -51,6 +51,7 @@ public class EoBrowser : IBrowser
 		_browser.WebView.IsLoadingChanged += WebView_IsLoadingChanged;
 		_browser.WebView.JSExtInvoke += WebView_JSExtension;
 		_browser.WebView.NewWindow += WebView_NewWindow;
+		_browser.WebView.LoadFailed += WebView_LoadFailed;
 
 		// This javascript file is added to every page you navigate to.
 		var jsfile = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "eoBrowserObject.js");
@@ -63,6 +64,18 @@ public class EoBrowser : IBrowser
 				$"window.external.Debug = { EncodeJsString(Debug.ToString().ToLower()) }; " +
 				$"window.external.DistributorName = '{ EncodeJsString(Settings.Default.DistributorName) }'; " +
 				$"window.external.CheckForUpdates = '{ EncodeJsString(App.UserSettings.CheckForUpdates.ToString()) }'; ";
+		}
+	}
+
+	private void WebView_LoadFailed(object sender, LoadFailedEventArgs e)
+	{
+		switch(e.ErrorCode) {
+			case ErrorCode.ConnectionRefused:
+				e.ErrorMessage = $"Can't connect to \"{e.Url}\".";
+				break;
+			default:
+				e.UseDefaultMessage();
+				break;
 		}
 	}
 
