@@ -247,7 +247,9 @@ namespace ExorLive.Client.WebWrapper
 				.Where(argumentKeyAndValue => argumentKeyAndValue.Length == 2)
 				.ToDictionary(argumentKey => argumentKey[0], argumentValue => argumentValue[1]);
 			LoadProtocolProvider();
-			if (UserSettings.Log) Logging = true;
+			if (!string.IsNullOrWhiteSpace(UserSettings.Log)) {
+				Logging = true;
+			}
 
 			_webWrapperWindow = new MainWindow();
 			_webWrapperWindow.IsLoaded += WebWrapperWindowExorLiveIsLoaded;
