@@ -145,7 +145,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'VGR|AnyCPU'">
-    <OutputPath>bin\VGR\</OutputPath>
+    <OutputPath>..\SetupProject\Files\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
