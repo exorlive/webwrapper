@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ExorLive.Desktop", "ExorLive.Desktop\ExorLive.Desktop.vbproj", "{504BDA99-040A-41CB-A186-67A306EE7A16}"
 EndProject
@@ -37,6 +37,8 @@ Global
 		Procapita|x86 = Procapita|x86
 		Release|Any CPU = Release|Any CPU
 		Release|x86 = Release|x86
+		VGR|Any CPU = VGR|Any CPU
+		VGR|x86 = VGR|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{504BDA99-040A-41CB-A186-67A306EE7A16}.Debug.Procapita|Any CPU.ActiveCfg = Debug.Procapita|Any CPU
@@ -56,6 +58,10 @@ Global
 		{504BDA99-040A-41CB-A186-67A306EE7A16}.Release|Any CPU.Build.0 = Release|Any CPU
 		{504BDA99-040A-41CB-A186-67A306EE7A16}.Release|x86.ActiveCfg = Release|x86
 		{504BDA99-040A-41CB-A186-67A306EE7A16}.Release|x86.Build.0 = Release|x86
+		{504BDA99-040A-41CB-A186-67A306EE7A16}.VGR|Any CPU.ActiveCfg = VGR|Any CPU
+		{504BDA99-040A-41CB-A186-67A306EE7A16}.VGR|Any CPU.Build.0 = VGR|Any CPU
+		{504BDA99-040A-41CB-A186-67A306EE7A16}.VGR|x86.ActiveCfg = VGR|x86
+		{504BDA99-040A-41CB-A186-67A306EE7A16}.VGR|x86.Build.0 = VGR|x86
 		{D8CEFDAD-9109-4676-AC60-44428404049B}.Debug.Procapita|Any CPU.ActiveCfg = Debug.Procapita|Any CPU
 		{D8CEFDAD-9109-4676-AC60-44428404049B}.Debug.Procapita|Any CPU.Build.0 = Debug.Procapita|Any CPU
 		{D8CEFDAD-9109-4676-AC60-44428404049B}.Debug.Procapita|x86.ActiveCfg = Debug.Procapita|x86
@@ -73,6 +79,10 @@ Global
 		{D8CEFDAD-9109-4676-AC60-44428404049B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D8CEFDAD-9109-4676-AC60-44428404049B}.Release|x86.ActiveCfg = Release|x86
 		{D8CEFDAD-9109-4676-AC60-44428404049B}.Release|x86.Build.0 = Release|x86
+		{D8CEFDAD-9109-4676-AC60-44428404049B}.VGR|Any CPU.ActiveCfg = VGR|Any CPU
+		{D8CEFDAD-9109-4676-AC60-44428404049B}.VGR|Any CPU.Build.0 = VGR|Any CPU
+		{D8CEFDAD-9109-4676-AC60-44428404049B}.VGR|x86.ActiveCfg = VGR|x86
+		{D8CEFDAD-9109-4676-AC60-44428404049B}.VGR|x86.Build.0 = VGR|x86
 		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.Debug.Procapita|Any CPU.ActiveCfg = Debug.Procapita|Any CPU
 		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.Debug.Procapita|Any CPU.Build.0 = Debug.Procapita|Any CPU
 		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.Debug.Procapita|x86.ActiveCfg = Debug.Procapita|x86
@@ -89,6 +99,10 @@ Global
 		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.Release|x86.ActiveCfg = Release|x86
 		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.Release|x86.Build.0 = Release|x86
+		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.VGR|Any CPU.ActiveCfg = VGR|Any CPU
+		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.VGR|Any CPU.Build.0 = VGR|Any CPU
+		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.VGR|x86.ActiveCfg = VGR|x86
+		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.VGR|x86.Build.0 = VGR|x86
 		{56BD6C75-7235-4725-9644-5AB77D3480D4}.Debug.Procapita|Any CPU.ActiveCfg = Debug.Procapita|Any CPU
 		{56BD6C75-7235-4725-9644-5AB77D3480D4}.Debug.Procapita|Any CPU.Build.0 = Debug.Procapita|Any CPU
 		{56BD6C75-7235-4725-9644-5AB77D3480D4}.Debug.Procapita|x86.ActiveCfg = Debug.Procapita|Any CPU
@@ -104,6 +118,10 @@ Global
 		{56BD6C75-7235-4725-9644-5AB77D3480D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56BD6C75-7235-4725-9644-5AB77D3480D4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{56BD6C75-7235-4725-9644-5AB77D3480D4}.Release|x86.ActiveCfg = Release|Any CPU
+		{56BD6C75-7235-4725-9644-5AB77D3480D4}.VGR|Any CPU.ActiveCfg = VGR|Any CPU
+		{56BD6C75-7235-4725-9644-5AB77D3480D4}.VGR|Any CPU.Build.0 = VGR|Any CPU
+		{56BD6C75-7235-4725-9644-5AB77D3480D4}.VGR|x86.ActiveCfg = VGR|Any CPU
+		{56BD6C75-7235-4725-9644-5AB77D3480D4}.VGR|x86.Build.0 = VGR|Any CPU
 		{C68E37EC-BD49-4DE0-85F5-4406DF244DE2}.Debug.Procapita|Any CPU.ActiveCfg = Debug.Procapita|Any CPU
 		{C68E37EC-BD49-4DE0-85F5-4406DF244DE2}.Debug.Procapita|Any CPU.Build.0 = Debug.Procapita|Any CPU
 		{C68E37EC-BD49-4DE0-85F5-4406DF244DE2}.Debug.Procapita|x86.ActiveCfg = Debug.Procapita|Any CPU
@@ -119,6 +137,10 @@ Global
 		{C68E37EC-BD49-4DE0-85F5-4406DF244DE2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C68E37EC-BD49-4DE0-85F5-4406DF244DE2}.Release|x86.ActiveCfg = Release|Any CPU
 		{C68E37EC-BD49-4DE0-85F5-4406DF244DE2}.Release|x86.Build.0 = Release|Any CPU
+		{C68E37EC-BD49-4DE0-85F5-4406DF244DE2}.VGR|Any CPU.ActiveCfg = VGR|Any CPU
+		{C68E37EC-BD49-4DE0-85F5-4406DF244DE2}.VGR|Any CPU.Build.0 = VGR|Any CPU
+		{C68E37EC-BD49-4DE0-85F5-4406DF244DE2}.VGR|x86.ActiveCfg = VGR|Any CPU
+		{C68E37EC-BD49-4DE0-85F5-4406DF244DE2}.VGR|x86.Build.0 = VGR|Any CPU
 		{66ED6BAF-7B95-486D-B2EC-4C21C59B53AA}.Debug.Procapita|Any CPU.ActiveCfg = Debug|x86
 		{66ED6BAF-7B95-486D-B2EC-4C21C59B53AA}.Debug.Procapita|Any CPU.Build.0 = Debug|x86
 		{66ED6BAF-7B95-486D-B2EC-4C21C59B53AA}.Debug.Procapita|x86.ActiveCfg = Debug|x86
@@ -135,6 +157,8 @@ Global
 		{66ED6BAF-7B95-486D-B2EC-4C21C59B53AA}.Release|Any CPU.Build.0 = Release|x86
 		{66ED6BAF-7B95-486D-B2EC-4C21C59B53AA}.Release|x86.ActiveCfg = Release|x86
 		{66ED6BAF-7B95-486D-B2EC-4C21C59B53AA}.Release|x86.Build.0 = Release|x86
+		{66ED6BAF-7B95-486D-B2EC-4C21C59B53AA}.VGR|Any CPU.ActiveCfg = Release|x86
+		{66ED6BAF-7B95-486D-B2EC-4C21C59B53AA}.VGR|x86.ActiveCfg = Release|x86
 		{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}.Debug.Procapita|Any CPU.ActiveCfg = Debug|Any CPU
 		{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}.Debug.Procapita|Any CPU.Build.0 = Debug|Any CPU
 		{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}.Debug.Procapita|x86.ActiveCfg = Debug|Any CPU
@@ -151,6 +175,8 @@ Global
 		{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}.Release|x86.ActiveCfg = Release|Any CPU
 		{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}.Release|x86.Build.0 = Release|Any CPU
+		{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}.VGR|Any CPU.ActiveCfg = Release|Any CPU
+		{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}.VGR|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

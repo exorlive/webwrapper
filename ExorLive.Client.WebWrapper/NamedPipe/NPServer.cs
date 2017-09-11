@@ -89,6 +89,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 					else
 					{
 						if (!string.IsNullOrWhiteSpace(jsonresult)) {
+							_app.Log("    PublishDataOnNamedPipe: " + jsonresult);
 							ss.WriteString(jsonresult);
 						}
 
@@ -127,6 +128,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 
 		public void PublishDataOnNamedPipe(string jsondata)
 		{
+			_app.Log("    PublishDataOnNamedPipe: " + jsondata);
 			if (_pipeServer != null && _pipeServer.IsConnected)
 			{
 				try
@@ -277,6 +279,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 			{
 				directResult = JsonFormatError("No arguments specified for method '{0}'.", request.Method);
 			}
+			_app.Log("    SelectPerson FAILED: " + directResult);
 			return false;
 		}
 

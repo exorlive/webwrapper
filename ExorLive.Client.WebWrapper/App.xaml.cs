@@ -155,21 +155,37 @@ namespace ExorLive.Client.WebWrapper
 		}
 		private bool _logging = false;
 		public bool Logging {
-			get => _logging;
-			set => _logging = value;
+			get
+			{
+				return _logging;
+			}
+			set
+			{
+				if(_logging ==  true && value == false)
+				{
+					Log("Turning off logging");
+				}
+				_logging = value;
+			}
 		}
 		public void Log(string format, params object[] args)
 		{
-			try {
+			var path = Directory.GetCurrentDirectory();
+			var filename = Path.Combine(path, "ExorLive.Client.Webwrapper.log");
+			try
+			{
 				if(Logging) {
-					var path = Directory.GetCurrentDirectory();
-					var filename = Path.Combine(path, "ExorLive.Client.Webwrapper.log");
-
-					var line = string.Format("{0}: {1}{2}", DateTime.Now, args != null ? string.Format(format, args) : format, Environment.NewLine);
+					if(args != null && args.Length > 0)
+					{
+						format = string.Format(format, args);
+					}
+					var line = string.Format("{0}: {1}{2}", DateTime.Now, format, Environment.NewLine);
 					File.AppendAllText(filename, line, Encoding.UTF8);
 				}
-			} catch(Exception) {
+			} catch(Exception ex) {
 				// Ignore any error.
+				MessageBox.Show(ex.Message);
+				// File.AppendAllText(filename, "ERROR DURING LOGGING:" + ex.Message, Encoding.UTF8);
 			}
 		}
 
@@ -231,6 +247,7 @@ namespace ExorLive.Client.WebWrapper
 				.Where(argumentKeyAndValue => argumentKeyAndValue.Length == 2)
 				.ToDictionary(argumentKey => argumentKey[0], argumentValue => argumentValue[1]);
 			LoadProtocolProvider();
+			if (UserSettings.Log) Logging = true;
 
 			_webWrapperWindow = new MainWindow();
 			_webWrapperWindow.IsLoaded += WebWrapperWindowExorLiveIsLoaded;
