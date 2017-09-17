@@ -118,6 +118,17 @@ namespace ExorLive.Client.WebWrapper
 			if(!string.IsNullOrWhiteSpace(_automaticSignonExternalUser)) {
 				RemoveSignonDetails(_automaticSignonExternalUser);
 			}
+			if(!string.IsNullOrWhiteSpace(App.UserSettings.AdfsUrl))
+			{
+				string url = App.UserSettings.AdfsUrl;
+				if (url.Contains("?")) url += "&"; else url += "?";
+				url += "signout=1";
+				Uri uri;
+				if(Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out uri))
+				{
+					((MainWindow)_webWrapperWindow).Navigate(uri);
+				}
+			}
 		}
 
 		private class SignonDetails
@@ -247,7 +258,7 @@ namespace ExorLive.Client.WebWrapper
 				.Where(argumentKeyAndValue => argumentKeyAndValue.Length == 2)
 				.ToDictionary(argumentKey => argumentKey[0], argumentValue => argumentValue[1]);
 			LoadProtocolProvider();
-			if (UserSettings.Log) Logging = true;
+			if (UserSettings.Log.ToLower() == "true" || UserSettings.Log == "1") Logging = true;
 
 			_webWrapperWindow = new MainWindow();
 			_webWrapperWindow.IsLoaded += WebWrapperWindowExorLiveIsLoaded;
@@ -297,6 +308,14 @@ namespace ExorLive.Client.WebWrapper
 				} else if(url.Contains("/app?")) {
 					url = url.Replace("/app?", "/auth/webwrapper.html?");
 				}
+			}
+
+			if (!string.IsNullOrWhiteSpace(UserSettings.AdfsUrl))
+			{
+				// Adfs has its own URL and own way of remembering users.
+				url = UserSettings.AdfsUrl;
+				_shallStoreAutomaticSignonUser = false;
+				hasAutoSignonUser = false;
 			}
 
 			((MainWindow)_webWrapperWindow).Navigate(new Uri(url));

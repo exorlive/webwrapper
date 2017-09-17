@@ -338,7 +338,6 @@ namespace ExorLive.Client.WebWrapper
 			NotTray.ShowBalloonTip("Minimize", "Exor Live has been minimized to the tray. Use 'Sign Out' to close the application.", BalloonIcon.None);
 		}
 
-
 		private void MenuItem_Click_Show(object sender, RoutedEventArgs e)
 		{
 			Restore();
@@ -349,10 +348,26 @@ namespace ExorLive.Client.WebWrapper
 			UserHasDisconnected?.Invoke(this);
 			QuitApplication();
 		}
-		public void QuitApplication()
+
+		public void QuitApplication(bool useStandardSignoutUrl = true)
 		{
 			_doClose = true;
-			Navigate(new Uri(App.UserSettings.AppUrl.Replace("/app/", "/signout/").Replace("exorlive.com", "auth.exorlive.com")));
+			if(App.UserSettings.AppUrl.Contains("int.exorlive.com"))
+			{
+				Navigate(new Uri(App.UserSettings.AppUrl.Replace("/app/", "/signout/").Replace("int.exorlive.com", "auth-int.exorlive.com")));
+			}
+			else if(App.UserSettings.AppUrl.Contains("test.exorlive.com"))
+			{
+				Navigate(new Uri(App.UserSettings.AppUrl.Replace("/app/", "/signout/").Replace("test.exorlive.com", "auth.test.exorlive.com")));
+			}
+			else if (App.UserSettings.AppUrl.Contains("localhost:50000"))
+			{
+				Navigate(new Uri(App.UserSettings.AppUrl.Replace("/app/", "/signout/").Replace("localhost:50000", "localhost:50006")));
+			}
+			else
+			{
+				Navigate(new Uri(App.UserSettings.AppUrl.Replace("/app/", "/signout/").Replace("exorlive.com", "auth.exorlive.com")));
+			}
 		}
 
 		private void MenuItem_Click_Close(object sender, RoutedEventArgs e)

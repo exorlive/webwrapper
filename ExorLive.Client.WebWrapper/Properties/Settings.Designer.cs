@@ -76,19 +76,8 @@ namespace ExorLive.Properties {
                 return ((bool)(this["Debug"]));
             }
         }
-
-		[global::System.Configuration.ApplicationScopedSettingAttribute()]
-		[global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-		[global::System.Configuration.DefaultSettingValueAttribute("False")]
-		public bool Log
-		{
-			get
-			{
-				return ((bool)(this["Log"]));
-			}
-		}
-
-		[global::System.Configuration.UserScopedSettingAttribute()]
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public double Top {
@@ -193,6 +182,24 @@ namespace ExorLive.Properties {
             }
             set {
                 this["UpdatePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public string Log {
+            get {
+                return ((string)(this["Log"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AdfsUrl {
+            get {
+                return ((string)(this["AdfsUrl"]));
             }
         }
     }
