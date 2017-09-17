@@ -213,7 +213,9 @@
     </GetAssemblyIdentity>
     <Copy Condition="'$(Configuration)' == 'Debug'           Or '$(Configuration)' == 'Release'" SourceFiles="$(SolutionDir)SetupProject\bin\SetupProject.msi" DestinationFiles="$(ProjectDir)msi\ExorLiveWebwrapper.%(GetVersionAssemblyInfo.Version).msi" />
     <Copy Condition="'$(Configuration)' == 'Debug.Procapita' Or '$(Configuration)' == 'Procapita'" SourceFiles="$(SolutionDir)SetupProject\bin\SetupProject.msi" DestinationFiles="$(ProjectDir)Procapita\msi\ExorLiveWebwrapper.%(GetVersionAssemblyInfo.Version).msi" />
+    <Copy Condition="'$(Configuration)' == 'VGR'" SourceFiles="$(SolutionDir)SetupProject\bin\SetupProject.msi" DestinationFiles="$(ProjectDir)msi\VGR\ExorLiveWebwrapper.%(GetVersionAssemblyInfo.Version).msi" />
     <WriteLinesToFile Condition="'$(Configuration)' == 'Debug'           Or '$(Configuration)' == 'Release'" File="$(ProjectDir)msi\version.txt" Lines="%(GetVersionAssemblyInfo.Version)" Overwrite="true" Encoding="UTF-8" />
     <WriteLinesToFile Condition="'$(Configuration)' == 'Debug.Procapita' Or '$(Configuration)' == 'Procapita'" File="$(ProjectDir)Procapita\msi\version.txt" Lines="%(GetVersionAssemblyInfo.Version)" Overwrite="true" Encoding="UTF-8" />
+    <WriteLinesToFile Condition="'$(Configuration)' == 'VGR'" File="$(ProjectDir)msi\VGR\version.txt" Lines="%(GetVersionAssemblyInfo.Version)" Overwrite="true" Encoding="UTF-8" />
   </Target>
 </Project>
