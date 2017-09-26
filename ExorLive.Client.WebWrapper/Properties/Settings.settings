@@ -38,6 +38,9 @@
     <Setting Name="Log" Type="System.String" Scope="Application">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="SignonWithWindowsUser" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
     <Setting Name="RememberLoggedInUser" Type="System.String" Scope="Application">
       <Value Profile="(Default)">True</Value>
     </Setting>
@@ -49,9 +52,6 @@
     </Setting>
     <Setting Name="AdfsUrl" Type="System.String" Scope="Application">
       <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="SignonWithWindowsUser" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="AppUrl" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://exorlive.com/app/</Value>

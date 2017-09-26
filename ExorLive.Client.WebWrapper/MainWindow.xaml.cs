@@ -22,6 +22,7 @@ namespace ExorLive.Client.WebWrapper
 		private bool _closeOnNavigate;
 		private bool _doClose;
 		private Uri _navigateToUri;
+		private bool _handleDisconnectInNavigatedEvent = true;
 
 		// ReSharper disable UnusedMember.Global
 		public bool Debug => App.Debug;
@@ -122,9 +123,12 @@ namespace ExorLive.Client.WebWrapper
 			ExportSignonDetailsEvent?.Invoke(this, (JsonEventArgs)e);
 		}
 
+		private bool _beforeNavigatedSignoutHandled = false;
 		private void _browser_BeforeNavigating(object sender, Uri e)
 		{
-			if(e.AbsolutePath.Contains("signout")) {
+			if(e.AbsolutePath.Contains("signout") && (!_beforeNavigatedSignoutHandled))
+			{
+				_beforeNavigatedSignoutHandled = true;
 				_closeOnNavigate = true;
 			}
 		}
@@ -195,9 +199,41 @@ namespace ExorLive.Client.WebWrapper
 		private void browser_Navigated(object sender, EventArgs e)
 		{
 			if(!_closeOnNavigate) { return; }
-			_doClose = true;
-			Close();
+			bool shallCloseNow = true;
+
+			if (_handleDisconnectInNavigatedEvent)
+			{
+				// Remove any 'remembered signon' details when user selects "Log Out" in the ExorLive profile menu.
+				_handleDisconnectInNavigatedEvent = false; // To avoid infinte loop
+				UserHasDisconnected?.Invoke(this);
+
+				shallCloseNow = !SignoutAdfs();
+			}
+
+			if (shallCloseNow)
+			{
+				_doClose = true;
+				Close();
+			}
 		}
+
+		private bool SignoutAdfs()
+		{
+			if (!string.IsNullOrWhiteSpace(App.UserSettings.AdfsUrl))
+			{
+				string url = App.UserSettings.AdfsUrl;
+				if (url.Contains("?")) url += "&"; else url += "?";
+				url += "signout=1";
+				Uri uri;
+				if (Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out uri))
+				{
+					Navigate(uri);
+					return true;
+				}
+			}
+			return false;
+		}
+
 		public void SelectPerson2(PersonDTO person)
 		{
 			if(person.UserId > 0) {
@@ -346,10 +382,11 @@ namespace ExorLive.Client.WebWrapper
 		public void SignoutAndQuitApplication()
 		{
 			UserHasDisconnected?.Invoke(this);
+			SignoutAdfs();
 			QuitApplication();
 		}
 
-		public void QuitApplication(bool useStandardSignoutUrl = true)
+		public void QuitApplication()
 		{
 			_doClose = true;
 			if(App.UserSettings.AppUrl.Contains("int.exorlive.com"))
@@ -372,10 +409,12 @@ namespace ExorLive.Client.WebWrapper
 
 		private void MenuItem_Click_Close(object sender, RoutedEventArgs e)
 		{
+			_handleDisconnectInNavigatedEvent = false;
 			QuitApplication();
 		}
 		private void MenuItem_Click_SignOut(object sender, RoutedEventArgs e)
 		{
+			_handleDisconnectInNavigatedEvent = false;
 			SignoutAndQuitApplication();
 		}
 

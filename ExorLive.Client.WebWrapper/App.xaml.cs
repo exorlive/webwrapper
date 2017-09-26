@@ -118,17 +118,6 @@ namespace ExorLive.Client.WebWrapper
 			if(!string.IsNullOrWhiteSpace(_automaticSignonExternalUser)) {
 				RemoveSignonDetails(_automaticSignonExternalUser);
 			}
-			if(!string.IsNullOrWhiteSpace(App.UserSettings.AdfsUrl))
-			{
-				string url = App.UserSettings.AdfsUrl;
-				if (url.Contains("?")) url += "&"; else url += "?";
-				url += "signout=1";
-				Uri uri;
-				if(Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out uri))
-				{
-					((MainWindow)_webWrapperWindow).Navigate(uri);
-				}
-			}
 		}
 
 		private class SignonDetails
@@ -313,7 +302,12 @@ namespace ExorLive.Client.WebWrapper
 			if (!string.IsNullOrWhiteSpace(UserSettings.AdfsUrl))
 			{
 				// Adfs has its own URL and own way of remembering users.
+				var signonuser = _hostedComponent.GetSignonUser(e.Args);
 				url = UserSettings.AdfsUrl;
+				if(! string.IsNullOrWhiteSpace(signonuser))
+				{
+					url = AppendUrlArg(url, "signon=" + signonuser);
+				}
 				_shallStoreAutomaticSignonUser = false;
 				hasAutoSignonUser = false;
 			}
