@@ -158,24 +158,6 @@ namespace ExorLive.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public string SignonWithWindowsUser {
-            get {
-                return ((string)(this["SignonWithWindowsUser"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://test.exorlive.com/app/")]
-        public string AppUrl {
-            get {
-                return ((string)(this["AppUrl"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public string RememberLoggedInUser {
             get {
                 return ((string)(this["RememberLoggedInUser"]));
@@ -197,9 +179,9 @@ namespace ExorLive.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public string Log {
+        public string Log1 {
             get {
-                return ((string)(this["Log"]));
+                return ((string)(this["Log1"]));
             }
         }
         
@@ -209,6 +191,24 @@ namespace ExorLive.Properties {
         public string AdfsUrl {
             get {
                 return ((string)(this["AdfsUrl"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public string SignonWithWindowsUser {
+            get {
+                return ((string)(this["SignonWithWindowsUser"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://exorlive.com/app/")]
+        public string AppUrl {
+            get {
+                return ((string)(this["AppUrl"]));
             }
         }
     }
