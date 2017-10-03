@@ -36,34 +36,34 @@
 				<RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="version" Type="string" Value="[ProductVersion]" />
 			</Component>
 			<Component Id="Comp_eoBrowserObjectjs" Guid="{AF74DAAE-998E-4D4E-AC45-542FAA8C5490}">
-				<File Id="File_eoBrowserObject.js" KeyPath="yes" Source="Files\eoBrowserObject.js" />
+				<File Id="File_eoBrowserObject.js" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)\eoBrowserObject.js" />
 			</Component>
 			<Component Id="Comp_EOBasedll" Guid="{3B19F727-7266-DB92-73AD-2C39A7F34663}">
-				<File Id="File_EO.Base.dll" KeyPath="yes" Source="Files\EO.Base.dll" />
+				<File Id="File_EO.Base.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)\EO.Base.dll" />
 			</Component>
 			<Component Id="Comp_EOWebBrowserdll" Guid="{75C53201-1C40-DD75-123A-E275CBF104F5}">
-				<File Id="File_EO.WebBrowser.dll" KeyPath="yes" Source="Files\EO.WebBrowser.dll" />
+				<File Id="File_EO.WebBrowser.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)\EO.WebBrowser.dll" />
 			</Component>
 			<Component Id="Comp_EOWebBrowserWpfdll" Guid="{B9D3BCF1-1EC3-38A7-EC63-5DC59A5F6123}">
-				<File Id="File_EO.WebBrowser.Wpf.dll" KeyPath="yes" Source="Files\EO.WebBrowser.Wpf.dll" />
+				<File Id="File_EO.WebBrowser.Wpf.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)\EO.WebBrowser.Wpf.dll" />
 			</Component>
 			<Component Id="Comp_EOWebEnginedll" Guid="{4739F003-3E99-F50A-5CEB-88907F1000EC}">
-				<File Id="File_EO.WebEngine.dll" KeyPath="yes" Source="Files\EO.WebEngine.dll" />
+				<File Id="File_EO.WebEngine.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)\EO.WebEngine.dll" />
 			</Component>
 			<Component Id="Comp_ExorLiveDesktopdll" Guid="{7F2C6FD3-3EB6-60E1-CB27-E3BE0294D0A7}">
-				<File Id="File_ExorLive.Desktop.dll" KeyPath="yes" Source="Files\ExorLive.Desktop.dll" />
+				<File Id="File_ExorLive.Desktop.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)\ExorLive.Desktop.dll" />
 			</Component>
 			<Component Id="Comp_HardcodetWpfTaskbarNotificationdll" Guid="{AC1CFE88-8AFB-6664-58B7-900CC9E20DF4}">
-				<File Id="File_Hardcodet.Wpf.TaskbarNotification.dll" KeyPath="yes" Source="Files\Hardcodet.Wpf.TaskbarNotification.dll" />
+				<File Id="File_Hardcodet.Wpf.TaskbarNotification.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)\Hardcodet.Wpf.TaskbarNotification.dll" />
 			</Component>
 			<Component Id="Comp_NewtonsoftJsondll" Guid="{6434B9B6-61CA-51A5-E75F-CF7F4BA0DC88}">
-				<File Id="File_Newtonsoft.Json.dll" KeyPath="yes" Source="Files\Newtonsoft.Json.dll" />
+				<File Id="File_Newtonsoft.Json.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)\Newtonsoft.Json.dll" />
 			</Component>
 			<Component Id="Comp_AppConfig" Guid="{c4662d05-e830-45f2-a4b5-281b700fc409}">
-				<File Id="File_AppConfig" KeyPath="yes" Source="Files\ExorLive.Client.WebWrapper.exe.config" />
+				<File Id="File_AppConfig" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)\ExorLive.Client.WebWrapper.exe.config" />
 			</Component>
 			<Component Id="Comp_ExorLiveClientWebWrapperexe" Guid="{a4c04c3f-c2cd-4aaf-b61c-28f659cd0738}">
-				<File Id="File_ExorLive.Client.WebWrapper.exe" KeyPath="yes" Source="Files\ExorLive.Client.WebWrapper.exe" />
+				<File Id="File_ExorLive.Client.WebWrapper.exe" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)\ExorLive.Client.WebWrapper.exe" />
 				<Shortcut Id="Cmp_ProgramShortcut_Primary" Directory="ProgramMenuDir" Name="ExorLive" Icon="exorlive.ico" Advertise="yes" />
 				<Shortcut Id="Cmp_DesktopShortcut_Primary" Directory="DesktopFolder" Name="ExorLive" Icon="exorlive.ico" Advertise="yes" />
 				<RemoveFolder Directory="ProgramMenuDir" Id="RemoveProgramMenuDir" On="uninstall" />
