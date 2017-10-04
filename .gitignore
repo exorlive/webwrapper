@@ -219,3 +219,4 @@ thumbs.db
 Webpage/webwrapper/
 Webpage/**/*.msi
 Webpage/**/version.txt
+PublishedFiles/
