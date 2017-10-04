@@ -64,6 +64,8 @@ The application settings are currently saved in the default configuration file, 
 5. Right-click on ExorLive.Client.WebWrapper and select the "Publish" tab. Change the version.
 6. Right-click on Webpage project and select "Publish..."
 
+This will build the SetupProject, ExorLive.Client.WebWrapper, and ExorLive.Desktop. It will build it 3 times, each with a different configuration: Release, Procapita and VGR.
+
 ## Single Sign On
 
 If the WebWrapper is started with a parameter telling which external user is running this session and then this user logges into ExorLive with an ExorLive user, the WebWrapper will remember the link between the external user and the ExorLive user. The next time the WebWrapper is started, it logges in automatically as this ExorLive user.
