@@ -13,7 +13,7 @@ namespace Webpage
 		protected string GetLatestDownload()
 		{
 			var version = GetLatestVersion();
-			return $"/msi/ExorLiveWebWrapper.{version}.msi";
+			return $"./msi/ExorLiveWebWrapper.{version}.msi";
 		}
 
 		protected string GetLatestVersion()

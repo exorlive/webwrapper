@@ -47,7 +47,9 @@
     <Content Include="images\exorlive_logo.svg" />
     <Content Include="images\message.svg" />
     <Content Include="msi\version.txt" />
+    <Content Include="Procapita\Default.aspx" />
     <Content Include="Procapita\msi\version.txt" />
+    <Content Include="VGR\Default.aspx" />
     <Content Include="VGR\msi\version.txt" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -59,7 +61,21 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Procapita\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procapita\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VGR\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VGR\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\exorlivewebwrapper.pubxml" />
@@ -154,11 +170,9 @@
     <MSBuild Projects="$(SolutionDir)ExorLive.Desktop\ExorLive.Desktop.vbproj" Properties="Configuration=Release;Platform=Any CPU;OutputPath=bin\Release" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)ExorLive.Desktop\ExorLive.Desktop.vbproj" Properties="Configuration=VGR;Platform=Any CPU;OutputPath=bin\VGR" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)ExorLive.Desktop\ExorLive.Desktop.vbproj" Properties="Configuration=Procapita;Platform=Any CPU;OutputPath=bin\Procapita" Targets="Build" StopOnFirstFailure="true" />
-
     <MSBuild Projects="$(SolutionDir)ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper.csproj" Properties="Configuration=Release;Platform=Any CPU;OutputPath=bin\Release" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper.csproj" Properties="Configuration=VGR;Platform=Any CPU;OutputPath=bin\VGR" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper.csproj" Properties="Configuration=Procapita;Platform=Any CPU;OutputPath=bin\Procapita" Targets="Build" StopOnFirstFailure="true" />
-
     <MSBuild Projects="$(SolutionDir)SetupProject\SetupProject.wixproj" Properties="Configuration=Release;Platform=x86;OutputPath=bin\Release" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)SetupProject\SetupProject.wixproj" Properties="Configuration=VGR;Platform=x86;OutputPath=bin\VGR" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)SetupProject\SetupProject.wixproj" Properties="Configuration=Procapita;Platform=x86;OutputPath=bin\Procapita" Targets="Build" StopOnFirstFailure="true" />
