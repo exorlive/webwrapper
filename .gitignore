@@ -213,10 +213,9 @@ ModelManifest.xml
 
 # My own ignores
 ExorLive.sln.GhostDoc.xml
-Webpage/msi/
 ExorLive.Client.WebWrapper/Resources/EoBrowserLicenseFile.txt
 InstallShield/InstallShield/
 thumbs.db
 Webpage/webwrapper/
-SetupProject/Files/
-Webpage/Procapita/msi/
+Webpage/**/*.msi
+Webpage/**/version.txt
