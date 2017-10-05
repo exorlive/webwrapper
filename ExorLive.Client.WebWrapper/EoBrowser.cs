@@ -89,6 +89,7 @@ public class EoBrowser : IBrowser
 
 	private static void WebView_NewWindow(object sender, NewWindowEventArgs e)
 	{
+		if(String.IsNullOrWhiteSpace(e.TargetUrl)) { return; }
 		var targeturi = new Uri(e.TargetUrl);
 		try
 		{
