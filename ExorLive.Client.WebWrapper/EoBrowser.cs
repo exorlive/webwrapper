@@ -55,6 +55,7 @@ public class EoBrowser : IBrowser
 		_browser.WebView.JSExtInvoke += WebView_JSExtension;
 		_browser.WebView.NewWindow += WebView_NewWindow;
 		_browser.WebView.LoadFailed += WebView_LoadFailed;
+		_browser.WebView.CertificateError += WebView_CertificateError;
 
 		// This javascript file is added to every page you navigate to.
 		var jsfile = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "eoBrowserObject.js");
@@ -67,6 +68,12 @@ public class EoBrowser : IBrowser
 				$"window.external.Debug = { EncodeJsString(Debug.ToString().ToLower()) }; " +
 				$"window.external.DistributorName = '{ EncodeJsString(Settings.Default.DistributorName) }'; " +
 				$"window.external.CheckForUpdates = '{ EncodeJsString(App.UserSettings.CheckForUpdates.ToString()) }'; ";
+		}
+	}
+
+	private void WebView_CertificateError(object sender, CertificateErrorEventArgs e) {
+		if(App.Debug) {
+			MessageBox.Show("Can't load the url \"" + e.Url + "\", the SSL certificate is invalid.");
 		}
 	}
 
