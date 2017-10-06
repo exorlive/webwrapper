@@ -1,11 +1,11 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Webpage.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Webpage.VGR.Default" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 	<meta charset="utf-8" />
-	<title>ExorLive WebWrapper</title>
+	<title>ExorLive WebWrapper for VGR</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,300" rel="stylesheet" type="text/css" />
 	<link href="/Default.css" rel="stylesheet" />
@@ -31,7 +31,7 @@
 			</div>
 			<ul class="nav navbar-nav" id="menu">
 				<li class="active">
-					<h1>ExorLive WebWrapper <%=GetLatestVersion()%></h1>
+					<h1>ExorLive WebWrapper <%=GetLatestVersion()%> for VGR</h1>
 				</li>
 			</ul>
 		</nav>
