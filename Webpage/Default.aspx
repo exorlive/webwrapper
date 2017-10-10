@@ -44,6 +44,12 @@
 			</ul>
 
 			<h2>Changelog</h2>
+			<h3>2.2.3 - September 2017</h3>
+			<ul>
+				<li>Support for ADFS.</li>
+				<li>Fixes Webwrapper error on ExorLive print.</li>
+				<li>Fixes CertificateError dialog that occasionally was shown on application launch.</li>
+			</ul>
 			<h3>2.2 - May 2017</h3>
 			<ul>
 				<li>This includes some new configuration settings and new functionality.</li>

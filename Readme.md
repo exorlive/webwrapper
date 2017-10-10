@@ -1,8 +1,5 @@
 [TOC]
 
-# News
-As of May 2017, a new version (v 2.2) is released. This includes some new configuration settings and new functionality, and updated documentation.
-
 # ExorLive WebWrapper
 
 [ExorLive](http://exorlive.com/) is an application delivered as a single page application, and so in order for desktop applications to efficiently integrate with this, ExorLive provides an executable that wraps the web application in a controllable desktop application. This application is called "ExorLive.Client.WebWrapper", or only "WebWrapper". The WebWrapper executable is a single instance application, and if executed multiple times will pass all arguments to the running instance.
