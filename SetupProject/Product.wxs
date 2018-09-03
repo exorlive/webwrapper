@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" RequiredVersion="3.11.0.0">
-	<Product Id="*" Language="1033" Manufacturer="ExorLive" Name="ExorLive Webwrapper" UpgradeCode="{B8A04A68-0E41-448A-BAC2-D31A56D9251D}" Version="2.2.4">
+	<Product Id="*" Language="1033" Manufacturer="ExorLive" Name="ExorLive Webwrapper" UpgradeCode="{B8A04A68-0E41-448A-BAC2-D31A56D9251D}" Version="2.2.5">
 		<Package InstallScope="perUser" InstallPrivileges="limited" Comments="(c) 2017 ExorLive AS" Description="ExorLive Webwrapper" InstallerVersion="500" Keywords="Installer,MSI" Languages="1033" Manufacturer="ExorLive" Platform="x86" Compressed="yes" />
 		<MediaTemplate EmbedCab="yes"/>
 		<UIRef Id="WixUI_Minimal" />

@@ -106,7 +106,7 @@ namespace ExorLiveNamedPipeSampleClient
 					if (lower == "users" || lower.StartsWith("users "))
 					{
 						string customid = null;
-						string[] array = line.Split(splitter, StringSplitOptions.RemoveEmptyEntries);
+						var array = line.Split(splitter, StringSplitOptions.RemoveEmptyEntries);
 						if (array.Length > 1) {
 							customid = array[1];
 						}
@@ -135,7 +135,7 @@ namespace ExorLiveNamedPipeSampleClient
 					}
 					if (lower.StartsWith("listw "))
 					{
-						string[] array = line.Split(splitter, StringSplitOptions.RemoveEmptyEntries);
+						var array = line.Split(splitter, StringSplitOptions.RemoveEmptyEntries);
 						if (array.Length > 1)
 						{
 							var userId = array[1];
@@ -154,7 +154,7 @@ namespace ExorLiveNamedPipeSampleClient
 					}
 					if (lower.StartsWith("workout "))
 					{
-						string[] array = line.Split(splitter, StringSplitOptions.RemoveEmptyEntries);
+						var array = line.Split(splitter, StringSplitOptions.RemoveEmptyEntries);
 						if (array.Length > 1)
 						{
 							OpenWorkout(array[1]);
@@ -162,7 +162,7 @@ namespace ExorLiveNamedPipeSampleClient
 					}
 					if (lower.StartsWith("selectperson "))
 					{
-						string[] array = line.Split(splitter, StringSplitOptions.RemoveEmptyEntries);
+						var array = line.Split(splitter, StringSplitOptions.RemoveEmptyEntries);
 						if (array.Length > 1)
 						{
 							SelectPerson(array);

@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Workout.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="NPServer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

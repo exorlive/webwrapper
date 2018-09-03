@@ -217,7 +217,7 @@ namespace ExorLive.Client.WebWrapper
 		private void browser_Navigated(object sender, EventArgs e)
 		{
 			if (!_closeOnNavigate) { return; }
-			bool shallCloseNow = true;
+			var shallCloseNow = true;
 
 			if (_handleDisconnectInNavigatedEvent)
 			{
@@ -239,11 +239,10 @@ namespace ExorLive.Client.WebWrapper
 		{
 			if (!string.IsNullOrWhiteSpace(App.UserSettings.AdfsUrl))
 			{
-				string url = App.UserSettings.AdfsUrl;
+				var url = App.UserSettings.AdfsUrl;
 				if (url.Contains("?")) url += "&"; else url += "?";
 				url += "signout=1";
-				Uri uri;
-				if (Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out uri))
+				if (Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out Uri uri))
 				{
 					Navigate(uri);
 					return true;
@@ -477,14 +476,21 @@ namespace ExorLive.Client.WebWrapper
 								if (response != null)
 								{
 									var s = response.Split('.');
-									var newestVersion = new Version(
+									var newestVersionComparison = new Version(
 										int.Parse(s[0]),
 										int.Parse(s[1]),
 										int.Parse(s[2]),
 										0
-									);  // Ignore updates that is just a build or a revision.
-									if (newestVersion > assemblyVersion)
+									); 
+									// Ignore build version changes.
+									if (newestVersionComparison > assemblyVersion)
 									{
+										var newestVersion = new Version(
+											int.Parse(s[0]),
+											int.Parse(s[1]),
+											int.Parse(s[2]),
+											int.Parse(s[3])
+										);
 										DownloadLink.NavigateUri = new Uri(downloadLink.AbsoluteUri.Replace("x.x.x.x", newestVersion.ToString()));
 										UpdateNotification.IsExpanded = true;
 									}

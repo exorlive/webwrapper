@@ -79,6 +79,7 @@
     <Compile Include="DTO\WorkoutDTO.vb" />
     <Compile Include="Exor3\Component.vb">
     </Compile>
+    <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="IHost.vb" />
     <Compile Include="IHosted.vb" />
     <Compile Include="My Project\Application.Designer.vb">

@@ -12,8 +12,8 @@ namespace ExorLive.Properties
 		[UserScopedSetting()]
 		public string OsloSettings
 		{
-			get => ((string)this["OsloSettings"]);
-			set => this["OsloSettings"] = value;
+			get => ((string)this[nameof(OsloSettings)]);
+			set => this[nameof(OsloSettings)] = value;
 		}
 
 	}
