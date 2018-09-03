@@ -271,7 +271,7 @@ namespace Microsoft.Shell
 			// Build unique application Id and the IPC channel name.
 			var applicationIdentifier = uniqueName + Environment.UserName;
 
-			var channelName = String.Concat(applicationIdentifier, Delimiter, ChannelNameSuffix);
+			var channelName = string.Concat(applicationIdentifier, Delimiter, ChannelNameSuffix);
 
 			// Create mutex based on unique application Id to check if this is the first instance of the application. 
 			singleInstanceMutex = new Mutex(true, applicationIdentifier, out var firstInstance);

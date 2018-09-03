@@ -191,7 +191,7 @@ namespace ExorLive.Client.WebWrapper
 
 		private bool ToBool(string s)
 		{
-			if(Boolean.TryParse(s, out var aBool)) {
+			if(bool.TryParse(s, out var aBool)) {
 				return aBool;
 			}
 			return false;

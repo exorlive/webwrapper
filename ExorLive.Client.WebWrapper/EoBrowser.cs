@@ -44,6 +44,12 @@ public class EoBrowser : IBrowser
 		{
 			Runtime.AddLicense(Resources.EoBrowserLicenseFile);
 		}
+		Runtime.DefaultEngineOptions.BypassUserGestureCheck = true;
+		Runtime.DefaultEngineOptions.DisableSpellChecker = true;
+		Runtime.DefaultEngineOptions.DisableGPU = true;
+		Runtime.DefaultEngineOptions.DisableWMPointer = true;
+		Runtime.DefaultEngineOptions.SkipWaitForLayerActivation = false;
+		Runtime.DefaultEngineOptions.AllowProprietaryMediaFormats();
 		if(App.Debug) {
 			StartRemoteDebugging();
 		}
@@ -94,9 +100,15 @@ public class EoBrowser : IBrowser
 		}
 	}
 
+	/// <summary>
+	/// For when the browser window navigates to an external link,
+	/// open the link in the default browser
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
 	private static void WebView_NewWindow(object sender, NewWindowEventArgs e)
 	{
-		if(String.IsNullOrWhiteSpace(e.TargetUrl)) { return; }
+		if(string.IsNullOrWhiteSpace(e.TargetUrl)) { return; }
 		var targeturi = new Uri(e.TargetUrl);
 		try
 		{

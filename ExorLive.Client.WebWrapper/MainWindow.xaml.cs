@@ -35,9 +35,12 @@ namespace ExorLive.Client.WebWrapper
 			SetWindowSize();
 			Restore();
 			_doClose = !App.UserSettings.MinimizeOnExit;
-			try {
+			try
+			{
 				Title += $" {Assembly.GetExecutingAssembly().GetName().Version}";
-			} catch(InvalidDeploymentException) {
+			}
+			catch (InvalidDeploymentException)
+			{
 				Title += " - No version";
 			}
 		}
@@ -45,8 +48,9 @@ namespace ExorLive.Client.WebWrapper
 		private void SetWindowSize()
 		{
 			// Make sure the rectangle is visible within screens.
-			if(IsPointVisibleOnAScreen(new Point(App.UserSettings.Left, App.UserSettings.Top)) &&
-				IsPointVisibleOnAScreen(new Point(App.UserSettings.Left + App.UserSettings.Width, App.UserSettings.Top + App.UserSettings.Height))) {
+			if (IsPointVisibleOnAScreen(new Point(App.UserSettings.Left, App.UserSettings.Top)) &&
+				IsPointVisibleOnAScreen(new Point(App.UserSettings.Left + App.UserSettings.Width, App.UserSettings.Top + App.UserSettings.Height)))
+			{
 				Top = App.UserSettings.Top;
 				Left = App.UserSettings.Left;
 				Height = App.UserSettings.Height;
@@ -62,14 +66,17 @@ namespace ExorLive.Client.WebWrapper
 
 		private void RememberWindowSize()
 		{
-			if(WindowState == WindowState.Maximized) {
+			if (WindowState == WindowState.Maximized)
+			{
 				// Use the RestoreBounds as the current values will be 0, 0 and the size of the screen
 				App.UserSettings.Top = RestoreBounds.Top;
 				App.UserSettings.Left = RestoreBounds.Left;
 				App.UserSettings.Height = RestoreBounds.Height;
 				App.UserSettings.Width = RestoreBounds.Width;
 				App.UserSettings.Maximized = true;
-			} else {
+			}
+			else
+			{
 				App.UserSettings.Top = Top;
 				App.UserSettings.Left = Left;
 				App.UserSettings.Height = Height;
@@ -83,25 +90,35 @@ namespace ExorLive.Client.WebWrapper
 		private void BrowserGrid_Loaded(object sender, RoutedEventArgs e)
 		{
 			_defaultBrowserEngine = App.UserSettings.BrowserEngine;
-			_browser = (_defaultBrowserEngine == BrowserEngines.InternetExplorer) ?
+			try
+			{
+				_browser = (_defaultBrowserEngine == BrowserEngines.InternetExplorer) ?
 				WindowsBrowser.Instance :
 				EoBrowser.Instance;
-			_browser.Navigated += browser_Navigated;
-			_browser.SelectedUserChanged += _browser_SelectedUserChanged;
-			_browser.IsLoaded += _browser_IsLoaded;
-			_browser.IsUnloading += _browser_IsUnloading;
-			_browser.BeforeNavigating += _browser_BeforeNavigating;
-			_browser.ExportUsersDataEvent += _browser_ExportUsersDataEvent;
-			_browser.ExportUserListEvent += _browser_ExportUserListEvent;
-			_browser.SelectPersonResultEvent += _browser_SelectPersonResultEvent;
-			_browser.ExportSignonDetailsEvent += _browser_ExportSignonDetailsEvent;
+				_browser.Navigated += browser_Navigated;
+				_browser.SelectedUserChanged += _browser_SelectedUserChanged;
+				_browser.IsLoaded += _browser_IsLoaded;
+				_browser.IsUnloading += _browser_IsUnloading;
+				_browser.BeforeNavigating += _browser_BeforeNavigating;
+				_browser.ExportUsersDataEvent += _browser_ExportUsersDataEvent;
+				_browser.ExportUserListEvent += _browser_ExportUserListEvent;
+				_browser.SelectPersonResultEvent += _browser_SelectPersonResultEvent;
+				_browser.ExportSignonDetailsEvent += _browser_ExportSignonDetailsEvent;
 
-			BrowserGrid.Children.Add(_browser.GetUiElement());
-			if(_navigateToUri != null) {
-				_browser.Navigate(_navigateToUri);
+				BrowserGrid.Children.Add(_browser.GetUiElement());
+				if (_navigateToUri != null)
+				{
+					_browser.Navigate(_navigateToUri);
+				}
+				if (App.UserSettings.CheckForUpdates)
+				{
+					CheckForUpdates();
+				}
 			}
-			if(App.UserSettings.CheckForUpdates) {
-				CheckForUpdates();
+			catch (Exception ex)
+			{
+				System.Windows.MessageBox.Show(ex.Message, "Browser spawn error", MessageBoxButton.OK);
+				throw;
 			}
 		}
 
@@ -126,7 +143,7 @@ namespace ExorLive.Client.WebWrapper
 		private bool _beforeNavigatedSignoutHandled = false;
 		private void _browser_BeforeNavigating(object sender, Uri e)
 		{
-			if(e.AbsolutePath.Contains("signout") && (!_beforeNavigatedSignoutHandled))
+			if (e.AbsolutePath.Contains("signout") && (!_beforeNavigatedSignoutHandled))
 			{
 				_beforeNavigatedSignoutHandled = true;
 				_closeOnNavigate = true;
@@ -160,7 +177,8 @@ namespace ExorLive.Client.WebWrapper
 		// ReSharper disable once UnusedMember.Global
 		public void NotifySelectingUser(int id, string externalId, string firstname, string lastname, string email, string dateofbirth)
 		{
-			var person = new PersonDTO() {
+			var person = new PersonDTO()
+			{
 				UserId = id,
 				ExternalId = externalId,
 				Firstname = firstname,
@@ -198,7 +216,7 @@ namespace ExorLive.Client.WebWrapper
 		/// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
 		private void browser_Navigated(object sender, EventArgs e)
 		{
-			if(!_closeOnNavigate) { return; }
+			if (!_closeOnNavigate) { return; }
 			bool shallCloseNow = true;
 
 			if (_handleDisconnectInNavigatedEvent)
@@ -236,9 +254,12 @@ namespace ExorLive.Client.WebWrapper
 
 		public void SelectPerson2(PersonDTO person)
 		{
-			if(person.UserId > 0) {
+			if (person.UserId > 0)
+			{
 				SelectPersonById(person.UserId);
-			} else if(!string.IsNullOrWhiteSpace(person.ExternalId)) {
+			}
+			else if (!string.IsNullOrWhiteSpace(person.ExternalId))
+			{
 				_browser.SelectPerson2(
 					person.ExternalId,
 					person.Firstname,
@@ -267,7 +288,8 @@ namespace ExorLive.Client.WebWrapper
 			//   If userId > 0 but not a user in the org, give NOTFOUND status back.
 			//   If UserId == 0, ExternalId must be set. A new contact is created in ExorLive.
 			//
-			if(person.UserId > 0 || (!string.IsNullOrWhiteSpace(person.ExternalId))) {
+			if (person.UserId > 0 || (!string.IsNullOrWhiteSpace(person.ExternalId)))
+			{
 				//// Not in use here anymore:
 				////    SelectPersonById(person.UserId);
 
@@ -318,10 +340,12 @@ namespace ExorLive.Client.WebWrapper
 		}
 		public void Restore()
 		{
-			if(!IsVisible) {
+			if (!IsVisible)
+			{
 				Show();
 			}
-			if(WindowState == WindowState.Minimized) {
+			if (WindowState == WindowState.Minimized)
+			{
 				WindowState = WindowState.Normal;
 			}
 			Activate();
@@ -335,11 +359,13 @@ namespace ExorLive.Client.WebWrapper
 			// Must force webwrapper to appear in front on other (calling) application when that application calls "show" command.
 			// http://stackoverflow.com/questions/257587/bring-a-window-to-the-front-in-wpf
 
-			if(!IsVisible) {
+			if (!IsVisible)
+			{
 				Show();
 			}
 
-			if(WindowState == WindowState.Minimized) {
+			if (WindowState == WindowState.Minimized)
+			{
 				WindowState = WindowState.Normal;
 			}
 
@@ -366,8 +392,8 @@ namespace ExorLive.Client.WebWrapper
 		private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			RememberWindowSize();
-			if(_doClose) { return; }
-			if(!Loaded) { return; }
+			if (_doClose) { return; }
+			if (!Loaded) { return; }
 			e.Cancel = true;
 			WindowState = WindowState.Minimized;
 			Hide();
@@ -389,11 +415,11 @@ namespace ExorLive.Client.WebWrapper
 		public void QuitApplication()
 		{
 			_doClose = true;
-			if(App.UserSettings.AppUrl.Contains("int.exorlive.com"))
+			if (App.UserSettings.AppUrl.Contains("int.exorlive.com"))
 			{
 				Navigate(new Uri(App.UserSettings.AppUrl.Replace("/app/", "/signout/").Replace("int.exorlive.com", "auth-int.exorlive.com")));
 			}
-			else if(App.UserSettings.AppUrl.Contains("test.exorlive.com"))
+			else if (App.UserSettings.AppUrl.Contains("test.exorlive.com"))
 			{
 				Navigate(new Uri(App.UserSettings.AppUrl.Replace("/app/", "/signout/").Replace("test.exorlive.com", "auth.test.exorlive.com")));
 			}
@@ -429,20 +455,27 @@ namespace ExorLive.Client.WebWrapper
 			var domain = new Uri("https://webwrapper.exorlive.com/");
 
 			var subfolder = App.UserSettings.UpdatePath;
-			if(!string.IsNullOrWhiteSpace(subfolder)) {
+			if (!string.IsNullOrWhiteSpace(subfolder))
+			{
 				domain = new Uri(domain + subfolder + "/");
 			}
 
 			var versionFile = new Uri(domain + "msi/version.txt");
 			var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
 			var downloadLink = new Uri(domain + "msi/ExorLiveWebWrapper.x.x.x.x.msi");
-			try {
-				using(var client = new WebClient()) {
-					using(var stream = client.OpenRead(versionFile)) {
-						if(stream != null) {
-							using(var reader = new StreamReader(stream)) {
+			try
+			{
+				using (var client = new WebClient())
+				{
+					using (var stream = client.OpenRead(versionFile))
+					{
+						if (stream != null)
+						{
+							using (var reader = new StreamReader(stream))
+							{
 								var response = reader.ReadLine();
-								if(response != null) {
+								if (response != null)
+								{
 									var s = response.Split('.');
 									var newestVersion = new Version(
 										int.Parse(s[0]),
@@ -450,7 +483,8 @@ namespace ExorLive.Client.WebWrapper
 										int.Parse(s[2]),
 										0
 									);  // Ignore updates that is just a build or a revision.
-									if(newestVersion > assemblyVersion) {
+									if (newestVersion > assemblyVersion)
+									{
 										DownloadLink.NavigateUri = new Uri(downloadLink.AbsoluteUri.Replace("x.x.x.x", newestVersion.ToString()));
 										UpdateNotification.IsExpanded = true;
 									}
@@ -459,7 +493,9 @@ namespace ExorLive.Client.WebWrapper
 						}
 					}
 				}
-			} catch(Exception) {
+			}
+			catch (Exception)
+			{
 				// No internet? Blocked? Lets do nothing.
 			}
 		}
