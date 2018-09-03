@@ -133,27 +133,24 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EO.Base, Version=15.3.24.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
-      <HintPath>..\packages\EO.WebBrowser.15.3.24.0\lib\EO.Base.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EO.Base, Version=18.2.74.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
+      <HintPath>..\packages\EO.WebBrowser.18.2.74\lib\EO.Base.dll</HintPath>
     </Reference>
-    <Reference Include="EO.WebBrowser, Version=15.3.24.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
-      <HintPath>..\packages\EO.WebBrowser.15.3.24.0\lib\EO.WebBrowser.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EO.WebBrowser, Version=18.2.74.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
+      <HintPath>..\packages\EO.WebBrowser.18.2.74\lib\EO.WebBrowser.dll</HintPath>
     </Reference>
-    <Reference Include="EO.WebBrowser.Wpf">
-      <HintPath>..\packages\EO.WebBrowser.15.3.24.0\lib\EO.WebBrowser.Wpf.dll</HintPath>
+    <Reference Include="EO.WebBrowser.Wpf, Version=18.2.74.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
+      <HintPath>..\packages\EO.WebBrowser.Wpf.18.2.74\lib\EO.WebBrowser.Wpf.dll</HintPath>
     </Reference>
-    <Reference Include="EO.WebEngine, Version=15.3.24.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
-      <HintPath>..\packages\EO.WebBrowser.15.3.24.0\lib\EO.WebEngine.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EO.WebEngine, Version=18.2.74.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
+      <HintPath>..\packages\EO.WebBrowser.18.2.74\lib\EO.WebEngine.dll</HintPath>
     </Reference>
     <Reference Include="Hardcodet.Wpf.TaskbarNotification, Version=1.0.5.0, Culture=neutral, PublicKeyToken=e2091e5cc31f01f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SignedBuild-Hardcodet.NotifyIcon.Wpf.1.0.5\lib\net35\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

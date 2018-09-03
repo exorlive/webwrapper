@@ -5,7 +5,7 @@ using System.IO;
 using System.Text;
 using System.Windows;
 using EO.WebBrowser;
-using EO.WebBrowser.Wpf;
+using EO.Wpf;
 using ExorLive;
 using ExorLive.Client.WebWrapper;
 using ExorLive.Properties;
@@ -79,7 +79,7 @@ public class EoBrowser : IBrowser
 
 	private void StartRemoteDebugging ()
 	{
-		Runtime.RemoteDebugPort = 9223;
+		Runtime.DefaultEngineOptions.RemoteDebugPort = 9223;
 	}
 
 	private void WebView_LoadFailed(object sender, LoadFailedEventArgs e)
