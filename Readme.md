@@ -47,8 +47,6 @@ The application settings are currently saved in the default configuration file, 
 
 * [WiX Toolset][0], probably with WiX's Visual Studio 2017 extension
 * Deployment password for Azure Web App "exorlivewebwrapper.scm.azurewebsites.net" (<https://webwrapper.exorlive.com>).
-* This file must exist at this location: 
-	- "C:\Program Files (x86)\Windows Kits\10\bin\x86\signtool.exe".
 * A code signing certificate in your personal certificate store (right click on it and select Install and select location "Current User" and "Personal"). This will be used by signtool to sign the assemblies.
 
 	[0]: http://wixtoolset.org/

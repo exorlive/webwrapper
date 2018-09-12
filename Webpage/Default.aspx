@@ -44,6 +44,16 @@
 			</ul>
 
 			<h2>Changelog</h2>
+			<h3>2.2.5 - September 2018</h3>
+			<ul>
+				<li>
+					<p>Fix for video playback issues:</p>
+					<ul>
+						<li>Updated browser engine.</li>
+						<li>Turned off hardware acceleration in the browser component.</li>
+					</ul>
+				</li>
+			</ul>
 			<h3>2.2.3 - September 2017</h3>
 			<ul>
 				<li>Support for ADFS.</li>
