@@ -33,7 +33,7 @@ namespace ExorLive.Client.WebWrapper
 		private bool _shallStoreAutomaticSignonUser = false;
 		public static string ApplicationIdentifier => $"{Assembly.GetExecutingAssembly().FullName} ({_hostedComponent.GetName()})";
 
-		public static bool Debug => Convert.ToBoolean(Settings.Default.Debug);
+		public static bool Debug => Settings.Default.Debug;
 
 		public void SelectPerson(PersonDTO person)
 		{
@@ -59,7 +59,7 @@ namespace ExorLive.Client.WebWrapper
 
 		private string GetSignonString(string signonuser)
 		{
-			if (ToBool(Settings.Default.RememberLoggedInUser))
+			if (Settings.Default.RememberLoggedInUser)
 			{
 				var dictstring = UserSettings.OsloSettings;
 				if (!string.IsNullOrWhiteSpace(dictstring))
@@ -88,7 +88,7 @@ namespace ExorLive.Client.WebWrapper
 
 		private void StoreSignonDetails(string signonuser, int userId, string username, string token)
 		{
-			if (ToBool(Settings.Default.RememberLoggedInUser))
+			if (Settings.Default.RememberLoggedInUser)
 			{
 				Dictionary<string, SignonDetails> dict = null;
 				var dictstring = UserSettings.OsloSettings;
@@ -210,14 +210,6 @@ namespace ExorLive.Client.WebWrapper
 			}
 		}
 
-		private bool ToBool(string s)
-		{
-			if (bool.TryParse(s, out var aBool))
-			{
-				return aBool;
-			}
-			return false;
-		}
 #pragma warning disable 67 // The event is never used
 		public event IHost.WindowMinifiedEventHandler WindowMinified;
 		public event IHost.WindowClosingEventHandler WindowClosing;
@@ -250,9 +242,9 @@ namespace ExorLive.Client.WebWrapper
 			{
 				return;
 			}
+			UserSettings = new Settings();
 			var application = new App();
 			application.InitializeComponent();
-			UserSettings = new Settings();
 			application.Run();
 
 			// Allow single instance code to perform cleanup operations
@@ -272,8 +264,7 @@ namespace ExorLive.Client.WebWrapper
 				.Where(argumentKeyAndValue => argumentKeyAndValue.Length == 2)
 				.ToDictionary(argumentKey => argumentKey[0], argumentValue => argumentValue[1]);
 			LoadProtocolProvider();
-			if (UserSettings.Log.ToLower() == "true" || UserSettings.Log == "1") Logging = true;
-
+			Logging = UserSettings.Log;
 			_webWrapperWindow = new MainWindow();
 			_webWrapperWindow.IsLoaded += WebWrapperWindowExorLiveIsLoaded;
 			_webWrapperWindow.IsUnloading += _webWrapperWindow_IsUnloading;
@@ -289,7 +280,7 @@ namespace ExorLive.Client.WebWrapper
 				url = AppendUrlArg(url, $"culture={_applicationArguments["culture"]}");
 			}
 			var hasAutoSignonUser = false;
-			if (ToBool(UserSettings.SignonWithWindowsUser))
+			if (UserSettings.SignonWithWindowsUser)
 			{
 				_automaticSignonExternalUser = Environment.UserName + "@" + Environment.UserDomainName;
 				var signonstring = GetSignonString(_automaticSignonExternalUser);
@@ -303,7 +294,7 @@ namespace ExorLive.Client.WebWrapper
 			}
 			if (!hasAutoSignonUser)
 			{
-				if (ToBool(Settings.Default.RememberLoggedInUser))
+				if (Settings.Default.RememberLoggedInUser)
 				{
 					var signonuser = _hostedComponent.GetSignonUser(e.Args);
 					if (signonuser != null)
@@ -411,7 +402,7 @@ namespace ExorLive.Client.WebWrapper
 			HandleCommandLine(_cmd);
 			if (_shallStoreAutomaticSignonUser)
 			{
-				if (ToBool(Settings.Default.RememberLoggedInUser))
+				if (Settings.Default.RememberLoggedInUser)
 				{
 					// Get signon-details for the logged-in user and store it in the UserSettings.
 					_webWrapperWindow.GetSignonDetails();

@@ -182,6 +182,7 @@
     <Compile Include="EoBrowser.cs" />
     <Compile Include="ExorLiveInterface.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="GlobalSuppressions2.cs" />
     <Compile Include="IBrowser.cs" />
     <Compile Include="IExorLiveHost.cs" />
     <Compile Include="IExorLiveInterface.cs" />

@@ -149,27 +149,27 @@ namespace ExorLive.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public string Log {
+        public bool Log {
             get {
-                return ((string)(this["Log"]));
+                return ((bool)(this["Log"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public string SignonWithWindowsUser {
+        public bool SignonWithWindowsUser {
             get {
-                return ((string)(this["SignonWithWindowsUser"]));
+                return ((bool)(this["SignonWithWindowsUser"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public string RememberLoggedInUser {
+        public bool RememberLoggedInUser {
             get {
-                return ((string)(this["RememberLoggedInUser"]));
+                return ((bool)(this["RememberLoggedInUser"]));
             }
         }
         
