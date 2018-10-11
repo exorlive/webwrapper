@@ -160,7 +160,6 @@ namespace ExorLive.Client.WebWrapper
 		{
 			SelectedUserChanged?.Invoke(this, (SelectedUserEventArgs)e);
 		}
-		// ReSharper disable once UnusedMember.Global
 		public void SetInterface(object comObject)
 		{
 			_browser.SetInterface(comObject);
@@ -172,7 +171,6 @@ namespace ExorLive.Client.WebWrapper
 			IsLoaded?.Invoke(this);
 			UpdateNotification.IsExpanded = false;
 		}
-		// ReSharper disable once UnusedMember.Global
 		public void NotifySelectingUser(int id, string externalId, string firstname, string lastname, string email, string dateofbirth)
 		{
 			var person = new PersonDTO()

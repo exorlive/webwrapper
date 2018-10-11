@@ -113,7 +113,6 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 			// Set at timer. Do not allow for more than 30 seconds until response.
 			// Assume that call failed if it took more than 30 seconds.
 			const int ms = 30 * 1000;
-			// ReSharper disable once UnusedVariable
 			var timer = new Timer(TimeoutElapsed, null, ms, Timeout.Infinite);
 		}
 
@@ -374,7 +373,6 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 										{
 											if (pair.Key.ToLower() == "id")
 											{
-												// ReSharper disable once RedundantAssignment
 												foundId = true;
 												if(int.TryParse(pair.Value, out var id)) {
 													OpenWorkout(id);
@@ -386,7 +384,6 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 												}
 											}
 										}
-										// ReSharper disable once ConditionIsAlwaysTrueOrFalse
 										if (foundId == false)
 										{
 											directResult = JsonFormatError("Argument 'id' not specified for method '{0}'.", request.Method);
@@ -552,17 +549,13 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 
 	public class NamedPipeRequest
 	{
-		// ReSharper disable once UnusedAutoPropertyAccessor.Global
 		public string Method { get; set; }
-		// ReSharper disable once UnusedAutoPropertyAccessor.Global
 		public Dictionary<string, string> Args { get; set; }
 	}
 
 	public class NamedPipeRequest2
 	{
-		// ReSharper disable once UnusedAutoPropertyAccessor.Global
 		public string Method { get; set; }
-		// ReSharper disable once UnusedAutoPropertyAccessor.Global
 		public Dictionary<string, object> Args { get; set; }
 	}
 

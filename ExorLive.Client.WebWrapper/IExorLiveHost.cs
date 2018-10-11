@@ -1,7 +1,5 @@
 ﻿using System;
 using ExorLive;
-// ReSharper disable UnusedMember.Global
-// ReSharper disable UnusedMemberInSuper.Global
 public interface IExorLiveHost
 {
 	event IsLoadedEventHandler IsLoaded;
