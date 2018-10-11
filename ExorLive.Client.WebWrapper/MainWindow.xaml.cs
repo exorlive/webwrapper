@@ -345,31 +345,28 @@ namespace ExorLive.Client.WebWrapper
 			{
 				WindowState = WindowState.Normal;
 			}
-			//Activate();
-			//Topmost = true;  // important
-			//Topmost = false; // important
-			//Focus();         // important
+			Activate();
+			Topmost = true;  // important
+			Topmost = false; // important
+			Focus();         // important
 		}
 
 		public void ForceShowForeground()
 		{
 			// Must force webwrapper to appear in front on other (calling) application when that application calls "show" command.
 			// http://stackoverflow.com/questions/257587/bring-a-window-to-the-front-in-wpf
-
 			if (!IsVisible)
 			{
 				Show();
 			}
-
 			if (WindowState == WindowState.Minimized)
 			{
 				WindowState = WindowState.Normal;
 			}
-
-			//Activate();
-			//Topmost = true;  // important
-			//Topmost = false; // important
-			//Focus();         // important
+			Activate();
+			Topmost = true;  // important
+			Topmost = false; // important
+			Focus();         // important
 		}
 
 		public new bool Loaded { get; private set; }
@@ -479,7 +476,7 @@ namespace ExorLive.Client.WebWrapper
 										int.Parse(s[1]),
 										int.Parse(s[2]),
 										0
-									); 
+									);
 									// Ignore build version changes.
 									if (newestVersionComparison > assemblyVersion)
 									{

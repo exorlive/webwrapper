@@ -220,16 +220,17 @@ namespace ExorLive.Client.WebWrapper
 		[STAThread]
 		public static void Main()
 		{
-			//if(!SingleInstance<App>.InitializeAsFirstInstance(Unique)) {
-			//	return;
-			//}
+			if (!SingleInstance<App>.InitializeAsFirstInstance(Unique))
+			{
+				return;
+			}
 			var application = new App();
 			application.InitializeComponent();
 			UserSettings = new Settings();
 			application.Run();
 
 			// Allow single instance code to perform cleanup operations
-			//SingleInstance<App>.Cleanup();
+			SingleInstance<App>.Cleanup();
 		}
 
 		/// <summary>
@@ -311,7 +312,7 @@ namespace ExorLive.Client.WebWrapper
 			}
 
 			((MainWindow)_webWrapperWindow).Navigate(new Uri(url));
-			//StartNamedPipeServer();
+			StartNamedPipeServer();
 		}
 
 		private void _webWrapperWindow_UserHasDisconnected(object sender)
