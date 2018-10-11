@@ -227,7 +227,6 @@ namespace ExorLive.Client.WebWrapper
 				// Remove any 'remembered signon' details when user selects "Log Out" in the ExorLive profile menu.
 				_handleDisconnectInNavigatedEvent = false; // To avoid infinte loop
 				UserHasDisconnected?.Invoke(this);
-
 				shallCloseNow = !SignoutAdfs();
 			}
 			if (shallCloseNow)
@@ -237,13 +236,17 @@ namespace ExorLive.Client.WebWrapper
 			}
 		}
 
+		/// <summary>
+		/// Navigates to ADFS signout page.
+		/// </summary>
+		/// <returns>
+		/// True if ADFS is enabled, false if ADFS isn't enabled.
+		/// </returns>
 		private bool SignoutAdfs()
 		{
 			if (!string.IsNullOrWhiteSpace(App.UserSettings.AdfsUrl))
 			{
-				var url = App.UserSettings.AdfsUrl;
-				if (url.Contains("?")) url += "&"; else url += "?";
-				url += "signout=1";
+				var url = App.AppendUrlArg(App.UserSettings.AdfsUrl, "signout=1");
 				if (Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out Uri uri))
 				{
 					Navigate(uri);

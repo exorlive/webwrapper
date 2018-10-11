@@ -10,6 +10,7 @@ using ExorLive.Client.WebWrapper.NamedPipe;
 using System.IO;
 using System.Text;
 using System.Security.Cryptography;
+using System.Web;
 
 namespace ExorLive.Client.WebWrapper
 {
@@ -344,7 +345,7 @@ namespace ExorLive.Client.WebWrapper
 			DisconnectedCurrentUser();
 		}
 
-		private string AppendUrlArg(string url, string toAppend)
+		public static string AppendUrlArg(string url, string toAppend)
 		{
 			if (!string.IsNullOrWhiteSpace(toAppend))
 			{
