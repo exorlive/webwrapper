@@ -24,7 +24,9 @@ public interface IExorLiveHost
 	void GetWorkoutsForClient(int userId, string customId, DateTime from);
 	void GetListOfUsers(string customId);
 	void OpenWorkout(int id);
-
+	/// <summary>
+	/// Get signon-details for the logged-in user and store it in the UserSettings.
+	/// </summary>
 	void GetSignonDetails();
 }
 

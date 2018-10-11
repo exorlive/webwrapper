@@ -27,8 +27,6 @@ public class ExorLiveInterface : IExorLiveInterface
 
 	/// <summary>
 	/// Select / Create / Update contact in ExorLive
-	/// Author: Vilhelm Heiberg
-	/// Date: 2013-10-08
 	/// </summary>
 	/// <param name="externalId">The external identifier.</param>
 	/// <param name="firstname">The firstname.</param>
@@ -86,7 +84,7 @@ public class ExorLiveInterface : IExorLiveInterface
 	}
 
 	/// <summary>
-	/// New 2016-09-01 - CustomId may not be unique
+	/// CustomId may not be unique
 	/// </summary>
 	/// <param name="externalId"></param>
 	/// <param name="firstname"></param>
@@ -165,7 +163,7 @@ public class ExorLiveInterface : IExorLiveInterface
 		_comType.InvokeMember("selectTab", BindingFlags.InvokeMethod, null, _com, new object[] { tab });
 	}
 
-    public void queryExercises(string query)
+	public void queryExercises(string query)
 	{
 		_comType.InvokeMember("queryExercises", BindingFlags.InvokeMethod, null, _com, new object[] { query });
 	}
@@ -189,7 +187,8 @@ public class ExorLiveInterface : IExorLiveInterface
 				// Call a Javascript method in ExorLive
 				_comType.InvokeMember("getWorkoutsForUserId", BindingFlags.InvokeMethod, null, _com, new object[] { userId, from });
 			}
-		} catch(Exception)
+		}
+		catch (Exception)
 		{
 			// Ignore any error in ExorLive. Just to make WebWrapper don't crash in case of a problem in ExorLive.
 		}

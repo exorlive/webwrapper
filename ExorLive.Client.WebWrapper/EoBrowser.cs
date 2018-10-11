@@ -133,10 +133,14 @@ public class EoBrowser : IBrowser
 				$"window.external.CheckForUpdates = '{ EncodeJsString(App.UserSettings.CheckForUpdates.ToString()) }'; ";
 		}
 	}
+
+#pragma warning disable CA1822 // Mark members as static
 	public void Log(string format, params object[] args)
 	{
 		// Does nothing yet.
 	}
+#pragma warning restore CA1822 // Mark members as static
+
 	private void WebView_ZoomFactorChanged(object sender, EventArgs e)
 	{
 		Log("WebView_ZoomFactorChanged");

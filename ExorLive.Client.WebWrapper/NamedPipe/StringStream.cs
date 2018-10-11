@@ -32,11 +32,10 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 			var outBuffer = streamEncoding.GetBytes(outString);
 			var length = outBuffer.Length;
 			var lengthbuffer = BitConverter.GetBytes(length);
-			ioStream.Write(lengthbuffer,0,4);
+			ioStream.Write(lengthbuffer, 0, 4);
 			ioStream.Write(outBuffer, 0, length);
 			ioStream.Flush();
 			return outBuffer.Length + 4;
 		}
-
 	}
 }

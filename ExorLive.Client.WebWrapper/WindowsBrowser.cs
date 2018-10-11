@@ -29,7 +29,7 @@ public class WindowsBrowser : IBrowser
 		{
 			ObjectForScripting = this
 		};
-		_browser.Navigated += browser_navigated;
+		_browser.Navigated += Browser_navigated;
 		_browser.Navigating += _browser_Navigating;
 	}
 
@@ -46,7 +46,7 @@ public class WindowsBrowser : IBrowser
 	public event EventHandler ExportUserListEvent;
 	public event EventHandler SelectPersonResultEvent;
 	public event EventHandler ExportSignonDetailsEvent;
-	
+
 
 	public void SelectPerson(
 		string externalId,
@@ -158,7 +158,7 @@ public class WindowsBrowser : IBrowser
 		_exorlive.selectTab(tab);
 	}
 
-    public void QueryWorkouts(string query)
+	public void QueryWorkouts(string query)
 	{
 		_exorlive.queryWorkouts(query);
 	}
@@ -183,14 +183,12 @@ public class WindowsBrowser : IBrowser
 		_exorlive.getListOfUsers(customId);
 	}
 
-	
-
 	public void OpenWorkout(int id)
 	{
 		_exorlive.openWorkout(id);
 	}
 
-	private void browser_navigated(object sender, NavigationEventArgs e)
+	private void Browser_navigated(object sender, NavigationEventArgs e)
 	{
 		HideScriptErrors(_browser, true);
 		Navigated?.Invoke(sender, e);
@@ -199,10 +197,10 @@ public class WindowsBrowser : IBrowser
 	private static void HideScriptErrors(FrameworkElement wb, bool hide)
 	{
 		var fiComWebBrowser = typeof(WebBrowser).GetField("_axIWebBrowser2", BindingFlags.Instance | BindingFlags.NonPublic);
-		if (fiComWebBrowser == null) {
+		if (fiComWebBrowser == null)
+		{
 			return;
 		}
-
 		var objComWebBrowser = fiComWebBrowser.GetValue(wb);
 		if (objComWebBrowser == null)
 		{
@@ -212,7 +210,9 @@ public class WindowsBrowser : IBrowser
 		objComWebBrowser.GetType().InvokeMember("Silent", BindingFlags.SetProperty, null, objComWebBrowser, new object[] { hide });
 	}
 
-	// Is called from the browser COM object
+	/// <summary>
+	/// Is called from the browser COM object
+	/// </summary>
 	public void SetInterface(object obj)
 	{
 		_exorlive = new ExorLiveInterface(obj);
@@ -220,12 +220,17 @@ public class WindowsBrowser : IBrowser
 
 	public event BeforeNavigatingEventHandler BeforeNavigating;
 
-	// Is called from the browser COM object
+	/// <summary>
+	/// Is called from the browser COM object
+	/// </summary>
 	public void NotifyIsLoaded()
 	{
 		IsLoaded?.Invoke(this, new EventArgs());
 	}
-	// Is called from the browser COM object
+
+	/// <summary>
+	/// Is called from the browser COM object
+	/// </summary>
 	public void NotifySelectingUser(int id, string externalId, string firstname, string lastname, string email, string dateofbirth)
 	{
 		var person = new PersonDTO()
@@ -239,19 +244,28 @@ public class WindowsBrowser : IBrowser
 		};
 		SelectedUserChanged?.Invoke(this, new SelectedUserEventArgs(person));
 	}
-	// Is called from the browser COM object
+
+	/// <summary>
+	/// Is called from the browser COM object
+	/// </summary>
 	public void NotifyIsUnloading()
 	{
 		IsUnloading?.Invoke(this, new EventArgs());
 	}
 
-	// Is called from the browser COM object
+	/// <summary>
+	/// Is called from the browser COM object
+	/// </summary>
+	/// <param name="jsondata"></param>
 	public void ExportUsersData(string jsondata)
 	{
 		ExportUsersDataEvent?.Invoke(this, new JsonEventArgs(jsondata));
 	}
 
-	// Is called from the browser COM object
+	/// <summary>
+	/// Is called from the browser COM object
+	/// </summary>
+	/// <param name="jsondata"></param>
 	public void ExportUserList(string jsondata)
 	{
 		ExportUserListEvent?.Invoke(this, new JsonEventArgs(jsondata));

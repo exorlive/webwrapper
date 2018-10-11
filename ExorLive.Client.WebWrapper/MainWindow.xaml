@@ -15,7 +15,7 @@
 		<Expander x:Name="UpdateNotification" Grid.Row="0" IsExpanded="False" Style="{DynamicResource ExpanderStyle1}">
 			<Border BorderThickness="1" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}">
 				<StackPanel Orientation="Horizontal" Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}" >
-					<Button x:Name="HideNotificationButton" Width="{Binding ActualHeight, ElementName=HideNotificationButton, Mode=OneWay}" Style="{DynamicResource ToggleButtonWindowClose}" Click="hideNotificationButton_Click" />
+					<Button x:Name="HideNotificationButton" Width="{Binding ActualHeight, ElementName=HideNotificationButton, Mode=OneWay}" Style="{DynamicResource ToggleButtonWindowClose}" Click="HideNotificationButton_Click" />
 					<TextBlock VerticalAlignment="Center">En ny versjon av Webwrapperen kan installeres. <Hyperlink x:Name="DownloadLink" NavigateUri="https://webwrapper.exorlive.com/" RequestNavigate="DownloadLink_RequestNavigate">Last ned her.</Hyperlink>.</TextBlock>
 				</StackPanel>
 			</Border>

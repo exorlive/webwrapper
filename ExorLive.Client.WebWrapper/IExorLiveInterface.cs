@@ -1,7 +1,9 @@
 using System;
 public interface IExorLiveInterface
 {
+#pragma warning disable IDE1006 // Naming Styles
 	void alert(string title, string message);
+
 	void selectPersonById(int id);
 
 	void selectPerson(
@@ -12,8 +14,6 @@ public interface IExorLiveInterface
 		string dateofbirth);
 	/// <summary>
 	/// Select / Create / Update contact in ExorLive
-	/// Author: Vilhelm Heiberg
-	/// Date: 2013-10-08
 	/// </summary>
 	/// <param name="externalId">The external identifier.</param>
 	/// <param name="firstname">The firstname.</param>
@@ -77,4 +77,5 @@ public interface IExorLiveInterface
 	void getListOfUsers(string customId);
 	void openWorkout(int id);
 	void getOsloSignonDetails();
+#pragma warning restore IDE1006 // Naming Styles
 }
