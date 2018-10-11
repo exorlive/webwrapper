@@ -20,7 +20,12 @@ using WebView = EO.WebBrowser.WebView;
 public class EoBrowser : IBrowser
 {
 	private static IBrowser _instance;
-	public static IBrowser Instance => _instance ?? (_instance = new EoBrowser());
+	public static IBrowser Instance {
+		get {
+			return _instance ?? (_instance = new EoBrowser());
+		}
+	}
+
 	private readonly WebControl _browser;
 	private JSObject _obj;
 	/// <summary>
@@ -30,7 +35,7 @@ public class EoBrowser : IBrowser
 	/// <returns>Returns true.</returns>
 	public bool Navigate(Uri url)
 	{
-		_browser.WebView.LoadUrlAndWait(url.ToString());
+		_browser.WebView.Url = url.AbsoluteUri;
 		return true;
 	}
 
@@ -48,20 +53,72 @@ public class EoBrowser : IBrowser
 		Runtime.DefaultEngineOptions.DisableSpellChecker = true;
 		Runtime.DefaultEngineOptions.DisableGPU = true;
 		Runtime.DefaultEngineOptions.DisableWMPointer = true;
-		Runtime.DefaultEngineOptions.SkipWaitForLayerActivation = false;
+		Runtime.DefaultEngineOptions.SkipWaitForLayerActivation = true;
 		Runtime.DefaultEngineOptions.AllowProprietaryMediaFormats();
-		if(App.Debug) {
+		EO.Base.Runtime.EnableCrashReport = false;
+		EO.Base.Runtime.EnableEOWP = true;
+		EO.Base.Runtime.LogFileName = Path.GetTempFileName();
+		if (App.Debug)
+		{
 			StartRemoteDebugging();
 		}
-		// If you are fixing the black boxes bug, try see if uncommenting the next line helps.
-		// Engine.Default.Options.DisableGPU = true;
-		_browser = new WebControl();
+		_browser = new WebControl
+		{
+			WebView = new WebView()
+		};
+		_browser.WebView.Activate += WebView_Activate;
+		_browser.WebView.AfterPrint += WebView_AfterPrint;
+		_browser.WebView.AfterReceiveHeaders += WebView_AfterReceiveHeaders;
+		_browser.WebView.BeforeDownload += WebView_BeforeDownload;
 		_browser.WebView.BeforeNavigate += WebView_BeforeNavigate;
+		_browser.WebView.BeforeRequestLoad += WebView_BeforeRequestLoad;
+		_browser.WebView.BeforeSendHeaders += WebView_BeforeSendHeaders;
+		_browser.WebView.CanGoBackChanged += WebView_CanGoBackChanged;
+		_browser.WebView.CanGoForwardChanged += WebView_CanGoForwardChanged;
+		_browser.WebView.CertificateError += WebView_CertificateError;
+		_browser.WebView.Closed += WebView_Closed;
+		_browser.WebView.Closing += WebView_Closing;
+		_browser.WebView.Command += WebView_Command;
+		_browser.WebView.ConsoleMessage += WebView_ConsoleMessage;
+		_browser.WebView.ContextMenuDismissed += WebView_ContextMenuDismissed;
+		_browser.WebView.Disposed += WebView_Disposed;
 		_browser.WebView.IsLoadingChanged += WebView_IsLoadingChanged;
 		_browser.WebView.JSExtInvoke += WebView_JSExtension;
-		_browser.WebView.NewWindow += WebView_NewWindow;
 		_browser.WebView.LoadFailed += WebView_LoadFailed;
-		_browser.WebView.CertificateError += WebView_CertificateError;
+		_browser.WebView.NewWindow += WebView_NewWindow;
+		_browser.WebView.RenderUnresponsive += WebView_RenderUnresponsive;
+		_browser.WebView.BeforeContextMenu += WebView_BeforeContextMenu;
+		_browser.WebView.BeforePrint += WebView_BeforePrint;
+		_browser.WebView.DownloadCanceled += WebView_DownloadCanceled;
+		_browser.WebView.DownloadCompleted += WebView_DownloadCompleted;
+		_browser.WebView.DownloadUpdated += WebView_DownloadUpdated;
+		_browser.WebView.FaviconChanged += WebView_FaviconChanged;
+		_browser.WebView.FileDialog += WebView_FileDialog;
+		_browser.WebView.FullScreenModeChanged += WebView_FullScreenModeChanged;
+		_browser.WebView.GiveFocus += WebView_GiveFocus;
+		_browser.WebView.GotFocus += WebView_GotFocus;
+		_browser.WebView.IsReadyChanged += WebView_IsReadyChanged;
+		_browser.WebView.JSDialog += WebView_JSDialog;
+		_browser.WebView.KeyDown += WebView_KeyDown;
+		_browser.WebView.KeyUp += WebView_KeyUp;
+		_browser.WebView.LaunchUrl += WebView_LaunchUrl;
+		_browser.WebView.LoadCompleted += WebView_LoadCompleted;
+		_browser.WebView.MouseClick += WebView_MouseClick;
+		_browser.WebView.MouseDoubleClick += WebView_MouseDoubleClick;
+		_browser.WebView.MouseDown += WebView_MouseDown;
+		_browser.WebView.MouseEnter += WebView_MouseEnter;
+		_browser.WebView.MouseLeave += WebView_MouseLeave;
+		_browser.WebView.MouseMove += WebView_MouseMove;
+		_browser.WebView.MouseUp += WebView_MouseUp;
+		_browser.WebView.NeedClientCertificate += WebView_NeedClientCertificate;
+		_browser.WebView.NeedCredentials += WebView_NeedCredentials;
+		_browser.WebView.RequestPermissions += WebView_RequestPermissions;
+		_browser.WebView.ScriptCallDone += WebView_ScriptCallDone;
+		_browser.WebView.ShouldForceDownload += WebView_ShouldForceDownload;
+		_browser.WebView.StatusMessageChanged += WebView_StatusMessageChanged;
+		_browser.WebView.TitleChanged += WebView_TitleChanged;
+		_browser.WebView.UrlChanged += WebView_UrlChanged;
+		_browser.WebView.ZoomFactorChanged += WebView_ZoomFactorChanged;
 
 		// This javascript file is added to every page you navigate to.
 		var jsfile = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "eoBrowserObject.js");
@@ -76,21 +133,262 @@ public class EoBrowser : IBrowser
 				$"window.external.CheckForUpdates = '{ EncodeJsString(App.UserSettings.CheckForUpdates.ToString()) }'; ";
 		}
 	}
+	public void Log(string format, params object[] args)
+	{
+		// Does nothing yet.
+	}
+	private void WebView_ZoomFactorChanged(object sender, EventArgs e)
+	{
+		Log("WebView_ZoomFactorChanged");
+	}
 
-	private void WebView_CertificateError(object sender, CertificateErrorEventArgs e) {
-		if(App.Debug) {
+	private void WebView_UrlChanged(object sender, EventArgs e)
+	{
+		Log("WebView_UrlChanged");
+	}
+
+	private void WebView_TitleChanged(object sender, EventArgs e)
+	{
+		Log("WebView_TitleChanged");
+	}
+
+	private void WebView_StatusMessageChanged(object sender, EventArgs e)
+	{
+		Log("WebView_StatusMessageChanged");
+	}
+
+	private void WebView_ShouldForceDownload(object sender, ShouldForceDownloadEventArgs e)
+	{
+		Log("WebView_ShouldForceDownload");
+	}
+
+	private void WebView_ScriptCallDone(object sender, ScriptCallDoneEventArgs e)
+	{
+		Log("WebView_ScriptCallDone");
+	}
+
+	private void WebView_RequestPermissions(object sender, RequestPermissionEventArgs e)
+	{
+		Log("WebView_RequestPermissions");
+	}
+
+	private void WebView_NeedCredentials(object sender, NeedCredentialsEventArgs e)
+	{
+		Log("WebView_NeedCredentials");
+	}
+
+	private void WebView_NeedClientCertificate(object sender, NeedClientCertificateEventArgs e)
+	{
+		Log("WebView_NeedClientCertificate");
+	}
+
+	private void WebView_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+	{
+		Log("WebView_MouseUp");
+	}
+
+	private void WebView_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+	{
+		Log("WebView_MouseMove");
+	}
+
+	private void WebView_MouseLeave(object sender, EventArgs e)
+	{
+		Log("WebView_MouseLeave");
+	}
+
+	private void WebView_MouseEnter(object sender, EventArgs e)
+	{
+		Log("WebView_MouseEnter");
+	}
+
+	private void WebView_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+	{
+		Log("WebView_MouseDown");
+	}
+
+	private void WebView_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
+	{
+		Log("WebView_MouseDoubleClick");
+	}
+
+	private void WebView_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
+	{
+		Log("WebView_MouseClick");
+	}
+
+	private void WebView_LoadCompleted(object sender, LoadCompletedEventArgs e)
+	{
+		Log("WebView_LoadCompleted");
+	}
+
+	private void WebView_LaunchUrl(object sender, LaunchUrlEventArgs e)
+	{
+		Log("WebView_LaunchUrl");
+	}
+
+	private void WebView_KeyUp(object sender, WndMsgEventArgs e)
+	{
+		Log("WebView_KeyUp");
+	}
+
+	private void WebView_KeyDown(object sender, WndMsgEventArgs e)
+	{
+		Log("WebView_KeyDown");
+	}
+
+	private void WebView_JSDialog(object sender, JSDialogEventArgs e)
+	{
+		Log("WebView_JSDialog");
+	}
+
+	private void WebView_IsReadyChanged(object sender, EventArgs e)
+	{
+		Log("WebView_IsReadyChanged");
+	}
+
+	private void WebView_GotFocus(object sender, EventArgs e)
+	{
+		Log("WebView_GotFocus");
+	}
+
+	private void WebView_GiveFocus(object sender, GiveFocusEventArgs e)
+	{
+		Log("WebView_GiveFocus");
+	}
+
+	private void WebView_FullScreenModeChanged(object sender, FullscreenModeChangedArgs e)
+	{
+		Log("WebView_FullScreenModeChanged");
+	}
+
+	private void WebView_FileDialog(object sender, FileDialogEventArgs e)
+	{
+		Log("WebView_FileDialog");
+	}
+
+	private void WebView_FaviconChanged(object sender, EventArgs e)
+	{
+		Log("WebView_FaviconChanged");
+	}
+
+	private void WebView_DownloadUpdated(object sender, DownloadEventArgs e)
+	{
+		Log("WebView_DownloadUpdated");
+	}
+
+	private void WebView_DownloadCompleted(object sender, DownloadEventArgs e)
+	{
+		Log("WebView_DownloadCompleted");
+	}
+
+	private void WebView_DownloadCanceled(object sender, DownloadEventArgs e)
+	{
+		Log("WebView_DownloadCanceled");
+	}
+
+	private void WebView_BeforePrint(object sender, BeforePrintEventArgs e)
+	{
+		Log("WebView_BeforePrint");
+	}
+
+	private void WebView_BeforeContextMenu(object sender, BeforeContextMenuEventArgs e)
+	{
+		Log("WebView_BeforeContextMenu");
+	}
+
+	private void WebView_Disposed(object sender, EventArgs e)
+	{
+		Log("WebView_Disposed");
+	}
+
+	private void WebView_ContextMenuDismissed(object sender, FrameEventArgs e)
+	{
+		Log("WebView_ContextMenuDismissed");
+	}
+
+	private void WebView_ConsoleMessage(object sender, ConsoleMessageEventArgs e)
+	{
+		Log("WebView_ConsoleMessage");
+	}
+
+	private void WebView_Command(object sender, CommandEventArgs e)
+	{
+		Log("WebView_Command");
+	}
+
+	private void WebView_Closing(object sender, CancelEventArgs e)
+	{
+		Log("WebView_Closing");
+	}
+
+	private void WebView_Closed(object sender, WebViewClosedEventArgs e)
+	{
+		Log("WebView_Closed");
+	}
+
+	private void WebView_CanGoForwardChanged(object sender, EventArgs e)
+	{
+		Log("WebView_CanGoForwardChanged");
+	}
+
+	private void WebView_CanGoBackChanged(object sender, EventArgs e)
+	{
+		Log("WebView_CanGoBackChanged");
+	}
+
+	private void WebView_BeforeSendHeaders(object sender, RequestEventArgs e)
+	{
+		Log("WebView_BeforeSendHeaders");
+	}
+
+	private void WebView_BeforeRequestLoad(object sender, BeforeRequestLoadEventArgs e)
+	{
+		Log("WebView_BeforeRequestLoad");
+	}
+
+	private void WebView_BeforeDownload(object sender, BeforeDownloadEventArgs e)
+	{
+		Log("WebView_BeforeDownload");
+	}
+
+	private void WebView_AfterReceiveHeaders(object sender, ResponseEventArgs e)
+	{
+		Log("WebView_AfterReceiveHeaders");
+	}
+
+	private void WebView_AfterPrint(object sender, AfterPrintEventArgs e)
+	{
+		Log("WebView_AfterPrint");
+	}
+
+	private void WebView_Activate(object sender, EventArgs e)
+	{
+		Log("WebView_Activate");
+	}
+
+	private void WebView_RenderUnresponsive(object sender, RenderUnresponsiveEventArgs e)
+	{
+		Log("WebView_RenderUnresponsive");
+	}
+
+	private void WebView_CertificateError(object sender, CertificateErrorEventArgs e)
+	{
+		if (App.Debug)
+		{
 			MessageBox.Show("Can't load the url \"" + e.Url + "\", the SSL certificate is invalid.");
 		}
 	}
 
-	private void StartRemoteDebugging ()
+	private void StartRemoteDebugging()
 	{
 		Runtime.DefaultEngineOptions.RemoteDebugPort = 9223;
 	}
 
 	private void WebView_LoadFailed(object sender, LoadFailedEventArgs e)
 	{
-		switch(e.ErrorCode) {
+		switch (e.ErrorCode)
+		{
 			case ErrorCode.ConnectionRefused:
 				e.ErrorMessage = $"Can't connect to \"{e.Url}\".";
 				break;
@@ -108,7 +406,7 @@ public class EoBrowser : IBrowser
 	/// <param name="e"></param>
 	private static void WebView_NewWindow(object sender, NewWindowEventArgs e)
 	{
-		if(string.IsNullOrWhiteSpace(e.TargetUrl)) { return; }
+		if (string.IsNullOrWhiteSpace(e.TargetUrl)) { return; }
 		var targeturi = new Uri(e.TargetUrl);
 		try
 		{
@@ -331,7 +629,7 @@ public class EoBrowser : IBrowser
 		_obj.InvokeFunction("selectTab", tab);
 	}
 
-    public void QueryWorkouts(string query)
+	public void QueryWorkouts(string query)
 	{
 		_obj.InvokeFunction("queryWorkouts", query);
 	}

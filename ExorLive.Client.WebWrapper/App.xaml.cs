@@ -14,7 +14,7 @@ using System.Security.Cryptography;
 namespace ExorLive.Client.WebWrapper
 {
 	/// <summary>
-	///     Interaction logic for App.xaml
+	/// Interaction logic for App.xaml
 	/// </summary>
 	public partial class App : IHost, ISingleInstanceApp
 	{
@@ -220,22 +220,20 @@ namespace ExorLive.Client.WebWrapper
 		[STAThread]
 		public static void Main()
 		{
-			if(!SingleInstance<App>.InitializeAsFirstInstance(Unique)) {
-				return;
-			}
-
+			//if(!SingleInstance<App>.InitializeAsFirstInstance(Unique)) {
+			//	return;
+			//}
 			var application = new App();
-
 			application.InitializeComponent();
 			UserSettings = new Settings();
 			application.Run();
 
 			// Allow single instance code to perform cleanup operations
-			SingleInstance<App>.Cleanup();
+			//SingleInstance<App>.Cleanup();
 		}
 
 		/// <summary>
-		///     Handles the Startup event of the Application control.
+		/// Handles the Startup event of the Application control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.Windows.StartupEventArgs" /> instance containing the event data.</param>
@@ -313,7 +311,7 @@ namespace ExorLive.Client.WebWrapper
 			}
 
 			((MainWindow)_webWrapperWindow).Navigate(new Uri(url));
-			StartNamedPipeServer();
+			//StartNamedPipeServer();
 		}
 
 		private void _webWrapperWindow_UserHasDisconnected(object sender)

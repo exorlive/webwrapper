@@ -24,10 +24,8 @@ namespace ExorLive.Client.WebWrapper
 		private Uri _navigateToUri;
 		private bool _handleDisconnectInNavigatedEvent = true;
 
-		// ReSharper disable UnusedMember.Global
 		public bool Debug => App.Debug;
 		public string ApplicationIdentifier => App.ApplicationIdentifier;
-		// ReSharper restore UnusedMember.Global
 
 		public MainWindow()
 		{
@@ -347,10 +345,10 @@ namespace ExorLive.Client.WebWrapper
 			{
 				WindowState = WindowState.Normal;
 			}
-			Activate();
-			Topmost = true;  // important
-			Topmost = false; // important
-			Focus();         // important
+			//Activate();
+			//Topmost = true;  // important
+			//Topmost = false; // important
+			//Focus();         // important
 		}
 
 		public void ForceShowForeground()
@@ -368,10 +366,10 @@ namespace ExorLive.Client.WebWrapper
 				WindowState = WindowState.Normal;
 			}
 
-			Activate();
-			Topmost = true;  // important
-			Topmost = false; // important
-			Focus();         // important
+			//Activate();
+			//Topmost = true;  // important
+			//Topmost = false; // important
+			//Focus();         // important
 		}
 
 		public new bool Loaded { get; private set; }
