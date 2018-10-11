@@ -335,26 +335,12 @@ namespace ExorLive.Client.WebWrapper
 			_browser.QueryExercises(query);
 			Restore();
 		}
+		/// <summary>
+		/// Forces the window to the front
+		/// </summary>
+		/// <see cref="https://stackoverflow.com/a/4831839/1395658"/>
 		public void Restore()
 		{
-			if (!IsVisible)
-			{
-				Show();
-			}
-			if (WindowState == WindowState.Minimized)
-			{
-				WindowState = WindowState.Normal;
-			}
-			Activate();
-			Topmost = true;  // important
-			Topmost = false; // important
-			Focus();         // important
-		}
-
-		public void ForceShowForeground()
-		{
-			// Must force webwrapper to appear in front on other (calling) application when that application calls "show" command.
-			// http://stackoverflow.com/questions/257587/bring-a-window-to-the-front-in-wpf
 			if (!IsVisible)
 			{
 				Show();

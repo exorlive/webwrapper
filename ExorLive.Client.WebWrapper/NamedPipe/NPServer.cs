@@ -410,7 +410,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 								case "show":
 									_window.Dispatcher.BeginInvoke(new Action(() =>
 									{
-										_window.ForceShowForeground();
+										_window.Restore();
 									}));
 									break;
 								case "hide":
