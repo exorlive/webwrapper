@@ -53,13 +53,13 @@ public class EoBrowser : IBrowser
 		Runtime.DefaultEngineOptions.DisableSpellChecker = true;
 		Runtime.DefaultEngineOptions.DisableGPU = true;
 		Runtime.DefaultEngineOptions.DisableWMPointer = true;
-		Runtime.DefaultEngineOptions.SkipWaitForLayerActivation = true;
+		Runtime.DefaultEngineOptions.SkipWaitForLayerActivation = false;
 		Runtime.DefaultEngineOptions.AllowProprietaryMediaFormats();
 		EO.Base.Runtime.EnableCrashReport = false;
 		EO.Base.Runtime.EnableEOWP = true;
-		EO.Base.Runtime.LogFileName = Path.GetTempFileName();
 		if (App.Debug)
 		{
+			EO.Base.Runtime.LogFileName = Path.GetTempFileName();
 			StartRemoteDebugging();
 		}
 		_browser = new WebControl
