@@ -312,6 +312,11 @@ namespace ExorLive.Client.WebWrapper
 				hasAutoSignonUser = false;
 			}
 
+			if (UserSettings.Debug)
+			{
+				AppendUrlArg(url, "debug=1");
+			}
+
 			((MainWindow)_webWrapperWindow).Navigate(new Uri(url));
 			StartNamedPipeServer();
 		}
@@ -344,6 +349,7 @@ namespace ExorLive.Client.WebWrapper
 		}
 		private void _webWrapperWindow_ExportUserListEvent(object sender, JsonEventArgs args)
 		{
+			Log("    ExportUserList: ", args.JsonData);
 			_npServer?.PublishDataOnNamedPipe(args.JsonData);
 		}
 

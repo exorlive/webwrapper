@@ -541,6 +541,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 		}
 		private void CallGetListOfUsers(string customId)
 		{
+			_app.Log("    GetListOfUsers(customId={0})", customId);
 			_app.GetListOfUsers(customId);
 		}
 
