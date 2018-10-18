@@ -336,11 +336,15 @@ namespace ExorLive.Client.WebWrapper
 				_shallStoreAutomaticSignonUser = false;
 				hasAutoSignonUser = false;
 			}
+<<<<<<< HEAD
+
 			if (UserSettings.Debug)
 			{
 				AppendUrlArg(url, "debug=1");
 			}
 
+=======
+>>>>>>> 675cd4a94f3af1a97cc96db9cc7d5d510df70734
 			((MainWindow)_webWrapperWindow).Navigate(new Uri(url));
 			StartNamedPipeServer();
 		}

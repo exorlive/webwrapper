@@ -27,10 +27,11 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 		}
 
 		private string Pipename => "exorlivepipe." + Process.GetCurrentProcess().Id;
-
+		/// <summary>
+		/// Starts a thread that is listening for Named Pipes calls.
+		/// </summary>
 		public void StartNpServer()
 		{
-			// start a thread that is listening for Named Pipes calls.
 			_namedPipeListener = new Thread(NamedPipeThreadStart)
 			{
 				IsBackground = true,
@@ -52,11 +53,11 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 			{
 				try
 				{
-                    var rule = new PipeAccessRule(new SecurityIdentifier("S-1-1-0"), PipeAccessRights.ReadWrite, System.Security.AccessControl.AccessControlType.Allow);
-                    var pipeSecurity = new PipeSecurity();
-                    pipeSecurity.AddAccessRule(rule);
+					var rule = new PipeAccessRule(new SecurityIdentifier("S-1-1-0"), PipeAccessRights.ReadWrite, System.Security.AccessControl.AccessControlType.Allow);
+					var pipeSecurity = new PipeSecurity();
+					pipeSecurity.AddAccessRule(rule);
 
-                    var pipeServer = new NamedPipeServerStream(Pipename, PipeDirection.InOut, 1,
+					var pipeServer = new NamedPipeServerStream(Pipename, PipeDirection.InOut, 1,
 						PipeTransmissionMode.Byte, PipeOptions.WriteThrough, 1024, 1024, pipeSecurity, HandleInheritability.None);
 					_pipeServer = pipeServer;
 					_pipeServer.WaitForConnection(); // This is a blocking call until a client connects.
@@ -88,7 +89,8 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 					}
 					else
 					{
-						if (!string.IsNullOrWhiteSpace(jsonresult)) {
+						if (!string.IsNullOrWhiteSpace(jsonresult))
+						{
 							_app.Log("    PublishDataOnNamedPipe: " + jsonresult);
 							ss.WriteString(jsonresult);
 						}
@@ -113,7 +115,6 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 			// Set at timer. Do not allow for more than 30 seconds until response.
 			// Assume that call failed if it took more than 30 seconds.
 			const int ms = 30 * 1000;
-			// ReSharper disable once UnusedVariable
 			var timer = new Timer(TimeoutElapsed, null, ms, Timeout.Infinite);
 		}
 
@@ -171,7 +172,8 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 						case "id": dto.ExternalId = value; break;
 						case "userid":
 							{
-								if(int.TryParse(value, out var idAsInt)) {
+								if (int.TryParse(value, out var idAsInt))
+								{
 									dto.UserId = idAsInt;
 								}
 							}
@@ -191,11 +193,15 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 						case "dateofbirth":
 							if (!string.IsNullOrWhiteSpace(value))
 							{
-								if(DateTime.TryParseExact(value, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dt)) {
+								if (DateTime.TryParseExact(value, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dt))
+								{
 									dto.DateOfBirth = dt.ToString("yyyy-MM-dd");
-								} else {
+								}
+								else
+								{
 									// We would prefer people to use ISO 8601, but let the OS try to parse it instead:
-									if(DateTime.TryParse(value, out dt)) {
+									if (DateTime.TryParse(value, out dt))
+									{
 										// And THEN i transform it back to a ISO 8601 valid date string:
 										dto.DateOfBirth = dt.ToString("yyyy-MM-dd");
 									}
@@ -220,17 +226,24 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 							{
 								// Format the profile as a json string, to be able to send it as a string to ExorLive.
 								var json = "";
-								if(pair.Value is JArray data) {
+								if (pair.Value is JArray data)
+								{
 									json = Newtonsoft.Json.JsonConvert.SerializeObject(pair.Value);
 									StringBuilder sblog = new StringBuilder("SelectPerson.ProfileData").AppendLine();
-									foreach(var entry in data) {
-										if(entry is IList<JToken> list) {
+									foreach (var entry in data)
+									{
+										if (entry is IList<JToken> list)
+										{
 											var firstProp = true;
-											foreach(JProperty prop in list) {
-												if(firstProp) {
+											foreach (JProperty prop in list)
+											{
+												if (firstProp)
+												{
 													firstProp = false;
 													sblog.Append("   ");
-												} else {
+												}
+												else
+												{
 													sblog.Append(" | ");
 												}
 												sblog.Append(prop.Name).Append("=").Append(prop.Value);
@@ -241,7 +254,8 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 									_app.Log(sblog.ToString());
 								}
 								dto.ProfileData = json;
-							} catch(Exception ex)
+							}
+							catch (Exception ex)
 							{
 								directResult = JsonFormatError("Failed to interpret 'profiledata' in the SelectPerson call. {0}" + ex.Message);
 							}
@@ -250,7 +264,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 				}
 				if (dto.UserId > 0 || (!string.IsNullOrWhiteSpace(dto.ExternalId)))
 				{
-					if(string.IsNullOrWhiteSpace(dto.Firstname) || string.IsNullOrWhiteSpace(dto.Lastname))
+					if (string.IsNullOrWhiteSpace(dto.Firstname) || string.IsNullOrWhiteSpace(dto.Lastname))
 					{
 						directResult = JsonFormatError("Firstname and lastname are mandatory.");
 					}
@@ -303,7 +317,8 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 					if (request != null)
 					{
 						return HandleSelectPerson(request, out directResult);
-					} else
+					}
+					else
 					{
 						directResult = JsonFormatError("Failed to parse JSON for 'SelectPerson'.");
 					}
@@ -332,7 +347,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 											}
 											if (pair.Key.ToLower() == "userid")
 											{
-												if(!int.TryParse(pair.Value, out userId))
+												if (!int.TryParse(pair.Value, out userId))
 												{
 													directResult = JsonFormatError("Invalid userId specified");
 													return false;
@@ -374,19 +389,20 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 										{
 											if (pair.Key.ToLower() == "id")
 											{
-												// ReSharper disable once RedundantAssignment
 												foundId = true;
-												if(int.TryParse(pair.Value, out var id)) {
+												if (int.TryParse(pair.Value, out var id))
+												{
 													OpenWorkout(id);
 													return false;
-												} else {
+												}
+												else
+												{
 													directResult = JsonFormatError("Value '{0}' for id is not an integer.", pair.Value);
 													_app.Log("<< Result: {0}", directResult);
 													return false;
 												}
 											}
 										}
-										// ReSharper disable once ConditionIsAlwaysTrueOrFalse
 										if (foundId == false)
 										{
 											directResult = JsonFormatError("Argument 'id' not specified for method '{0}'.", request.Method);
@@ -410,7 +426,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 								case "show":
 									_window.Dispatcher.BeginInvoke(new Action(() =>
 									{
-										_window.ForceShowForeground();
+										_window.Restore();
 									}));
 									break;
 								case "hide":
@@ -438,65 +454,6 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 									}
 									CallGetListOfUsers(customid);
 									return true;
-								//case "selectperson":
-								//	if (request.Args != null && request.Args.Count > 0)
-								//	{
-								//		var dto = new PersonDTO();
-								//		foreach (var pair in request.Args)
-								//		{
-								//			var key = pair.Key.ToLower();
-								//			switch (key)
-								//			{
-								//				case "id": dto.ExternalId = pair.Value; break;
-								//				case "firstname": dto.Firstname = pair.Value; break;
-								//				case "lastname": dto.Lastname = pair.Value; break;
-								//				case "email": dto.Email = pair.Value; break;
-								//				case "address": dto.Address = pair.Value; break;
-								//				case "phonehome": dto.PhoneHome = pair.Value; break;
-								//				case "phonework": dto.PhoneWork = pair.Value; break;
-								//				case "mobile": dto.Mobile = pair.Value; break;
-								//				case "country": dto.Country = pair.Value; break;
-								//				case "zipcode": dto.ZipCode = pair.Value; break;
-								//				case "location": dto.Location = pair.Value; break;
-								//				case "dateofbirth":
-								//					if (!string.IsNullOrWhiteSpace(pair.Value))
-								//					{
-								//						DateTime dt;
-								//						if (DateTime.TryParseExact(pair.Value, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
-								//						{
-								//							dto.DateOfBirth = dt.ToString("yyyy-MM-dd");
-								//						}
-								//						else
-								//						{
-								//							// We would prefer people to use ISO 8601, but let the OS try to parse it instead:
-								//							if (DateTime.TryParse(pair.Value, out dt))
-								//							{
-								//								// And THEN i transform it back to a ISO 8601 valid date string:
-								//								dto.DateOfBirth = dt.ToString("yyyy-MM-dd");
-								//							}
-								//						}
-								//					}
-								//					break;
-								//			}
-								//		}
-								//		if (!string.IsNullOrWhiteSpace(dto.ExternalId))
-								//		{
-								//			_window.Dispatcher.BeginInvoke(new Action(() =>
-								//			{
-								//				_app.SelectPerson(dto);
-								//				_app.Log("    SelectPerson ExternalId:'{0}' Firstname:'{1}', Lastname:'{2}', Email:'{3}', DoB: '{4}'", dto.ExternalId, dto.Firstname, dto.Lastname, dto.Email, dto.DateOfBirth);
-								//			}));
-								//		}
-								//		else
-								//		{
-								//			directResult = JsonFormatError("No id specified for '{0}'.", request.Method);
-								//		}
-								//	}
-								//	else
-								//	{
-								//		directResult = JsonFormatError("No arguments specified for method '{0}'.", request.Method);
-								//	}
-								//	break;
 								default:
 									directResult = JsonFormatError("Method '{0}' not supported.", request.Method);
 									break;
@@ -553,17 +510,13 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 
 	public class NamedPipeRequest
 	{
-		// ReSharper disable once UnusedAutoPropertyAccessor.Global
 		public string Method { get; set; }
-		// ReSharper disable once UnusedAutoPropertyAccessor.Global
 		public Dictionary<string, string> Args { get; set; }
 	}
 
 	public class NamedPipeRequest2
 	{
-		// ReSharper disable once UnusedAutoPropertyAccessor.Global
 		public string Method { get; set; }
-		// ReSharper disable once UnusedAutoPropertyAccessor.Global
 		public Dictionary<string, object> Args { get; set; }
 	}
 

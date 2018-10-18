@@ -3,6 +3,7 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:eo="http://schemas.essentialobjects.com/wpf/"
 		xmlns:tb="http://www.hardcodet.net/taskbar" x:Name="MainWIndow" x:Class="ExorLive.Client.WebWrapper.MainWindow"
 		mc:Ignorable="d"
 		Title="ExorLive WebWrapper" Height="768" Width="1024" Closing="MainWindow_Closing" VerticalContentAlignment="Stretch" Icon="exorlive.ico" MinHeight="500" MinWidth="800">
@@ -14,7 +15,7 @@
 		<Expander x:Name="UpdateNotification" Grid.Row="0" IsExpanded="False" Style="{DynamicResource ExpanderStyle1}">
 			<Border BorderThickness="1" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}">
 				<StackPanel Orientation="Horizontal" Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}" >
-					<Button x:Name="HideNotificationButton" Width="{Binding ActualHeight, ElementName=HideNotificationButton, Mode=OneWay}" Style="{DynamicResource ToggleButtonWindowClose}" Click="hideNotificationButton_Click" />
+					<Button x:Name="HideNotificationButton" Width="{Binding ActualHeight, ElementName=HideNotificationButton, Mode=OneWay}" Style="{DynamicResource ToggleButtonWindowClose}" Click="HideNotificationButton_Click" />
 					<TextBlock VerticalAlignment="Center">En ny versjon av Webwrapperen kan installeres. <Hyperlink x:Name="DownloadLink" NavigateUri="https://webwrapper.exorlive.com/" RequestNavigate="DownloadLink_RequestNavigate">Last ned her.</Hyperlink>.</TextBlock>
 				</StackPanel>
 			</Border>

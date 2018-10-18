@@ -9,7 +9,6 @@ using System.Net;
 using System.Reflection;
 using System.Windows.Forms;
 
-#pragma warning disable IDE1006 // Naming Styles
 namespace ExorLive.Client.WebWrapper
 {
 	/// <summary>
@@ -24,10 +23,8 @@ namespace ExorLive.Client.WebWrapper
 		private Uri _navigateToUri;
 		private bool _handleDisconnectInNavigatedEvent = true;
 
-		// ReSharper disable UnusedMember.Global
 		public bool Debug => App.Debug;
 		public string ApplicationIdentifier => App.ApplicationIdentifier;
-		// ReSharper restore UnusedMember.Global
 
 		public MainWindow()
 		{
@@ -44,7 +41,9 @@ namespace ExorLive.Client.WebWrapper
 				Title += " - No version";
 			}
 		}
-
+		/// <summary>
+		/// Loads window size from user settings, and adjusts the size to fit within the desktop screen.
+		/// </summary>
 		private void SetWindowSize()
 		{
 			// Make sure the rectangle is visible within screens.
@@ -64,6 +63,9 @@ namespace ExorLive.Client.WebWrapper
 			return Screen.AllScreens.Any(s => p.X < s.Bounds.Right && p.X > s.Bounds.Left && p.Y > s.Bounds.Top && p.Y < s.Bounds.Bottom);
 		}
 
+		/// <summary>
+		/// Saves window size to user settings.
+		/// </summary>
 		private void RememberWindowSize()
 		{
 			if (WindowState == WindowState.Maximized)
@@ -86,7 +88,11 @@ namespace ExorLive.Client.WebWrapper
 			App.UserSettings.Save();
 		}
 
-
+		/// <summary>
+		/// Adds a Browser view into the browser grid.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void BrowserGrid_Loaded(object sender, RoutedEventArgs e)
 		{
 			_defaultBrowserEngine = App.UserSettings.BrowserEngine;
@@ -95,7 +101,7 @@ namespace ExorLive.Client.WebWrapper
 				_browser = (_defaultBrowserEngine == BrowserEngines.InternetExplorer) ?
 				WindowsBrowser.Instance :
 				EoBrowser.Instance;
-				_browser.Navigated += browser_Navigated;
+				_browser.Navigated += Browser_Navigated;
 				_browser.SelectedUserChanged += _browser_SelectedUserChanged;
 				_browser.IsLoaded += _browser_IsLoaded;
 				_browser.IsUnloading += _browser_IsUnloading;
@@ -104,7 +110,6 @@ namespace ExorLive.Client.WebWrapper
 				_browser.ExportUserListEvent += _browser_ExportUserListEvent;
 				_browser.SelectPersonResultEvent += _browser_SelectPersonResultEvent;
 				_browser.ExportSignonDetailsEvent += _browser_ExportSignonDetailsEvent;
-
 				BrowserGrid.Children.Add(_browser.GetUiElement());
 				if (_navigateToUri != null)
 				{
@@ -162,7 +167,6 @@ namespace ExorLive.Client.WebWrapper
 		{
 			SelectedUserChanged?.Invoke(this, (SelectedUserEventArgs)e);
 		}
-		// ReSharper disable once UnusedMember.Global
 		public void SetInterface(object comObject)
 		{
 			_browser.SetInterface(comObject);
@@ -174,7 +178,6 @@ namespace ExorLive.Client.WebWrapper
 			IsLoaded?.Invoke(this);
 			UpdateNotification.IsExpanded = false;
 		}
-		// ReSharper disable once UnusedMember.Global
 		public void NotifySelectingUser(int id, string externalId, string firstname, string lastname, string email, string dateofbirth)
 		{
 			var person = new PersonDTO()
@@ -209,25 +212,23 @@ namespace ExorLive.Client.WebWrapper
 			_browser.SelectPerson(person.ExternalId, person.Firstname, person.Lastname, person.Email, person.DateOfBirth);
 			Restore();
 		}
+
 		/// <summary>
 		/// Handles the Navigated event of the browser control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
-		private void browser_Navigated(object sender, EventArgs e)
+		private void Browser_Navigated(object sender, EventArgs e)
 		{
 			if (!_closeOnNavigate) { return; }
 			var shallCloseNow = true;
-
 			if (_handleDisconnectInNavigatedEvent)
 			{
 				// Remove any 'remembered signon' details when user selects "Log Out" in the ExorLive profile menu.
 				_handleDisconnectInNavigatedEvent = false; // To avoid infinte loop
 				UserHasDisconnected?.Invoke(this);
-
 				shallCloseNow = !SignoutAdfs();
 			}
-
 			if (shallCloseNow)
 			{
 				_doClose = true;
@@ -235,13 +236,17 @@ namespace ExorLive.Client.WebWrapper
 			}
 		}
 
+		/// <summary>
+		/// Navigates to ADFS signout page.
+		/// </summary>
+		/// <returns>
+		/// True if ADFS is enabled, false if ADFS isn't enabled.
+		/// </returns>
 		private bool SignoutAdfs()
 		{
 			if (!string.IsNullOrWhiteSpace(App.UserSettings.AdfsUrl))
 			{
-				var url = App.UserSettings.AdfsUrl;
-				if (url.Contains("?")) url += "&"; else url += "?";
-				url += "signout=1";
+				var url = App.AppendUrlArg(App.UserSettings.AdfsUrl, "signout=1");
 				if (Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out Uri uri))
 				{
 					Navigate(uri);
@@ -289,9 +294,6 @@ namespace ExorLive.Client.WebWrapper
 			//
 			if (person.UserId > 0 || (!string.IsNullOrWhiteSpace(person.ExternalId)))
 			{
-				//// Not in use here anymore:
-				////    SelectPersonById(person.UserId);
-
 				_browser.SelectPerson3(
 					person.UserId,
 					person.ExternalId,
@@ -337,6 +339,10 @@ namespace ExorLive.Client.WebWrapper
 			_browser.QueryExercises(query);
 			Restore();
 		}
+		/// <summary>
+		/// Forces the window to the front.
+		/// </summary>
+		/// <see cref="https://stackoverflow.com/a/4831839/1395658"/>
 		public void Restore()
 		{
 			if (!IsVisible)
@@ -347,27 +353,6 @@ namespace ExorLive.Client.WebWrapper
 			{
 				WindowState = WindowState.Normal;
 			}
-			Activate();
-			Topmost = true;  // important
-			Topmost = false; // important
-			Focus();         // important
-		}
-
-		public void ForceShowForeground()
-		{
-			// Must force webwrapper to appear in front on other (calling) application when that application calls "show" command.
-			// http://stackoverflow.com/questions/257587/bring-a-window-to-the-front-in-wpf
-
-			if (!IsVisible)
-			{
-				Show();
-			}
-
-			if (WindowState == WindowState.Minimized)
-			{
-				WindowState = WindowState.Normal;
-			}
-
 			Activate();
 			Topmost = true;  // important
 			Topmost = false; // important
@@ -404,6 +389,9 @@ namespace ExorLive.Client.WebWrapper
 			Restore();
 		}
 
+		/// <summary>
+		/// Signs out from ADFS, then signs out from ExorLive.
+		/// </summary>
 		public void SignoutAndQuitApplication()
 		{
 			UserHasDisconnected?.Invoke(this);
@@ -411,6 +399,9 @@ namespace ExorLive.Client.WebWrapper
 			QuitApplication();
 		}
 
+		/// <summary>
+		/// Navigates to a signout page to sign out the user.
+		/// </summary>
 		public void QuitApplication()
 		{
 			_doClose = true;
@@ -449,16 +440,17 @@ namespace ExorLive.Client.WebWrapper
 			Restore();
 		}
 
+		/// <summary>
+		/// Checks if there are available updates for the webwrapper.
+		/// </summary>
 		private void CheckForUpdates()
 		{
 			var domain = new Uri("https://webwrapper.exorlive.com/");
-
 			var subfolder = App.UserSettings.UpdatePath;
 			if (!string.IsNullOrWhiteSpace(subfolder))
 			{
 				domain = new Uri(domain + subfolder + "/");
 			}
-
 			var versionFile = new Uri(domain + "msi/version.txt");
 			var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
 			var downloadLink = new Uri(domain + "msi/ExorLiveWebWrapper.x.x.x.x.msi");
@@ -481,7 +473,7 @@ namespace ExorLive.Client.WebWrapper
 										int.Parse(s[1]),
 										int.Parse(s[2]),
 										0
-									); 
+									);
 									// Ignore build version changes.
 									if (newestVersionComparison > assemblyVersion)
 									{
@@ -506,7 +498,7 @@ namespace ExorLive.Client.WebWrapper
 			}
 		}
 
-		private void hideNotificationButton_Click(object sender, RoutedEventArgs e)
+		private void HideNotificationButton_Click(object sender, RoutedEventArgs e)
 		{
 			UpdateNotification.IsExpanded = false;
 		}
@@ -537,4 +529,3 @@ namespace ExorLive.Client.WebWrapper
 		}
 	}
 }
-#pragma warning restore IDE1006 // Naming Styles
