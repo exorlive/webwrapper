@@ -57,6 +57,7 @@ public class EoBrowser : IBrowser
 		Runtime.DefaultEngineOptions.AllowProprietaryMediaFormats();
 		EO.Base.Runtime.EnableCrashReport = false;
 		EO.Base.Runtime.EnableEOWP = true;
+		EO.Base.Runtime.Exception += Runtime_Exception;
 		if (App.Debug)
 		{
 			EO.Base.Runtime.LogFileName = Path.GetTempFileName();
@@ -132,6 +133,12 @@ public class EoBrowser : IBrowser
 				$"window.external.DistributorName = '{ EncodeJsString(Settings.Default.DistributorName) }'; " +
 				$"window.external.CheckForUpdates = '{ EncodeJsString(App.UserSettings.CheckForUpdates.ToString()) }'; ";
 		}
+	}
+
+	private void Runtime_Exception(object sender, EO.Base.ExceptionEventArgs e)
+	{
+		MessageBox.Show(e.ErrorException.Message, "Runtime Exception");
+		Log("Runtime_Exception");
 	}
 
 #pragma warning disable CA1822 // Mark members as static
