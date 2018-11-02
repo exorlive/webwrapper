@@ -33,7 +33,7 @@ The webwrapper application will attempt to check the website https://webwrapper.
 
 The application settings are saved in two locations, and have the following options: 
 
-The user configuration file is saved at "%localappdata%\ExorLive\ExorLive.Client.WebWrappe_Url_(applicationId)\(version)\user.config". The config file is created after running the webwrapper for the first time.
+The user configuration file is saved at "%localappdata%\ExorLive\ExorLive.Client.WebWrappe_Url_(applicationId)\\(version)\user.config". The config file is created after running the webwrapper for the first time.
 
 * __BrowserEngine__: Default is **EoWebBrowser**, but this can be changed to **InternetExplorer** if you prefer to run the local Internet Explorer engine. If a value is missing, it copies the value from the global config file (below).
 * __Top__ / __Left__ / __Height__ / __Width__ / __Maximized__: The webwrapper's window size and location on screen, saved for next time.
@@ -133,7 +133,7 @@ __input.xml__
 <exorinput delete="true" exercisequery="" workoutquery="">
     <source_customerno>231</source_customerno>
     <firstname>Erik</firstname>
-    <lastname>Røde</lastname>
+    <lastname>Rï¿½de</lastname>
     <born>1911-11-23</born>
     <email>erik.viking@mail.com</email>
 </exorinput>
