@@ -31,9 +31,16 @@ The webwrapper application will attempt to check the website https://webwrapper.
 
 ## Configuration
 
-The application settings are currently saved in the default configuration file, _ExorLive.Client.WebWrapper.exe.config_, in the application root. The following options is available:
+The application settings are saved in two locations, and have the following options: 
 
-* __BrowserEngine__: Default is **EoWebBrowser**, but this can be changed to **InternetExplorer** if you prefer to run the local Internet Explorer engine.
+The user configuration file is saved at "%localappdata%\ExorLive\ExorLive.Client.WebWrappe_Url_(applicationId)\(version)\user.config". The config file is created after running the webwrapper for the first time.
+
+* __BrowserEngine__: Default is **EoWebBrowser**, but this can be changed to **InternetExplorer** if you prefer to run the local Internet Explorer engine. If a value is missing, it copies the value from the global config file (below).
+* __Top__ / __Left__ / __Height__ / __Width__ / __Maximized__: The webwrapper's window size and location on screen, saved for next time.
+
+The configuration file in the application root (usually "%appdata%\ExorLive\ExorLive Webwrapper\ExorLive.Client.WebWrapper.exe.config").
+
+* __BrowserEngine__: Default is **EoWebBrowser**, but this can be changed to **InternetExplorer** if you prefer to run the local Internet Explorer engine. This setting might be overriden by the user's config file (above).
 * __MinimizeOnExit__: Default is **True**. This will make the WebWrapper stay open in the context menu if the user closes it without signing out. This is to prevent the user having to sign in anew.
 * __CheckForUpdates__: Default is **True**. This makes the webwrapper check for updates and notify the user if any updates are found.
 * __ProtocolProvider__: Default is **ExorLive.Desktop.Arguments.Component, ExorLive.Desktop**. This can be modified to use another API protocol provider. See [WebWrapper API Interface](#markdown-header-webwrapper-api-interface).
@@ -42,6 +49,8 @@ The application settings are currently saved in the default configuration file, 
 * __AppUrl__: Default is "<https://exorlive.com/app>". Can be changed to our testing environments or localhost.
 * __RememberLoggedInUser__: Default is **True**. See [Single-Sign-On](#markdown-header-single-sign-on) below.
 * __SignonWithWindowsUser__: Default is **False**. See [Single-Sign-On](#markdown-header-single-sign-on) below.
+
+
 
 ## Requirements to build and publish
 
@@ -124,7 +133,7 @@ __input.xml__
 <exorinput delete="true" exercisequery="" workoutquery="">
     <source_customerno>231</source_customerno>
     <firstname>Erik</firstname>
-    <lastname>RÃ¸de</lastname>
+    <lastname>Røde</lastname>
     <born>1911-11-23</born>
     <email>erik.viking@mail.com</email>
 </exorinput>
