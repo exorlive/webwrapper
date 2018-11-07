@@ -182,7 +182,6 @@
     <Compile Include="EoBrowser.cs" />
     <Compile Include="ExorLiveInterface.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="GlobalSuppressions2.cs" />
     <Compile Include="IBrowser.cs" />
     <Compile Include="IExorLiveHost.cs" />
     <Compile Include="IExorLiveInterface.cs" />
@@ -226,10 +225,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="App.Debug.config">
-      <DependentUpon>App.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">

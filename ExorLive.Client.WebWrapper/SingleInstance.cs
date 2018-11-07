@@ -329,7 +329,9 @@ namespace Microsoft.Shell
 				// the app is launched and the app can obtain its commandline arguments from the 
 				// shared location               
 				var appFolderPath = Path.Combine(
-					Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), uniqueApplicationName);
+					Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+					uniqueApplicationName
+				);
 
 				var cmdLinePath = Path.Combine(appFolderPath, "cmdline.txt");
 				if (File.Exists(cmdLinePath))
@@ -363,10 +365,12 @@ namespace Microsoft.Shell
 		/// <param name="channelName">Application's IPC channel name.</param>
 		private static void CreateRemoteService(string channelName)
 		{
-			var serverProvider = new BinaryServerFormatterSinkProvider() {
+			var serverProvider = new BinaryServerFormatterSinkProvider()
+			{
 				TypeFilterLevel = TypeFilterLevel.Full
 			};
-			IDictionary props = new Dictionary<string, string> {
+			IDictionary props = new Dictionary<string, string>
+			{
 				["name"] = channelName,
 				["portName"] = channelName,
 				["exclusiveAddressUse"] = "false"
@@ -436,7 +440,6 @@ namespace Microsoft.Shell
 			{
 				return;
 			}
-
 			((TApplication)Application.Current).SignalExternalCommandLineArgs(args);
 		}
 
@@ -460,7 +463,10 @@ namespace Microsoft.Shell
 				{
 					// Do an asynchronous call to ActivateFirstInstance function
 					Application.Current.Dispatcher.BeginInvoke(
-						DispatcherPriority.Normal, new DispatcherOperationCallback(SingleInstance<TApplication>.ActivateFirstInstanceCallback), args);
+						DispatcherPriority.Normal,
+						new DispatcherOperationCallback(SingleInstance<TApplication>.ActivateFirstInstanceCallback),
+						args
+					);
 				}
 			}
 

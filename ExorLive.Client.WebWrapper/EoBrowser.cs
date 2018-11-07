@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using EO.WebBrowser;
 using EO.Wpf;
@@ -35,6 +36,7 @@ public class EoBrowser : IBrowser
 	/// <returns>Returns true.</returns>
 	public bool Navigate(Uri url)
 	{
+		Log("Navigate");
 		_browser.WebView.Url = url.AbsoluteUri;
 		return true;
 	}
@@ -45,6 +47,7 @@ public class EoBrowser : IBrowser
 	/// </summary>
 	private EoBrowser()
 	{
+		Log("Construct EoBrowser");
 		if (!string.IsNullOrWhiteSpace(Resources.EoBrowserLicenseFile))
 		{
 			Runtime.AddLicense(Resources.EoBrowserLicenseFile);
@@ -121,61 +124,73 @@ public class EoBrowser : IBrowser
 		_browser.WebView.UrlChanged += WebView_UrlChanged;
 		_browser.WebView.ZoomFactorChanged += WebView_ZoomFactorChanged;
 
-		// This javascript file is added to every page you navigate to.
+		InjectJavascriptObject();
+	}
+
+	/// <summary>
+	/// This javascript file is added to every page you navigate to.
+	/// </summary>
+	private void InjectJavascriptObject()
+	{
 		var jsfile = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "eoBrowserObject.js");
 		using (var streamreader = new StreamReader(jsfile.OpenText().BaseStream))
 		{
 			var jsstream = streamreader.ReadToEnd();
-			_browser.WebView.JSInitCode =
-				$"{jsstream}; " +
-				$"window.external.ApplicationIdentifier = '{EncodeJsString(ApplicationIdentifier)}'; " +
-				$"window.external.Debug = { EncodeJsString(Debug.ToString().ToLower()) }; " +
-				$"window.external.DistributorName = '{ EncodeJsString(Settings.Default.DistributorName) }'; " +
-				$"window.external.CheckForUpdates = '{ EncodeJsString(App.UserSettings.CheckForUpdates.ToString()) }'; ";
+			var appid = EncodeJsString(ApplicationIdentifier);
+			var debug = EncodeJsString(Debug.ToString().ToLower());
+			var distro = EncodeJsString(Settings.Default.DistributorName);
+			var checforupdates = EncodeJsString(App.UserSettings.CheckForUpdates.ToString());
+
+			_browser.WebView.JSInitCode = $@"
+				{jsstream};
+				window.external.ApplicationIdentifier = '{appid}';
+				window.external.Debug = {debug};
+				window.external.DistributorName = '{distro}';
+				window.external.CheckForUpdates = '{checforupdates}';
+			";
 		}
 	}
 
 	private void Runtime_Exception(object sender, EO.Base.ExceptionEventArgs e)
 	{
-		MessageBox.Show(e.ErrorException.Message, "Runtime Exception");
-		Log("Runtime_Exception");
+		Log("Runtime_Exception: {0}", e.ErrorException.Message);
+		Log("Inner-exception: {0}", e.ErrorException.InnerException.Message);
 	}
 
-#pragma warning disable CA1822 // Mark members as static
-	public void Log(string format, params object[] args)
+	public static void Log(string format, params object[] args)
 	{
-		// Does nothing yet.
+		System.Diagnostics.Debug.WriteLine(format, args);
 	}
-#pragma warning restore CA1822 // Mark members as static
 
 	private void WebView_ZoomFactorChanged(object sender, EventArgs e)
 	{
-		Log("WebView_ZoomFactorChanged");
+		//Log("WebView_ZoomFactorChanged");
 	}
 
 	private void WebView_UrlChanged(object sender, EventArgs e)
 	{
-		Log("WebView_UrlChanged");
+		//Log("WebView_UrlChanged");
 	}
 
 	private void WebView_TitleChanged(object sender, EventArgs e)
 	{
-		Log("WebView_TitleChanged");
+		//Log("WebView_TitleChanged");
 	}
 
 	private void WebView_StatusMessageChanged(object sender, EventArgs e)
 	{
-		Log("WebView_StatusMessageChanged");
+		//Log("WebView_StatusMessageChanged");
 	}
 
 	private void WebView_ShouldForceDownload(object sender, ShouldForceDownloadEventArgs e)
 	{
-		Log("WebView_ShouldForceDownload");
+		Log("WebView_ShouldForceDownload = {0}.", e.ForceDownload);
+		Log("Url: {0}", e.Url);
 	}
 
 	private void WebView_ScriptCallDone(object sender, ScriptCallDoneEventArgs e)
 	{
-		Log("WebView_ScriptCallDone");
+		Log("WebView_ScriptCallDone: {0}", e.Call.Script);
 	}
 
 	private void WebView_RequestPermissions(object sender, RequestPermissionEventArgs e)
@@ -195,37 +210,37 @@ public class EoBrowser : IBrowser
 
 	private void WebView_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
 	{
-		Log("WebView_MouseUp");
+		//Log("WebView_MouseUp");
 	}
 
 	private void WebView_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
 	{
-		Log("WebView_MouseMove");
+		//Log("WebView_MouseMove");
 	}
 
 	private void WebView_MouseLeave(object sender, EventArgs e)
 	{
-		Log("WebView_MouseLeave");
+		//Log("WebView_MouseLeave");
 	}
 
 	private void WebView_MouseEnter(object sender, EventArgs e)
 	{
-		Log("WebView_MouseEnter");
+		//Log("WebView_MouseEnter");
 	}
 
 	private void WebView_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
 	{
-		Log("WebView_MouseDown");
+		//Log("WebView_MouseDown");
 	}
 
 	private void WebView_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
 	{
-		Log("WebView_MouseDoubleClick");
+		//Log("WebView_MouseDoubleClick");
 	}
 
 	private void WebView_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
 	{
-		Log("WebView_MouseClick");
+		//Log("WebView_MouseClick");
 	}
 
 	private void WebView_LoadCompleted(object sender, LoadCompletedEventArgs e)
@@ -240,12 +255,12 @@ public class EoBrowser : IBrowser
 
 	private void WebView_KeyUp(object sender, WndMsgEventArgs e)
 	{
-		Log("WebView_KeyUp");
+		//Log("WebView_KeyUp");
 	}
 
 	private void WebView_KeyDown(object sender, WndMsgEventArgs e)
 	{
-		Log("WebView_KeyDown");
+		//Log("WebView_KeyDown");
 	}
 
 	private void WebView_JSDialog(object sender, JSDialogEventArgs e)
@@ -280,7 +295,7 @@ public class EoBrowser : IBrowser
 
 	private void WebView_FaviconChanged(object sender, EventArgs e)
 	{
-		Log("WebView_FaviconChanged");
+		//Log("WebView_FaviconChanged");
 	}
 
 	private void WebView_DownloadUpdated(object sender, DownloadEventArgs e)
@@ -305,7 +320,7 @@ public class EoBrowser : IBrowser
 
 	private void WebView_BeforeContextMenu(object sender, BeforeContextMenuEventArgs e)
 	{
-		Log("WebView_BeforeContextMenu");
+		//Log("WebView_BeforeContextMenu");
 	}
 
 	private void WebView_Disposed(object sender, EventArgs e)
@@ -315,12 +330,12 @@ public class EoBrowser : IBrowser
 
 	private void WebView_ContextMenuDismissed(object sender, FrameEventArgs e)
 	{
-		Log("WebView_ContextMenuDismissed");
+		//Log("WebView_ContextMenuDismissed");
 	}
 
 	private void WebView_ConsoleMessage(object sender, ConsoleMessageEventArgs e)
 	{
-		Log("WebView_ConsoleMessage");
+		//Log("WebView_ConsoleMessage");
 	}
 
 	private void WebView_Command(object sender, CommandEventArgs e)
@@ -340,22 +355,22 @@ public class EoBrowser : IBrowser
 
 	private void WebView_CanGoForwardChanged(object sender, EventArgs e)
 	{
-		Log("WebView_CanGoForwardChanged");
+		//Log("WebView_CanGoForwardChanged");
 	}
 
 	private void WebView_CanGoBackChanged(object sender, EventArgs e)
 	{
-		Log("WebView_CanGoBackChanged");
+		//Log("WebView_CanGoBackChanged");
 	}
 
 	private void WebView_BeforeSendHeaders(object sender, RequestEventArgs e)
 	{
-		Log("WebView_BeforeSendHeaders");
+		//Log("WebView_BeforeSendHeaders");
 	}
 
 	private void WebView_BeforeRequestLoad(object sender, BeforeRequestLoadEventArgs e)
 	{
-		Log("WebView_BeforeRequestLoad");
+		//Log("WebView_BeforeRequestLoad");
 	}
 
 	private void WebView_BeforeDownload(object sender, BeforeDownloadEventArgs e)
@@ -365,7 +380,7 @@ public class EoBrowser : IBrowser
 
 	private void WebView_AfterReceiveHeaders(object sender, ResponseEventArgs e)
 	{
-		Log("WebView_AfterReceiveHeaders");
+		//Log("WebView_AfterReceiveHeaders");
 	}
 
 	private void WebView_AfterPrint(object sender, AfterPrintEventArgs e)
@@ -407,6 +422,7 @@ public class EoBrowser : IBrowser
 				e.UseDefaultMessage();
 				break;
 		}
+		Log("{0} - {1}", e.ErrorCode, e.ErrorMessage);
 	}
 
 	/// <summary>
@@ -417,6 +433,7 @@ public class EoBrowser : IBrowser
 	/// <param name="e"></param>
 	private static void WebView_NewWindow(object sender, NewWindowEventArgs e)
 	{
+		Log("WebView_NewWindow");
 		if (string.IsNullOrWhiteSpace(e.TargetUrl)) { return; }
 		var targeturi = new Uri(e.TargetUrl);
 		try
@@ -436,6 +453,7 @@ public class EoBrowser : IBrowser
 	/// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
 	private void WebView_IsLoadingChanged(object sender, EventArgs e)
 	{
+		Log("WebView_IsLoadingChanged");
 		if (_isNavigating && ((WebView)sender).IsLoading == false)
 		{
 			Navigated?.Invoke(sender, e);
@@ -451,11 +469,13 @@ public class EoBrowser : IBrowser
 	/// <param name="e">The <see cref="EO.WebBrowser.BeforeNavigateEventArgs" /> instance containing the event data.</param>
 	private void WebView_BeforeNavigate(object sender, BeforeNavigateEventArgs e)
 	{
+		Log("WebView_BeforeNavigate");
 		_isNavigating = true;
 		BeforeNavigating?.Invoke(sender, new Uri(e.NewUrl));
 	}
 	public void NotifyIsLoaded()
 	{
+		Log("NotifyIsLoaded");
 		IsLoaded?.Invoke(this, new EventArgs());
 	}
 	/// <summary>
@@ -466,6 +486,7 @@ public class EoBrowser : IBrowser
 	/// <param name="arg">The argument.</param>
 	private void WebView_JSExtension(object sender, JSExtInvokeArgs arg)
 	{
+		Log("Incoming call from ExorLive application. Method \"{0}\"", arg.FunctionName);
 		switch (arg.FunctionName.ToLower())
 		{
 			case "setinterface":
@@ -500,7 +521,10 @@ public class EoBrowser : IBrowser
 	}
 	public void SetInterface(object arguments)
 	{
+		//Thread.Sleep(3000);
+		Log("## SetInterface ##");
 		_obj = (JSObject)((JSExtInvokeArgs)arguments).Arguments[0];
+		Log("## SetInterface done.");
 	}
 
 	/// <summary>
@@ -546,6 +570,7 @@ public class EoBrowser : IBrowser
 
 	public void SelectPerson(string externalId, string firstname, string lastname, string email, string dateOfBirth)
 	{
+		Log("InvokeFunction SelectPerson");
 		_obj.InvokeFunction("selectPerson", externalId, firstname, lastname, email, dateOfBirth);
 	}
 
@@ -568,6 +593,7 @@ public class EoBrowser : IBrowser
 		string phonehome
 	)
 	{
+		Log("InvokeFunction SelectPerson2");
 		_obj.InvokeFunction("selectPerson2",
 			externalId,
 			firstname,
@@ -609,6 +635,7 @@ public class EoBrowser : IBrowser
 		string source
 	)
 	{
+		Log("InvokeFunction SelectPerson3");
 		_obj.InvokeFunction("selectPerson3",
 			userId,
 			externalId,
@@ -633,19 +660,23 @@ public class EoBrowser : IBrowser
 	}
 	public void SelectPersonById(int id)
 	{
+		Log("InvokeFunction ");
 		_obj.InvokeFunction("selectPersonById", id.ToString());
 	}
 	public void SelectTab(string tab)
 	{
+		Log("InvokeFunction ");
 		_obj.InvokeFunction("selectTab", tab);
 	}
 
 	public void QueryWorkouts(string query)
 	{
+		Log("InvokeFunction ");
 		_obj.InvokeFunction("queryWorkouts", query);
 	}
 	public void QueryExercises(string query)
 	{
+		Log("InvokeFunction ");
 		_obj.InvokeFunction("queryExercises", query);
 	}
 	public void GetWorkoutsForClient(int userId, string customId, DateTime from)
@@ -654,11 +685,13 @@ public class EoBrowser : IBrowser
 		{
 			if (userId <= 0)
 			{
+				Log("InvokeFunction ");
 				// Call a Javascript method in ExorLive
 				_obj.InvokeFunction("getWorkoutsForCustomId", customId, from);
 			}
 			else
 			{
+				Log("InvokeFunction ");
 				// Call a Javascript method in ExorLive
 				_obj.InvokeFunction("getWorkoutsForUserId", userId, from);
 			}
@@ -673,6 +706,7 @@ public class EoBrowser : IBrowser
 	{
 		try
 		{
+			Log("InvokeFunction ");
 			// Call a Javascript method in ExorLive
 			_obj.InvokeFunction("getOsloSignonDetails");
 		}
@@ -686,6 +720,7 @@ public class EoBrowser : IBrowser
 	{
 		try
 		{
+			Log("InvokeFunction ");
 			// Call a Javascript method in ExorLive
 			_obj.InvokeFunction("getListOfUsers", customId);
 		}
@@ -700,6 +735,7 @@ public class EoBrowser : IBrowser
 	{
 		try
 		{
+			Log("InvokeFunction ");
 			// Call a Javascript method in ExorLive
 			_obj.InvokeFunction("openWorkout", id);
 		}
@@ -733,6 +769,7 @@ public class EoBrowser : IBrowser
 			Email = email,
 			DateOfBirth = dateofbirth
 		};
+		Log("NotifySelectingUser");
 		SelectedUserChanged?.Invoke(this, new SelectedUserEventArgs(person));
 	}
 
