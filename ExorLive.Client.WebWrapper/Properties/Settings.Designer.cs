@@ -196,7 +196,7 @@ namespace ExorLive.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:50000/app/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://exorlive.com/app/")]
         public string AppUrl {
             get {
                 return ((string)(this["AppUrl"]));

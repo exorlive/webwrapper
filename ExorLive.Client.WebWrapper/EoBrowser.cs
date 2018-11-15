@@ -154,7 +154,6 @@ public class EoBrowser : IBrowser
 	private void Runtime_Exception(object sender, EO.Base.ExceptionEventArgs e)
 	{
 		Log("Runtime_Exception: {0}", e.ErrorException.Message);
-		Log("Inner-exception: {0}", e.ErrorException.InnerException.Message);
 	}
 
 	public static void Log(string format, params object[] args)
@@ -608,9 +607,7 @@ public class EoBrowser : IBrowser
 			gender.ToString(),
 			homepage,
 			employer,
-			comment,
-			country,
-			phonehome
+			comment
 		);
 	}
 	public void SelectPerson3(

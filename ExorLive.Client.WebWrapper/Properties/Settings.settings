@@ -51,7 +51,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="AppUrl" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://localhost:50000/app/</Value>
+      <Value Profile="(Default)">https://exorlive.com/app/</Value>
     </Setting>
   </Settings>
 </SettingsFile>
