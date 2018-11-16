@@ -29,6 +29,7 @@ public class EoBrowser : IBrowser
 
 	private readonly WebControl _browser;
 	private JSObject _obj;
+	private EoBrowserObject browserObject;
 	/// <summary>
 	/// Navigates to the specified URL.
 	/// </summary>
@@ -66,9 +67,13 @@ public class EoBrowser : IBrowser
 			EO.Base.Runtime.LogFileName = Path.GetTempFileName();
 			StartRemoteDebugging();
 		}
+		browserObject = new EoBrowserObject(this);
 		_browser = new WebControl
 		{
 			WebView = new WebView()
+			{
+				ObjectForScripting = browserObject
+			}
 		};
 		_browser.WebView.Activate += WebView_Activate;
 		_browser.WebView.AfterPrint += WebView_AfterPrint;
@@ -132,23 +137,16 @@ public class EoBrowser : IBrowser
 	/// </summary>
 	private void InjectJavascriptObject()
 	{
-		var jsfile = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "eoBrowserObject.js");
-		using (var streamreader = new StreamReader(jsfile.OpenText().BaseStream))
-		{
-			var jsstream = streamreader.ReadToEnd();
-			var appid = EncodeJsString(ApplicationIdentifier);
-			var debug = EncodeJsString(Debug.ToString().ToLower());
-			var distro = EncodeJsString(Settings.Default.DistributorName);
-			var checforupdates = EncodeJsString(App.UserSettings.CheckForUpdates.ToString());
-
-			_browser.WebView.JSInitCode = $@"
-				{jsstream};
-				window.external.ApplicationIdentifier = '{appid}';
-				window.external.Debug = {debug};
-				window.external.DistributorName = '{distro}';
-				window.external.CheckForUpdates = '{checforupdates}';
-			";
-		}
+		var appid = EncodeJsString(ApplicationIdentifier);
+		var debug = EncodeJsString(Debug.ToString().ToLower());
+		var distro = EncodeJsString(Settings.Default.DistributorName);
+		var checforupdates = EncodeJsString(App.UserSettings.CheckForUpdates.ToString());
+		_browser.WebView.JSInitCode = $@"
+			window.external.ApplicationIdentifier = '{appid}';
+			window.external.Debug = {debug};
+			window.external.DistributorName = '{distro}';
+			window.external.CheckForUpdates = '{checforupdates}';
+		";
 	}
 
 	private void Runtime_Exception(object sender, EO.Base.ExceptionEventArgs e)
@@ -486,43 +484,45 @@ public class EoBrowser : IBrowser
 	private void WebView_JSExtension(object sender, JSExtInvokeArgs arg)
 	{
 		Log("Incoming call from ExorLive application. Method \"{0}\"", arg.FunctionName);
-		switch (arg.FunctionName.ToLower())
-		{
-			case "setinterface":
-				SetInterface(arg);
-				break;
-			case "notifyisloaded":
-				NotifyIsLoaded();
-				break;
-			case "notifyselectinguser":
-				NotifySelectingUser(arg);
-				break;
-			case "notifyisunloading":
-				NotifyIsUnloading();
-				break;
-			case "exportuserlist":
-				// Callback of the call 'getListOfUsers'
-				ExportUserList(arg);
-				break;
-			case "selectpersonresult":
-				// Callback of the call 'selectPerson'
-				SelectPersonResult(arg);
-				break;
-			case "exportusersdata":
-				// Callback of the call 'getWorkoutsForCustomId'
-				ExportUsersData(arg);
-				break;
-			case "exportsignondetails":
-				// Callback of the call 'getWorkoutsForCustomId'
-				ExportSignonDetails(arg);
-				break;
-		}
+		//switch (arg.FunctionName.ToLower())
+		//{
+		//	case "setinterface":
+		//		SetInterface(arg);
+		//		break;
+		//	case "notifyisloaded":
+		//		NotifyIsLoaded();
+		//		break;
+		//	case "notifyselectinguser":
+		//		NotifySelectingUser(arg);
+		//		break;
+		//	case "notifyisunloading":
+		//		NotifyIsUnloading();
+		//		break;
+		//	case "exportuserlist":
+		//		// Callback of the call 'getListOfUsers'
+		//		ExportUserList(arg);
+		//		break;
+		//	case "selectpersonresult":
+		//		// Callback of the call 'selectPerson'
+		//		SelectPersonResult(arg);
+		//		break;
+		//	case "exportusersdata":
+		//		// Callback of the call 'getWorkoutsForCustomId'
+		//		ExportUsersData(arg);
+		//		break;
+		//	case "exportsignondetails":
+		//		// Callback of the call 'getWorkoutsForCustomId'
+		//		ExportSignonDetails(arg);
+		//		break;
+		//}
 	}
-	public void SetInterface(object arguments)
+	public void SetInterface(object obj)
 	{
+		var castobj = (JSObject)obj;
 		//Thread.Sleep(3000);
 		Log("## SetInterface ##");
-		_obj = (JSObject)((JSExtInvokeArgs)arguments).Arguments[0];
+		_obj = castobj;
+		var test = _obj.GetPropertyNames();
 		Log("## SetInterface done.");
 	}
 
@@ -593,6 +593,7 @@ public class EoBrowser : IBrowser
 	)
 	{
 		Log("InvokeFunction SelectPerson2");
+		var test = _obj.GetPropertyNames();
 		_obj.InvokeFunction("selectPerson2",
 			externalId,
 			firstname,
@@ -669,11 +670,13 @@ public class EoBrowser : IBrowser
 	public void QueryWorkouts(string query)
 	{
 		Log("InvokeFunction ");
+		var test = _obj.GetPropertyNames();
 		_obj.InvokeFunction("queryWorkouts", query);
 	}
 	public void QueryExercises(string query)
 	{
 		Log("InvokeFunction ");
+		var test = _obj.GetPropertyNames();
 		_obj.InvokeFunction("queryExercises", query);
 	}
 	public void GetWorkoutsForClient(int userId, string customId, DateTime from)
@@ -770,35 +773,31 @@ public class EoBrowser : IBrowser
 		SelectedUserChanged?.Invoke(this, new SelectedUserEventArgs(person));
 	}
 
-	private void ExportUsersData(JSExtInvokeArgs arg)
+	public void ExportUsersData(string jsondata)
 	{
-		var jsondata = arg.Arguments[0] as string;
 		if (!string.IsNullOrWhiteSpace(jsondata))
 		{
 			ExportUsersDataEvent?.Invoke(this, new JsonEventArgs(jsondata));
 		}
 	}
-	private void ExportUserList(JSExtInvokeArgs arg)
+	public void ExportUserList(string jsondata)
 	{
-		var jsondata = arg.Arguments[0] as string;
 		if (!string.IsNullOrWhiteSpace(jsondata))
 		{
 			ExportUserListEvent?.Invoke(this, new JsonEventArgs(jsondata));
 		}
 	}
 
-	private void ExportSignonDetails(JSExtInvokeArgs arg)
+	public void ExportSignonDetails(string jsondata)
 	{
-		var jsondata = arg.Arguments[0] as string;
 		if (!string.IsNullOrWhiteSpace(jsondata))
 		{
 			ExportSignonDetailsEvent?.Invoke(this, new JsonEventArgs(jsondata));
 		}
 	}
 
-	private void SelectPersonResult(JSExtInvokeArgs arg)
+	public void SelectPersonResult(string jsondata)
 	{
-		var jsondata = arg.Arguments[0] as string;
 		if (!string.IsNullOrWhiteSpace(jsondata))
 		{
 			SelectPersonResultEvent?.Invoke(this, new JsonEventArgs(jsondata));
@@ -868,5 +867,44 @@ public class EoBrowser : IBrowser
 		}
 		return sb.ToString();
 	}
-
+}
+class EoBrowserObject
+{
+	private EoBrowser eoBrowser;
+	public EoBrowserObject(EoBrowser eoBrowser)
+	{
+		this.eoBrowser = eoBrowser;
+	}
+	public void SetInterface(JSObject jsobject)
+	{
+		eoBrowser.SetInterface(jsobject);
+	}
+	public void NotifyIsLoaded()
+	{
+		eoBrowser.NotifyIsLoaded();
+	}
+	public void NotifySelectingUser(int id, string externalId, string firstname, string lastname, string email, string dateofbirth)
+	{
+		eoBrowser.NotifySelectingUser(id, externalId, firstname, lastname, email, dateofbirth);
+	}
+	public void NotifyIsUnloading()
+	{
+		eoBrowser.NotifyIsUnloading();
+	}
+	public void ExportUsersData(string arg)
+	{
+		eoBrowser.ExportUsersData(arg);
+	}
+	public void ExportUserList(string customId)
+	{
+		eoBrowser.ExportUserList(customId);
+	}
+	public void SelectPersonResult(string jsonresult)
+	{
+		eoBrowser.SelectPersonResult(jsonresult);
+	}
+	public void ExportSignonDetails(string arg)
+	{
+		eoBrowser.ExportSignonDetails(arg);
+	}
 }

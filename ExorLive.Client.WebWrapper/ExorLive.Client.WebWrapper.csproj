@@ -272,9 +272,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="eoBrowserObject.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\killprocess.vbs" />
     <Resource Include="Resources\install-big.png" />
     <Resource Include="Resources\install.png" />
