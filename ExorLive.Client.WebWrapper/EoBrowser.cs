@@ -28,6 +28,7 @@ public class EoBrowser : IBrowser
 
 	private readonly WebControl _browser;
 	private EoBrowserObject browserObject;
+	// TODO: Switch externalPath to "window.externalInterface".
 	private readonly string externalPath = "app.api._host.externalInterface";
 	/// <summary>
 	/// Navigates to the specified URL.
