@@ -70,7 +70,6 @@
 			<ComponentRef Id="Comp_ManufacturerFolder" />
 			<ComponentRef Id="Comp_RegistryPath" />
 			<ComponentRef Id="Comp_ProductFolder" />
-			<ComponentRef Id="Comp_eoBrowserObjectjs" />
 			<ComponentRef Id="Comp_EOBasedll" />
 			<ComponentRef Id="Comp_EOWebBrowserdll" />
 			<ComponentRef Id="Comp_EOWebBrowserWpfdll" />
