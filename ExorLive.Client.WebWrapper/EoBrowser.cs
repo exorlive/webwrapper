@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using System.Threading;
 using System.Windows;
 using EO.WebBrowser;
 using EO.Wpf;
@@ -28,8 +27,8 @@ public class EoBrowser : IBrowser
 	}
 
 	private readonly WebControl _browser;
-	private JSObject _obj;
 	private EoBrowserObject browserObject;
+	private readonly string externalPath = "app.api._host.externalInterface";
 	/// <summary>
 	/// Navigates to the specified URL.
 	/// </summary>
@@ -151,7 +150,7 @@ public class EoBrowser : IBrowser
 
 	private void Runtime_Exception(object sender, EO.Base.ExceptionEventArgs e)
 	{
-		Log("Runtime_Exception: {0}", e.ErrorException.Message);
+		//Log("Runtime_Exception: {0}", e.ErrorException.Message);
 	}
 
 	public static void Log(string format, params object[] args)
@@ -484,46 +483,17 @@ public class EoBrowser : IBrowser
 	private void WebView_JSExtension(object sender, JSExtInvokeArgs arg)
 	{
 		Log("Incoming call from ExorLive application. Method \"{0}\"", arg.FunctionName);
-		//switch (arg.FunctionName.ToLower())
-		//{
-		//	case "setinterface":
-		//		SetInterface(arg);
-		//		break;
-		//	case "notifyisloaded":
-		//		NotifyIsLoaded();
-		//		break;
-		//	case "notifyselectinguser":
-		//		NotifySelectingUser(arg);
-		//		break;
-		//	case "notifyisunloading":
-		//		NotifyIsUnloading();
-		//		break;
-		//	case "exportuserlist":
-		//		// Callback of the call 'getListOfUsers'
-		//		ExportUserList(arg);
-		//		break;
-		//	case "selectpersonresult":
-		//		// Callback of the call 'selectPerson'
-		//		SelectPersonResult(arg);
-		//		break;
-		//	case "exportusersdata":
-		//		// Callback of the call 'getWorkoutsForCustomId'
-		//		ExportUsersData(arg);
-		//		break;
-		//	case "exportsignondetails":
-		//		// Callback of the call 'getWorkoutsForCustomId'
-		//		ExportSignonDetails(arg);
-		//		break;
-		//}
 	}
+	/// <summary>
+	/// Sends an object from the browser which the webwrapper can use to call javascript methods.
+	/// </summary>
+	/// <param name="obj"></param>
 	public void SetInterface(object obj)
 	{
-		var castobj = (JSObject)obj;
-		//Thread.Sleep(3000);
-		Log("## SetInterface ##");
-		_obj = castobj;
-		var test = _obj.GetPropertyNames();
-		Log("## SetInterface done.");
+		// The obj passed from the browser have begun disappearing sometimes when we use EOBrowser.
+		// So we no longer rely on this object, and instead we retrieve the object directly from DOM every time we want to invoke a method.
+		// See the externalPath string above.
+		Log("SetInterface");
 	}
 
 	/// <summary>
@@ -570,7 +540,7 @@ public class EoBrowser : IBrowser
 	public void SelectPerson(string externalId, string firstname, string lastname, string email, string dateOfBirth)
 	{
 		Log("InvokeFunction SelectPerson");
-		_obj.InvokeFunction("selectPerson", externalId, firstname, lastname, email, dateOfBirth);
+		Obj.InvokeFunction("selectPerson", externalId, firstname, lastname, email, dateOfBirth);
 	}
 
 	public void SelectPerson2(
@@ -593,8 +563,8 @@ public class EoBrowser : IBrowser
 	)
 	{
 		Log("InvokeFunction SelectPerson2");
-		var test = _obj.GetPropertyNames();
-		_obj.InvokeFunction("selectPerson2",
+		var test = Obj.GetPropertyNames();
+		Obj.InvokeFunction("selectPerson2",
 			externalId,
 			firstname,
 			lastname,
@@ -634,7 +604,7 @@ public class EoBrowser : IBrowser
 	)
 	{
 		Log("InvokeFunction SelectPerson3");
-		_obj.InvokeFunction("selectPerson3",
+		Obj.InvokeFunction("selectPerson3",
 			userId,
 			externalId,
 			firstname,
@@ -659,90 +629,61 @@ public class EoBrowser : IBrowser
 	public void SelectPersonById(int id)
 	{
 		Log("InvokeFunction ");
-		_obj.InvokeFunction("selectPersonById", id.ToString());
+		Obj.InvokeFunction("selectPersonById", id.ToString());
 	}
 	public void SelectTab(string tab)
 	{
 		Log("InvokeFunction ");
-		_obj.InvokeFunction("selectTab", tab);
+		Obj.InvokeFunction("selectTab", tab);
 	}
 
 	public void QueryWorkouts(string query)
 	{
 		Log("InvokeFunction ");
-		var test = _obj.GetPropertyNames();
-		_obj.InvokeFunction("queryWorkouts", query);
+		var test = Obj.GetPropertyNames();
+		Obj.InvokeFunction("queryWorkouts", query);
 	}
 	public void QueryExercises(string query)
 	{
 		Log("InvokeFunction ");
-		var test = _obj.GetPropertyNames();
-		_obj.InvokeFunction("queryExercises", query);
+		var test = Obj.GetPropertyNames();
+		Obj.InvokeFunction("queryExercises", query);
 	}
 	public void GetWorkoutsForClient(int userId, string customId, DateTime from)
 	{
-		try
+		if (userId <= 0)
 		{
-			if (userId <= 0)
-			{
-				Log("InvokeFunction ");
-				// Call a Javascript method in ExorLive
-				_obj.InvokeFunction("getWorkoutsForCustomId", customId, from);
-			}
-			else
-			{
-				Log("InvokeFunction ");
-				// Call a Javascript method in ExorLive
-				_obj.InvokeFunction("getWorkoutsForUserId", userId, from);
-			}
+			Log("InvokeFunction ");
+			// Call a Javascript method in ExorLive
+			Obj.InvokeFunction("getWorkoutsForCustomId", customId, from);
 		}
-		catch (Exception)
+		else
 		{
-			// Ignore any error in ExorLive. Just to make WebWrapper don't crash in case of a problem in ExorLive.
+			Log("InvokeFunction ");
+			// Call a Javascript method in ExorLive
+			Obj.InvokeFunction("getWorkoutsForUserId", userId, from);
 		}
 	}
 
 	public void GetSignonDetails()
 	{
-		try
-		{
-			Log("InvokeFunction ");
-			// Call a Javascript method in ExorLive
-			_obj.InvokeFunction("getOsloSignonDetails");
-		}
-		catch (Exception)
-		{
-			// Ignore any error in ExorLive. Just to make WebWrapper don't crash in case of a problem in ExorLive.
-		}
+		Log("InvokeFunction ");
+		// Call a Javascript method in ExorLive
+		Obj.InvokeFunction("getOsloSignonDetails");
 	}
 
 	public void GetListOfUsers(string customId)
 	{
-		try
-		{
-			Log("InvokeFunction ");
-			// Call a Javascript method in ExorLive
-			_obj.InvokeFunction("getListOfUsers", customId);
-		}
-		catch (Exception ex)
-		{
-			MessageBox.Show(ex.Message);
-			// Ignore any error in ExorLive. Just to make WebWrapper don't crash in case of a problem in ExorLive.
-		}
+		Log("InvokeFunction ");
+		// Call a Javascript method in ExorLive
+		Obj.InvokeFunction("getListOfUsers", customId);
 	}
 
 	public void OpenWorkout(int id)
 	{
-		try
-		{
-			Log("InvokeFunction ");
-			// Call a Javascript method in ExorLive
-			_obj.InvokeFunction("openWorkout", id);
-		}
-		catch (Exception)
-		{
-			// Ignore any error in ExorLive. Just to make WebWrapper don't crash in case of a problem in ExorLive.
-		}
+		Log("InvokeFunction ");
+		// Call a Javascript method in ExorLive
+		Obj.InvokeFunction("openWorkout", id);
 	}
 
 	private void NotifySelectingUser(JSExtInvokeArgs arg)
@@ -804,17 +745,24 @@ public class EoBrowser : IBrowser
 		}
 	}
 
-
 	public void NotifyIsUnloading()
 	{
 		IsUnloading?.Invoke(this, new EventArgs());
 	}
 	public bool Debug => App.Debug;
 	public string ApplicationIdentifier => App.ApplicationIdentifier;
+
+	private JSObject Obj {
+		get {
+			return (JSObject)_browser.WebView.EvalScript(externalPath);
+		}
+	}
+
 	public UIElement GetUiElement()
 	{
 		return _browser;
 	}
+
 	/// <summary>
 	/// Encodes a string to be represented as a string literal. The format
 	/// is essentially a JSON string.
@@ -866,45 +814,5 @@ public class EoBrowser : IBrowser
 			}
 		}
 		return sb.ToString();
-	}
-}
-class EoBrowserObject
-{
-	private EoBrowser eoBrowser;
-	public EoBrowserObject(EoBrowser eoBrowser)
-	{
-		this.eoBrowser = eoBrowser;
-	}
-	public void SetInterface(JSObject jsobject)
-	{
-		eoBrowser.SetInterface(jsobject);
-	}
-	public void NotifyIsLoaded()
-	{
-		eoBrowser.NotifyIsLoaded();
-	}
-	public void NotifySelectingUser(int id, string externalId, string firstname, string lastname, string email, string dateofbirth)
-	{
-		eoBrowser.NotifySelectingUser(id, externalId, firstname, lastname, email, dateofbirth);
-	}
-	public void NotifyIsUnloading()
-	{
-		eoBrowser.NotifyIsUnloading();
-	}
-	public void ExportUsersData(string arg)
-	{
-		eoBrowser.ExportUsersData(arg);
-	}
-	public void ExportUserList(string customId)
-	{
-		eoBrowser.ExportUserList(customId);
-	}
-	public void SelectPersonResult(string jsonresult)
-	{
-		eoBrowser.SelectPersonResult(jsonresult);
-	}
-	public void ExportSignonDetails(string arg)
-	{
-		eoBrowser.ExportSignonDetails(arg);
 	}
 }

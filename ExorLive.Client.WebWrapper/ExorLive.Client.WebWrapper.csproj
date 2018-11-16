@@ -180,6 +180,7 @@
     <Compile Include="BeforeNavigatingEventHandler.cs" />
     <Compile Include="BrowserEngines.cs" />
     <Compile Include="EoBrowser.cs" />
+    <Compile Include="EoBrowserObject.cs" />
     <Compile Include="ExorLiveInterface.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IBrowser.cs" />
