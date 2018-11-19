@@ -44,6 +44,11 @@
 			</ul>
 
 			<h2>Changelog</h2>
+			<h3>2.2.6 - November 2019</h3>
+			<ul>
+				<li>Fix for "Runtime Exception" on certain webpage errors.</li>
+				<li>Fix for application hanging at launch caused by anti-virus or security measures blocking the browser thread.</li>
+			</ul>
 			<h3>2.2.5 - September 2018</h3>
 			<ul>
 				<li>
