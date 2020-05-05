@@ -220,3 +220,4 @@ Webpage/webwrapper/
 Webpage/**/*.msi
 Webpage/**/version.txt
 PublishedFiles/
+*.orig

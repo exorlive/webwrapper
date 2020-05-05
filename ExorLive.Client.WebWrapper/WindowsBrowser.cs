@@ -33,10 +33,7 @@ public class WindowsBrowser : IBrowser
 		_browser.Navigating += _browser_Navigating;
 	}
 
-	private void _browser_Navigating(object sender, NavigatingCancelEventArgs e)
-	{
-		BeforeNavigating?.Invoke(sender, e.Uri);
-	}
+	private void _browser_Navigating(object sender, NavigatingCancelEventArgs e) => BeforeNavigating?.Invoke(sender, e.Uri);
 
 	public event EventHandler Navigated;
 	public event EventHandler IsLoaded;
@@ -148,45 +145,21 @@ public class WindowsBrowser : IBrowser
 		);
 	}
 
-	public void SelectPersonById(int id)
-	{
-		_exorlive.selectPersonById(id);
-	}
+	public void SelectPersonById(int id) => _exorlive.selectPersonById(id);
 
-	public void SelectTab(string tab)
-	{
-		_exorlive.selectTab(tab);
-	}
+	public void SelectTab(string tab) => _exorlive.selectTab(tab);
 
-	public void QueryWorkouts(string query)
-	{
-		_exorlive.queryWorkouts(query);
-	}
+	public void QueryWorkouts(string query) => _exorlive.queryWorkouts(query);
 
-	public void QueryExercises(string query)
-	{
-		_exorlive.queryExercises(query);
-	}
+	public void QueryExercises(string query) => _exorlive.queryExercises(query);
 
-	public void GetWorkoutsForClient(int userId, string customId, DateTime from)
-	{
-		_exorlive.getWorkoutsForCustomId(userId, customId, from);
-	}
+	public void GetWorkoutsForClient(int userId, string customId, DateTime from) => _exorlive.getWorkoutsForCustomId(userId, customId, from);
 
-	public void GetSignonDetails()
-	{
-		_exorlive.getOsloSignonDetails();
-	}
+	public void GetSignonDetails() => _exorlive.getOsloSignonDetails();
 
-	public void GetListOfUsers(string customId)
-	{
-		_exorlive.getListOfUsers(customId);
-	}
+	public void GetListOfUsers(string customId) => _exorlive.getListOfUsers(customId);
 
-	public void OpenWorkout(int id)
-	{
-		_exorlive.openWorkout(id);
-	}
+	public void OpenWorkout(int id) => _exorlive.openWorkout(id);
 
 	private void Browser_navigated(object sender, NavigationEventArgs e)
 	{
@@ -213,20 +186,14 @@ public class WindowsBrowser : IBrowser
 	/// <summary>
 	/// Is called from the browser COM object
 	/// </summary>
-	public void SetInterface(object obj)
-	{
-		_exorlive = new ExorLiveInterface(obj);
-	}
+	public void SetInterface(object obj) => _exorlive = new ExorLiveInterface(obj);
 
 	public event BeforeNavigatingEventHandler BeforeNavigating;
 
 	/// <summary>
 	/// Is called from the browser COM object
 	/// </summary>
-	public void NotifyIsLoaded()
-	{
-		IsLoaded?.Invoke(this, new EventArgs());
-	}
+	public void NotifyIsLoaded() => IsLoaded?.Invoke(this, new EventArgs());
 
 	/// <summary>
 	/// Is called from the browser COM object
@@ -248,41 +215,23 @@ public class WindowsBrowser : IBrowser
 	/// <summary>
 	/// Is called from the browser COM object
 	/// </summary>
-	public void NotifyIsUnloading()
-	{
-		IsUnloading?.Invoke(this, new EventArgs());
-	}
+	public void NotifyIsUnloading() => IsUnloading?.Invoke(this, new EventArgs());
 
 	/// <summary>
 	/// Is called from the browser COM object
 	/// </summary>
 	/// <param name="jsondata"></param>
-	public void ExportUsersData(string jsondata)
-	{
-		ExportUsersDataEvent?.Invoke(this, new JsonEventArgs(jsondata));
-	}
+	public void ExportUsersData(string jsondata) => ExportUsersDataEvent?.Invoke(this, new JsonEventArgs(jsondata));
 
 	/// <summary>
 	/// Is called from the browser COM object
 	/// </summary>
 	/// <param name="jsondata"></param>
-	public void ExportUserList(string jsondata)
-	{
-		ExportUserListEvent?.Invoke(this, new JsonEventArgs(jsondata));
-	}
-	public void SelectPersonResult(string jsondata)
-	{
-		SelectPersonResultEvent?.Invoke(this, new JsonEventArgs(jsondata));
-	}
-	public void ExportSignonDetails(string jsondata)
-	{
-		ExportSignonDetailsEvent?.Invoke(this, new JsonEventArgs(jsondata));
-	}
+	public void ExportUserList(string jsondata) => ExportUserListEvent?.Invoke(this, new JsonEventArgs(jsondata));
+	public void SelectPersonResult(string jsondata) => SelectPersonResultEvent?.Invoke(this, new JsonEventArgs(jsondata));
+	public void ExportSignonDetails(string jsondata) => ExportSignonDetailsEvent?.Invoke(this, new JsonEventArgs(jsondata));
 
 	public bool Debug => App.Debug;
 	public string ApplicationIdentifier => App.ApplicationIdentifier;
-	public UIElement GetUiElement()
-	{
-		return _browser;
-	}
+	public UIElement GetUiElement() => _browser;
 }

@@ -1,16 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows;
+using ExorLive.Client.WebWrapper.NamedPipe;
 using ExorLive.Desktop;
 using ExorLive.Properties;
 using Microsoft.Shell;
-using ExorLive.Client.WebWrapper.NamedPipe;
-using System.IO;
-using System.Text;
-using System.Security.Cryptography;
-using System.Web;
 
 namespace ExorLive.Client.WebWrapper
 {
@@ -36,27 +35,15 @@ namespace ExorLive.Client.WebWrapper
 
 		public static bool Debug => Settings.Default.Debug;
 
-		public void SelectPerson(PersonDTO person)
-		{
-			_webWrapperWindow.SelectPerson2(person);
-		}
+		public void SelectPerson(PersonDTO person) => _webWrapperWindow.SelectPerson2(person);
 		/// <summary>
 		/// SelectPerson3 is used. CustomId may not be unique.
 		/// </summary>
 		/// <param name="person"></param>
-		public void SelectPerson3(PersonDTO person)
-		{
-			_webWrapperWindow.SelectPerson3(person);
-		}
+		public void SelectPerson3(PersonDTO person) => _webWrapperWindow.SelectPerson3(person);
 
-		public void DeletePerson(string externalId)
-		{
-			throw new NotImplementedException();
-		}
-		public void SelectTab(string tab)
-		{
-			_webWrapperWindow.SelectTab(tab);
-		}
+		public void DeletePerson(string externalId) => throw new NotImplementedException();
+		public void SelectTab(string tab) => _webWrapperWindow.SelectTab(tab);
 
 		private string GetSignonString(string signonuser)
 		{
@@ -69,17 +56,11 @@ namespace ExorLive.Client.WebWrapper
 					dict = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, SignonDetails>>(dictstring);
 					if (dict != null && dict.Count > 0)
 					{
-						if (dict.TryGetValue(signonuser, out SignonDetails details))
+						if (dict.TryGetValue(signonuser, out var details))
 						{
 							var time = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
 							var crypt = GetHash(time);
-							return string.Format("q={0}|{1}|{2}|{3}|{4}",
-								details.UserId,
-								details.Username,
-								details.Token,
-								crypt,
-								time
-							);
+							return $"q={details.UserId}|{details.Username}|{details.Token}|{crypt}|{time}";
 						}
 					}
 				}
@@ -121,7 +102,7 @@ namespace ExorLive.Client.WebWrapper
 				dict = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, SignonDetails>>(dictstring);
 				if (dict != null && dict.Count > 0)
 				{
-					if (dict.TryGetValue(signonuser, out SignonDetails details))
+					if (dict.TryGetValue(signonuser, out _))
 					{
 						dict.Remove(signonuser);
 						dictstring = Newtonsoft.Json.JsonConvert.SerializeObject(dict);
@@ -156,14 +137,8 @@ namespace ExorLive.Client.WebWrapper
 			var hex = BitConverter.ToString(ba);
 			return hex.Replace("-", "");
 		}
-		public void QueryWorkouts(string query)
-		{
-			_webWrapperWindow.QueryWorkouts(query);
-		}
-		public void QueryExercises(string query)
-		{
-			_webWrapperWindow.QueryExercises(query);
-		}
+		public void QueryWorkouts(string query) => _webWrapperWindow.QueryWorkouts(query);
+		public void QueryExercises(string query) => _webWrapperWindow.QueryExercises(query);
 		public void OpenWorkout(string workoutIdAsString)
 		{
 			if (int.TryParse(workoutIdAsString, out var id))
@@ -176,9 +151,7 @@ namespace ExorLive.Client.WebWrapper
 		}
 		private bool _logging = false;
 		public bool Logging {
-			get {
-				return _logging;
-			}
+			get => _logging;
 			set {
 				if (_logging == true && value == false)
 				{
@@ -199,7 +172,7 @@ namespace ExorLive.Client.WebWrapper
 					{
 						format = string.Format(format, args);
 					}
-					var line = string.Format("{0}: {1}{2}", DateTime.Now, format, Environment.NewLine);
+					var line = $"{DateTime.Now}: {format}{Environment.NewLine}";
 					File.AppendAllText(filename, line, Encoding.UTF8);
 				}
 			}
@@ -207,7 +180,6 @@ namespace ExorLive.Client.WebWrapper
 			{
 				// Ignore any error.
 				MessageBox.Show(ex.Message);
-				// File.AppendAllText(filename, "ERROR DURING LOGGING:" + ex.Message, Encoding.UTF8);
 			}
 		}
 
@@ -216,10 +188,7 @@ namespace ExorLive.Client.WebWrapper
 		public event IHost.WindowClosingEventHandler WindowClosing;
 #pragma warning restore 67 // The event is never used
 
-		public void LogException(Exception ex, string message)
-		{
-			MessageBox.Show($"{message} {Environment.NewLine} {ex.Message}");
-		}
+		public void LogException(Exception ex, string message) => MessageBox.Show($"{message} {Environment.NewLine} {ex.Message}");
 		public bool SignalExternalCommandLineArgs(IList<string> args)
 		{
 			((MainWindow)_webWrapperWindow).Restore();
@@ -283,7 +252,7 @@ namespace ExorLive.Client.WebWrapper
 			var hasAutoSignonUser = false;
 			if (UserSettings.SignonWithWindowsUser)
 			{
-				_automaticSignonExternalUser = Environment.UserName + "@" + Environment.UserDomainName;
+				_automaticSignonExternalUser = $"{Environment.UserName}@{Environment.UserDomainName}";
 				var signonstring = GetSignonString(_automaticSignonExternalUser);
 				if (!string.IsNullOrWhiteSpace(signonstring))
 				{
@@ -331,7 +300,7 @@ namespace ExorLive.Client.WebWrapper
 				url = UserSettings.AdfsUrl;
 				if (!string.IsNullOrWhiteSpace(signonuser))
 				{
-					url = AppendUrlArg(url, "signon=" + signonuser);
+					url = AppendUrlArg(url, $"signon={signonuser}");
 				}
 				_shallStoreAutomaticSignonUser = false;
 				hasAutoSignonUser = false;
@@ -345,10 +314,7 @@ namespace ExorLive.Client.WebWrapper
 			StartNamedPipeServer();
 		}
 
-		private void _webWrapperWindow_UserHasDisconnected(object sender)
-		{
-			DisconnectedCurrentUser();
-		}
+		private void _webWrapperWindow_UserHasDisconnected(object sender) => DisconnectedCurrentUser();
 
 		public static string AppendUrlArg(string url, string toAppend)
 		{
@@ -371,20 +337,14 @@ namespace ExorLive.Client.WebWrapper
 		{
 		}
 
-		private void _webWrapperWindow_ExportUsersDataEvent(object sender, JsonEventArgs args)
-		{
-			_npServer?.PublishDataOnNamedPipe(args.JsonData);
-		}
+		private void _webWrapperWindow_ExportUsersDataEvent(object sender, JsonEventArgs args) => _npServer?.PublishDataOnNamedPipe(args.JsonData);
 		private void _webWrapperWindow_ExportUserListEvent(object sender, JsonEventArgs args)
 		{
 			Log("    ExportUserList: ", args.JsonData);
 			_npServer?.PublishDataOnNamedPipe(args.JsonData);
 		}
 
-		private void _webWrapperWindow_SelectPersonResultEvent(object sender, JsonEventArgs args)
-		{
-			_npServer?.PublishDataOnNamedPipe(args.JsonData);
-		}
+		private void _webWrapperWindow_SelectPersonResultEvent(object sender, JsonEventArgs args) => _npServer?.PublishDataOnNamedPipe(args.JsonData);
 
 		private void _webWrapperWindow_ExportSignonDetailsEvent(object sender, JsonEventArgs args)
 		{
@@ -440,25 +400,13 @@ namespace ExorLive.Client.WebWrapper
 			_hostedComponent.Initialize(this, Environment.CurrentDirectory);
 		}
 
-		internal void GetWorkoutsForClient(int userId, string customId, DateTime from)
-		{
-			_webWrapperWindow.GetWorkoutsForClient(userId, customId, from);
-		}
+		internal void GetWorkoutsForClient(int userId, string customId, DateTime from) => _webWrapperWindow.GetWorkoutsForClient(userId, customId, from);
 
-		internal void GetListOfUsers(string customId)
-		{
-			_webWrapperWindow.GetListOfUsers(customId);
-		}
+		internal void GetListOfUsers(string customId) => _webWrapperWindow.GetListOfUsers(customId);
 
-		internal void OpenWorkout(int id)
-		{
-			_webWrapperWindow.OpenWorkout(id);
-		}
+		internal void OpenWorkout(int id) => _webWrapperWindow.OpenWorkout(id);
 
-		private static void HandleCommandLine(string[] args)
-		{
-			_hostedComponent?.ReadCommandline(args);
-		}
+		private static void HandleCommandLine(string[] args) => _hostedComponent?.ReadCommandline(args);
 
 		/// <summary>
 		/// Start a thread that listens on a Named Pipe channel. Remote clients may communicate with the Webwrapper and ExorLive on the Named Pipe channel.

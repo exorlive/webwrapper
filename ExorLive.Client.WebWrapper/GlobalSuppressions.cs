@@ -13,3 +13,4 @@
 [assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~P:ExorLive.Client.WebWrapper.MainWindow.Debug")]
 [assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~P:ExorLive.Client.WebWrapper.NamedPipe.NpServer.Pipename")]
 [assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:ExorLive.Client.WebWrapper.App.GetSignonString(System.String)~System.String")]
+[assembly: SuppressMessage("Style", "IDE1006:Naming Styles")]
