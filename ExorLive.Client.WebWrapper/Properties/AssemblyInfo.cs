@@ -7,10 +7,10 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("ExorLive.Client.WebWrapper")]
-[assembly: AssemblyDescription("ExorLive")]
-[assembly: AssemblyCompany("ExorLive")]
+[assembly: AssemblyDescription("ExorLive AS")]
+[assembly: AssemblyCompany("ExorLive AS")]
 [assembly: AssemblyProduct("ExorLive.Client.WebWrapper")]
-[assembly: AssemblyCopyright("Copyright © ExorLive 2016")]
+[assembly: AssemblyCopyright("Copyright © ExorLive 2020")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 

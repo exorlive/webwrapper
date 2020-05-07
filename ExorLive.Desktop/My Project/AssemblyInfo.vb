@@ -11,9 +11,9 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyTitle("ExorLive.Desktop")>
 <Assembly: AssemblyDescription("ExorLive.Desktop")>
-<Assembly: AssemblyCompany("ExorLive")>
+<Assembly: AssemblyCompany("ExorLive AS")>
 <Assembly: AssemblyProduct("ExorLive WebWrapper")>
-<Assembly: AssemblyCopyright("ExorLive")>
+<Assembly: AssemblyCopyright("ExorLive AS")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>
