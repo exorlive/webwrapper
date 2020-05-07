@@ -15,6 +15,7 @@ public interface IBrowser
 	event EventHandler ExportUserListEvent;
 	event EventHandler SelectPersonResultEvent;
 	event EventHandler ExportSignonDetailsEvent;
+	event EventHandler ZoomLevelChanged;
 
 	void SelectPerson(
 		string externalId,
@@ -71,11 +72,22 @@ public interface IBrowser
 	void NotifyIsUnloading();
 	bool Debug { get; }
 	string ApplicationIdentifier { get; }
-
 	void GetWorkoutsForClient(int userId, string customId, DateTime from);
 	void GetListOfUsers(string customId);
 	void OpenWorkout(int id);
-
 	void GetSignonDetails();
 
+	/// <summary>
+	/// Retrieve the browsers current zoom level.
+	/// </summary>
+	/// <returns>The current zoom level, or a negative number if the browser doesnt support zoom.</returns>
+	decimal GetZoomLevel();
+
+	/// <summary>
+	/// Sets the current zoom level in the browser.
+	/// </summary>
+	/// <param name="v">A value where 1 equals 100%.</param>
+	/// <remarks>Remember to check if the browser supports zoom before setting this.</remarks>
+	/// <exception cref="NotImplementedException">Should throw a NotImplementedException if the browser doesnt support zoom.</exception>
+	void SetZoomLevel(decimal v);
 }

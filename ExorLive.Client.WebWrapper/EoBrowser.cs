@@ -4,8 +4,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using EO.WebBrowser;
 using EO.Wpf;
@@ -26,20 +24,9 @@ public class EoBrowser : IBrowser
 	public static IBrowser Instance => _instance ?? (_instance = new EoBrowser());
 
 	private readonly WebControl _browser;
-	private EoBrowserObject browserObject;
-	// TODO: Switch externalPath to "window.externalInterface".
+	private readonly EoBrowserObject browserObject;
 	private readonly string externalPath = "app.api._host.externalInterface";
-	/// <summary>
-	/// Navigates to the specified URL.
-	/// </summary>
-	/// <param name="url">The URL.</param>
-	/// <returns>Returns true.</returns>
-	public bool Navigate(Uri url)
-	{
-		Log("Navigate");
-		_browser.WebView.Url = url.AbsoluteUri;
-		return true;
-	}
+	private bool _isNavigating;
 
 	/// <summary>
 	/// Private constructor that sets up the WebControl, then attaches a javascript to it.
@@ -80,7 +67,7 @@ public class EoBrowser : IBrowser
 			WebView = new WebView()
 			{
 				ObjectForScripting = browserObject,
-				AcceptLanguage = ConvertToAcceptLanguageHeaderValue(cultures)
+				AcceptLanguage = Util.ConvertToAcceptLanguageHeaderValue(cultures)
 			}
 		};
 		_browser.WebView.Activate += WebView_Activate;
@@ -140,322 +127,6 @@ public class EoBrowser : IBrowser
 		InjectJavascriptObject();
 	}
 
-	private string ConvertToAcceptLanguageHeaderValue(List<CultureInfo> cultures)
-	{
-		var cultureStrings = new List<string>();
-		foreach (var item in cultures.Distinct())
-		{
-			var name = item.Name;
-			cultureStrings.Add(name);
-			var shortname = item.TwoLetterISOLanguageName;
-			cultureStrings.Add(shortname);
-		}
-		var listWithQualityValues = new List<string>(cultureStrings.Count);
-		var pri = 1.0M;
-		foreach (var item in cultureStrings)
-		{
-			if (pri <= 0.1M)
-			{
-				break;
-			}
-			else if (pri == 1.0M)
-			{
-				listWithQualityValues.Add(item);
-			}
-			else
-			{
-				listWithQualityValues.Add($"{item};q={pri.ToString(CultureInfo.InvariantCulture)}");
-			}
-			pri -= 0.1M;
-		}
-		listWithQualityValues.Add($"*;q=0.1");
-		return string.Join(", ", listWithQualityValues);
-	}
-
-	/// <summary>
-	/// This javascript file is added to every page you navigate to.
-	/// </summary>
-	private void InjectJavascriptObject()
-	{
-		var appid = EncodeJsString(ApplicationIdentifier);
-		var debug = EncodeJsString(Debug.ToString().ToLower());
-		var distro = EncodeJsString(Settings.Default.DistributorName);
-		var checforupdates = EncodeJsString(App.UserSettings.CheckForUpdates.ToString());
-		_browser.WebView.JSInitCode = $@"
-			window.external.ApplicationIdentifier = '{appid}';
-			window.external.Debug = {debug};
-			window.external.DistributorName = '{distro}';
-			window.external.CheckForUpdates = '{checforupdates}';
-		";
-	}
-
-	private void Runtime_Exception(object sender, EO.Base.ExceptionEventArgs e)
-	{
-		//Log("Runtime_Exception: {0}", e.ErrorException.Message);
-	}
-
-	public static void Log(string format, params object[] args) => System.Diagnostics.Debug.WriteLine(format, args);
-
-	private void WebView_ZoomFactorChanged(object sender, EventArgs e)
-	{
-		//Log("WebView_ZoomFactorChanged");
-	}
-
-	private void WebView_UrlChanged(object sender, EventArgs e)
-	{
-		//Log("WebView_UrlChanged");
-	}
-
-	private void WebView_TitleChanged(object sender, EventArgs e)
-	{
-		//Log("WebView_TitleChanged");
-	}
-
-	private void WebView_StatusMessageChanged(object sender, EventArgs e)
-	{
-		//Log("WebView_StatusMessageChanged");
-	}
-
-	private void WebView_ShouldForceDownload(object sender, ShouldForceDownloadEventArgs e)
-	{
-		Log("WebView_ShouldForceDownload = {0}.", e.ForceDownload);
-		Log("Url: {0}", e.Url);
-	}
-
-	private void WebView_ScriptCallDone(object sender, ScriptCallDoneEventArgs e) => Log("WebView_ScriptCallDone: {0}", e.Call.Script);
-
-	private void WebView_RequestPermissions(object sender, RequestPermissionEventArgs e) => Log("WebView_RequestPermissions");
-
-	private void WebView_NeedCredentials(object sender, NeedCredentialsEventArgs e) => Log("WebView_NeedCredentials");
-
-	private void WebView_NeedClientCertificate(object sender, NeedClientCertificateEventArgs e) => Log("WebView_NeedClientCertificate");
-
-	private void WebView_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
-	{
-		//Log("WebView_MouseUp");
-	}
-
-	private void WebView_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
-	{
-		//Log("WebView_MouseMove");
-	}
-
-	private void WebView_MouseLeave(object sender, EventArgs e)
-	{
-		//Log("WebView_MouseLeave");
-	}
-
-	private void WebView_MouseEnter(object sender, EventArgs e)
-	{
-		//Log("WebView_MouseEnter");
-	}
-
-	private void WebView_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
-	{
-		//Log("WebView_MouseDown");
-	}
-
-	private void WebView_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
-	{
-		//Log("WebView_MouseDoubleClick");
-	}
-
-	private void WebView_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
-	{
-		//Log("WebView_MouseClick");
-	}
-
-	private void WebView_LoadCompleted(object sender, LoadCompletedEventArgs e) => Log("WebView_LoadCompleted");
-
-	private void WebView_LaunchUrl(object sender, LaunchUrlEventArgs e) => Log("WebView_LaunchUrl");
-
-	private void WebView_KeyUp(object sender, WndMsgEventArgs e)
-	{
-		//Log("WebView_KeyUp");
-	}
-
-	private void WebView_KeyDown(object sender, WndMsgEventArgs e)
-	{
-		//Log("WebView_KeyDown");
-	}
-
-	private void WebView_JSDialog(object sender, JSDialogEventArgs e) => Log("WebView_JSDialog");
-
-	private void WebView_IsReadyChanged(object sender, EventArgs e) => Log("WebView_IsReadyChanged");
-
-	private void WebView_GotFocus(object sender, EventArgs e) => Log("WebView_GotFocus");
-
-	private void WebView_GiveFocus(object sender, GiveFocusEventArgs e) => Log("WebView_GiveFocus");
-
-	private void WebView_FullScreenModeChanged(object sender, FullscreenModeChangedArgs e) => Log("WebView_FullScreenModeChanged");
-
-	private void WebView_FileDialog(object sender, FileDialogEventArgs e) => Log("WebView_FileDialog");
-
-	private void WebView_FaviconChanged(object sender, EventArgs e)
-	{
-		//Log("WebView_FaviconChanged");
-	}
-
-	private void WebView_DownloadUpdated(object sender, DownloadEventArgs e) => Log("WebView_DownloadUpdated");
-
-	private void WebView_DownloadCompleted(object sender, DownloadEventArgs e) => Log("WebView_DownloadCompleted");
-
-	private void WebView_DownloadCanceled(object sender, DownloadEventArgs e) => Log("WebView_DownloadCanceled");
-
-	private void WebView_BeforePrint(object sender, BeforePrintEventArgs e) => Log("WebView_BeforePrint");
-
-	private void WebView_BeforeContextMenu(object sender, BeforeContextMenuEventArgs e)
-	{
-		//Log("WebView_BeforeContextMenu");
-	}
-
-	private void WebView_Disposed(object sender, EventArgs e) => Log("WebView_Disposed");
-
-	private void WebView_ContextMenuDismissed(object sender, FrameEventArgs e)
-	{
-		//Log("WebView_ContextMenuDismissed");
-	}
-
-	private void WebView_ConsoleMessage(object sender, ConsoleMessageEventArgs e)
-	{
-		//Log("WebView_ConsoleMessage");
-	}
-
-	private void WebView_Command(object sender, CommandEventArgs e) => Log("WebView_Command");
-
-	private void WebView_Closing(object sender, CancelEventArgs e) => Log("WebView_Closing");
-
-	private void WebView_Closed(object sender, WebViewClosedEventArgs e) => Log("WebView_Closed");
-
-	private void WebView_CanGoForwardChanged(object sender, EventArgs e)
-	{
-		//Log("WebView_CanGoForwardChanged");
-	}
-
-	private void WebView_CanGoBackChanged(object sender, EventArgs e)
-	{
-		//Log("WebView_CanGoBackChanged");
-	}
-
-	private void WebView_BeforeSendHeaders(object sender, RequestEventArgs e)
-	{
-		//Log("WebView_BeforeSendHeaders");
-	}
-
-	private void WebView_BeforeRequestLoad(object sender, BeforeRequestLoadEventArgs e)
-	{
-		//Log("WebView_BeforeRequestLoad");
-	}
-
-	private void WebView_BeforeDownload(object sender, BeforeDownloadEventArgs e) => Log("WebView_BeforeDownload");
-
-	private void WebView_AfterReceiveHeaders(object sender, ResponseEventArgs e)
-	{
-		//Log("WebView_AfterReceiveHeaders");
-	}
-
-	private void WebView_AfterPrint(object sender, AfterPrintEventArgs e) => Log("WebView_AfterPrint");
-
-	private void WebView_Activate(object sender, EventArgs e) => Log("WebView_Activate");
-
-	private void WebView_RenderUnresponsive(object sender, RenderUnresponsiveEventArgs e) => Log("WebView_RenderUnresponsive");
-
-	private void WebView_CertificateError(object sender, CertificateErrorEventArgs e)
-	{
-		if (App.Debug)
-		{
-			MessageBox.Show("Can't load the url \"" + e.Url + "\", the SSL certificate is invalid.");
-		}
-	}
-
-	private void StartRemoteDebugging() => Runtime.DefaultEngineOptions.RemoteDebugPort = 9223;
-
-	private void WebView_LoadFailed(object sender, LoadFailedEventArgs e)
-	{
-		switch (e.ErrorCode)
-		{
-			case ErrorCode.ConnectionRefused:
-				e.ErrorMessage = $"Can't connect to \"{e.Url}\".";
-				break;
-			default:
-				e.UseDefaultMessage();
-				break;
-		}
-		Log("{0} - {1}", e.ErrorCode, e.ErrorMessage);
-	}
-
-	/// <summary>
-	/// For when the browser window navigates to an external link,
-	/// open the link in the default browser
-	/// </summary>
-	/// <param name="sender"></param>
-	/// <param name="e"></param>
-	private static void WebView_NewWindow(object sender, NewWindowEventArgs e)
-	{
-		Log("WebView_NewWindow");
-		if (string.IsNullOrWhiteSpace(e.TargetUrl)) { return; }
-		var targeturi = new Uri(e.TargetUrl);
-		try
-		{
-			Process.Start(targeturi.AbsoluteUri);
-		}
-		catch (Win32Exception)
-		{
-			Process.Start("IExplore.exe", targeturi.AbsoluteUri);
-		}
-	}
-
-	/// <summary>
-	/// Workaround to trigger the Navigated event, because EO's webview only had a BeforeNavigating event.
-	/// </summary>
-	/// <param name="sender">The source of the event.</param>
-	/// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
-	private void WebView_IsLoadingChanged(object sender, EventArgs e)
-	{
-		Log("WebView_IsLoadingChanged");
-		if (_isNavigating && ((WebView)sender).IsLoading == false)
-		{
-			Navigated?.Invoke(sender, e);
-			_isNavigating = false;
-		}
-	}
-
-	private bool _isNavigating;
-	/// <summary>
-	/// Workaround to trigger the Navigated event, because EO's webview only had a BeforeNavigating event.
-	/// </summary>
-	/// <param name="sender">The source of the event.</param>
-	/// <param name="e">The <see cref="EO.WebBrowser.BeforeNavigateEventArgs" /> instance containing the event data.</param>
-	private void WebView_BeforeNavigate(object sender, BeforeNavigateEventArgs e)
-	{
-		Log("WebView_BeforeNavigate");
-		_isNavigating = true;
-		BeforeNavigating?.Invoke(sender, new Uri(e.NewUrl));
-	}
-	public void NotifyIsLoaded()
-	{
-		Log("NotifyIsLoaded");
-		IsLoaded?.Invoke(this, new EventArgs());
-	}
-	/// <summary>
-	/// When the Eo.WebBrowser.WebView invokes the js method "eoWebBrowser.extInvoke('MethodName', arguments)",
-	/// this method handles its JSExtInvoke event.
-	/// </summary>
-	/// <param name="sender">The sender.</param>
-	/// <param name="arg">The argument.</param>
-	private void WebView_JSExtension(object sender, JSExtInvokeArgs arg) => Log("Incoming call from ExorLive application. Method \"{0}\"", arg.FunctionName);
-	/// <summary>
-	/// Sends an object from the browser which the webwrapper can use to call javascript methods.
-	/// </summary>
-	/// <param name="obj"></param>
-	public void SetInterface(object obj)
-	{
-		// The obj passed from the browser have begun disappearing sometimes when we use EOBrowser.
-		// So we no longer rely on this object, and instead we retrieve the object directly from DOM every time we want to invoke a method.
-		// See the externalPath string above.
-		Log("SetInterface");
-	}
-
 	/// <summary>
 	/// Occurs before navigating to other pages.
 	/// </summary>
@@ -476,12 +147,10 @@ public class EoBrowser : IBrowser
 	/// Occurs when the instructor changes his currently active contact.
 	/// </summary>
 	public event EventHandler SelectedUserChanged;
-
 	/// <summary>
 	/// Is the callback of 'getWorkoutsForUserId' and 'getWorkoutsForCustomId'
 	/// </summary>
 	public event EventHandler ExportUsersDataEvent;
-
 	/// <summary>
 	/// Is the callback of 'getListOfUsers'
 	/// </summary>
@@ -490,18 +159,66 @@ public class EoBrowser : IBrowser
 	/// Is the callback of 'selectPerson'
 	/// </summary>
 	public event EventHandler SelectPersonResultEvent;
-
 	/// <summary>
 	/// Is the callback of getOsloSignonDetails
 	/// </summary>
 	public event EventHandler ExportSignonDetailsEvent;
+	/// <summary>
+	/// Occurs when the user changes zoom level.
+	/// </summary>
+	public event EventHandler ZoomLevelChanged;
 
-
-	public void SelectPerson(string externalId, string firstname, string lastname, string email, string dateOfBirth)
+	/// <summary>
+	/// Navigates to the specified URL.
+	/// </summary>
+	/// <param name="url">The URL.</param>
+	/// <returns>Returns true.</returns>
+	public bool Navigate(Uri url)
 	{
-		Log("InvokeFunction SelectPerson");
-		Obj.InvokeFunction("selectPerson", externalId, firstname, lastname, email, dateOfBirth);
+		Log("Navigate");
+		_browser.WebView.Url = url.AbsoluteUri;
+		return true;
 	}
+
+	/// <summary>
+	/// Retrieve the browsers current zoom level.
+	/// </summary>
+	/// <returns>The current zoom level, or a negative number if the browser doesnt support zoom.</returns>
+	public decimal GetZoomLevel() => (decimal)_browser.WebView.ZoomFactor;
+
+	/// <summary>
+	/// Sets the current zoom level in the browser.
+	/// </summary>
+	/// <param name="v">A value where 1 equals 100%.</param>
+	/// <remarks>Remember to check if the browser supports zoom before setting this.</remarks>
+	/// <exception cref="NotImplementedException">Should throw a NotImplementedException if the browser doesnt support zoom.</exception>
+	public void SetZoomLevel(decimal v) => _browser.WebView.ZoomFactor = (double)v;
+
+	/// <summary>
+	/// Sends an object from the browser which the webwrapper can use to call javascript methods.
+	/// </summary>
+	/// <remarks>
+	/// The obj passed from the browser have begun disappearing sometimes when we use EOBrowser.
+	/// So we no longer rely on this object, and instead we retrieve the object directly from DOM every time we want to invoke a method.
+	/// See the externalPath string above.
+	/// </remarks>
+	/// <param name="obj"></param>
+	public void SetInterface(object obj) => Log("SetInterface");
+
+	public void NotifyIsLoaded() => IsLoaded?.Invoke(this, new EventArgs());
+	public void SelectPerson(string externalId, string firstname, string lastname, string email, string dateOfBirth) => Obj.InvokeFunction("selectPerson", externalId, firstname, lastname, email, dateOfBirth);
+	public void SelectPersonById(int id) => Obj.InvokeFunction("selectPersonById", id.ToString());
+	public void SelectTab(string tab) => Obj.InvokeFunction("selectTab", tab);
+	public void QueryWorkouts(string query) => Obj.InvokeFunction("queryWorkouts", query);
+	public void QueryExercises(string query) => Obj.InvokeFunction("queryExercises", query);
+	public void GetSignonDetails() => Obj.InvokeFunction("getOsloSignonDetails");
+	public void GetListOfUsers(string customId) => Obj.InvokeFunction("getListOfUsers", customId);
+	public void OpenWorkout(int id) => Obj.InvokeFunction("openWorkout", id);
+	public static void Log(string format, params object[] args) => System.Diagnostics.Debug.WriteLine(format, args);
+	public void NotifyIsUnloading() => IsUnloading?.Invoke(this, new EventArgs());
+	public bool Debug => App.Debug;
+	public string ApplicationIdentifier => App.ApplicationIdentifier;
+	public UIElement GetUiElement() => _browser;
 
 	public void SelectPerson2(
 		string externalId,
@@ -585,27 +302,7 @@ public class EoBrowser : IBrowser
 			source
 		);
 	}
-	public void SelectPersonById(int id)
-	{
-		Log("InvokeFunction ");
-		Obj.InvokeFunction("selectPersonById", id.ToString());
-	}
-	public void SelectTab(string tab)
-	{
-		Log("InvokeFunction ");
-		Obj.InvokeFunction("selectTab", tab);
-	}
 
-	public void QueryWorkouts(string query)
-	{
-		Log("InvokeFunction ");
-		Obj.InvokeFunction("queryWorkouts", query);
-	}
-	public void QueryExercises(string query)
-	{
-		Log("InvokeFunction ");
-		Obj.InvokeFunction("queryExercises", query);
-	}
 	public void GetWorkoutsForClient(int userId, string customId, DateTime from)
 	{
 		if (userId <= 0)
@@ -622,41 +319,6 @@ public class EoBrowser : IBrowser
 		}
 	}
 
-	public void GetSignonDetails()
-	{
-		Log("InvokeFunction ");
-		// Call a Javascript method in ExorLive
-		Obj.InvokeFunction("getOsloSignonDetails");
-	}
-
-	public void GetListOfUsers(string customId)
-	{
-		Log("InvokeFunction ");
-		// Call a Javascript method in ExorLive
-		Obj.InvokeFunction("getListOfUsers", customId);
-	}
-
-	public void OpenWorkout(int id)
-	{
-		Log("InvokeFunction ");
-		// Call a Javascript method in ExorLive
-		Obj.InvokeFunction("openWorkout", id);
-	}
-
-#pragma warning disable IDE0051 // Remove unused private members
-	private void NotifySelectingUser(JSExtInvokeArgs arg)
-#pragma warning restore IDE0051 // Remove unused private members
-	{
-		// To cast safely and return null if failure, use C#'s "as" keyword.
-		NotifySelectingUser(
-			(int)arg.Arguments[0],
-			arg.Arguments[1] as string,
-			arg.Arguments[2] as string,
-			arg.Arguments[3] as string,
-			arg.Arguments[4] as string,
-			arg.Arguments[5] as string
-		);
-	}
 
 	public void NotifySelectingUser(int id, string externalId, string firstname, string lastname, string email, string dateofbirth)
 	{
@@ -704,64 +366,169 @@ public class EoBrowser : IBrowser
 		}
 	}
 
-	public void NotifyIsUnloading() => IsUnloading?.Invoke(this, new EventArgs());
-	public bool Debug => App.Debug;
-	public string ApplicationIdentifier => App.ApplicationIdentifier;
-
-	private JSObject Obj => (JSObject)_browser.WebView.EvalScript(externalPath);
-
-	public UIElement GetUiElement() => _browser;
+	private void Runtime_Exception(object sender, EO.Base.ExceptionEventArgs e) { }
+	private void WebView_ZoomFactorChanged(object sender, EventArgs e) => ZoomLevelChanged?.Invoke(sender, e);
+	private void WebView_UrlChanged(object sender, EventArgs e) { }
+	private void WebView_TitleChanged(object sender, EventArgs e) { }
+	private void WebView_StatusMessageChanged(object sender, EventArgs e) { }
+	private void WebView_ScriptCallDone(object sender, ScriptCallDoneEventArgs e) => Log($"WebView_ScriptCallDone: {e.Call.Script}");
+	private void WebView_RequestPermissions(object sender, RequestPermissionEventArgs e) => Log("WebView_RequestPermissions");
+	private void WebView_NeedCredentials(object sender, NeedCredentialsEventArgs e) => Log("WebView_NeedCredentials");
+	private void WebView_NeedClientCertificate(object sender, NeedClientCertificateEventArgs e) => Log("WebView_NeedClientCertificate");
+	private void WebView_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e) { }
+	private void WebView_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e) { }
+	private void WebView_MouseLeave(object sender, EventArgs e) { }
+	private void WebView_MouseEnter(object sender, EventArgs e) { }
+	private void WebView_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e) { }
+	private void WebView_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e) { }
+	private void WebView_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e) { }
+	private void WebView_LoadCompleted(object sender, LoadCompletedEventArgs e) => Log("WebView_LoadCompleted");
+	private void WebView_LaunchUrl(object sender, LaunchUrlEventArgs e) => Log("WebView_LaunchUrl");
+	private void WebView_KeyUp(object sender, WndMsgEventArgs e) { }
+	private void WebView_KeyDown(object sender, WndMsgEventArgs e) { }
+	private void WebView_JSDialog(object sender, JSDialogEventArgs e) => Log("WebView_JSDialog");
+	private void WebView_IsReadyChanged(object sender, EventArgs e) => Log("WebView_IsReadyChanged");
+	private void WebView_GotFocus(object sender, EventArgs e) => Log("WebView_GotFocus");
+	private void WebView_GiveFocus(object sender, GiveFocusEventArgs e) => Log("WebView_GiveFocus");
+	private void WebView_FullScreenModeChanged(object sender, FullscreenModeChangedArgs e) => Log("WebView_FullScreenModeChanged");
+	private void WebView_FileDialog(object sender, FileDialogEventArgs e) => Log("WebView_FileDialog");
+	private void WebView_FaviconChanged(object sender, EventArgs e) { }
+	private void WebView_DownloadUpdated(object sender, DownloadEventArgs e) => Log("WebView_DownloadUpdated");
+	private void WebView_DownloadCompleted(object sender, DownloadEventArgs e) => Log("WebView_DownloadCompleted");
+	private void WebView_DownloadCanceled(object sender, DownloadEventArgs e) => Log("WebView_DownloadCanceled");
+	private void WebView_BeforePrint(object sender, BeforePrintEventArgs e) => Log("WebView_BeforePrint");
+	private void WebView_BeforeContextMenu(object sender, BeforeContextMenuEventArgs e) { }
+	private void WebView_Disposed(object sender, EventArgs e) => Log("WebView_Disposed");
+	private void WebView_ContextMenuDismissed(object sender, FrameEventArgs e) { }
+	private void WebView_ConsoleMessage(object sender, ConsoleMessageEventArgs e) { }
+	private void WebView_Command(object sender, CommandEventArgs e) => Log("WebView_Command");
+	private void WebView_Closing(object sender, CancelEventArgs e) => Log("WebView_Closing");
+	private void WebView_Closed(object sender, WebViewClosedEventArgs e) => Log("WebView_Closed");
+	private void WebView_CanGoForwardChanged(object sender, EventArgs e) { }
+	private void WebView_CanGoBackChanged(object sender, EventArgs e) { }
+	private void WebView_BeforeSendHeaders(object sender, RequestEventArgs e) { }
+	private void WebView_BeforeRequestLoad(object sender, BeforeRequestLoadEventArgs e) { }
+	private void WebView_BeforeDownload(object sender, BeforeDownloadEventArgs e) => Log("WebView_BeforeDownload");
+	private void WebView_AfterReceiveHeaders(object sender, ResponseEventArgs e) { }
+	private void WebView_AfterPrint(object sender, AfterPrintEventArgs e) => Log("WebView_AfterPrint");
+	private void WebView_Activate(object sender, EventArgs e) => Log("WebView_Activate");
+	private void WebView_RenderUnresponsive(object sender, RenderUnresponsiveEventArgs e) => Log("WebView_RenderUnresponsive");
+	private void StartRemoteDebugging() => Runtime.DefaultEngineOptions.RemoteDebugPort = 9223;
 
 	/// <summary>
-	/// Encodes a string to be represented as a string literal. The format
-	/// is essentially a JSON string.
+	/// This javascript file is added to every page you navigate to.
 	/// </summary>
-	/// <param name="str">The string.</param>
-	/// <returns></returns>
-	/// <remarks>
-	/// http://weblog.west-wind.com/posts/2007/Jul/14/Embedding-JavaScript-Strings-from-an-ASPNET-Page
-	/// </remarks>
-	private static string EncodeJsString(string str)
+	private void InjectJavascriptObject()
 	{
-		var sb = new StringBuilder();
-		foreach (var c in str)
-		{
-			switch (c)
-			{
-				case '\"':
-					sb.Append("\\\"");
-					break;
-				case '\\':
-					sb.Append("\\\\");
-					break;
-				case '\b':
-					sb.Append("\\b");
-					break;
-				case '\f':
-					sb.Append("\\f");
-					break;
-				case '\n':
-					sb.Append("\\n");
-					break;
-				case '\r':
-					sb.Append("\\r");
-					break;
-				case '\t':
-					sb.Append("\\t");
-					break;
-				default:
-					var i = (int)c;
-					if (i < 32 || i > 127)
-					{
-						sb.AppendFormat("\\u{0:X04}", i);
-					}
-					else
-					{
-						sb.Append(c);
-					}
-					break;
-			}
-		}
-		return sb.ToString();
+		var appid = Util.EncodeJsString(ApplicationIdentifier);
+		var debug = Util.EncodeJsString(Debug.ToString().ToLower());
+		var distro = Util.EncodeJsString(Settings.Default.DistributorName);
+		var checforupdates = Util.EncodeJsString(App.UserSettings.CheckForUpdates.ToString());
+		_browser.WebView.JSInitCode = $@"
+			window.external.ApplicationIdentifier = '{appid}';
+			window.external.Debug = {debug};
+			window.external.DistributorName = '{distro}';
+			window.external.CheckForUpdates = '{checforupdates}';
+		";
 	}
+
+	private void WebView_ShouldForceDownload(object sender, ShouldForceDownloadEventArgs e)
+	{
+		Log($"WebView_ShouldForceDownload = {e.ForceDownload}.");
+		Log($"Url: {e.Url}");
+	}
+
+	private void WebView_CertificateError(object sender, CertificateErrorEventArgs e)
+	{
+		if (App.Debug)
+		{
+			MessageBox.Show($"Can't load the url \"{e.Url}\", the SSL certificate is invalid.");
+		}
+	}
+
+	private void WebView_LoadFailed(object sender, LoadFailedEventArgs e)
+	{
+		switch (e.ErrorCode)
+		{
+			case ErrorCode.ConnectionRefused:
+				e.ErrorMessage = $"Can't connect to \"{e.Url}\".";
+				break;
+			default:
+				e.UseDefaultMessage();
+				break;
+		}
+		Log($"{e.ErrorCode} - {e.ErrorMessage}");
+	}
+
+	/// <summary>
+	/// For when the browser window navigates to an external link,
+	/// open the link in the default browser
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
+	private static void WebView_NewWindow(object sender, NewWindowEventArgs e)
+	{
+		Log("WebView_NewWindow");
+		if (string.IsNullOrWhiteSpace(e.TargetUrl)) { return; }
+		var targeturi = new Uri(e.TargetUrl);
+		try
+		{
+			Process.Start(targeturi.AbsoluteUri);
+		}
+		catch (Win32Exception)
+		{
+			Process.Start("IExplore.exe", targeturi.AbsoluteUri);
+		}
+	}
+
+	/// <summary>
+	/// Workaround to trigger the Navigated event, because EO's webview only had a BeforeNavigating event.
+	/// </summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+	private void WebView_IsLoadingChanged(object sender, EventArgs e)
+	{
+		Log("WebView_IsLoadingChanged");
+		if (_isNavigating && ((WebView)sender).IsLoading == false)
+		{
+			Navigated?.Invoke(sender, e);
+			_isNavigating = false;
+		}
+	}
+
+	/// <summary>
+	/// Workaround to trigger the Navigated event, because EO's webview only had a BeforeNavigating event.
+	/// </summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The <see cref="EO.WebBrowser.BeforeNavigateEventArgs" /> instance containing the event data.</param>
+	private void WebView_BeforeNavigate(object sender, BeforeNavigateEventArgs e)
+	{
+		Log("WebView_BeforeNavigate");
+		_isNavigating = true;
+		BeforeNavigating?.Invoke(sender, new Uri(e.NewUrl));
+	}
+	/// <summary>
+	/// When the Eo.WebBrowser.WebView invokes the js method "eoWebBrowser.extInvoke('MethodName', arguments)",
+	/// this method handles its JSExtInvoke event.
+	/// </summary>
+	/// <param name="sender">The sender.</param>
+	/// <param name="arg">The argument.</param>
+	private void WebView_JSExtension(object sender, JSExtInvokeArgs arg) => Log($"Incoming call from ExorLive application. Method \"{arg.FunctionName}\"");
+
+#pragma warning disable IDE0051 // Remove unused private members
+	private void NotifySelectingUser(JSExtInvokeArgs arg)
+	{
+		// To cast safely and return null if failure, use C#'s "as" keyword.
+		NotifySelectingUser(
+			(int)arg.Arguments[0],
+			arg.Arguments[1] as string,
+			arg.Arguments[2] as string,
+			arg.Arguments[3] as string,
+			arg.Arguments[4] as string,
+			arg.Arguments[5] as string
+		);
+	}
+#pragma warning restore IDE0051 // Remove unused private members
+
+	private JSObject Obj => (JSObject)_browser.WebView.EvalScript(externalPath);
 }

@@ -110,6 +110,7 @@ namespace ExorLive.Client.WebWrapper
 				_browser.ExportUserListEvent += _browser_ExportUserListEvent;
 				_browser.SelectPersonResultEvent += _browser_SelectPersonResultEvent;
 				_browser.ExportSignonDetailsEvent += _browser_ExportSignonDetailsEvent;
+				_browser.ZoomLevelChanged += Browser_ZoomLevelChangedEvent;
 				BrowserGrid.Children.Add(_browser.GetUiElement());
 				if (_navigateToUri != null)
 				{
@@ -526,6 +527,29 @@ namespace ExorLive.Client.WebWrapper
 		public void OpenWorkout(int id)
 		{
 			_browser.OpenWorkout(id);
+		}
+
+		private void Browser_ZoomLevelChangedEvent(object sender, EventArgs e)
+		{
+			var zoomfactor = _browser.GetZoomLevel();
+			var zoompercentage = (int)(zoomfactor * 100);
+			ZoomLabel.Text = $"{zoompercentage}%";
+		}
+
+		private void BtnZoomIn_Click(object sender, RoutedEventArgs e)
+		{
+			var zoomLevel = _browser.GetZoomLevel();
+			if (zoomLevel <= -1) return;
+			if (zoomLevel >= 2) return;
+			_browser.SetZoomLevel(zoomLevel + 0.1M);
+		}
+
+		private void BtnZoomOut_Click(object sender, RoutedEventArgs e)
+		{
+			var zoomLevel = _browser.GetZoomLevel();
+			if (zoomLevel <= -1) return;
+			if (zoomLevel <= 0.1M) return;
+			_browser.SetZoomLevel(zoomLevel - 0.1M);
 		}
 	}
 }

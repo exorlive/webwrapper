@@ -18,11 +18,7 @@ public class WindowsBrowser : IBrowser
 	public static IBrowser Instance => _instance ?? (_instance = new WindowsBrowser());
 	private readonly WebBrowser _browser;
 	private IExorLiveInterface _exorlive;
-	public bool Navigate(Uri url)
-	{
-		_browser.Navigate(url);
-		return true;
-	}
+
 	private WindowsBrowser()
 	{
 		_browser = new WebBrowser
@@ -33,8 +29,6 @@ public class WindowsBrowser : IBrowser
 		_browser.Navigating += _browser_Navigating;
 	}
 
-	private void _browser_Navigating(object sender, NavigatingCancelEventArgs e) => BeforeNavigating?.Invoke(sender, e.Uri);
-
 	public event EventHandler Navigated;
 	public event EventHandler IsLoaded;
 	public event EventHandler IsUnloading;
@@ -43,7 +37,14 @@ public class WindowsBrowser : IBrowser
 	public event EventHandler ExportUserListEvent;
 	public event EventHandler SelectPersonResultEvent;
 	public event EventHandler ExportSignonDetailsEvent;
+	public event BeforeNavigatingEventHandler BeforeNavigating;
+	public event EventHandler ZoomLevelChanged;
 
+	public bool Navigate(Uri url)
+	{
+		_browser.Navigate(url);
+		return true;
+	}
 
 	public void SelectPerson(
 		string externalId,
@@ -161,34 +162,10 @@ public class WindowsBrowser : IBrowser
 
 	public void OpenWorkout(int id) => _exorlive.openWorkout(id);
 
-	private void Browser_navigated(object sender, NavigationEventArgs e)
-	{
-		HideScriptErrors(_browser, true);
-		Navigated?.Invoke(sender, e);
-	}
-
-	private static void HideScriptErrors(FrameworkElement wb, bool hide)
-	{
-		var fiComWebBrowser = typeof(WebBrowser).GetField("_axIWebBrowser2", BindingFlags.Instance | BindingFlags.NonPublic);
-		if (fiComWebBrowser == null)
-		{
-			return;
-		}
-		var objComWebBrowser = fiComWebBrowser.GetValue(wb);
-		if (objComWebBrowser == null)
-		{
-			wb.Loaded += (o, s) => HideScriptErrors(wb, hide); //In case we are to early
-			return;
-		}
-		objComWebBrowser.GetType().InvokeMember("Silent", BindingFlags.SetProperty, null, objComWebBrowser, new object[] { hide });
-	}
-
 	/// <summary>
 	/// Is called from the browser COM object
 	/// </summary>
 	public void SetInterface(object obj) => _exorlive = new ExorLiveInterface(obj);
-
-	public event BeforeNavigatingEventHandler BeforeNavigating;
 
 	/// <summary>
 	/// Is called from the browser COM object
@@ -234,4 +211,50 @@ public class WindowsBrowser : IBrowser
 	public bool Debug => App.Debug;
 	public string ApplicationIdentifier => App.ApplicationIdentifier;
 	public UIElement GetUiElement() => _browser;
+
+	/// <summary>
+	/// Retrieve the browsers current zoom level.
+	/// </summary>
+	/// <returns>The current zoom level, or a negative number if the browser doesnt support zoom.</returns>
+	public decimal GetZoomLevel()
+	{
+		// System.Windows.Controls.WebBrowser doesnt have an API for zoom levels.
+		return -1;
+	}
+
+	/// <summary>
+	/// Sets the current zoom level in the browser.
+	/// </summary>
+	/// <param name="v">A value where 1 equals 100%.</param>
+	/// <remarks>Remember to check if the browser supports zoom before setting this.</remarks>
+	/// <exception cref="NotImplementedException">Should throw a NotImplementedException if the browser doesnt support zoom.</exception>
+	public void SetZoomLevel(decimal v)
+	{
+		// System.Windows.Controls.WebBrowser doesnt have an API for zoom levels.
+		throw new NotImplementedException();
+	}
+
+	private void _browser_Navigating(object sender, NavigatingCancelEventArgs e) => BeforeNavigating?.Invoke(sender, e.Uri);
+
+	private void Browser_navigated(object sender, NavigationEventArgs e)
+	{
+		HideScriptErrors(_browser, true);
+		Navigated?.Invoke(sender, e);
+	}
+
+	private static void HideScriptErrors(FrameworkElement wb, bool hide)
+	{
+		var fiComWebBrowser = typeof(WebBrowser).GetField("_axIWebBrowser2", BindingFlags.Instance | BindingFlags.NonPublic);
+		if (fiComWebBrowser == null)
+		{
+			return;
+		}
+		var objComWebBrowser = fiComWebBrowser.GetValue(wb);
+		if (objComWebBrowser == null)
+		{
+			wb.Loaded += (o, s) => HideScriptErrors(wb, hide); //In case we are to early
+			return;
+		}
+		objComWebBrowser.GetType().InvokeMember("Silent", BindingFlags.SetProperty, null, objComWebBrowser, new object[] { hide });
+	}
 }
