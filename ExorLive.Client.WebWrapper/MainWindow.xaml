@@ -23,12 +23,17 @@
 		</Expander>
 		<Grid Grid.Row="1" x:Name="BrowserGrid" Loaded="BrowserGrid_Loaded">
 		</Grid>
-		<StatusBar Grid.Row="2" Name="StatusBar" Height="30" Background="{DynamicResource {x:Static SystemColors.ScrollBarColor}}" FlowDirection="RightToLeft">
+		<StatusBar Grid.Row="2" Name="StatusBarEoBrowser" Height="30" Background="{DynamicResource {x:Static SystemColors.ScrollBarColor}}" FlowDirection="RightToLeft">
 			<StackPanel Orientation="Horizontal" FlowDirection="LeftToRight">
 				<Button Name="BtnZoomIn" Style="{StaticResource BlankButtonStyle}" Click="BtnZoomIn_Click">+</Button>
 				<TextBlock>🔎</TextBlock>
-				<TextBlock Name="ZoomLabel">100%</TextBlock>
+				<TextBlock Name="ZoomLabel" Width="40">100%</TextBlock>
 				<Button Name="BtnZoomOut" Style="{StaticResource BlankButtonStyle}" Click="BtnZoomOut_Click">-</Button>
+			</StackPanel>
+		</StatusBar>
+		<StatusBar Style="{StaticResource StatusBarInternetExplorer}" Grid.Row="2" Name="StatusBarInternetExplorer" Height="30" Background="{DynamicResource {x:Static SystemColors.ScrollBarColor}}" FlowDirection="RightToLeft">
+			<StackPanel Orientation="Horizontal" FlowDirection="LeftToRight">
+				<TextBlock>🔎 Use CTRL +/- or Scroll +/- to zoom</TextBlock>
 			</StackPanel>
 		</StatusBar>
 		<tb:TaskbarIcon Grid.Row="1"  IconSource="exorlive.ico"  x:Name="NotTray" HorizontalAlignment="Left" Height="100" Margin="350,545,0,-76" VerticalAlignment="Top" Width="100" ToolTipText="ExorLive Webwrapper" TrayMouseDoubleClick="NotTray_TrayMouseDoubleClick" >

@@ -166,7 +166,7 @@ public class EoBrowser : IBrowser
 	/// <summary>
 	/// Occurs when the user changes zoom level.
 	/// </summary>
-	public event EventHandler ZoomLevelChanged;
+	public event EventHandler ZoomFactorChanged;
 
 	/// <summary>
 	/// Navigates to the specified URL.
@@ -183,8 +183,8 @@ public class EoBrowser : IBrowser
 	/// <summary>
 	/// Retrieve the browsers current zoom level.
 	/// </summary>
-	/// <returns>The current zoom level, or a negative number if the browser doesnt support zoom.</returns>
-	public decimal GetZoomLevel() => (decimal)_browser.WebView.ZoomFactor;
+	/// <returns>The current zoom level.</returns>
+	public decimal GetZoomFactor() => (decimal)_browser.WebView.ZoomFactor;
 
 	/// <summary>
 	/// Sets the current zoom level in the browser.
@@ -192,7 +192,7 @@ public class EoBrowser : IBrowser
 	/// <param name="v">A value where 1 equals 100%.</param>
 	/// <remarks>Remember to check if the browser supports zoom before setting this.</remarks>
 	/// <exception cref="NotImplementedException">Should throw a NotImplementedException if the browser doesnt support zoom.</exception>
-	public void SetZoomLevel(decimal v) => _browser.WebView.ZoomFactor = (double)v;
+	public void SetZoomFactor(decimal v) => _browser.WebView.ZoomFactor = (double)v;
 
 	/// <summary>
 	/// Sends an object from the browser which the webwrapper can use to call javascript methods.
@@ -367,7 +367,7 @@ public class EoBrowser : IBrowser
 	}
 
 	private void Runtime_Exception(object sender, EO.Base.ExceptionEventArgs e) { }
-	private void WebView_ZoomFactorChanged(object sender, EventArgs e) => ZoomLevelChanged?.Invoke(sender, e);
+	private void WebView_ZoomFactorChanged(object sender, EventArgs e) => ZoomFactorChanged?.Invoke(sender, e);
 	private void WebView_UrlChanged(object sender, EventArgs e) { }
 	private void WebView_TitleChanged(object sender, EventArgs e) { }
 	private void WebView_StatusMessageChanged(object sender, EventArgs e) { }
@@ -529,6 +529,11 @@ public class EoBrowser : IBrowser
 		);
 	}
 #pragma warning restore IDE0051 // Remove unused private members
+
+	public bool SupportsZoom()
+	{
+		return true;
+	}
 
 	private JSObject Obj => (JSObject)_browser.WebView.EvalScript(externalPath);
 }

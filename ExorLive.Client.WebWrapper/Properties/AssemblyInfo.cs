@@ -7,8 +7,8 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("ExorLive.Client.WebWrapper")]
-[assembly: AssemblyDescription("ExorLive AS")]
-[assembly: AssemblyCompany("ExorLive AS")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyCompany("ExorLive")]
 [assembly: AssemblyProduct("ExorLive.Client.WebWrapper")]
 [assembly: AssemblyCopyright("Copyright © ExorLive 2020")]
 
@@ -47,7 +47,7 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.2.6.*")]
+[assembly: AssemblyVersion("2.2.7.*")]
 //[assembly: AssemblyFileVersion("2.1.7.0")]
 [assembly: NeutralResourcesLanguage("en-US")]
 

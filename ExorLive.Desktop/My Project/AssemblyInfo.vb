@@ -10,10 +10,10 @@ Imports System.Runtime.InteropServices
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("ExorLive.Desktop")>
-<Assembly: AssemblyDescription("ExorLive.Desktop")>
-<Assembly: AssemblyCompany("ExorLive AS")>
+<Assembly: AssemblyDescription("")>
+<Assembly: AssemblyCompany("ExorLive")>
 <Assembly: AssemblyProduct("ExorLive WebWrapper")>
-<Assembly: AssemblyCopyright("ExorLive AS")>
+<Assembly: AssemblyCopyright("ExorLive")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>
@@ -31,6 +31,6 @@ Imports System.Runtime.InteropServices
 ' You can specify all the values or you can default the Build and Revision Numbers 
 ' by using the '*' as shown below:
 
-<Assembly: AssemblyVersion("2.2.5.0")>
-<Assembly: AssemblyFileVersion("2.2.5.0")>
+<Assembly: AssemblyVersion("2.2.7.0")>
+<Assembly: AssemblyFileVersion("2.2.7.0")>
 <Assembly: NeutralResourcesLanguage("en-US")>

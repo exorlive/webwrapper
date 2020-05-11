@@ -38,7 +38,7 @@ public class WindowsBrowser : IBrowser
 	public event EventHandler SelectPersonResultEvent;
 	public event EventHandler ExportSignonDetailsEvent;
 	public event BeforeNavigatingEventHandler BeforeNavigating;
-	public event EventHandler ZoomLevelChanged;
+	public event EventHandler ZoomFactorChanged;
 
 	public bool Navigate(Uri url)
 	{
@@ -215,11 +215,12 @@ public class WindowsBrowser : IBrowser
 	/// <summary>
 	/// Retrieve the browsers current zoom level.
 	/// </summary>
-	/// <returns>The current zoom level, or a negative number if the browser doesnt support zoom.</returns>
-	public decimal GetZoomLevel()
+	/// <returns>The current zoom level.</returns>
+	/// <exception cref="NotSupportedException">Should throw a NotImplementedException if the browser doesnt support zoom.</exception>
+	public decimal GetZoomFactor()
 	{
 		// System.Windows.Controls.WebBrowser doesnt have an API for zoom levels.
-		return -1;
+		throw new NotSupportedException();
 	}
 
 	/// <summary>
@@ -227,11 +228,11 @@ public class WindowsBrowser : IBrowser
 	/// </summary>
 	/// <param name="v">A value where 1 equals 100%.</param>
 	/// <remarks>Remember to check if the browser supports zoom before setting this.</remarks>
-	/// <exception cref="NotImplementedException">Should throw a NotImplementedException if the browser doesnt support zoom.</exception>
-	public void SetZoomLevel(decimal v)
+	/// <exception cref="NotSupportedException">Should throw a NotImplementedException if the browser doesnt support zoom.</exception>
+	public void SetZoomFactor(decimal v)
 	{
 		// System.Windows.Controls.WebBrowser doesnt have an API for zoom levels.
-		throw new NotImplementedException();
+		throw new NotSupportedException();
 	}
 
 	private void _browser_Navigating(object sender, NavigatingCancelEventArgs e) => BeforeNavigating?.Invoke(sender, e.Uri);
@@ -256,5 +257,10 @@ public class WindowsBrowser : IBrowser
 			return;
 		}
 		objComWebBrowser.GetType().InvokeMember("Silent", BindingFlags.SetProperty, null, objComWebBrowser, new object[] { hide });
+	}
+
+	public bool SupportsZoom()
+	{
+		return false;
 	}
 }

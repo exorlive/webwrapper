@@ -101,6 +101,16 @@ namespace ExorLive.Client.WebWrapper
 				_browser = (_defaultBrowserEngine == BrowserEngines.InternetExplorer) ?
 				WindowsBrowser.Instance :
 				EoBrowser.Instance;
+
+				if (_defaultBrowserEngine == BrowserEngines.InternetExplorer)
+				{
+					StatusBarEoBrowser.Visibility = Visibility.Hidden;
+				}
+				else
+				{
+					StatusBarInternetExplorer.Visibility = Visibility.Hidden;
+				}
+
 				_browser.Navigated += Browser_Navigated;
 				_browser.SelectedUserChanged += _browser_SelectedUserChanged;
 				_browser.IsLoaded += _browser_IsLoaded;
@@ -110,8 +120,10 @@ namespace ExorLive.Client.WebWrapper
 				_browser.ExportUserListEvent += _browser_ExportUserListEvent;
 				_browser.SelectPersonResultEvent += _browser_SelectPersonResultEvent;
 				_browser.ExportSignonDetailsEvent += _browser_ExportSignonDetailsEvent;
-				_browser.ZoomLevelChanged += Browser_ZoomLevelChangedEvent;
+				_browser.ZoomFactorChanged += Browser_ZoomLevelChangedEvent;
 				BrowserGrid.Children.Add(_browser.GetUiElement());
+				BrowserSetAndSaveZoomFactor(App.UserSettings.ZoomFactor);
+
 				if (_navigateToUri != null)
 				{
 					_browser.Navigate(_navigateToUri);
@@ -531,25 +543,35 @@ namespace ExorLive.Client.WebWrapper
 
 		private void Browser_ZoomLevelChangedEvent(object sender, EventArgs e)
 		{
-			var zoomfactor = _browser.GetZoomLevel();
+			var zoomfactor = _browser.GetZoomFactor();
 			var zoompercentage = (int)(zoomfactor * 100);
 			ZoomLabel.Text = $"{zoompercentage}%";
 		}
 
 		private void BtnZoomIn_Click(object sender, RoutedEventArgs e)
 		{
-			var zoomLevel = _browser.GetZoomLevel();
-			if (zoomLevel <= -1) return;
-			if (zoomLevel >= 2) return;
-			_browser.SetZoomLevel(zoomLevel + 0.1M);
+			if (_browser.SupportsZoom() == false) return;
+			var newZoomFactor = _browser.GetZoomFactor() + 0.1M;
+			BrowserSetAndSaveZoomFactor(newZoomFactor);
 		}
 
 		private void BtnZoomOut_Click(object sender, RoutedEventArgs e)
 		{
-			var zoomLevel = _browser.GetZoomLevel();
-			if (zoomLevel <= -1) return;
-			if (zoomLevel <= 0.1M) return;
-			_browser.SetZoomLevel(zoomLevel - 0.1M);
+			if (_browser.SupportsZoom() == false) return;
+			var newZoomFactor = _browser.GetZoomFactor() - 0.1M;
+			BrowserSetAndSaveZoomFactor(newZoomFactor);
+		}
+
+		private void BrowserSetAndSaveZoomFactor(decimal newZoomFactor)
+		{
+			if(_browser.SupportsZoom() == false) return;
+			if (newZoomFactor > 2M) newZoomFactor = 2M;
+			if (newZoomFactor < 0.1M) newZoomFactor = 0.1M;
+			_browser.SetZoomFactor(newZoomFactor);
+			if(App.UserSettings.ZoomFactor != newZoomFactor)
+			{
+				App.UserSettings.ZoomFactor = newZoomFactor;
+			}
 		}
 	}
 }
