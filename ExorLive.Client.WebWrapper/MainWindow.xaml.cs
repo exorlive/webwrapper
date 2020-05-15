@@ -41,21 +41,37 @@ namespace ExorLive.Client.WebWrapper
 				Title += " - No version";
 			}
 		}
+
 		/// <summary>
 		/// Loads window size from user settings, and adjusts the size to fit within the desktop screen.
 		/// </summary>
 		private void SetWindowSize()
 		{
 			// Make sure the rectangle is visible within screens.
-			if (IsPointVisibleOnAScreen(new Point(App.UserSettings.Left, App.UserSettings.Top)) &&
-				IsPointVisibleOnAScreen(new Point(App.UserSettings.Left + App.UserSettings.Width, App.UserSettings.Top + App.UserSettings.Height)))
+			if (WindowFitsScreen())
 			{
 				Top = App.UserSettings.Top;
 				Left = App.UserSettings.Left;
 				Height = App.UserSettings.Height;
 				Width = App.UserSettings.Width;
-				// NOTE: Do not set WindowState.Maximized here. It will break loading of browserwindow.
 			}
+			if (App.UserSettings.Maximized)
+			{
+				WindowState = WindowState.Maximized;
+			}
+		}
+
+		private static bool WindowFitsScreen()
+		{
+			var topLeft = new Point(
+				App.UserSettings.Left,
+				App.UserSettings.Top
+			);
+			var bottomRight = new Point(
+				App.UserSettings.Left + App.UserSettings.Width,
+				App.UserSettings.Top + App.UserSettings.Height
+			);
+			return IsPointVisibleOnAScreen(topLeft) && IsPointVisibleOnAScreen(bottomRight);
 		}
 
 		private static bool IsPointVisibleOnAScreen(Point p)
@@ -564,11 +580,11 @@ namespace ExorLive.Client.WebWrapper
 
 		private void BrowserSetAndSaveZoomFactor(decimal newZoomFactor)
 		{
-			if(_browser.SupportsZoom() == false) return;
+			if (_browser.SupportsZoom() == false) return;
 			if (newZoomFactor > 2M) newZoomFactor = 2M;
 			if (newZoomFactor < 0.1M) newZoomFactor = 0.1M;
 			_browser.SetZoomFactor(newZoomFactor);
-			if(App.UserSettings.ZoomFactor != newZoomFactor)
+			if (App.UserSettings.ZoomFactor != newZoomFactor)
 			{
 				App.UserSettings.ZoomFactor = newZoomFactor;
 			}
