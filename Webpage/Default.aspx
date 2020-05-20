@@ -44,6 +44,11 @@
 			</ul>
 
 			<h2>Changelog</h2>
+			<h3>2.2.7 - Mai 2020</h3>
+			<ul>
+				<li>Set website language to same as user language.</li>
+				<li>New zoom feature.</li>
+			</ul>
 			<h3>2.2.6 - November 2018</h3>
 			<ul>
 				<li>Fix for "Runtime Exception" on certain webpage errors.</li>
