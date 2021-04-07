@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Windows;
+using EO.Base.UI;
 using EO.WebBrowser;
 using EO.Wpf;
 using ExorLive;
@@ -49,8 +50,6 @@ public class EoBrowser : IBrowser
 		Runtime.DefaultEngineOptions.BypassUserGestureCheck = true;
 		Runtime.DefaultEngineOptions.DisableSpellChecker = true;
 		Runtime.DefaultEngineOptions.DisableGPU = true;
-		Runtime.DefaultEngineOptions.DisableWMPointer = true;
-		Runtime.DefaultEngineOptions.SkipWaitForLayerActivation = false;
 		Runtime.DefaultEngineOptions.AllowProprietaryMediaFormats();
 		Runtime.DefaultEngineOptions.UILanguage = CultureInfo.CurrentUICulture.Name;
 		EO.Base.Runtime.EnableCrashReport = false;
@@ -107,13 +106,8 @@ public class EoBrowser : IBrowser
 		_browser.WebView.KeyUp += WebView_KeyUp;
 		_browser.WebView.LaunchUrl += WebView_LaunchUrl;
 		_browser.WebView.LoadCompleted += WebView_LoadCompleted;
-		_browser.WebView.MouseClick += WebView_MouseClick;
-		_browser.WebView.MouseDoubleClick += WebView_MouseDoubleClick;
-		_browser.WebView.MouseDown += WebView_MouseDown;
 		_browser.WebView.MouseEnter += WebView_MouseEnter;
 		_browser.WebView.MouseLeave += WebView_MouseLeave;
-		_browser.WebView.MouseMove += WebView_MouseMove;
-		_browser.WebView.MouseUp += WebView_MouseUp;
 		_browser.WebView.NeedClientCertificate += WebView_NeedClientCertificate;
 		_browser.WebView.NeedCredentials += WebView_NeedCredentials;
 		_browser.WebView.RequestPermissions += WebView_RequestPermissions;
@@ -379,9 +373,6 @@ public class EoBrowser : IBrowser
 	private void WebView_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e) { }
 	private void WebView_MouseLeave(object sender, EventArgs e) { }
 	private void WebView_MouseEnter(object sender, EventArgs e) { }
-	private void WebView_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e) { }
-	private void WebView_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e) { }
-	private void WebView_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e) { }
 	private void WebView_LoadCompleted(object sender, LoadCompletedEventArgs e) => Log("WebView_LoadCompleted");
 	private void WebView_LaunchUrl(object sender, LaunchUrlEventArgs e) => Log("WebView_LaunchUrl");
 	private void WebView_KeyUp(object sender, WndMsgEventArgs e) { }
