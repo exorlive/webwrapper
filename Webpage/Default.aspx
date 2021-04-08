@@ -44,6 +44,10 @@
 			</ul>
 
 			<h2>Changelog</h2>
+			<h3>2.2.8 - April 2021</h3>
+			<ul>
+				<li>Upgraded the built-in browser (EoBrowser) to latest version.</li>
+			</ul>
 			<h3>2.2.7 - Mai 2020</h3>
 			<ul>
 				<li>Set website language to same as user language.</li>
