@@ -33,6 +33,8 @@ Global
 		Debug.Procapita|x86 = Debug.Procapita|x86
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
+		Goteborg|Any CPU = Goteborg|Any CPU
+		Goteborg|x86 = Goteborg|x86
 		Procapita|Any CPU = Procapita|Any CPU
 		Procapita|x86 = Procapita|x86
 		Release|Any CPU = Release|Any CPU
@@ -51,6 +53,9 @@ Global
 		{504BDA99-040A-41CB-A186-67A306EE7A16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{504BDA99-040A-41CB-A186-67A306EE7A16}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{504BDA99-040A-41CB-A186-67A306EE7A16}.Debug|x86.Build.0 = Debug|Any CPU
+		{504BDA99-040A-41CB-A186-67A306EE7A16}.Goteborg|Any CPU.ActiveCfg = Release|Any CPU
+		{504BDA99-040A-41CB-A186-67A306EE7A16}.Goteborg|Any CPU.Build.0 = Release|Any CPU
+		{504BDA99-040A-41CB-A186-67A306EE7A16}.Goteborg|x86.ActiveCfg = Release|Any CPU
 		{504BDA99-040A-41CB-A186-67A306EE7A16}.Procapita|Any CPU.ActiveCfg = Release|Any CPU
 		{504BDA99-040A-41CB-A186-67A306EE7A16}.Procapita|Any CPU.Build.0 = Release|Any CPU
 		{504BDA99-040A-41CB-A186-67A306EE7A16}.Procapita|x86.ActiveCfg = Release|Any CPU
@@ -75,6 +80,10 @@ Global
 		{D8CEFDAD-9109-4676-AC60-44428404049B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8CEFDAD-9109-4676-AC60-44428404049B}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{D8CEFDAD-9109-4676-AC60-44428404049B}.Debug|x86.Build.0 = Debug|Any CPU
+		{D8CEFDAD-9109-4676-AC60-44428404049B}.Goteborg|Any CPU.ActiveCfg = Goteborg|Any CPU
+		{D8CEFDAD-9109-4676-AC60-44428404049B}.Goteborg|Any CPU.Build.0 = Goteborg|Any CPU
+		{D8CEFDAD-9109-4676-AC60-44428404049B}.Goteborg|x86.ActiveCfg = Goteborg|Any CPU
+		{D8CEFDAD-9109-4676-AC60-44428404049B}.Goteborg|x86.Build.0 = Goteborg|Any CPU
 		{D8CEFDAD-9109-4676-AC60-44428404049B}.Procapita|Any CPU.ActiveCfg = Procapita|Any CPU
 		{D8CEFDAD-9109-4676-AC60-44428404049B}.Procapita|Any CPU.Build.0 = Procapita|Any CPU
 		{D8CEFDAD-9109-4676-AC60-44428404049B}.Procapita|x86.ActiveCfg = Procapita|Any CPU
@@ -97,6 +106,9 @@ Global
 		{56BD6C75-7235-4725-9644-5AB77D3480D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{56BD6C75-7235-4725-9644-5AB77D3480D4}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{56BD6C75-7235-4725-9644-5AB77D3480D4}.Debug|x86.Build.0 = Debug|Any CPU
+		{56BD6C75-7235-4725-9644-5AB77D3480D4}.Goteborg|Any CPU.ActiveCfg = Goteborg|Any CPU
+		{56BD6C75-7235-4725-9644-5AB77D3480D4}.Goteborg|x86.ActiveCfg = Goteborg|Any CPU
+		{56BD6C75-7235-4725-9644-5AB77D3480D4}.Goteborg|x86.Build.0 = Goteborg|Any CPU
 		{56BD6C75-7235-4725-9644-5AB77D3480D4}.Procapita|Any CPU.ActiveCfg = Procapita|Any CPU
 		{56BD6C75-7235-4725-9644-5AB77D3480D4}.Procapita|x86.ActiveCfg = Procapita|Any CPU
 		{56BD6C75-7235-4725-9644-5AB77D3480D4}.Procapita|x86.Build.0 = Procapita|Any CPU
@@ -115,6 +127,9 @@ Global
 		{C68E37EC-BD49-4DE0-85F5-4406DF244DE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C68E37EC-BD49-4DE0-85F5-4406DF244DE2}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{C68E37EC-BD49-4DE0-85F5-4406DF244DE2}.Debug|x86.Build.0 = Debug|Any CPU
+		{C68E37EC-BD49-4DE0-85F5-4406DF244DE2}.Goteborg|Any CPU.ActiveCfg = Goteborg|Any CPU
+		{C68E37EC-BD49-4DE0-85F5-4406DF244DE2}.Goteborg|x86.ActiveCfg = Goteborg|Any CPU
+		{C68E37EC-BD49-4DE0-85F5-4406DF244DE2}.Goteborg|x86.Build.0 = Goteborg|Any CPU
 		{C68E37EC-BD49-4DE0-85F5-4406DF244DE2}.Procapita|Any CPU.ActiveCfg = Procapita|Any CPU
 		{C68E37EC-BD49-4DE0-85F5-4406DF244DE2}.Procapita|x86.ActiveCfg = Procapita|Any CPU
 		{C68E37EC-BD49-4DE0-85F5-4406DF244DE2}.Procapita|x86.Build.0 = Procapita|Any CPU
@@ -135,6 +150,10 @@ Global
 		{66ED6BAF-7B95-486D-B2EC-4C21C59B53AA}.Debug|Any CPU.Build.0 = Debug|x86
 		{66ED6BAF-7B95-486D-B2EC-4C21C59B53AA}.Debug|x86.ActiveCfg = Debug|x86
 		{66ED6BAF-7B95-486D-B2EC-4C21C59B53AA}.Debug|x86.Build.0 = Debug|x86
+		{66ED6BAF-7B95-486D-B2EC-4C21C59B53AA}.Goteborg|Any CPU.ActiveCfg = VGR|x86
+		{66ED6BAF-7B95-486D-B2EC-4C21C59B53AA}.Goteborg|Any CPU.Build.0 = VGR|x86
+		{66ED6BAF-7B95-486D-B2EC-4C21C59B53AA}.Goteborg|x86.ActiveCfg = VGR|x86
+		{66ED6BAF-7B95-486D-B2EC-4C21C59B53AA}.Goteborg|x86.Build.0 = VGR|x86
 		{66ED6BAF-7B95-486D-B2EC-4C21C59B53AA}.Procapita|Any CPU.ActiveCfg = Procapita|x86
 		{66ED6BAF-7B95-486D-B2EC-4C21C59B53AA}.Procapita|Any CPU.Build.0 = Procapita|x86
 		{66ED6BAF-7B95-486D-B2EC-4C21C59B53AA}.Procapita|x86.ActiveCfg = Procapita|x86
@@ -159,6 +178,9 @@ Global
 		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.Debug|x86.ActiveCfg = Debug|x86
 		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.Debug|x86.Build.0 = Debug|x86
+		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.Goteborg|Any CPU.ActiveCfg = Release|Any CPU
+		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.Goteborg|Any CPU.Build.0 = Release|Any CPU
+		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.Goteborg|x86.ActiveCfg = Release|x86
 		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.Procapita|Any CPU.ActiveCfg = Release|Any CPU
 		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.Procapita|Any CPU.Build.0 = Release|Any CPU
 		{36662D3E-7FF8-4C6E-937B-8409AC46CE6B}.Procapita|x86.ActiveCfg = Release|x86

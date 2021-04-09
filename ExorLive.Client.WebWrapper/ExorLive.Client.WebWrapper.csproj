@@ -32,7 +32,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>https://webwrapper.exorlive.com/webwrapper/</InstallUrl>
     <UpdateUrl>https://webwrapper.exorlive.com/webwrapper/</UpdateUrl>
-    <SupportUrl>http://exor.no/KONTAKT/Support/tabid/71/Default.aspx</SupportUrl>
+    <SupportUrl>https://www.exorlive.com</SupportUrl>
     <ProductName>Exor Live</ProductName>
     <PublisherName>Exor Live</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
@@ -128,6 +128,15 @@
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Goteborg|AnyCPU'">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
@@ -231,6 +240,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="App.Goteborg.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
