@@ -44,6 +44,8 @@
   <ItemGroup>
     <Content Include="Default.aspx" />
     <Content Include="Default.css" />
+    <Content Include="Goteborg\Default.aspx" />
+    <Content Include="Goteborg\msi\version.txt" />
     <Content Include="images\exorlive_logo.svg" />
     <Content Include="images\message.svg" />
     <Content Include="msi\version.txt" />
@@ -59,6 +61,13 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Goteborg\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Goteborg\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Procapita\Default.aspx.cs">
