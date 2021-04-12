@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using EO.Base.UI;
 using EO.WebBrowser;
@@ -200,21 +201,61 @@ public class EoBrowser : IBrowser
 	public void SetInterface(object obj) => Log("SetInterface");
 
 	public void NotifyIsLoaded() => IsLoaded?.Invoke(this, new EventArgs());
-	public void SelectPerson(string externalId, string firstname, string lastname, string email, string dateOfBirth) => Obj.InvokeFunction("selectPerson", externalId, firstname, lastname, email, dateOfBirth);
-	public void SelectPersonById(int id) => Obj.InvokeFunction("selectPersonById", id.ToString());
-	public void SelectTab(string tab) => Obj.InvokeFunction("selectTab", tab);
-	public void QueryWorkouts(string query) => Obj.InvokeFunction("queryWorkouts", query);
-	public void QueryExercises(string query) => Obj.InvokeFunction("queryExercises", query);
-	public void GetSignonDetails() => Obj.InvokeFunction("getOsloSignonDetails");
-	public void GetListOfUsers(string customId) => Obj.InvokeFunction("getListOfUsers", customId);
-	public void OpenWorkout(int id) => Obj.InvokeFunction("openWorkout", id);
+	public async void SelectPerson(string externalId, string firstname, string lastname, string email, string dateOfBirth)
+	{
+		var ob = await Call();
+		ob.InvokeFunction("selectPerson", externalId, firstname, lastname, email, dateOfBirth);
+	}
+
+	public async void SelectPersonById(int id)
+	{
+		var ob = await Call();
+		ob.InvokeFunction("selectPersonById", id.ToString());
+	}
+
+	public async void SelectTab(string tab)
+	{
+		var ob = await Call();
+		ob.InvokeFunction("selectTab", tab);
+	}
+
+	public async void QueryWorkouts(string query)
+	{
+		var ob = await Call();
+		ob.InvokeFunction("queryWorkouts", query);
+	}
+
+	public async void QueryExercises(string query)
+	{
+		var ob = await Call();
+		ob.InvokeFunction("queryExercises", query);
+	}
+
+	public async void GetSignonDetails()
+	{
+		var ob = await Call();
+		ob.InvokeFunction("getOsloSignonDetails");
+	}
+
+	public async void GetListOfUsers(string customId)
+	{
+		var ob = await Call();
+		ob.InvokeFunction("getListOfUsers", customId);
+	}
+
+	public async void OpenWorkout(int id)
+	{
+		var ob = await Call();
+		ob.InvokeFunction("openWorkout", id);
+	}
+
 	public static void Log(string format, params object[] args) => System.Diagnostics.Debug.WriteLine(format, args);
 	public void NotifyIsUnloading() => IsUnloading?.Invoke(this, new EventArgs());
 	public bool Debug => App.Debug;
 	public string ApplicationIdentifier => App.ApplicationIdentifier;
 	public UIElement GetUiElement() => _browser;
 
-	public void SelectPerson2(
+	public async void SelectPerson2(
 		string externalId,
 		string firstname,
 		string lastname,
@@ -234,7 +275,8 @@ public class EoBrowser : IBrowser
 	)
 	{
 		Log("InvokeFunction SelectPerson2");
-		Obj.InvokeFunction("selectPerson2",
+		var ob = await Call();
+		ob.InvokeFunction("selectPerson2",
 			externalId,
 			firstname,
 			lastname,
@@ -251,7 +293,7 @@ public class EoBrowser : IBrowser
 			comment
 		);
 	}
-	public void SelectPerson3(
+	public async void SelectPerson3(
 		int userId,
 		string externalId,
 		string firstname,
@@ -273,8 +315,8 @@ public class EoBrowser : IBrowser
 		string source
 	)
 	{
-		Log("InvokeFunction SelectPerson3");
-		Obj.InvokeFunction("selectPerson3",
+		var ob = await Call();
+		ob.InvokeFunction("selectPerson3",
 			userId,
 			externalId,
 			firstname,
@@ -297,19 +339,20 @@ public class EoBrowser : IBrowser
 		);
 	}
 
-	public void GetWorkoutsForClient(int userId, string customId, DateTime from)
+	public async void GetWorkoutsForClient(int userId, string customId, DateTime from)
 	{
+		var ob = await Call();
 		if (userId <= 0)
 		{
 			Log("InvokeFunction ");
 			// Call a Javascript method in ExorLive
-			Obj.InvokeFunction("getWorkoutsForCustomId", customId, from);
+			ob.InvokeFunction("getWorkoutsForCustomId", customId, from);
 		}
 		else
 		{
 			Log("InvokeFunction ");
 			// Call a Javascript method in ExorLive
-			Obj.InvokeFunction("getWorkoutsForUserId", userId, from);
+			ob.InvokeFunction("getWorkoutsForUserId", userId, from);
 		}
 	}
 
@@ -365,7 +408,6 @@ public class EoBrowser : IBrowser
 	private void WebView_UrlChanged(object sender, EventArgs e) { }
 	private void WebView_TitleChanged(object sender, EventArgs e) { }
 	private void WebView_StatusMessageChanged(object sender, EventArgs e) { }
-	private void WebView_ScriptCallDone(object sender, ScriptCallDoneEventArgs e) => Log($"WebView_ScriptCallDone: {e.Call.Script}");
 	private void WebView_RequestPermissions(object sender, RequestPermissionEventArgs e) => Log("WebView_RequestPermissions");
 	private void WebView_NeedCredentials(object sender, NeedCredentialsEventArgs e) => Log("WebView_NeedCredentials");
 	private void WebView_NeedClientCertificate(object sender, NeedClientCertificateEventArgs e) => Log("WebView_NeedClientCertificate");
@@ -405,6 +447,7 @@ public class EoBrowser : IBrowser
 	private void WebView_Activate(object sender, EventArgs e) => Log("WebView_Activate");
 	private void WebView_RenderUnresponsive(object sender, RenderUnresponsiveEventArgs e) => Log("WebView_RenderUnresponsive");
 	private void StartRemoteDebugging() => Runtime.DefaultEngineOptions.RemoteDebugPort = 9223;
+	private void WebView_ScriptCallDone(object sender, ScriptCallDoneEventArgs e) { }
 
 	/// <summary>
 	/// This javascript file is added to every page you navigate to.
@@ -521,10 +564,32 @@ public class EoBrowser : IBrowser
 	}
 #pragma warning restore IDE0051 // Remove unused private members
 
-	public bool SupportsZoom()
+	public bool SupportsZoom() => true;
+
+	private void QueueScriptCall(string arg, Action<JSObject> callback)
 	{
-		return true;
+		var call = new ScriptCall(arg);
+		var q = _browser.WebView.QueueScriptCall(call);
+		q.OnDone(() =>
+		{
+			var res = q.Result;
+			callback((JSObject)res);
+		});
 	}
 
-	private JSObject Obj => (JSObject)_browser.WebView.EvalScript(externalPath);
+	private async Task<JSObject> Call()
+	{
+		var t = new TaskCompletionSource<JSObject>();
+		QueueScriptCall(externalPath, s => t.TrySetResult(s));
+		var result = await t.Task;
+		return result;
+	}
+
+	private async Task<JSObject> Call(string arg)
+	{
+		var t = new TaskCompletionSource<JSObject>();
+		QueueScriptCall(arg, s => t.TrySetResult(s));
+		var result = await t.Task;
+		return result;
+	}
 }

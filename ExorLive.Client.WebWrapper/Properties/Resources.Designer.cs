@@ -19,7 +19,7 @@ namespace ExorLive.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -39,7 +39,7 @@ namespace ExorLive.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    var temp = new global::System.Resources.ResourceManager("ExorLive.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ExorLive.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,7 +61,7 @@ namespace ExorLive.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to X59Zl8DyD+NZ6/0BELxbvNO/7uer5vH2zZ+v3PYEFO6ntKbC4K1pmaTA6YxDl6Sxy7to2PD9GvZ3hI6xy59Zs/MDD+SrwPL3Gp+d2Pj26KFqqLPD4a5rp7XGzZ+s7ObWI++i6ekE7PN2mbXC2rFvprbB3LVbl/r2HfKi5vLOzbBumaTA6YxDl6Sxy7us4Ov/DPOu6enP5Pmj3vLB+9iuvPjU7eyE3bgL9cyIuMHO566s4Ov/DPOu6enPuIl1pvD6DuSn6unPuIl14+30EO2s3MKetZ9Zl6TNF+ic3PIEEMidtbvI37BtqLTG3rR1pvD6DuSn6unaD71GgaSxy5914+30EO2s3OnP566l4Of2GfKe3MKetZ9Zl6TNDOul5vvPuIlZl6Sxyw==.
+        ///   Looks up a localized string similar to 9cWLqtXBEeV95vbI7+ma5vEE/Lx2s7MEFOan2PgGHeR3hI7N2uui2un/HuR3hI514+30EO2s3MKetZ9Zl6TNF+ic3PIEEMidtbjB5LBuq7fF37Bss7P9FOKe5ff29ON3hI6xy59Zs/D6DuSn6un26bto4+30EO2s3OnPuIlZl6Sx5+Cl4/MI6YxDl6Sxy59Zl6TNDOOdl/gKG+R2mcng2cKh6fP+EKFZ7ekDHuio5cGz3bBnp6ax2r1GgaSxy591puX9F+6wtZGby59Zl8AAHeOe6c3/Ee5Z2+UFELxbsLPE2rFpqLyzy/Ku2ckJG+ir3PfSH7xbsLPE2rFpqbWzy/We6ff6Gu12mbXJzZ9otZGby59Zl8AEFOan2PgGHeR3uPf8/A==.
         /// </summary>
         public static string EoBrowserLicenseFile {
             get {
