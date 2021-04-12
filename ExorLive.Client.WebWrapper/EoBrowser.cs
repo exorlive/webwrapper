@@ -201,52 +201,44 @@ public class EoBrowser : IBrowser
 	public void SetInterface(object obj) => Log("SetInterface");
 
 	public void NotifyIsLoaded() => IsLoaded?.Invoke(this, new EventArgs());
-	public async void SelectPerson(string externalId, string firstname, string lastname, string email, string dateOfBirth)
+	public void SelectPerson(string externalId, string firstname, string lastname, string email, string dateOfBirth)
 	{
-		var ob = await Call();
-		ob.InvokeFunction("selectPerson", externalId, firstname, lastname, email, dateOfBirth);
+		Call("selectPerson", externalId, firstname, lastname, email, dateOfBirth);
 	}
 
-	public async void SelectPersonById(int id)
+	public void SelectPersonById(int id)
 	{
-		var ob = await Call();
-		ob.InvokeFunction("selectPersonById", id.ToString());
+		Call("selectPersonById", id.ToString());
 	}
 
-	public async void SelectTab(string tab)
+	public void SelectTab(string tab)
 	{
-		var ob = await Call();
-		ob.InvokeFunction("selectTab", tab);
+		Call("selectTab", tab);
 	}
 
-	public async void QueryWorkouts(string query)
+	public void QueryWorkouts(string query)
 	{
-		var ob = await Call();
-		ob.InvokeFunction("queryWorkouts", query);
+		Call("queryWorkouts", query);
 	}
 
-	public async void QueryExercises(string query)
+	public void QueryExercises(string query)
 	{
-		var ob = await Call();
-		ob.InvokeFunction("queryExercises", query);
+		Call("queryExercises", query);
 	}
 
-	public async void GetSignonDetails()
+	public void GetSignonDetails()
 	{
-		var ob = await Call();
-		ob.InvokeFunction("getOsloSignonDetails");
+		Call("getOsloSignonDetails");
 	}
 
-	public async void GetListOfUsers(string customId)
+	public void GetListOfUsers(string customId)
 	{
-		var ob = await Call();
-		ob.InvokeFunction("getListOfUsers", customId);
+		Call("getListOfUsers", customId);
 	}
 
-	public async void OpenWorkout(int id)
+	public void OpenWorkout(int id)
 	{
-		var ob = await Call();
-		ob.InvokeFunction("openWorkout", id);
+		Call("openWorkout", id.ToString());
 	}
 
 	public static void Log(string format, params object[] args) => System.Diagnostics.Debug.WriteLine(format, args);
@@ -255,7 +247,7 @@ public class EoBrowser : IBrowser
 	public string ApplicationIdentifier => App.ApplicationIdentifier;
 	public UIElement GetUiElement() => _browser;
 
-	public async void SelectPerson2(
+	public void SelectPerson2(
 		string externalId,
 		string firstname,
 		string lastname,
@@ -274,9 +266,8 @@ public class EoBrowser : IBrowser
 		string phonehome
 	)
 	{
-		Log("InvokeFunction SelectPerson2");
-		var ob = await Call();
-		ob.InvokeFunction("selectPerson2",
+		Call(
+			"selectPerson2",
 			externalId,
 			firstname,
 			lastname,
@@ -293,7 +284,7 @@ public class EoBrowser : IBrowser
 			comment
 		);
 	}
-	public async void SelectPerson3(
+	public void SelectPerson3(
 		int userId,
 		string externalId,
 		string firstname,
@@ -315,9 +306,8 @@ public class EoBrowser : IBrowser
 		string source
 	)
 	{
-		var ob = await Call();
-		ob.InvokeFunction("selectPerson3",
-			userId,
+		Call("selectPerson3",
+			userId.ToString(),
 			externalId,
 			firstname,
 			lastname,
@@ -330,7 +320,7 @@ public class EoBrowser : IBrowser
 			zipCode,
 			location,
 			country,
-			gender,
+			gender.ToString(),
 			homepage,
 			employer,
 			comment,
@@ -339,20 +329,15 @@ public class EoBrowser : IBrowser
 		);
 	}
 
-	public async void GetWorkoutsForClient(int userId, string customId, DateTime from)
+	public void GetWorkoutsForClient(int userId, string customId, DateTime from)
 	{
-		var ob = await Call();
 		if (userId <= 0)
 		{
-			Log("InvokeFunction ");
-			// Call a Javascript method in ExorLive
-			ob.InvokeFunction("getWorkoutsForCustomId", customId, from);
+			Call("getWorkoutsForCustomId", customId, from.ToString());
 		}
 		else
 		{
-			Log("InvokeFunction ");
-			// Call a Javascript method in ExorLive
-			ob.InvokeFunction("getWorkoutsForUserId", userId, from);
+			Call("getWorkoutsForUserId", userId.ToString(), from.ToString());
 		}
 	}
 
@@ -566,30 +551,15 @@ public class EoBrowser : IBrowser
 
 	public bool SupportsZoom() => true;
 
-	private void QueueScriptCall(string arg, Action<JSObject> callback)
+	private void Call(string method, params string[] args)
 	{
-		var call = new ScriptCall(arg);
-		var q = _browser.WebView.QueueScriptCall(call);
-		q.OnDone(() =>
+		var argslist = new List<string>();
+		foreach (var item in args)
 		{
-			var res = q.Result;
-			callback((JSObject)res);
-		});
-	}
-
-	private async Task<JSObject> Call()
-	{
-		var t = new TaskCompletionSource<JSObject>();
-		QueueScriptCall(externalPath, s => t.TrySetResult(s));
-		var result = await t.Task;
-		return result;
-	}
-
-	private async Task<JSObject> Call(string arg)
-	{
-		var t = new TaskCompletionSource<JSObject>();
-		QueueScriptCall(arg, s => t.TrySetResult(s));
-		var result = await t.Task;
-		return result;
+			argslist.Add($"'{item}'");
+		}
+		var arguments = string.Join(",", argslist);
+		var call = $"{externalPath}.{method}({arguments})";
+		_browser.WebView.QueueScriptCall(call);
 	}
 }
