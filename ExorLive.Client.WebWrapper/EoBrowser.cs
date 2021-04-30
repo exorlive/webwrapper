@@ -208,7 +208,7 @@ public class EoBrowser : IBrowser
 
 	public void SelectPersonById(int id)
 	{
-		Call("selectPersonById", id.ToString());
+		Call("selectPersonById", id);
 	}
 
 	public void SelectTab(string tab)
@@ -238,7 +238,7 @@ public class EoBrowser : IBrowser
 
 	public void OpenWorkout(int id)
 	{
-		Call("openWorkout", id.ToString());
+		Call("openWorkout", id);
 	}
 
 	public static void Log(string format, params object[] args) => System.Diagnostics.Debug.WriteLine(format, args);
@@ -278,7 +278,7 @@ public class EoBrowser : IBrowser
 			location,
 			mobile,
 			phoneWork,
-			gender.ToString(),
+			gender,
 			homepage,
 			employer,
 			comment
@@ -307,7 +307,7 @@ public class EoBrowser : IBrowser
 	)
 	{
 		Call("selectPerson3",
-			userId.ToString(),
+			userId,
 			externalId,
 			firstname,
 			lastname,
@@ -320,7 +320,7 @@ public class EoBrowser : IBrowser
 			zipCode,
 			location,
 			country,
-			gender.ToString(),
+			gender,
 			homepage,
 			employer,
 			comment,
@@ -333,11 +333,11 @@ public class EoBrowser : IBrowser
 	{
 		if (userId <= 0)
 		{
-			Call("getWorkoutsForCustomId", customId, from.ToString());
+			Call("getWorkoutsForCustomId", customId, from);
 		}
 		else
 		{
-			Call("getWorkoutsForUserId", userId.ToString(), from.ToString());
+			Call("getWorkoutsForUserId", userId, from);
 		}
 	}
 
@@ -551,12 +551,39 @@ public class EoBrowser : IBrowser
 
 	public bool SupportsZoom() => true;
 
-	private void Call(string method, params string[] args)
+	private void Call(string method, params object[] args)
 	{
 		var argslist = new List<string>();
 		foreach (var item in args)
 		{
-			argslist.Add($"'{item}'");
+			if(item is string itstring)
+			{
+				argslist.Add($"'{itstring}'");
+			} 
+			else if(item is null)
+			{
+				argslist.Add($"null");
+			}
+			else if (item is DateTime it)
+			{
+				var ite = it.ToString("s");
+				argslist.Add($"Date('{ite}')");
+			}
+			else if(item is bool isIt)
+			{
+				if(isIt)
+				{
+					argslist.Add($"true");
+				}
+				else
+				{
+					argslist.Add($"false");
+				}
+			}
+			else
+			{
+				argslist.Add($"{item}");
+			}
 		}
 		var arguments = string.Join(",", argslist);
 		var call = $"{externalPath}.{method}({arguments})";
