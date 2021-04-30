@@ -44,6 +44,10 @@
 			</ul>
 
 			<h2>Changelog</h2>
+			<h3>2.2.9 - May 2021</h3>
+			<ul>
+				<li>Fixed a bug with the API integration.</li>
+			</ul>
 			<h3>2.2.8 - April 2021</h3>
 			<ul>
 				<li>Upgraded the built-in browser (EoBrowser) to latest version.</li>
