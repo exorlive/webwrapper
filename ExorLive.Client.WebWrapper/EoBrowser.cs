@@ -377,9 +377,9 @@ public class EoBrowser : IBrowser
 	{
 		var requestedHost = e.Host;
 		var requestedPort = e.Port;
-		var trusted = e.TrustedAuthorities;
+		var trustedAuthorities = e.TrustedAuthorities;
 		Log($"{e.Host}:{e.Port}");
-		var certificateData = GetCertificateData(requestedHost, requestedPort, trusted);
+		var certificateData = GetCertificateData(requestedHost, requestedPort, trustedAuthorities);
 		if(certificateData != null)
 		{
 			e.Continue(certificateData);
@@ -396,12 +396,11 @@ public class EoBrowser : IBrowser
 		var fcollection = collection.Find(X509FindType.FindByTimeValid, DateTime.Now, true);
 		var scollection = X509Certificate2UI.SelectFromCollection(
 			fcollection,
-			"Test Certificate Select",
-			"Select a certificate from the following list to get information on that certificate",
-			X509SelectionFlag.MultiSelection
+			"Certificate Select",
+			"Select a certificate",
+			X509SelectionFlag.SingleSelection
 		);
 
-		Log($"Number of certificates: {scollection.Count}");
 		var ls = new List<byte[]>();
 		foreach (var x509 in scollection)
 		{
@@ -416,8 +415,9 @@ public class EoBrowser : IBrowser
 				Log($"Public Key: {x509.PublicKey.Key.ToXmlString(false)}");
 				Log($"Certificate Archived?: {x509.Archived}");
 				Log($"Length of Raw Data: {x509.RawData.Length}");
-				ls.Add(rawdata);
-				X509Certificate2UI.DisplayCertificate(x509);
+				byte[] certData = x509.Export(X509ContentType.Pkcs12);
+				ls.Add(certData);
+				//X509Certificate2UI.DisplayCertificate(x509);
 				x509.Reset();
 			}
 			catch (CryptographicException)
