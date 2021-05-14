@@ -4,7 +4,9 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Threading.Tasks;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Windows;
 using EO.Base.UI;
 using EO.WebBrowser;
@@ -201,45 +203,21 @@ public class EoBrowser : IBrowser
 	public void SetInterface(object obj) => Log("SetInterface");
 
 	public void NotifyIsLoaded() => IsLoaded?.Invoke(this, new EventArgs());
-	public void SelectPerson(string externalId, string firstname, string lastname, string email, string dateOfBirth)
-	{
-		Call("selectPerson", externalId, firstname, lastname, email, dateOfBirth);
-	}
+	public void SelectPerson(string externalId, string firstname, string lastname, string email, string dateOfBirth) => Call("selectPerson", externalId, firstname, lastname, email, dateOfBirth);
 
-	public void SelectPersonById(int id)
-	{
-		Call("selectPersonById", id);
-	}
+	public void SelectPersonById(int id) => Call("selectPersonById", id);
 
-	public void SelectTab(string tab)
-	{
-		Call("selectTab", tab);
-	}
+	public void SelectTab(string tab) => Call("selectTab", tab);
 
-	public void QueryWorkouts(string query)
-	{
-		Call("queryWorkouts", query);
-	}
+	public void QueryWorkouts(string query) => Call("queryWorkouts", query);
 
-	public void QueryExercises(string query)
-	{
-		Call("queryExercises", query);
-	}
+	public void QueryExercises(string query) => Call("queryExercises", query);
 
-	public void GetSignonDetails()
-	{
-		Call("getOsloSignonDetails");
-	}
+	public void GetSignonDetails() => Call("getOsloSignonDetails");
 
-	public void GetListOfUsers(string customId)
-	{
-		Call("getListOfUsers", customId);
-	}
+	public void GetListOfUsers(string customId) => Call("getListOfUsers", customId);
 
-	public void OpenWorkout(int id)
-	{
-		Call("openWorkout", id);
-	}
+	public void OpenWorkout(int id) => Call("openWorkout", id);
 
 	public static void Log(string format, params object[] args) => System.Diagnostics.Debug.WriteLine(format, args);
 	public void NotifyIsUnloading() => IsUnloading?.Invoke(this, new EventArgs());
@@ -395,7 +373,62 @@ public class EoBrowser : IBrowser
 	private void WebView_StatusMessageChanged(object sender, EventArgs e) { }
 	private void WebView_RequestPermissions(object sender, RequestPermissionEventArgs e) => Log("WebView_RequestPermissions");
 	private void WebView_NeedCredentials(object sender, NeedCredentialsEventArgs e) => Log("WebView_NeedCredentials");
-	private void WebView_NeedClientCertificate(object sender, NeedClientCertificateEventArgs e) => Log("WebView_NeedClientCertificate");
+	private void WebView_NeedClientCertificate(object sender, NeedClientCertificateEventArgs e)
+	{
+		var requestedHost = e.Host;
+		var requestedPort = e.Port;
+		var trusted = e.TrustedAuthorities;
+		Log($"{e.Host}:{e.Port}");
+		var certificateData = GetCertificateData(requestedHost, requestedPort, trusted);
+		if(certificateData != null)
+		{
+			e.Continue(certificateData);
+		}
+		e.ContinueWithoutCertificate();
+	}
+
+	private byte[] GetCertificateData(string requestedHost, int requestedPort, byte[][] trustedAuthorities)
+	{
+		var store = new X509Store("MY", StoreLocation.CurrentUser);
+		store.Open(OpenFlags.ReadOnly | OpenFlags.OpenExistingOnly);
+
+		var collection = store.Certificates;
+		var fcollection = collection.Find(X509FindType.FindByTimeValid, DateTime.Now, true);
+		var scollection = X509Certificate2UI.SelectFromCollection(
+			fcollection,
+			"Test Certificate Select",
+			"Select a certificate from the following list to get information on that certificate",
+			X509SelectionFlag.MultiSelection
+		);
+
+		Log($"Number of certificates: {scollection.Count}");
+		var ls = new List<byte[]>();
+		foreach (var x509 in scollection)
+		{
+			try
+			{
+				var rawdata = x509.RawData;
+				Log($"Content Type: {X509Certificate2.GetCertContentType(rawdata)}");
+				Log($"Friendly Name: {x509.FriendlyName}");
+				Log($"Certificate Verified?: {x509.Verify()}");
+				Log($"Simple Name: {x509.GetNameInfo(X509NameType.SimpleName, true)}");
+				Log($"Signature Algorithm: {x509.SignatureAlgorithm.FriendlyName}");
+				Log($"Public Key: {x509.PublicKey.Key.ToXmlString(false)}");
+				Log($"Certificate Archived?: {x509.Archived}");
+				Log($"Length of Raw Data: {x509.RawData.Length}");
+				ls.Add(rawdata);
+				X509Certificate2UI.DisplayCertificate(x509);
+				x509.Reset();
+			}
+			catch (CryptographicException)
+			{
+				Log("Information could not be written out for this certificate.");
+			}
+		}
+		store.Close();
+		return ls.FirstOrDefault();
+	}
+
 	private void WebView_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e) { }
 	private void WebView_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e) { }
 	private void WebView_MouseLeave(object sender, EventArgs e) { }
@@ -556,11 +589,11 @@ public class EoBrowser : IBrowser
 		var argslist = new List<string>();
 		foreach (var item in args)
 		{
-			if(item is string itstring)
+			if (item is string itstring)
 			{
 				argslist.Add($"'{itstring}'");
-			} 
-			else if(item is null)
+			}
+			else if (item is null)
 			{
 				argslist.Add($"null");
 			}
@@ -569,9 +602,9 @@ public class EoBrowser : IBrowser
 				var ite = it.ToString("s");
 				argslist.Add($"Date('{ite}')");
 			}
-			else if(item is bool isIt)
+			else if (item is bool isIt)
 			{
-				if(isIt)
+				if (isIt)
 				{
 					argslist.Add($"true");
 				}
