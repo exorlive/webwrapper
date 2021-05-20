@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
@@ -7,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using ExorLive;
 using ExorLive.Client.WebWrapper;
+using Microsoft.Win32;
 
 [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
 // Options for PermissionSet:	https://msdn.microsoft.com/en-us/library/4652tyx7.aspx	
@@ -21,12 +23,28 @@ public class WindowsBrowser : IBrowser
 
 	private WindowsBrowser()
 	{
+		SetIEDefaultCompatibilityMode();
 		_browser = new WebBrowser
 		{
 			ObjectForScripting = this
 		};
 		_browser.Navigated += Browser_navigated;
 		_browser.Navigating += _browser_Navigating;
+	}
+
+	/// <summary>
+	/// Sets the WebControls default compatibility mode to use IE11 Edge mode.
+	/// https://stackoverflow.com/questions/38514184/how-can-i-get-the-webbrowser-control-to-show-modern-contents
+	/// </summary>
+	private static void SetIEDefaultCompatibilityMode()
+	{
+		using (var key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION", true))
+		{
+			var apploc = Assembly.GetExecutingAssembly().Location;
+			var app = Path.GetFileName(apploc);
+			key.SetValue(app, 11001, RegistryValueKind.DWord);
+			key.Close();
+		}
 	}
 
 	public event EventHandler Navigated;
@@ -217,11 +235,9 @@ public class WindowsBrowser : IBrowser
 	/// </summary>
 	/// <returns>The current zoom level.</returns>
 	/// <exception cref="NotSupportedException">Should throw a NotImplementedException if the browser doesnt support zoom.</exception>
-	public decimal GetZoomFactor()
-	{
+	public decimal GetZoomFactor() =>
 		// System.Windows.Controls.WebBrowser doesnt have an API for zoom levels.
 		throw new NotSupportedException();
-	}
 
 	/// <summary>
 	/// Sets the current zoom level in the browser.
@@ -229,11 +245,9 @@ public class WindowsBrowser : IBrowser
 	/// <param name="v">A value where 1 equals 100%.</param>
 	/// <remarks>Remember to check if the browser supports zoom before setting this.</remarks>
 	/// <exception cref="NotSupportedException">Should throw a NotImplementedException if the browser doesnt support zoom.</exception>
-	public void SetZoomFactor(decimal v)
-	{
+	public void SetZoomFactor(decimal v) =>
 		// System.Windows.Controls.WebBrowser doesnt have an API for zoom levels.
 		throw new NotSupportedException();
-	}
 
 	private void _browser_Navigating(object sender, NavigatingCancelEventArgs e) => BeforeNavigating?.Invoke(sender, e.Uri);
 
@@ -259,8 +273,5 @@ public class WindowsBrowser : IBrowser
 		objComWebBrowser.GetType().InvokeMember("Silent", BindingFlags.SetProperty, null, objComWebBrowser, new object[] { hide });
 	}
 
-	public bool SupportsZoom()
-	{
-		return false;
-	}
+	public bool SupportsZoom() => false;
 }

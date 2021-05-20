@@ -204,7 +204,7 @@ the xml-file as its first argument.
 <exorinput delete="true" exercisequery="" workoutquery="">
     <source_customerno>231</source_customerno>
     <firstname>Erik</firstname>
-    <lastname>R�de</lastname>
+    <lastname>Røde</lastname>
     <born>1911-11-23</born>
     <email>erik.viking@mail.com</email>
 </exorinput>
