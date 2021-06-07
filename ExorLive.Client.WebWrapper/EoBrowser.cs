@@ -434,7 +434,19 @@ public class EoBrowser : IBrowser
 	private void WebView_MouseLeave(object sender, EventArgs e) { }
 	private void WebView_MouseEnter(object sender, EventArgs e) { }
 	private void WebView_LoadCompleted(object sender, LoadCompletedEventArgs e) => Log("WebView_LoadCompleted");
-	private void WebView_LaunchUrl(object sender, LaunchUrlEventArgs e) => Log("WebView_LaunchUrl");
+	private void WebView_LaunchUrl(object sender, LaunchUrlEventArgs e)
+	{
+		Log("WebView_LaunchUrl");
+		// Support OS handlers for some protocols.
+		if(
+			e.Url.StartsWith("mailto://") ||
+			e.Url.StartsWith("netid://")
+		)
+		{
+			e.UseOSHandler = true;
+		}
+	}
+
 	private void WebView_KeyUp(object sender, WndMsgEventArgs e) { }
 	private void WebView_KeyDown(object sender, WndMsgEventArgs e) { }
 	private void WebView_JSDialog(object sender, JSDialogEventArgs e) => Log("WebView_JSDialog");
