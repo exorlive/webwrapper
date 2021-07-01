@@ -148,6 +148,16 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Uppsala|AnyCPU'">
+    <OutputPath>bin\Uppsala\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EO.Base, Version=21.0.80.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
       <HintPath>..\packages\EO.WebBrowser.21.0.80\lib\EO.Base.dll</HintPath>
@@ -249,6 +259,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="App.Goteborg.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Uppsala.config">
       <DependentUpon>App.config</DependentUpon>
     </None>
     <None Include="packages.config">
