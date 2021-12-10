@@ -1,5 +1,4 @@
 Namespace Desktop.Procapita
-	' ReSharper disable once UnusedMember.Global
 	Public Class Component
 		Implements IHosted
 		Private WithEvents _host As IHost
@@ -39,9 +38,9 @@ Namespace Desktop.Procapita
 		End Function
 
 		Public Sub ReadCommandline(args() As String) Implements IHosted.ReadCommandline
-			Dim signon As String = Nothing
-			Dim arg5 As String = Nothing
-			Dim arg6 As String = Nothing
+			Dim signon As String
+			Dim arg5 As String
+			Dim arg6 As String
 			Dim dto As New PersonDTO
 			If args.Length > 0 Then dto.ExternalId = args(0)
 			If args.Length > 1 Then signon = args(1)

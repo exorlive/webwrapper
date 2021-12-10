@@ -1,8 +1,4 @@
 ﻿Namespace Desktop
-	' ReSharper disable UnusedMember.Global
-	' ReSharper disable EventNeverInvoked.Global
-	' ReSharper disable UnusedParameter.Global
-	' ReSharper disable EventNeverSubscribedTo.Global
 	''' <summary>
 	''' This interface defines the  methods available on the Host.
 	''' </summary>
@@ -46,11 +42,11 @@
 
 		Sub OpenWorkout(workoutIdAsString As String)
 
-        ''' <summary>
-        ''' This event will be fired if the main window is being minified
-        ''' </summary>
-        ''' <remarks></remarks>
-        Event WindowMinified()
+		''' <summary>
+		''' This event will be fired if the main window is being minified
+		''' </summary>
+		''' <remarks></remarks>
+		Event WindowMinified()
 
 		''' <summary>
 		''' This event will be fired when the window is closing
@@ -67,8 +63,4 @@
 		Sub LogException(ex As Exception, message As String)
 
 	End Interface
-	' ReSharper restore UnusedParameter.Global
-	' ReSharper restore EventNeverInvoked.Global
-	' ReSharper restore UnusedMember.Global
-	' ReSharper restore EventNeverSubscribedTo.Global
 End Namespace

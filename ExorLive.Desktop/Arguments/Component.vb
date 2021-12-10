@@ -1,7 +1,6 @@
 Imports System.Globalization
 
 Namespace Desktop.Arguments
-	' ReSharper disable once UnusedMember.Global
 	Public Class Component
 		Implements IHosted
 		Private WithEvents _host As IHost
