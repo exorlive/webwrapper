@@ -4,13 +4,7 @@
 // Project-level suppressions either have no target or are given 
 // a specific target and scoped to a namespace, type, member, etc.
 
-[assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:EoBrowser.StartRemoteDebugging")]
-[assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:ExorLive.Client.WebWrapper.App.AppendUrlArg(System.String,System.String)~System.String")]
-[assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:ExorLive.Client.WebWrapper.App.RemoveSignonDetails(System.String)")]
-[assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:ExorLive.Client.WebWrapper.App.ToBool(System.String)~System.Boolean")]
-[assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:Microsoft.Shell.SingleInstance`1.IPCRemoteService.InvokeFirstInstance(System.Collections.Generic.IList{System.String})")]
-[assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~P:ExorLive.Client.WebWrapper.MainWindow.ApplicationIdentifier")]
-[assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~P:ExorLive.Client.WebWrapper.MainWindow.Debug")]
-[assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~P:ExorLive.Client.WebWrapper.NamedPipe.NpServer.Pipename")]
-[assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:ExorLive.Client.WebWrapper.App.GetSignonString(System.String)~System.String")]
+[assembly: SuppressMessage("Performance", "CA1822:Mark members as static")]
 [assembly: SuppressMessage("Style", "IDE1006:Naming Styles")]
+[assembly: SuppressMessage("Style", "IDE0065:Misplaced using directive", Justification = "Third party library.", Scope = "namespace", Target = "~N:Microsoft.Shell")]
+[assembly: SuppressMessage("Style", "IDE0059:Unnecessary assignment of a value", Justification = "Third party library.", Scope = "member", Target = "~M:Microsoft.Shell.NativeMethods.CommandLineToArgvW(System.String)~System.String[]")]
