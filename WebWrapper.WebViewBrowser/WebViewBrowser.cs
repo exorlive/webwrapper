@@ -19,8 +19,8 @@ namespace WebWrapper
 		private static IBrowser _instance;
 		public static IBrowser Instance => _instance ?? (_instance = new WebViewBrowser());
 
-		//private readonly WebView2 _browser;
-		public UIElement GetUiElement() => throw new NotImplementedException();
+		private readonly Microsoft.Web.WebView2.Core.CoreWebView2 _browser;
+		public UIElement GetUiElement() => _browser;
 
 		private WebViewBrowser()
 		{
