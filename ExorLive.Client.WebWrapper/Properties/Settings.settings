@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="BrowserEngine" Type="ExorLive.Client.WebWrapper.BrowserEngines" Scope="User">
-      <Value Profile="(Default)">EoWebBrowser</Value>
+      <Value Profile="(Default)">WebViewBrowser</Value>
     </Setting>
     <Setting Name="MinimizeOnExit" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

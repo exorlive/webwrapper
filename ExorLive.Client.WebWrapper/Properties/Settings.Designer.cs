@@ -25,7 +25,7 @@ namespace ExorLive.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("EoWebBrowser")]
+        [global::System.Configuration.DefaultSettingValueAttribute("WebViewBrowser")]
         public global::ExorLive.Client.WebWrapper.BrowserEngines BrowserEngine {
             get {
                 return ((global::ExorLive.Client.WebWrapper.BrowserEngines)(this["BrowserEngine"]));
