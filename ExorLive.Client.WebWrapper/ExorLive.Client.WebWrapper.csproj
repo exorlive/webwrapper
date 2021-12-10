@@ -205,12 +205,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="BeforeNavigatingEventHandler.cs" />
-    <Compile Include="BrowserEngines.cs" />
-    <Compile Include="EoBrowser.cs" />
+    <Compile Include="Browsers\BrowserEngines.cs" />
+    <Compile Include="Browsers\EoBrowser.cs" />
     <Compile Include="EoBrowserObject.cs" />
     <Compile Include="ExorLiveInterface.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="IBrowser.cs" />
+    <Compile Include="Browsers\IBrowser.cs" />
     <Compile Include="IExorLiveHost.cs" />
     <Compile Include="IExorLiveInterface.cs" />
     <Compile Include="NamedPipe\Entities\Workout.cs" />
@@ -221,7 +221,7 @@
     <Compile Include="SingleInstance.cs" />
     <Compile Include="UsersDataEventArgs.cs" />
     <Compile Include="Util.cs" />
-    <Compile Include="WindowsBrowser.cs" />
+    <Compile Include="Browsers\WindowsBrowser.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -334,6 +334,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>call "$(SolutionDir)lib\signtool.exe" sign /a /d "$(SolutionName)" /tr http://timestamp.digicert.com /td SHA256 "$(TargetPath)"
