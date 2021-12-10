@@ -12,8 +12,8 @@ using EO.Base.UI;
 using EO.WebBrowser;
 using EO.Wpf;
 using ExorLive;
-using ExorLive.Client.WebWrapper;
-using ExorLive.Properties;
+using ExorLive.WebWrapper.Interface;
+using WebWrapper.Properties;
 using WebView = EO.WebBrowser.WebView;
 
 /// <summary>
@@ -24,6 +24,16 @@ using WebView = EO.WebBrowser.WebView;
 /// </summary>
 public class EoBrowser : IBrowser
 {
+	// TODO: Fix:
+	public bool Debug => false;
+	//public bool Debug => App.Debug;
+	public string ApplicationIdentifier => string.Empty;
+	//public string ApplicationIdentifier => App.ApplicationIdentifier;
+	public string DistributorName = string.Empty;
+	//private string DistributorName = Settings.Default.DistributorName;
+	public bool CheckForUpdates = false;
+	//private bool CheckForUpdates = App.UserSettings.CheckForUpdates;
+
 	private static IBrowser _instance;
 	public static IBrowser Instance => _instance ?? (_instance = new EoBrowser());
 
@@ -39,7 +49,6 @@ public class EoBrowser : IBrowser
 	private EoBrowser()
 	{
 		Log("Construct EoBrowser");
-
 		var cultures = new List<CultureInfo>()
 		{
 			CultureInfo.CurrentUICulture,
@@ -58,7 +67,7 @@ public class EoBrowser : IBrowser
 		EO.Base.Runtime.EnableCrashReport = false;
 		EO.Base.Runtime.EnableEOWP = true;
 		EO.Base.Runtime.Exception += Runtime_Exception;
-		if (App.Debug)
+		if (Debug)
 		{
 			EO.Base.Runtime.LogFileName = Path.GetTempFileName();
 			StartRemoteDebugging();
@@ -221,8 +230,7 @@ public class EoBrowser : IBrowser
 
 	public static void Log(string format, params object[] args) => System.Diagnostics.Debug.WriteLine(format, args);
 	public void NotifyIsUnloading() => IsUnloading?.Invoke(this, new EventArgs());
-	public bool Debug => App.Debug;
-	public string ApplicationIdentifier => App.ApplicationIdentifier;
+	
 	public UIElement GetUiElement() => _browser;
 
 	public void SelectPerson2(
@@ -486,8 +494,8 @@ public class EoBrowser : IBrowser
 	{
 		var appid = Util.EncodeJsString(ApplicationIdentifier);
 		var debug = Util.EncodeJsString(Debug.ToString().ToLower());
-		var distro = Util.EncodeJsString(Settings.Default.DistributorName);
-		var checforupdates = Util.EncodeJsString(App.UserSettings.CheckForUpdates.ToString());
+		var distro = Util.EncodeJsString(DistributorName);
+		var checforupdates = Util.EncodeJsString(CheckForUpdates.ToString());
 		_browser.WebView.JSInitCode = $@"
 			window.external.ApplicationIdentifier = '{appid}';
 			window.external.Debug = {debug};
@@ -504,7 +512,7 @@ public class EoBrowser : IBrowser
 
 	private void WebView_CertificateError(object sender, CertificateErrorEventArgs e)
 	{
-		if (App.Debug)
+		if (Debug)
 		{
 			MessageBox.Show($"Can't load the url \"{e.Url}\", the SSL certificate is invalid.");
 		}

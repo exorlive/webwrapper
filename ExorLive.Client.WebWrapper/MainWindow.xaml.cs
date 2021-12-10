@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Windows.Forms;
+using ExorLive.WebWrapper.Interface;
 
 namespace ExorLive.Client.WebWrapper
 {

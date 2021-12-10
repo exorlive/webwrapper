@@ -9,6 +9,7 @@ using System.Windows;
 using ExorLive.Client.WebWrapper.NamedPipe;
 using ExorLive.Desktop;
 using ExorLive.Properties;
+using ExorLive.WebWrapper.Interface;
 using Microsoft.Shell;
 
 namespace ExorLive.Client.WebWrapper

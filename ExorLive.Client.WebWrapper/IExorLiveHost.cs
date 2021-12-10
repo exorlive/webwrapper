@@ -1,5 +1,7 @@
 ﻿using System;
 using ExorLive;
+using ExorLive.WebWrapper.Interface;
+
 public interface IExorLiveHost
 {
 	event IsLoadedEventHandler IsLoaded;

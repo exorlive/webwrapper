@@ -204,24 +204,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="BeforeNavigatingEventHandler.cs" />
-    <Compile Include="Browsers\BrowserEngines.cs" />
-    <Compile Include="Browsers\EoBrowser.cs" />
-    <Compile Include="EoBrowserObject.cs" />
-    <Compile Include="ExorLiveInterface.cs" />
+    <Compile Include="BrowserEngines.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Browsers\IBrowser.cs" />
     <Compile Include="IExorLiveHost.cs" />
-    <Compile Include="IExorLiveInterface.cs" />
     <Compile Include="NamedPipe\Entities\Workout.cs" />
     <Compile Include="NamedPipe\NPServer.cs" />
     <Compile Include="NamedPipe\StringStream.cs" />
-    <Compile Include="SelectedUserEventArgs.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="SingleInstance.cs" />
-    <Compile Include="UsersDataEventArgs.cs" />
-    <Compile Include="Util.cs" />
-    <Compile Include="Browsers\WindowsBrowser.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -243,21 +233,11 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <None Include="App.Goteborg.config">
       <DependentUpon>App.config</DependentUpon>
     </None>
@@ -309,12 +289,27 @@
       <Project>{504BDA99-040A-41CB-A186-67A306EE7A16}</Project>
       <Name>ExorLive.Desktop</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ExorLive.WebWrapper.Interface\ExorLive.WebWrapper.Interface.csproj">
+      <Project>{9252b314-f13a-4a37-90ef-a480a9ee4348}</Project>
+      <Name>ExorLive.WebWrapper.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebWrapper.EoBrowser\WebWrapper.EoBrowser.csproj">
+      <Project>{5479fe1a-f5bf-4569-bac0-16728f00701c}</Project>
+      <Name>WebWrapper.EoBrowser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebWrapper.WebView2\WebWrapper.WebView2.csproj">
+      <Project>{64832a13-08be-411c-8d82-90f05a13fd1f}</Project>
+      <Name>WebWrapper.WebView2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebWrapper.WindowsBrowser\WebWrapper.WindowsBrowser.csproj">
+      <Project>{1aff97e5-d967-422b-8de2-b435379e45d0}</Project>
+      <Name>WebWrapper.WindowsBrowser</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\killprocess.vbs" />
     <Resource Include="Resources\install-big.png" />
     <Resource Include="Resources\install.png" />
-    <None Include="Resources\EoBrowserLicenseFile.txt" />
     <Resource Include="exorlive.ico" />
   </ItemGroup>
   <ItemGroup>

@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using ExorLive;
-using ExorLive.Client.WebWrapper;
+using ExorLive.WebWrapper.Interface;
 using Microsoft.Win32;
 
 [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
@@ -16,6 +16,13 @@ using Microsoft.Win32;
 [ComVisible(true)]
 public class WindowsBrowser : IBrowser
 {
+	public bool Debug => false;
+	public string ApplicationIdentifier => string.Empty;
+
+	// TODO: Fix:
+	//public bool Debug => App.Debug;
+	//public string ApplicationIdentifier => App.ApplicationIdentifier;
+
 	private static IBrowser _instance;
 	public static IBrowser Instance => _instance ?? (_instance = new WindowsBrowser());
 	private readonly WebBrowser _browser;
@@ -226,8 +233,6 @@ public class WindowsBrowser : IBrowser
 	public void SelectPersonResult(string jsondata) => SelectPersonResultEvent?.Invoke(this, new JsonEventArgs(jsondata));
 	public void ExportSignonDetails(string jsondata) => ExportSignonDetailsEvent?.Invoke(this, new JsonEventArgs(jsondata));
 
-	public bool Debug => App.Debug;
-	public string ApplicationIdentifier => App.ApplicationIdentifier;
 	public UIElement GetUiElement() => _browser;
 
 	/// <summary>
