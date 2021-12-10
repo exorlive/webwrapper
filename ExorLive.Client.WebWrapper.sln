@@ -31,7 +31,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExorLive.WebWrapper.Interfa
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Browsers", "Browsers", "{D6CC3A7F-603C-40B2-93C1-83CC40D6B38F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebWrapper.WebView2", "WebWrapper.WebView2\WebWrapper.WebView2.csproj", "{64832A13-08BE-411C-8D82-90F05A13FD1F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebWrapper.WebViewBrowser", "WebWrapper.WebViewBrowser\WebWrapper.WebViewBrowser.csproj", "{64832A13-08BE-411C-8D82-90F05A13FD1F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebWrapper.WindowsBrowser", "WebWrapper.WindowsBrowser\WebWrapper.WindowsBrowser.csproj", "{1AFF97E5-D967-422B-8DE2-B435379E45D0}"
 EndProject

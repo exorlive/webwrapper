@@ -282,9 +282,9 @@
       <Project>{5479fe1a-f5bf-4569-bac0-16728f00701c}</Project>
       <Name>WebWrapper.EoBrowser</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WebWrapper.WebView2\WebWrapper.WebView2.csproj">
+    <ProjectReference Include="..\WebWrapper.WebViewBrowser\WebWrapper.WebViewBrowser.csproj">
       <Project>{64832a13-08be-411c-8d82-90f05a13fd1f}</Project>
-      <Name>WebWrapper.WebView2</Name>
+      <Name>WebWrapper.WebViewBrowser</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebWrapper.WindowsBrowser\WebWrapper.WindowsBrowser.csproj">
       <Project>{1aff97e5-d967-422b-8de2-b435379e45d0}</Project>

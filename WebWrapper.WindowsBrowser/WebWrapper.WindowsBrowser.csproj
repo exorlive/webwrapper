@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExorLiveInterface.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IExorLiveInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WindowsBrowser.cs" />

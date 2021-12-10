@@ -7,11 +7,24 @@ using ExorLive.WebWrapper.Interface;
 
 namespace WebWrapper
 {
-	public class WebView2 : IBrowser
+	public class WebViewBrowser : IBrowser
 	{
-		public bool Debug => throw new NotImplementedException();
+		public bool Debug => false;
+		public string ApplicationIdentifier => string.Empty;
 
-		public string ApplicationIdentifier => throw new NotImplementedException();
+		// TODO: Fix:
+		//public bool Debug => App.Debug;
+		//public string ApplicationIdentifier => App.ApplicationIdentifier;
+
+		private static IBrowser _instance;
+		public static IBrowser Instance => _instance ?? (_instance = new WebViewBrowser());
+
+		//private readonly WebView2 _browser;
+		public UIElement GetUiElement() => throw new NotImplementedException();
+
+		private WebViewBrowser()
+		{
+		}
 
 		public event BeforeNavigatingEventHandler BeforeNavigating;
 		public event EventHandler Navigated;
@@ -26,7 +39,6 @@ namespace WebWrapper
 
 		public void GetListOfUsers(string customId) => throw new NotImplementedException();
 		public void GetSignonDetails() => throw new NotImplementedException();
-		public UIElement GetUiElement() => throw new NotImplementedException();
 		public void GetWorkoutsForClient(int userId, string customId, DateTime from) => throw new NotImplementedException();
 		public decimal GetZoomFactor() => throw new NotImplementedException();
 		public bool Navigate(Uri url) => throw new NotImplementedException();

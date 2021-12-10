@@ -9,6 +9,7 @@ using System.Net;
 using System.Reflection;
 using System.Windows.Forms;
 using ExorLive.WebWrapper.Interface;
+using WebWrapper;
 
 namespace ExorLive.Client.WebWrapper
 {
@@ -17,7 +18,6 @@ namespace ExorLive.Client.WebWrapper
 	/// </summary>
 	public partial class MainWindow : IExorLiveHost
 	{
-		private BrowserEngines _defaultBrowserEngine;
 		private IBrowser _browser;
 		private bool _closeOnNavigate;
 		private bool _doClose;
@@ -112,22 +112,9 @@ namespace ExorLive.Client.WebWrapper
 		/// <param name="e"></param>
 		private void BrowserGrid_Loaded(object sender, RoutedEventArgs e)
 		{
-			_defaultBrowserEngine = App.UserSettings.BrowserEngine;
 			try
 			{
-				_browser = (_defaultBrowserEngine == BrowserEngines.InternetExplorer) ?
-				WindowsBrowser.Instance :
-				EoBrowser.Instance;
-
-				if (_defaultBrowserEngine == BrowserEngines.InternetExplorer)
-				{
-					StatusBarEoBrowser.Visibility = Visibility.Hidden;
-				}
-				else
-				{
-					StatusBarInternetExplorer.Visibility = Visibility.Hidden;
-				}
-
+				_browser = GetBrowser(App.UserSettings.BrowserEngine);
 				_browser.Navigated += Browser_Navigated;
 				_browser.SelectedUserChanged += _browser_SelectedUserChanged;
 				_browser.IsLoaded += _browser_IsLoaded;
@@ -139,7 +126,7 @@ namespace ExorLive.Client.WebWrapper
 				_browser.ExportSignonDetailsEvent += _browser_ExportSignonDetailsEvent;
 				_browser.ZoomFactorChanged += Browser_ZoomLevelChangedEvent;
 				BrowserGrid.Children.Add(_browser.GetUiElement());
-				BrowserSetAndSaveZoomFactor(App.UserSettings.ZoomFactor);
+				BrowserSetZoom(App.UserSettings.ZoomFactor);
 
 				if (_navigateToUri != null)
 				{
@@ -154,6 +141,30 @@ namespace ExorLive.Client.WebWrapper
 			{
 				System.Windows.MessageBox.Show(ex.Message, "Browser spawn error", MessageBoxButton.OK);
 				throw;
+			}
+		}
+
+		private IBrowser GetBrowser(BrowserEngines _defaultBrowserEngine)
+		{
+			if (_defaultBrowserEngine != BrowserEngines.InternetExplorer)
+			{
+				StatusBarInternetExplorer.Visibility = Visibility.Hidden;
+			}
+			if (_defaultBrowserEngine != BrowserEngines.EoWebBrowser)
+			{
+				StatusBarEoBrowser.Visibility = Visibility.Hidden;
+			}
+
+			switch (_defaultBrowserEngine)
+			{
+				case BrowserEngines.InternetExplorer:
+					return WindowsBrowser.Instance;
+				case BrowserEngines.EoWebBrowser:
+					return EoBrowser.Instance;
+				case BrowserEngines.WebViewBrowser:
+					return WebViewBrowser.Instance;
+				default:
+					return EoBrowser.Instance;
 			}
 		}
 
@@ -569,17 +580,17 @@ namespace ExorLive.Client.WebWrapper
 		{
 			if (_browser.SupportsZoom() == false) return;
 			var newZoomFactor = _browser.GetZoomFactor() + 0.1M;
-			BrowserSetAndSaveZoomFactor(newZoomFactor);
+			BrowserSetZoom(newZoomFactor);
 		}
 
 		private void BtnZoomOut_Click(object sender, RoutedEventArgs e)
 		{
 			if (_browser.SupportsZoom() == false) return;
 			var newZoomFactor = _browser.GetZoomFactor() - 0.1M;
-			BrowserSetAndSaveZoomFactor(newZoomFactor);
+			BrowserSetZoom(newZoomFactor);
 		}
 
-		private void BrowserSetAndSaveZoomFactor(decimal newZoomFactor)
+		private void BrowserSetZoom(decimal newZoomFactor)
 		{
 			if (_browser.SupportsZoom() == false) return;
 			if (newZoomFactor > 2M) newZoomFactor = 2M;
