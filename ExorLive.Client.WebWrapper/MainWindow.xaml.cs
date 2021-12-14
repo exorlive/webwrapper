@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using ExorLive.WebWrapper.Interface;
 using WebWrapper;
+using ExorLive.Properties;
 
 namespace ExorLive.Client.WebWrapper
 {
@@ -150,21 +151,26 @@ namespace ExorLive.Client.WebWrapper
 			{
 				StatusBarInternetExplorer.Visibility = Visibility.Hidden;
 			}
-			if (_defaultBrowserEngine != BrowserEngines.EoWebBrowser)
+			if (
+				_defaultBrowserEngine != BrowserEngines.EoWebBrowser
+				&& _defaultBrowserEngine != BrowserEngines.WebViewBrowser
+			)
 			{
 				StatusBarEoBrowser.Visibility = Visibility.Hidden;
 			}
 
+			var distroname = Settings.Default.DistributorName;
+			var checkUpdates = App.UserSettings.CheckForUpdates;
 			switch (_defaultBrowserEngine)
 			{
 				case BrowserEngines.InternetExplorer:
-					return WindowsBrowser.Instance;
+					return new WindowsBrowser();
 				case BrowserEngines.EoWebBrowser:
-					return EoBrowser.Instance;
+					return new EoBrowser(ApplicationIdentifier, Debug, distroname, checkUpdates);
 				case BrowserEngines.WebViewBrowser:
-					return WebViewBrowser.Instance;
+					return new WebViewBrowser();
 				default:
-					return EoBrowser.Instance;
+					return new EoBrowser(ApplicationIdentifier, Debug, distroname, checkUpdates);
 			}
 		}
 

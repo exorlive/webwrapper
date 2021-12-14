@@ -60,10 +60,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BrowserObject.cs" />
     <Compile Include="WebViewBrowser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ExorLive.Desktop\ExorLive.Desktop.vbproj">
+      <Project>{504BDA99-040A-41CB-A186-67A306EE7A16}</Project>
+      <Name>ExorLive.Desktop</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ExorLive.WebWrapper.Interface\ExorLive.WebWrapper.Interface.csproj">
       <Project>{9252b314-f13a-4a37-90ef-a480a9ee4348}</Project>
       <Name>ExorLive.WebWrapper.Interface</Name>

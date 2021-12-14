@@ -72,8 +72,6 @@ namespace ExorLive.WebWrapper.Interface
 		void NotifyIsLoaded();
 		void NotifySelectingUser(int id, string externalId, string firstname, string lastname, string email, string dateofbirth);
 		void NotifyIsUnloading();
-		bool Debug { get; }
-		string ApplicationIdentifier { get; }
 		void GetWorkoutsForClient(int userId, string customId, DateTime from);
 		void GetListOfUsers(string customId);
 		void OpenWorkout(int id);
