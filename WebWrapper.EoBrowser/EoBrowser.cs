@@ -4,9 +4,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
 using System.Windows;
 using EO.WebBrowser;
 using EO.Wpf;
@@ -337,61 +334,7 @@ public class EoBrowser : IBrowser
 	}
 
 	private void WebView_ZoomFactorChanged(object sender, EventArgs e) => ZoomFactorChanged?.Invoke(sender, e);
-	private void WebView_NeedClientCertificate(object sender, NeedClientCertificateEventArgs e)
-	{
-		var requestedHost = e.Host;
-		var requestedPort = e.Port;
-		var trustedAuthorities = e.TrustedAuthorities;
-		Log($"{e.Host}:{e.Port}");
-		var certificateData = GetCertificateData(requestedHost, requestedPort, trustedAuthorities);
-		if (certificateData != null)
-		{
-			e.Continue(certificateData);
-		}
-		e.ContinueWithoutCertificate();
-	}
-
-	private byte[] GetCertificateData(string requestedHost, int requestedPort, byte[][] trustedAuthorities)
-	{
-		var store = new X509Store("MY", StoreLocation.CurrentUser);
-		store.Open(OpenFlags.ReadOnly | OpenFlags.OpenExistingOnly);
-
-		var collection = store.Certificates;
-		var fcollection = collection.Find(X509FindType.FindByTimeValid, DateTime.Now, true);
-		var scollection = X509Certificate2UI.SelectFromCollection(
-			fcollection,
-			"Certificate Select",
-			"Select a certificate",
-			X509SelectionFlag.SingleSelection
-		);
-
-		var ls = new List<byte[]>();
-		foreach (var x509 in scollection)
-		{
-			try
-			{
-				var rawdata = x509.RawData;
-				Log($"Content Type: {X509Certificate2.GetCertContentType(rawdata)}");
-				Log($"Friendly Name: {x509.FriendlyName}");
-				Log($"Certificate Verified?: {x509.Verify()}");
-				Log($"Simple Name: {x509.GetNameInfo(X509NameType.SimpleName, true)}");
-				Log($"Signature Algorithm: {x509.SignatureAlgorithm.FriendlyName}");
-				Log($"Public Key: {x509.PublicKey.Key.ToXmlString(false)}");
-				Log($"Certificate Archived?: {x509.Archived}");
-				Log($"Length of Raw Data: {x509.RawData.Length}");
-				var certData = x509.Export(X509ContentType.Pkcs12);
-				ls.Add(certData);
-				//X509Certificate2UI.DisplayCertificate(x509);
-				x509.Reset();
-			}
-			catch (CryptographicException)
-			{
-				Log("Information could not be written out for this certificate.");
-			}
-		}
-		store.Close();
-		return ls.FirstOrDefault();
-	}
+	private void WebView_NeedClientCertificate(object sender, NeedClientCertificateEventArgs e) { }
 
 	private void WebView_LaunchUrl(object sender, LaunchUrlEventArgs e)
 	{

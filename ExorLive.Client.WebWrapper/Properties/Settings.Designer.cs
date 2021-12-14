@@ -175,7 +175,7 @@ namespace ExorLive.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool CheckForUpdates {
             get {
                 return ((bool)(this["CheckForUpdates"]));
@@ -196,7 +196,7 @@ namespace ExorLive.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://exorlive.com/app/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:50000/app/")]
         public string AppUrl {
             get {
                 return ((string)(this["AppUrl"]));

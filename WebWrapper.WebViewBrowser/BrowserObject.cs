@@ -4,7 +4,7 @@ namespace WebWrapper
 {
 	[ClassInterface(ClassInterfaceType.AutoDual)]
 	[ComVisible(true)]
-	internal class BrowserObject
+	public class BrowserObject
 	{
 		private WebViewBrowser eoBrowser;
 		public BrowserObject(WebViewBrowser eoBrowser)
@@ -19,5 +19,12 @@ namespace WebWrapper
 		public void ExportUserList(string customId) => eoBrowser.ExportUserList(customId);
 		public void SelectPersonResult(string jsonresult) => eoBrowser.SelectPersonResult(jsonresult);
 		public void ExportSignonDetails(string arg) => eoBrowser.ExportSignonDetails(arg);
+	}
+
+	[ClassInterface(ClassInterfaceType.AutoDual)]
+	[ComVisible(true)]
+	public class Example
+	{
+		public string Prop { get; set; } = "example";
 	}
 }
