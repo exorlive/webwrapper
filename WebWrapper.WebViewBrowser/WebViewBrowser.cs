@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using ExorLive;
@@ -22,6 +24,13 @@ namespace WebWrapper
 			webView.ZoomFactorChanged += WebView_ZoomFactorChanged;
 			webView.NavigationStarting += WebView_NavigationStarting;
 			webView.NavigationCompleted += WebView_NavigationCompleted;
+		}
+
+		public async Task Initialize()
+		{
+			var cacheFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ExorLive");
+			var environment = await CoreWebView2Environment.CreateAsync(null, cacheFolderPath);
+			await webView.EnsureCoreWebView2Async(environment);
 		}
 
 		public bool Navigate(Uri url)

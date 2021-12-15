@@ -111,7 +111,7 @@ namespace ExorLive.Client.WebWrapper
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void BrowserGrid_Loaded(object sender, RoutedEventArgs e)
+		private async void BrowserGrid_Loaded(object sender, RoutedEventArgs e)
 		{
 			try
 			{
@@ -127,6 +127,10 @@ namespace ExorLive.Client.WebWrapper
 				_browser.ExportSignonDetailsEvent += _browser_ExportSignonDetailsEvent;
 				_browser.ZoomFactorChanged += Browser_ZoomLevelChangedEvent;
 				BrowserGrid.Children.Add(_browser.GetUiElement());
+				if (_browser is WebViewBrowser)
+				{
+					await (_browser as WebViewBrowser).Initialize();
+				}
 				BrowserSetZoom(App.UserSettings.ZoomFactor);
 
 				if (_navigateToUri != null)
