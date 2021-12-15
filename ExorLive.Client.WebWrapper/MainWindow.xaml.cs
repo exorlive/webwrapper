@@ -36,7 +36,7 @@ namespace ExorLive.Client.WebWrapper
 			_doClose = !App.UserSettings.MinimizeOnExit;
 			try
 			{
-				Title += $" {Assembly.GetExecutingAssembly().GetName().Version}";
+				Title += $" {Assembly.GetExecutingAssembly().GetName().Version.Major}.{Assembly.GetExecutingAssembly().GetName().Version.Minor}";
 			}
 			catch (InvalidDeploymentException)
 			{
