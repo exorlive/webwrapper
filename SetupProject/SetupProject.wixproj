@@ -8,43 +8,26 @@
 		<SchemaVersion>2.0</SchemaVersion>
 		<OutputName>SetupProject</OutputName>
 		<OutputType>Package</OutputType>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
 		<OutputPath>bin\$(Configuration)\</OutputPath>
 		<IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+		<SuppressIces>ICE38;ICE91</SuppressIces>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
 		<DefineConstants>Debug</DefineConstants>
 		<SuppressValidation>False</SuppressValidation>
 		<SuppressIces>ICE38;ICE91</SuppressIces>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-		<OutputPath>bin\$(Configuration)\</OutputPath>
-		<IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-		<SuppressIces>ICE38;ICE91</SuppressIces>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Procapita|x86' ">
-		<OutputPath>bin\$(Configuration)\</OutputPath>
-		<IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-		<SuppressIces>ICE38;ICE91</SuppressIces>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Goteborg|x86' ">
-		<OutputPath>bin\$(Configuration)\</OutputPath>
-		<IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-		<SuppressIces>ICE38;ICE91</SuppressIces>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Uppsala|x86' ">
-		<OutputPath>bin\$(Configuration)\</OutputPath>
-		<IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-		<SuppressIces>ICE38;ICE91</SuppressIces>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug.Procapita|x86' ">
-		<OutputPath>bin\$(Configuration)\</OutputPath>
-		<IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-		<SuppressIces>ICE38;ICE91</SuppressIces>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'VGR|x86' ">
-		<OutputPath>bin\$(Configuration)\</OutputPath>
-		<IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-		<SuppressIces>ICE38;ICE91</SuppressIces>
 	</PropertyGroup>
 	<ItemGroup>
 		<Compile Include="Product.wxs" />
