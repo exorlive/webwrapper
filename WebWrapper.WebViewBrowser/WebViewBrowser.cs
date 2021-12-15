@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Threading;
 using ExorLive;
 using ExorLive.WebWrapper.Interface;
 using Microsoft.Web.WebView2.Core;
@@ -184,7 +185,11 @@ namespace WebWrapper
 			}
 			var arguments = string.Join(",", argslist);
 			var call = $"{externalPath}.{method}({arguments})";
-			webView.CoreWebView2.ExecuteScriptAsync(call);
+
+			Application.Current.Dispatcher.Invoke(async () =>
+			{
+				await webView.ExecuteScriptAsync(call);
+			}, DispatcherPriority.ContextIdle);
 		}
 
 		private void WebView_WebMessageReceived(object sender, CoreWebView2WebMessageReceivedEventArgs e)
