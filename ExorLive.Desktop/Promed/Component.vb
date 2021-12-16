@@ -4,7 +4,6 @@ Imports System.Linq
 Imports System.Xml.XPath
 
 Namespace Desktop.Promed
-	' ReSharper disable once UnusedMember.Global
 	Public Class Component
 		Inherits Desktop.Component
 		Implements IHosted

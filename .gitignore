@@ -213,7 +213,7 @@ ModelManifest.xml
 
 # My own ignores
 ExorLive.sln.GhostDoc.xml
-ExorLive.Client.WebWrapper/Resources/EoBrowserLicenseFile.txt
+EoBrowserLicenseFile.txt
 InstallShield/InstallShield/
 thumbs.db
 Webpage/webwrapper/

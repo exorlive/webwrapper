@@ -7,21 +7,22 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using ExorLive;
-using ExorLive.Client.WebWrapper;
+using ExorLive.WebWrapper.Interface;
 using Microsoft.Win32;
 
+/// <summary>
+/// Browser component that uses Internet Explorer 11.
+/// Documentation: https://msdn.microsoft.com/en-us/library/system.windows.forms.webbrowser.objectforscripting.aspx?cs-save-lang=1&cs-lang=csharp
+/// </summary>
 [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
 // Options for PermissionSet:	https://msdn.microsoft.com/en-us/library/4652tyx7.aspx	
-// Documentation:				https://msdn.microsoft.com/en-us/library/system.windows.forms.webbrowser.objectforscripting.aspx?cs-save-lang=1&cs-lang=csharp
 [ComVisible(true)]
 public class WindowsBrowser : IBrowser
 {
-	private static IBrowser _instance;
-	public static IBrowser Instance => _instance ?? (_instance = new WindowsBrowser());
 	private readonly WebBrowser _browser;
 	private IExorLiveInterface _exorlive;
 
-	private WindowsBrowser()
+	public WindowsBrowser()
 	{
 		SetIEDefaultCompatibilityMode();
 		_browser = new WebBrowser
@@ -226,8 +227,6 @@ public class WindowsBrowser : IBrowser
 	public void SelectPersonResult(string jsondata) => SelectPersonResultEvent?.Invoke(this, new JsonEventArgs(jsondata));
 	public void ExportSignonDetails(string jsondata) => ExportSignonDetailsEvent?.Invoke(this, new JsonEventArgs(jsondata));
 
-	public bool Debug => App.Debug;
-	public string ApplicationIdentifier => App.ApplicationIdentifier;
 	public UIElement GetUiElement() => _browser;
 
 	/// <summary>

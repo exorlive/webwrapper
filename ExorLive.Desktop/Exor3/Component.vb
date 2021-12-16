@@ -5,7 +5,6 @@ Imports System.Xml
 Imports System.Xml.XPath
 
 Namespace Desktop.Exor3
-	' ReSharper disable once UnusedMember.Global
 	Public Class Component
 		Inherits Desktop.Component
 		Implements IHosted
@@ -113,12 +112,10 @@ Namespace Desktop
 			End If
 			Dim filename As String
 			Try
-				' ReSharper disable UnusedVariable
 				'throw ArgumentException   - The path parameter contains invalid characters, is empty, or contains only white spaces.
 				Dim root = IO.Path.GetPathRoot(path)
 				'throw ArgumentException   - path contains one or more of the invalid characters defined in GetInvalidPathChars.
 				Dim directory = IO.Path.GetDirectoryName(path)
-				' ReSharper restore UnusedVariable
 
 				'path contains one or more of the invalid characters defined in GetInvalidPathChars
 				filename = IO.Path.GetFileName(path)

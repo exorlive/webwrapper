@@ -8,6 +8,9 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Windows.Forms;
+using ExorLive.WebWrapper.Interface;
+using WebWrapper;
+using ExorLive.Properties;
 
 namespace ExorLive.Client.WebWrapper
 {
@@ -16,7 +19,6 @@ namespace ExorLive.Client.WebWrapper
 	/// </summary>
 	public partial class MainWindow : IExorLiveHost
 	{
-		private BrowserEngines _defaultBrowserEngine;
 		private IBrowser _browser;
 		private bool _closeOnNavigate;
 		private bool _doClose;
@@ -34,7 +36,7 @@ namespace ExorLive.Client.WebWrapper
 			_doClose = !App.UserSettings.MinimizeOnExit;
 			try
 			{
-				Title += $" {Assembly.GetExecutingAssembly().GetName().Version}";
+				Title += $" {Assembly.GetExecutingAssembly().GetName().Version.Major}.{Assembly.GetExecutingAssembly().GetName().Version.Minor}";
 			}
 			catch (InvalidDeploymentException)
 			{
@@ -109,24 +111,11 @@ namespace ExorLive.Client.WebWrapper
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void BrowserGrid_Loaded(object sender, RoutedEventArgs e)
+		private async void BrowserGrid_Loaded(object sender, RoutedEventArgs e)
 		{
-			_defaultBrowserEngine = App.UserSettings.BrowserEngine;
 			try
 			{
-				_browser = (_defaultBrowserEngine == BrowserEngines.InternetExplorer) ?
-				WindowsBrowser.Instance :
-				EoBrowser.Instance;
-
-				if (_defaultBrowserEngine == BrowserEngines.InternetExplorer)
-				{
-					StatusBarEoBrowser.Visibility = Visibility.Hidden;
-				}
-				else
-				{
-					StatusBarInternetExplorer.Visibility = Visibility.Hidden;
-				}
-
+				_browser = GetBrowser(App.UserSettings.BrowserEngine);
 				_browser.Navigated += Browser_Navigated;
 				_browser.SelectedUserChanged += _browser_SelectedUserChanged;
 				_browser.IsLoaded += _browser_IsLoaded;
@@ -138,7 +127,11 @@ namespace ExorLive.Client.WebWrapper
 				_browser.ExportSignonDetailsEvent += _browser_ExportSignonDetailsEvent;
 				_browser.ZoomFactorChanged += Browser_ZoomLevelChangedEvent;
 				BrowserGrid.Children.Add(_browser.GetUiElement());
-				BrowserSetAndSaveZoomFactor(App.UserSettings.ZoomFactor);
+				if (_browser is WebViewBrowser)
+				{
+					await (_browser as WebViewBrowser).Initialize();
+				}
+				BrowserSetZoom(App.UserSettings.ZoomFactor);
 
 				if (_navigateToUri != null)
 				{
@@ -153,6 +146,35 @@ namespace ExorLive.Client.WebWrapper
 			{
 				System.Windows.MessageBox.Show(ex.Message, "Browser spawn error", MessageBoxButton.OK);
 				throw;
+			}
+		}
+
+		private IBrowser GetBrowser(BrowserEngines _defaultBrowserEngine)
+		{
+			if (_defaultBrowserEngine != BrowserEngines.InternetExplorer)
+			{
+				StatusBarInternetExplorer.Visibility = Visibility.Hidden;
+			}
+			if (
+				_defaultBrowserEngine != BrowserEngines.EoWebBrowser
+				&& _defaultBrowserEngine != BrowserEngines.WebViewBrowser
+			)
+			{
+				StatusBarEoBrowser.Visibility = Visibility.Hidden;
+			}
+
+			var distroname = Settings.Default.DistributorName;
+			var checkUpdates = App.UserSettings.CheckForUpdates;
+			switch (_defaultBrowserEngine)
+			{
+				case BrowserEngines.InternetExplorer:
+					return new WindowsBrowser();
+				case BrowserEngines.EoWebBrowser:
+					return new EoBrowser(ApplicationIdentifier, Debug, distroname, checkUpdates);
+				case BrowserEngines.WebViewBrowser:
+					return new WebViewBrowser();
+				default:
+					return new EoBrowser(ApplicationIdentifier, Debug, distroname, checkUpdates);
 			}
 		}
 
@@ -568,17 +590,17 @@ namespace ExorLive.Client.WebWrapper
 		{
 			if (_browser.SupportsZoom() == false) return;
 			var newZoomFactor = _browser.GetZoomFactor() + 0.1M;
-			BrowserSetAndSaveZoomFactor(newZoomFactor);
+			BrowserSetZoom(newZoomFactor);
 		}
 
 		private void BtnZoomOut_Click(object sender, RoutedEventArgs e)
 		{
 			if (_browser.SupportsZoom() == false) return;
 			var newZoomFactor = _browser.GetZoomFactor() - 0.1M;
-			BrowserSetAndSaveZoomFactor(newZoomFactor);
+			BrowserSetZoom(newZoomFactor);
 		}
 
-		private void BrowserSetAndSaveZoomFactor(decimal newZoomFactor)
+		private void BrowserSetZoom(decimal newZoomFactor)
 		{
 			if (_browser.SupportsZoom() == false) return;
 			if (newZoomFactor > 2M) newZoomFactor = 2M;
