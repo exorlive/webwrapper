@@ -192,7 +192,7 @@ public class EoBrowser : IBrowser
 
 	private static void Log(string format, params object[] args) => System.Diagnostics.Debug.WriteLine(format, args);
 
-	public UIElement GetUiElement() => _browser;
+	public Task<UIElement> GetUiElement() => new Task<UIElement>(() => _browser);
 
 	public void SelectPerson2(
 		string externalId,
@@ -507,6 +507,4 @@ public class EoBrowser : IBrowser
 		var call = $"{externalPath}.{method}({arguments})";
 		_browser.WebView.QueueScriptCall(call);
 	}
-
-	public Task InitializeAsync() => null;
 }

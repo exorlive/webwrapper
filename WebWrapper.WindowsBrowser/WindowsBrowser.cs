@@ -228,7 +228,7 @@ public class WindowsBrowser : IBrowser
 	public void SelectPersonResult(string jsondata) => SelectPersonResultEvent?.Invoke(this, new JsonEventArgs(jsondata));
 	public void ExportSignonDetails(string jsondata) => ExportSignonDetailsEvent?.Invoke(this, new JsonEventArgs(jsondata));
 
-	public UIElement GetUiElement() => _browser;
+	public Task<UIElement> GetUiElement() => new Task<UIElement>(() => _browser);
 
 	/// <summary>
 	/// Retrieve the browsers current zoom level.
@@ -274,5 +274,4 @@ public class WindowsBrowser : IBrowser
 	}
 
 	public bool SupportsZoom() => false;
-	public Task InitializeAsync() => null;
 }

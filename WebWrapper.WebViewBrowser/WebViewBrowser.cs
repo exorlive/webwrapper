@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,25 +14,68 @@ namespace WebWrapper
 {
 	public class WebViewBrowser : IBrowser
 	{
-		private readonly WebView2 webView;
-		public UIElement GetUiElement() => webView;
+		private WebView2 webView;
 		private Uri webView2downloadUri = new Uri("https://go.microsoft.com/fwlink/p/?LinkId=2124703");
 
-		public WebViewBrowser()
+		public async Task<UIElement> GetUiElement()
 		{
-			webView = new WebView2();
+			try
+			{
+				var version = CoreWebView2Environment.GetAvailableBrowserVersionString();
+			}
+			catch (WebView2RuntimeNotFoundException)
+			{
+				await DownloadAndInstallWebView2Runtime();
+			}
 
-			webView.WebMessageReceived += WebView_WebMessageReceived;
-			webView.ZoomFactorChanged += WebView_ZoomFactorChanged;
-			webView.NavigationStarting += WebView_NavigationStarting;
-			webView.NavigationCompleted += WebView_NavigationCompleted;
+			if (webView == null)
+			{
+				webView = new WebView2();
+				webView.WebMessageReceived += WebView_WebMessageReceived;
+				webView.ZoomFactorChanged += WebView_ZoomFactorChanged;
+				webView.NavigationStarting += WebView_NavigationStarting;
+				webView.NavigationCompleted += WebView_NavigationCompleted;
+			}
+			return webView;
 		}
 
-		public async Task InitializeAsync()
+		public async Task Initialize()
 		{
 			var cacheFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ExorLive");
 			var environment = await CoreWebView2Environment.CreateAsync(null, cacheFolderPath);
 			await webView.EnsureCoreWebView2Async(environment);
+		}
+
+		public WebViewBrowser()
+		{
+		}
+
+		public Task InitializeAsync()
+		{
+			return null;
+		}
+
+		private async Task DownloadAndInstallWebView2Runtime()
+		{
+			//var tmpfile = Path.GetTempFileName();
+			var tmpfile = Path.Combine(Path.GetTempPath(), "myfile.tmp");
+			var newname = tmpfile.Replace(".tmp", ".exe");
+			if (!File.Exists(newname))
+			{
+				var wc = new TlsWebClient();
+				await wc.DownloadFileTaskAsync(webView2downloadUri, tmpfile);
+				File.Move(tmpfile, newname);
+			}
+			var process = new Process
+			{
+				StartInfo = new ProcessStartInfo
+				{
+					FileName = newname
+				}
+			};
+			process.Start();
+			process.WaitForExit();
+			//File.Delete(newname);
 		}
 
 		public bool Navigate(Uri url)
@@ -67,7 +111,7 @@ namespace WebWrapper
 
 		private void WebView_ZoomFactorChanged(object sender, EventArgs e) => ZoomFactorChanged?.Invoke(sender, e);
 
-		private static void Log(string format, params object[] args) => System.Diagnostics.Debug.WriteLine(format, args);
+		private static void Log(string format, params object[] args) => Debug.WriteLine(format, args);
 
 		public event BeforeNavigatingEventHandler BeforeNavigating;
 		public event EventHandler Navigated;

@@ -7,8 +7,7 @@ namespace ExorLive.WebWrapper.Interface
 	public interface IBrowser
 	{
 		bool Navigate(Uri url);
-		UIElement GetUiElement();
-		Task InitializeAsync();
+		Task<UIElement> GetUiElement();
 		void SetInterface(object obj);
 		event BeforeNavigatingEventHandler BeforeNavigating;
 		event EventHandler Navigated;
