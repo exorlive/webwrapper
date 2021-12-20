@@ -23,7 +23,7 @@ namespace ExorLive.Client.WebWrapper
 		private static IHosted _hostedComponent;
 		private Dictionary<string, string> _applicationArguments;
 		private string[] _cmd;
-		private IExorLiveHost _webWrapperWindow;
+		private MainWindow _webWrapperWindow;
 		private NpServer _npServer;
 		public bool ExorLiveIsRunning;
 		public static Settings UserSettings { get; private set; }
@@ -66,7 +66,7 @@ namespace ExorLive.Client.WebWrapper
 					}
 				}
 			}
-			return "";
+			return string.Empty;
 		}
 
 		private void StoreSignonDetails(string signonuser, int userId, string username, string token)
@@ -192,7 +192,7 @@ namespace ExorLive.Client.WebWrapper
 		public void LogException(Exception ex, string message) => MessageBox.Show($"{message} {Environment.NewLine} {ex.Message}");
 		public bool SignalExternalCommandLineArgs(IList<string> args)
 		{
-			((MainWindow)_webWrapperWindow).Restore();
+			_webWrapperWindow.Restore();
 			if (_webWrapperWindow.Loaded)
 			{
 				HandleCommandLine(args.Skip(1).ToArray());
@@ -311,7 +311,7 @@ namespace ExorLive.Client.WebWrapper
 				AppendUrlArg(url, "debug=1");
 			}
 
-			((MainWindow)_webWrapperWindow).Navigate(new Uri(url));
+			_webWrapperWindow.Navigate(new Uri(url));
 			StartNamedPipeServer();
 		}
 
@@ -334,19 +334,14 @@ namespace ExorLive.Client.WebWrapper
 			return url;
 		}
 
-		private static void _webWrapperWindow_IsUnloading(object sender)
-		{
-		}
-
+		private static void _webWrapperWindow_IsUnloading(object sender) { }
 		private void _webWrapperWindow_ExportUsersDataEvent(object sender, JsonEventArgs args) => _npServer?.PublishDataOnNamedPipe(args.JsonData);
 		private void _webWrapperWindow_ExportUserListEvent(object sender, JsonEventArgs args)
 		{
 			Log("    ExportUserList: ", args.JsonData);
 			_npServer?.PublishDataOnNamedPipe(args.JsonData);
 		}
-
 		private void _webWrapperWindow_SelectPersonResultEvent(object sender, JsonEventArgs args) => _npServer?.PublishDataOnNamedPipe(args.JsonData);
-
 		private void _webWrapperWindow_ExportSignonDetailsEvent(object sender, JsonEventArgs args)
 		{
 			var jsonstring = args.JsonData;
@@ -360,10 +355,7 @@ namespace ExorLive.Client.WebWrapper
 				// Bad information in json string. Ignore.
 			}
 		}
-
-		private static void WebWrapperWindowSelectedUserChanged(object sender, SelectedUserEventArgs args)
-		{
-		}
+		private static void WebWrapperWindowSelectedUserChanged(object sender, SelectedUserEventArgs args) { }
 		private void WebWrapperWindowExorLiveIsLoaded(object sender)
 		{
 			ExorLiveIsRunning = true;
@@ -417,10 +409,9 @@ namespace ExorLive.Client.WebWrapper
 			if (_npServer == null)
 			{
 				_npServer = new NpServer();
-				_npServer.Initialize(this, (MainWindow)_webWrapperWindow);
+				_npServer.Initialize(this, _webWrapperWindow);
 				_npServer.StartNpServer();
 			}
 		}
-
 	}
 }

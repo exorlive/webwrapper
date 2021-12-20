@@ -1,23 +1,23 @@
 using System;
-using System.Windows;
-using Hardcodet.Wpf.TaskbarNotification;
 using System.Deployment.Application;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Windows;
 using System.Windows.Forms;
-using ExorLive.WebWrapper.Interface;
-using WebWrapper;
 using ExorLive.Properties;
+using ExorLive.WebWrapper.Interface;
+using Hardcodet.Wpf.TaskbarNotification;
+using WebWrapper;
 
 namespace ExorLive.Client.WebWrapper
 {
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
-	public partial class MainWindow : IExorLiveHost
+	public partial class MainWindow
 	{
 		private IBrowser _browser;
 		private bool _closeOnNavigate;
@@ -76,10 +76,7 @@ namespace ExorLive.Client.WebWrapper
 			return IsPointVisibleOnAScreen(topLeft) && IsPointVisibleOnAScreen(bottomRight);
 		}
 
-		private static bool IsPointVisibleOnAScreen(Point p)
-		{
-			return Screen.AllScreens.Any(s => p.X < s.Bounds.Right && p.X > s.Bounds.Left && p.Y > s.Bounds.Top && p.Y < s.Bounds.Bottom);
-		}
+		private static bool IsPointVisibleOnAScreen(Point p) => Screen.AllScreens.Any(s => p.X < s.Bounds.Right && p.X > s.Bounds.Left && p.Y > s.Bounds.Top && p.Y < s.Bounds.Bottom);
 
 		/// <summary>
 		/// Saves window size to user settings.
@@ -131,7 +128,7 @@ namespace ExorLive.Client.WebWrapper
 				_browser.SelectPersonResultEvent += _browser_SelectPersonResultEvent;
 				_browser.ExportSignonDetailsEvent += _browser_ExportSignonDetailsEvent;
 				_browser.ZoomFactorChanged += Browser_ZoomLevelChangedEvent;
-				
+
 				BrowserSetZoom(App.UserSettings.ZoomFactor);
 
 				if (_navigateToUri != null)
@@ -179,23 +176,11 @@ namespace ExorLive.Client.WebWrapper
 			}
 		}
 
-		private void _browser_ExportUsersDataEvent(object sender, EventArgs e)
-		{
-			ExportUsersDataEvent?.Invoke(this, (JsonEventArgs)e);
-		}
+		private void _browser_ExportUsersDataEvent(object sender, EventArgs e) => ExportUsersDataEvent?.Invoke(this, (JsonEventArgs)e);
 
-		private void _browser_ExportUserListEvent(object sender, EventArgs e)
-		{
-			ExportUserListEvent?.Invoke(this, (JsonEventArgs)e);
-		}
-		private void _browser_SelectPersonResultEvent(object sender, EventArgs e)
-		{
-			SelectPersonResultEvent?.Invoke(this, (JsonEventArgs)e);
-		}
-		private void _browser_ExportSignonDetailsEvent(object sender, EventArgs e)
-		{
-			ExportSignonDetailsEvent?.Invoke(this, (JsonEventArgs)e);
-		}
+		private void _browser_ExportUserListEvent(object sender, EventArgs e) => ExportUserListEvent?.Invoke(this, (JsonEventArgs)e);
+		private void _browser_SelectPersonResultEvent(object sender, EventArgs e) => SelectPersonResultEvent?.Invoke(this, (JsonEventArgs)e);
+		private void _browser_ExportSignonDetailsEvent(object sender, EventArgs e) => ExportSignonDetailsEvent?.Invoke(this, (JsonEventArgs)e);
 
 		private bool _beforeNavigatedSignoutHandled = false;
 		private void _browser_BeforeNavigating(object sender, Uri e)
@@ -207,22 +192,10 @@ namespace ExorLive.Client.WebWrapper
 			}
 		}
 
-		private void _browser_IsUnloading(object sender, EventArgs e)
-		{
-			NotifyIsUnloading();
-		}
-		private void _browser_IsLoaded(object sender, EventArgs e)
-		{
-			NotifyIsLoaded();
-		}
-		private void _browser_SelectedUserChanged(object sender, EventArgs e)
-		{
-			SelectedUserChanged?.Invoke(this, (SelectedUserEventArgs)e);
-		}
-		public void SetInterface(object comObject)
-		{
-			_browser.SetInterface(comObject);
-		}
+		private void _browser_IsUnloading(object sender, EventArgs e) => NotifyIsUnloading();
+		private void _browser_IsLoaded(object sender, EventArgs e) => NotifyIsLoaded();
+		private void _browser_SelectedUserChanged(object sender, EventArgs e) => SelectedUserChanged?.Invoke(this, (SelectedUserEventArgs)e);
+		public void SetInterface(object comObject) => _browser.SetInterface(comObject);
 
 		private void NotifyIsLoaded()
 		{
@@ -299,7 +272,7 @@ namespace ExorLive.Client.WebWrapper
 			if (!string.IsNullOrWhiteSpace(App.UserSettings.AdfsUrl))
 			{
 				var url = App.AppendUrlArg(App.UserSettings.AdfsUrl, "signout=1");
-				if (Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out Uri uri))
+				if (Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out var uri))
 				{
 					Navigate(uri);
 					return true;
@@ -436,10 +409,7 @@ namespace ExorLive.Client.WebWrapper
 			NotTray.ShowBalloonTip("Minimize", "Exor Live has been minimized to the tray. Use 'Sign Out' to close the application.", BalloonIcon.None);
 		}
 
-		private void MenuItem_Click_Show(object sender, RoutedEventArgs e)
-		{
-			Restore();
-		}
+		private void MenuItem_Click_Show(object sender, RoutedEventArgs e) => Restore();
 
 		/// <summary>
 		/// Signs out from ADFS, then signs out from ExorLive.
@@ -487,10 +457,7 @@ namespace ExorLive.Client.WebWrapper
 		}
 
 
-		private void NotTray_TrayMouseDoubleClick(object sender, RoutedEventArgs e)
-		{
-			Restore();
-		}
+		private void NotTray_TrayMouseDoubleClick(object sender, RoutedEventArgs e) => Restore();
 
 		/// <summary>
 		/// Checks if there are available updates for the webwrapper.
@@ -550,10 +517,7 @@ namespace ExorLive.Client.WebWrapper
 			}
 		}
 
-		private void HideNotificationButton_Click(object sender, RoutedEventArgs e)
-		{
-			UpdateNotification.IsExpanded = false;
-		}
+		private void HideNotificationButton_Click(object sender, RoutedEventArgs e) => UpdateNotification.IsExpanded = false;
 
 		private void DownloadLink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
 		{
@@ -561,24 +525,12 @@ namespace ExorLive.Client.WebWrapper
 			e.Handled = true;
 		}
 
-		public void GetWorkoutsForClient(int userId, string customId, DateTime from)
-		{
-			_browser.GetWorkoutsForClient(userId, customId, from);
-		}
-		public void GetSignonDetails()
-		{
-			_browser.GetSignonDetails();
-		}
+		public void GetWorkoutsForClient(int userId, string customId, DateTime from) => _browser.GetWorkoutsForClient(userId, customId, from);
+		public void GetSignonDetails() => _browser.GetSignonDetails();
 
-		public void GetListOfUsers(string customId)
-		{
-			_browser.GetListOfUsers(customId);
-		}
+		public void GetListOfUsers(string customId) => _browser.GetListOfUsers(customId);
 
-		public void OpenWorkout(int id)
-		{
-			_browser.OpenWorkout(id);
-		}
+		public void OpenWorkout(int id) => _browser.OpenWorkout(id);
 
 		private void Browser_ZoomLevelChangedEvent(object sender, EventArgs e)
 		{
@@ -589,28 +541,57 @@ namespace ExorLive.Client.WebWrapper
 
 		private void BtnZoomIn_Click(object sender, RoutedEventArgs e)
 		{
-			if (_browser.SupportsZoom() == false) return;
+			if (_browser.SupportsZoom() == false)
+			{
+				return;
+			}
+
 			var newZoomFactor = _browser.GetZoomFactor() + 0.1M;
 			BrowserSetZoom(newZoomFactor);
 		}
 
 		private void BtnZoomOut_Click(object sender, RoutedEventArgs e)
 		{
-			if (_browser.SupportsZoom() == false) return;
+			if (_browser.SupportsZoom() == false)
+			{
+				return;
+			}
+
 			var newZoomFactor = _browser.GetZoomFactor() - 0.1M;
 			BrowserSetZoom(newZoomFactor);
 		}
 
 		private void BrowserSetZoom(decimal newZoomFactor)
 		{
-			if (_browser.SupportsZoom() == false) return;
-			if (newZoomFactor > 2M) newZoomFactor = 2M;
-			if (newZoomFactor < 0.1M) newZoomFactor = 0.1M;
+			if (_browser.SupportsZoom() == false)
+			{
+				return;
+			}
+
+			if (newZoomFactor > 2M)
+			{
+				newZoomFactor = 2M;
+			}
+
+			if (newZoomFactor < 0.1M)
+			{
+				newZoomFactor = 0.1M;
+			}
+
 			_browser.SetZoomFactor(newZoomFactor);
 			if (App.UserSettings.ZoomFactor != newZoomFactor)
 			{
 				App.UserSettings.ZoomFactor = newZoomFactor;
 			}
 		}
+
+		public delegate void SelectedUserChangedEventHandler(object sender, SelectedUserEventArgs args);
+		public delegate void IsUnloadingEventHandler(object sender);
+		public delegate void IsLoadedEventHandler(object sender);
+		public delegate void ExportUsersDataEventHandler(object sender, JsonEventArgs args);
+		public delegate void ExportUserListEventHandler(object sender, JsonEventArgs args);
+		public delegate void SelectPersonResultEventHandler(object sender, JsonEventArgs args);
+		public delegate void ExportSignonDetailsEventHandler(object sender, JsonEventArgs args);
+		public delegate void UserHasDisconnectedEventHandler(object sender);
 	}
 }
