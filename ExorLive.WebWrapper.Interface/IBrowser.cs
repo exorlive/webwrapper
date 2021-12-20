@@ -6,8 +6,22 @@ namespace ExorLive.WebWrapper.Interface
 {
 	public interface IBrowser
 	{
-		bool Navigate(Uri url);
+		/// <summary>
+		/// Retrieve the browser UI.
+		/// </summary>
+		/// <returns></returns>
 		Task<UIElement> GetUiElement();
+		/// <summary>
+		/// Handles async initilization for some browsers.
+		/// Should run after the UI Element has been added.
+		/// </summary>
+		/// <returns></returns>
+		Task Initialize();
+		bool Navigate(Uri url);
+		/// <summary>
+		/// Used by some browsers to receive a javascript proxy object from a browser.
+		/// </summary>
+		/// <param name="obj"></param>
 		void SetInterface(object obj);
 		event BeforeNavigatingEventHandler BeforeNavigating;
 		event EventHandler Navigated;

@@ -22,6 +22,10 @@ namespace WebWrapper
 			try
 			{
 				var version = CoreWebView2Environment.GetAvailableBrowserVersionString();
+				if (version == null)
+				{
+					await DownloadAndInstallWebView2Runtime();
+				}
 			}
 			catch (WebView2RuntimeNotFoundException)
 			{
@@ -39,6 +43,13 @@ namespace WebWrapper
 			return webView;
 		}
 
+		/// <summary>
+		/// Sets up the environment for WebView2. 
+		/// We only get one chance to do this for some reason.
+		/// If we run CoreWebView2Environment.CreateAsync() a second time, it will fail with an error
+		/// telling us that the environment is already set up.
+		/// </summary>
+		/// <returns></returns>
 		public async Task Initialize()
 		{
 			var cacheFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ExorLive");
@@ -50,15 +61,13 @@ namespace WebWrapper
 		{
 		}
 
-		public Task InitializeAsync()
-		{
-			return null;
-		}
-
+		/// <summary>
+		/// Needs to run before the webview is created.
+		/// </summary>
+		/// <returns></returns>
 		private async Task DownloadAndInstallWebView2Runtime()
 		{
-			//var tmpfile = Path.GetTempFileName();
-			var tmpfile = Path.Combine(Path.GetTempPath(), "myfile.tmp");
+			var tmpfile = Path.GetTempFileName();
 			var newname = tmpfile.Replace(".tmp", ".exe");
 			if (!File.Exists(newname))
 			{
@@ -75,11 +84,15 @@ namespace WebWrapper
 			};
 			process.Start();
 			process.WaitForExit();
-			//File.Delete(newname);
+			File.Delete(newname);
 		}
 
 		public bool Navigate(Uri url)
 		{
+			if(webView == null)
+			{
+				return false;
+			}
 			webView.Source = url;
 			return true;
 		}

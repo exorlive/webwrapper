@@ -507,4 +507,6 @@ public class EoBrowser : IBrowser
 		var call = $"{externalPath}.{method}({arguments})";
 		_browser.WebView.QueueScriptCall(call);
 	}
+
+	public Task Initialize() => null;
 }

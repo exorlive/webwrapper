@@ -274,4 +274,5 @@ public class WindowsBrowser : IBrowser
 	}
 
 	public bool SupportsZoom() => false;
+	public Task Initialize() => null;
 }
