@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using EO.WebBrowser;
 using EO.Wpf;
@@ -506,4 +507,6 @@ public class EoBrowser : IBrowser
 		var call = $"{externalPath}.{method}({arguments})";
 		_browser.WebView.QueueScriptCall(call);
 	}
+
+	public Task InitializeAsync() => null;
 }

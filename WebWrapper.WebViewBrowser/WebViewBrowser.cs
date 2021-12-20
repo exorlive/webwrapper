@@ -15,6 +15,7 @@ namespace WebWrapper
 	{
 		private readonly WebView2 webView;
 		public UIElement GetUiElement() => webView;
+		private Uri webView2downloadUri = new Uri("https://go.microsoft.com/fwlink/p/?LinkId=2124703");
 
 		public WebViewBrowser()
 		{
@@ -26,7 +27,7 @@ namespace WebWrapper
 			webView.NavigationCompleted += WebView_NavigationCompleted;
 		}
 
-		public async Task Initialize()
+		public async Task InitializeAsync()
 		{
 			var cacheFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ExorLive");
 			var environment = await CoreWebView2Environment.CreateAsync(null, cacheFolderPath);

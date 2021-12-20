@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace ExorLive.WebWrapper.Interface
@@ -7,6 +8,7 @@ namespace ExorLive.WebWrapper.Interface
 	{
 		bool Navigate(Uri url);
 		UIElement GetUiElement();
+		Task InitializeAsync();
 		void SetInterface(object obj);
 		event BeforeNavigatingEventHandler BeforeNavigating;
 		event EventHandler Navigated;

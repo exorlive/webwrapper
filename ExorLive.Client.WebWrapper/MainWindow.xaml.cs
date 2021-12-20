@@ -126,11 +126,11 @@ namespace ExorLive.Client.WebWrapper
 				_browser.SelectPersonResultEvent += _browser_SelectPersonResultEvent;
 				_browser.ExportSignonDetailsEvent += _browser_ExportSignonDetailsEvent;
 				_browser.ZoomFactorChanged += Browser_ZoomLevelChangedEvent;
-				BrowserGrid.Children.Add(_browser.GetUiElement());
-				if (_browser is WebViewBrowser)
-				{
-					await (_browser as WebViewBrowser).Initialize();
-				}
+
+				var uiElement = _browser.GetUiElement();
+				BrowserGrid.Children.Add(uiElement);
+				await _browser.InitializeAsync();
+				
 				BrowserSetZoom(App.UserSettings.ZoomFactor);
 
 				if (_navigateToUri != null)
