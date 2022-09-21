@@ -18,4 +18,5 @@
 	Public Property Comment As String
 	Public Property ProfileData As String
 	Public Property Source As String
+	Public Property CaseId As String
 End Class

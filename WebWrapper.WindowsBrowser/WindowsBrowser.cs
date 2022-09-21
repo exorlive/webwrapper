@@ -140,7 +140,8 @@ public class WindowsBrowser : IBrowser
 		string country,
 		string phonehome,
 		string profiledata,
-		string source
+		string source,
+		string caseid
 	)
 	{
 		_exorlive.selectPerson3(
@@ -162,7 +163,8 @@ public class WindowsBrowser : IBrowser
 			country,
 			phonehome,
 			profiledata,
-			source
+			source,
+			caseid
 		);
 	}
 

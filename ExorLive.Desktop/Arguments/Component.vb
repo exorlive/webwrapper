@@ -58,6 +58,7 @@ Namespace Desktop.Arguments
 				If map.ContainsKey("country") Then dto.Country = map("country")
 				If map.ContainsKey("zipcode") Then dto.ZipCode = map("zipcode")
 				If map.ContainsKey("location") Then dto.Location = map("location")
+				If map.ContainsKey("caseid") Then dto.CaseId = map("caseid")
 				_host.SelectPerson(dto)
 			End If
 			If map.ContainsKey("tab") Then _host.SelectTab(map("tab"))

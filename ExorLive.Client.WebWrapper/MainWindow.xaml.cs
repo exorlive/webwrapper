@@ -338,7 +338,8 @@ namespace ExorLive.Client.WebWrapper
 					person.Country,
 					person.PhoneHome,
 					person.ProfileData,
-					person.Source
+					person.Source,
+					person.CaseId
 				);
 			}
 			Restore();

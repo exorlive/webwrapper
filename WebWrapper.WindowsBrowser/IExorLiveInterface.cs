@@ -68,7 +68,8 @@ public interface IExorLiveInterface
 		string country,
 		string phonehome,
 		string profiledata,
-		string source
+		string source,
+		string caseid
 	);
 	void selectTab(string tab);
 	void queryWorkouts(string query);

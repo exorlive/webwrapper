@@ -78,7 +78,8 @@ namespace ExorLive.WebWrapper.Interface
 			string country,
 			string phonehome,
 			string profiledata,
-			string source
+			string source,
+			string caseid
 		);
 		void SelectPersonById(int id);
 		void SelectTab(string tab);

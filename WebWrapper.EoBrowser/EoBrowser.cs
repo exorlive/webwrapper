@@ -250,7 +250,8 @@ public class EoBrowser : IBrowser
 		string country,
 		string phoneHome,
 		string profiledata,
-		string source
+		string source,
+		string caseid
 	)
 	{
 		Call("selectPerson3",
@@ -272,7 +273,8 @@ public class EoBrowser : IBrowser
 			employer,
 			comment,
 			profiledata,
-			source
+			source,
+			caseid
 		);
 	}
 

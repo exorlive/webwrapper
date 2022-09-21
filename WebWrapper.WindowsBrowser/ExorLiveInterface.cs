@@ -121,7 +121,8 @@ public class ExorLiveInterface : IExorLiveInterface
 		string country,
 		string phoneHome,
 		string profiledata,
-		string source
+		string source,
+		string caseid
 	)
 	{
 		_comType.InvokeMember("selectPerson3", BindingFlags.InvokeMethod, null, _com, new object[] {
@@ -143,7 +144,8 @@ public class ExorLiveInterface : IExorLiveInterface
 			employer,
 			comment,
 			profiledata,
-			source
+			source,
+			caseid
 		});
 	}
 
