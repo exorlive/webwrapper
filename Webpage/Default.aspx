@@ -48,6 +48,8 @@
 			<ul>
 				<li>Support for WebView2/Edge browser: "WebViewBrowser"</li>
 				<li>New parameter in commandline-argument api on user selection: "caseid=".</li>
+				<li>Updated EoBrowser.</li>
+				<li>Updated minimum requirements to .Net 4.6</li>
 			</ul>
 			<h3>2.2.9 - May 2021</h3>
 			<ul>
