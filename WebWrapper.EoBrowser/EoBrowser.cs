@@ -192,7 +192,13 @@ public class EoBrowser : IBrowser
 
 	private static void Log(string format, params object[] args) => System.Diagnostics.Debug.WriteLine(format, args);
 
-	public Task<UIElement> GetUiElement() => new Task<UIElement>(() => _browser);
+	public Task<UIElement> GetUiElement()
+	{
+		var task = Task.Run(() => {
+			return (UIElement)_browser;
+		});
+		return task;
+	}
 
 	public void SelectPerson2(
 		string externalId,
