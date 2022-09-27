@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyCompany("ExorLive")]
 [assembly: AssemblyProduct("ExorLive.Client.WebWrapper")]
-[assembly: AssemblyCopyright("Copyright © ExorLive 2021")]
+[assembly: AssemblyCopyright("Copyright © ExorLive 2022")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
