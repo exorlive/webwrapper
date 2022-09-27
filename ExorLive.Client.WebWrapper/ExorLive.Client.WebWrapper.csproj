@@ -220,7 +220,9 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
-    </PostBuildEvent>
+			call "$(SolutionDir)lib\signtool.exe" sign /a /d "$(SolutionName)" /n "ExorLive AS" /tr http://timestamp.digicert.com /td SHA256 "$(TargetPath)"
+			call "$(SolutionDir)lib\signtool.exe" sign /a /d "$(SolutionName)" /n "ExorLive AS" /tr http://timestamp.digicert.com /td SHA256 "$(ProjectDir)obj\$(ConfigurationName)\$(TargetFileName)"
+		</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.-->
