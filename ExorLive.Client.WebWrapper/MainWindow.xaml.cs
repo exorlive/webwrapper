@@ -237,7 +237,7 @@ namespace ExorLive.Client.WebWrapper
 
 		public void SelectPerson(PersonDTO person)
 		{
-			_browser.SelectPerson(person.ExternalId, person.Firstname, person.Lastname, person.Email, person.DateOfBirth);
+			_browser.SelectPerson(person.ExternalId, person.Firstname, person.Lastname, person.Email, person.DateOfBirth, person.CaseId);
 			Restore();
 		}
 
@@ -308,7 +308,8 @@ namespace ExorLive.Client.WebWrapper
 					person.Employer,
 					person.Comment,
 					person.Country,
-					person.PhoneHome
+					person.PhoneHome,
+					person.CaseId
 				);
 			}
 			Restore();

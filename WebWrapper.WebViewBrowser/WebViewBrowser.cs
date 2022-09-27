@@ -158,7 +158,7 @@ namespace WebWrapper
 			SelectedUserChanged?.Invoke(this, new SelectedUserEventArgs(person));
 		}
 
-		public void SelectPerson(string externalId, string firstname, string lastname, string email, string dateOfBirth) => Call("selectPerson", externalId, firstname, lastname, email, dateOfBirth);
+		public void SelectPerson(string externalId, string firstname, string lastname, string email, string dateOfBirth, string caseid) => Call("selectPerson", externalId, firstname, lastname, email, dateOfBirth, caseid);
 		public void SelectPersonById(int id) => Call("selectPersonById", id);
 		public void SelectTab(string tab) => Call("selectTab", tab);
 		public void QueryWorkouts(string query) => Call("queryWorkouts", query);
@@ -166,7 +166,7 @@ namespace WebWrapper
 		public void GetSignonDetails() => Call("getOsloSignonDetails");
 		public void GetListOfUsers(string customId) => Call("getListOfUsers", customId);
 		public void OpenWorkout(int id) => Call("openWorkout", id);
-		public void SelectPerson2(string externalId, string firstname, string lastname, string email, string dateOfBirth, string address, string zipCode, string location, string mobile, string phoneWork, int gender, string homepage, string employer, string comment, string country, string phonehome) => Call("selectPerson2", externalId, firstname, lastname, email, dateOfBirth, address, zipCode, location, mobile, phoneWork, gender, homepage, employer, comment);
+		public void SelectPerson2(string externalId, string firstname, string lastname, string email, string dateOfBirth, string address, string zipCode, string location, string mobile, string phoneWork, int gender, string homepage, string employer, string comment, string country, string phonehome, string caseid) => Call("selectPerson2", externalId, firstname, lastname, email, dateOfBirth, address, zipCode, location, mobile, phoneWork, gender, homepage, employer, comment, caseid);
 		public void SelectPerson3(int userId, string externalId, string firstname, string lastname, string email, string dateOfBirth, string address, string zipCode, string location, string mobile, string phoneWork, int gender, string homepage, string employer, string comment, string country, string phoneHome, string profiledata, string source, string caseid) => Call("selectPerson3", userId, externalId, firstname, lastname, email, dateOfBirth, phoneHome, phoneWork, mobile, address, zipCode, location, country, gender, homepage, employer, comment, profiledata, source, caseid);
 		public void ExportUsersData(string jsondata)
 		{

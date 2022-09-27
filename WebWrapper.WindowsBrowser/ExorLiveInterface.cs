@@ -14,14 +14,15 @@ public class ExorLiveInterface : IExorLiveInterface
 		});
 	}
 
-	public void selectPerson(string externalId, string firstname, string lastname, string email, string dateofbirth)
+	public void selectPerson(string externalId, string firstname, string lastname, string email, string dateofbirth, string caseid)
 	{
 		_comType.InvokeMember("selectPerson", BindingFlags.InvokeMethod, null, _com, new object[] {
 			externalId,
 			firstname,
 			lastname,
 			email,
-			dateofbirth
+			dateofbirth,
+			caseid
 		});
 	}
 
@@ -60,7 +61,8 @@ public class ExorLiveInterface : IExorLiveInterface
 		string employer,
 		string comment,
 		string country,
-		string phonehome
+		string phonehome,
+		string caseid
 	)
 	{
 		_comType.InvokeMember("selectPerson2", BindingFlags.InvokeMethod, null, _com, new object[] {
@@ -79,7 +81,8 @@ public class ExorLiveInterface : IExorLiveInterface
 			employer,
 			comment,
 			country,
-			phonehome
+			phonehome,
+			caseid
 		});
 	}
 

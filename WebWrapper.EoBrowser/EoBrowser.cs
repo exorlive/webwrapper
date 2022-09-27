@@ -174,7 +174,25 @@ public class EoBrowser : IBrowser
 	public void NotifyIsUnloading() => IsUnloading?.Invoke(this, new EventArgs());
 
 
-	public void SelectPerson(string externalId, string firstname, string lastname, string email, string dateOfBirth) => Call("selectPerson", externalId, firstname, lastname, email, dateOfBirth);
+	public void SelectPerson(
+		string externalId, 
+		string firstname, 
+		string lastname, 
+		string email, 
+		string dateOfBirth, 
+		string caseid
+	)
+	{
+		Call(
+			"selectPerson", 
+			externalId, 
+			firstname, 
+			lastname, 
+			email, 
+			dateOfBirth,
+			caseid
+		);
+	}
 
 	public void SelectPersonById(int id) => Call("selectPersonById", id);
 
@@ -216,7 +234,8 @@ public class EoBrowser : IBrowser
 		string employer,
 		string comment,
 		string country,
-		string phonehome
+		string phonehome,
+		string caseid
 	)
 	{
 		Call(
@@ -234,7 +253,8 @@ public class EoBrowser : IBrowser
 			gender,
 			homepage,
 			employer,
-			comment
+			comment,
+			caseid
 		);
 	}
 	public void SelectPerson3(

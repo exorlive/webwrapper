@@ -71,7 +71,8 @@ public class WindowsBrowser : IBrowser
 		string firstname,
 		string lastname,
 		string email,
-		string dateOfBirth
+		string dateOfBirth,
+		string caseid
 	)
 	{
 		_exorlive.selectPerson(
@@ -79,7 +80,9 @@ public class WindowsBrowser : IBrowser
 			firstname,
 			lastname,
 			email,
-			dateOfBirth);
+			dateOfBirth,
+			caseid
+		);
 	}
 
 	public void SelectPerson2(
@@ -98,7 +101,8 @@ public class WindowsBrowser : IBrowser
 		string employer,
 		string comment,
 		string country,
-		string phonehome
+		string phonehome,
+		string caseid
 	)
 	{
 		_exorlive.selectPerson2(
@@ -117,7 +121,8 @@ public class WindowsBrowser : IBrowser
 			employer,
 			comment,
 			country,
-			phonehome
+			phonehome,
+			caseid
 		);
 	}
 
