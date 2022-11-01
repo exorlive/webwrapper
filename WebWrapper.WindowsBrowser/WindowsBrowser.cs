@@ -175,6 +175,9 @@ public class WindowsBrowser : IBrowser
 
 	public void SelectPersonById(int id) => _exorlive.selectPersonById(id);
 
+	public void RegisterWebwrapperSignon(string signon) => _exorlive.registerWebwrapperSignon(signon);
+
+
 	public void SelectTab(string tab) => _exorlive.selectTab(tab);
 
 	public void QueryWorkouts(string query) => _exorlive.queryWorkouts(query);

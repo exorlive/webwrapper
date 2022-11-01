@@ -84,6 +84,8 @@ namespace ExorLive.WebWrapper.Interface
 			string caseid
 		);
 		void SelectPersonById(int id);
+		void RegisterWebwrapperSignon(string signon);
+
 		void SelectTab(string tab);
 		void QueryWorkouts(string query);
 		void QueryExercises(string query);

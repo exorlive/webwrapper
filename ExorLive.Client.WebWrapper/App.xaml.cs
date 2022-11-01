@@ -46,6 +46,8 @@ namespace ExorLive.Client.WebWrapper
 		public void DeletePerson(string externalId) => throw new NotImplementedException();
 		public void SelectTab(string tab) => _webWrapperWindow.SelectTab(tab);
 
+		public void RegisterWebwrapperSignon(string signon) => _webWrapperWindow.RegisterWebwrapperSignon(signon);
+
 		private string GetSignonString(string signonuser)
 		{
 			if (Settings.Default.RememberLoggedInUser)

@@ -532,6 +532,7 @@ namespace ExorLive.Client.WebWrapper
 
 		public void GetWorkoutsForClient(int userId, string customId, DateTime from) => _browser.GetWorkoutsForClient(userId, customId, from);
 		public void GetSignonDetails() => _browser.GetSignonDetails();
+		public void RegisterWebwrapperSignon(string signon) => _browser.RegisterWebwrapperSignon(signon);
 
 		public void GetListOfUsers(string customId) => _browser.GetListOfUsers(customId);
 

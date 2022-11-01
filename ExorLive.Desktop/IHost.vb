@@ -43,6 +43,14 @@
 		Sub OpenWorkout(workoutIdAsString As String)
 
 		''' <summary>
+		''' Register in ExorLive that this user has signed on using this 'signon' username.
+		''' Is used for statistics in ExorLive. 
+		''' May also be used to export training programs back to the external system on behalf of this user.
+		''' </summary>
+		''' <param name="signon"></param>
+		Sub RegisterWebwrapperSignon(signon As String)
+
+		''' <summary>
 		''' This event will be fired if the main window is being minified
 		''' </summary>
 		''' <remarks></remarks>

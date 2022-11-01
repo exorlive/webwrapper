@@ -6,6 +6,8 @@ public interface IExorLiveInterface
 
 	void selectPersonById(int id);
 
+	void registerWebwrapperSignon(string signon);
+
 	void selectPerson(
 		string externalId,
 		string firstname,

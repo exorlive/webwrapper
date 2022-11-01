@@ -65,6 +65,10 @@ Namespace Desktop.Arguments
 			If map.ContainsKey("queryworkouts") Then _host.QueryWorkouts(map("queryworkouts").Replace("""", ""))
 			If map.ContainsKey("queryexercises") Then _host.QueryExercises(map("queryexercises").Replace("""", ""))
 			If map.ContainsKey("openworkout") Then _host.OpenWorkout(map("openworkout").Replace("""", ""))
+
+			' Send a notification to ExorLive about who signed in using WebWrapper, even when signon is not specified.
+			' The 'signon' parameter it also picked up and handled in GetSignonUser().
+			If map.ContainsKey("signon") Then _host.RegisterWebwrapperSignon(map("signon")) Else _host.RegisterWebwrapperSignon("")
 		End Sub
 
 		Public Sub Initialize(host As IHost, currentDirectory As String) Implements IHosted.Initialize

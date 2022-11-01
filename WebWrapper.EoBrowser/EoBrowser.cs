@@ -195,6 +195,7 @@ public class EoBrowser : IBrowser
 	}
 
 	public void SelectPersonById(int id) => Call("selectPersonById", id);
+	public void RegisterWebwrapperSignon(string signon) => Call("registerWebwrapperSignon", signon);
 
 	public void SelectTab(string tab) => Call("selectTab", tab);
 

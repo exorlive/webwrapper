@@ -157,6 +157,11 @@ public class ExorLiveInterface : IExorLiveInterface
 		_comType.InvokeMember("selectPersonById", BindingFlags.InvokeMethod, null, _com, new object[] { id });
 	}
 
+	public void registerWebwrapperSignon(string signon)
+	{
+		_comType.InvokeMember("registerWebwrapperSignon", BindingFlags.InvokeMethod, null, _com, new object[] { signon });
+	}
+
 	public ExorLiveInterface(object com)
 	{
 		_com = com;

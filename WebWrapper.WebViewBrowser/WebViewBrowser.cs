@@ -160,6 +160,7 @@ namespace WebWrapper
 
 		public void SelectPerson(string externalId, string firstname, string lastname, string email, string dateOfBirth, string caseid) => Call("selectPerson", externalId, firstname, lastname, email, dateOfBirth, caseid);
 		public void SelectPersonById(int id) => Call("selectPersonById", id);
+		public void RegisterWebwrapperSignon(string signon) => Call("registerWebwrapperSignon", signon);
 		public void SelectTab(string tab) => Call("selectTab", tab);
 		public void QueryWorkouts(string query) => Call("queryWorkouts", query);
 		public void QueryExercises(string query) => Call("queryExercises", query);
