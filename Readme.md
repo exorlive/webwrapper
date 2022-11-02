@@ -102,8 +102,7 @@ The configuration file in the application root (usually
 
 ## TODO when publishing
 
-1. Open WebWrapper\Properties\AssemblyInfo.cs and increase assemblyversion and
-   assemblyfileversion.
+1. Open WebWrapper\Properties\AssemblyInfo.cs and increase assemblyversion.
 2. Open SetupProject\Product.wxs and increase the "Version" attribute on the
    Product tag.
 3. Open webwrapper\Webpage\Default.aspx and add info about the release to the
