@@ -29,8 +29,9 @@ Namespace Desktop.Arguments
 		Public Sub ReadCommandline(args() As String) Implements IHosted.ReadCommandline
 			Dim map As New Dictionary(Of String, String)
 			Dim atoms() As String
+			Dim splitchar As Char() = {"="c}
 			For Each arg As String In args
-				atoms = arg.Split("="c)
+				atoms = arg.Split(splitchar, 2, StringSplitOptions.None)
 				If atoms.Length = 2 Then map.Add(atoms(0), atoms(1))
 			Next
 			Dim dto As New PersonDTO
