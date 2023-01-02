@@ -174,9 +174,28 @@ public class EoBrowser : IBrowser
 	public void NotifyIsUnloading() => IsUnloading?.Invoke(this, new EventArgs());
 
 
-	public void SelectPerson(string externalId, string firstname, string lastname, string email, string dateOfBirth) => Call("selectPerson", externalId, firstname, lastname, email, dateOfBirth);
+	public void SelectPerson(
+		string externalId, 
+		string firstname, 
+		string lastname, 
+		string email, 
+		string dateOfBirth, 
+		string caseid
+	)
+	{
+		Call(
+			"selectPerson", 
+			externalId, 
+			firstname, 
+			lastname, 
+			email, 
+			dateOfBirth,
+			caseid
+		);
+	}
 
 	public void SelectPersonById(int id) => Call("selectPersonById", id);
+	public void RegisterWebwrapperSignon(string signon) => Call("registerWebwrapperSignon", signon);
 
 	public void SelectTab(string tab) => Call("selectTab", tab);
 
@@ -192,7 +211,13 @@ public class EoBrowser : IBrowser
 
 	private static void Log(string format, params object[] args) => System.Diagnostics.Debug.WriteLine(format, args);
 
-	public Task<UIElement> GetUiElement() => new Task<UIElement>(() => _browser);
+	public Task<UIElement> GetUiElement()
+	{
+		var task = Task.Run(() => {
+			return (UIElement)_browser;
+		});
+		return task;
+	}
 
 	public void SelectPerson2(
 		string externalId,
@@ -210,7 +235,8 @@ public class EoBrowser : IBrowser
 		string employer,
 		string comment,
 		string country,
-		string phonehome
+		string phonehome,
+		string caseid
 	)
 	{
 		Call(
@@ -228,7 +254,8 @@ public class EoBrowser : IBrowser
 			gender,
 			homepage,
 			employer,
-			comment
+			comment,
+			caseid
 		);
 	}
 	public void SelectPerson3(
@@ -250,7 +277,8 @@ public class EoBrowser : IBrowser
 		string country,
 		string phoneHome,
 		string profiledata,
-		string source
+		string source,
+		string caseid
 	)
 	{
 		Call("selectPerson3",
@@ -272,7 +300,8 @@ public class EoBrowser : IBrowser
 			employer,
 			comment,
 			profiledata,
-			source
+			source,
+			caseid
 		);
 	}
 

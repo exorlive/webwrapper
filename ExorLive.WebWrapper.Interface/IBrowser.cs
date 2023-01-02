@@ -39,7 +39,8 @@ namespace ExorLive.WebWrapper.Interface
 			string firstname,
 			string lastname,
 			string email,
-			string dateOfBirth
+			string dateOfBirth,
+			string caseid
 		);
 		void SelectPerson2(
 			string externalId,
@@ -57,7 +58,8 @@ namespace ExorLive.WebWrapper.Interface
 			string employer,
 			string comment,
 			string country,
-			string phonehome
+			string phonehome,
+			string caseid
 		);
 		void SelectPerson3(
 			int userId,
@@ -78,9 +80,12 @@ namespace ExorLive.WebWrapper.Interface
 			string country,
 			string phonehome,
 			string profiledata,
-			string source
+			string source,
+			string caseid
 		);
 		void SelectPersonById(int id);
+		void RegisterWebwrapperSignon(string signon);
+
 		void SelectTab(string tab);
 		void QueryWorkouts(string query);
 		void QueryExercises(string query);

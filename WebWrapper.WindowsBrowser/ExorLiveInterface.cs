@@ -14,14 +14,15 @@ public class ExorLiveInterface : IExorLiveInterface
 		});
 	}
 
-	public void selectPerson(string externalId, string firstname, string lastname, string email, string dateofbirth)
+	public void selectPerson(string externalId, string firstname, string lastname, string email, string dateofbirth, string caseid)
 	{
 		_comType.InvokeMember("selectPerson", BindingFlags.InvokeMethod, null, _com, new object[] {
 			externalId,
 			firstname,
 			lastname,
 			email,
-			dateofbirth
+			dateofbirth,
+			caseid
 		});
 	}
 
@@ -60,7 +61,8 @@ public class ExorLiveInterface : IExorLiveInterface
 		string employer,
 		string comment,
 		string country,
-		string phonehome
+		string phonehome,
+		string caseid
 	)
 	{
 		_comType.InvokeMember("selectPerson2", BindingFlags.InvokeMethod, null, _com, new object[] {
@@ -79,7 +81,8 @@ public class ExorLiveInterface : IExorLiveInterface
 			employer,
 			comment,
 			country,
-			phonehome
+			phonehome,
+			caseid
 		});
 	}
 
@@ -121,7 +124,8 @@ public class ExorLiveInterface : IExorLiveInterface
 		string country,
 		string phoneHome,
 		string profiledata,
-		string source
+		string source,
+		string caseid
 	)
 	{
 		_comType.InvokeMember("selectPerson3", BindingFlags.InvokeMethod, null, _com, new object[] {
@@ -143,13 +147,19 @@ public class ExorLiveInterface : IExorLiveInterface
 			employer,
 			comment,
 			profiledata,
-			source
+			source,
+			caseid
 		});
 	}
 
 	public void selectPersonById(int id)
 	{
 		_comType.InvokeMember("selectPersonById", BindingFlags.InvokeMethod, null, _com, new object[] { id });
+	}
+
+	public void registerWebwrapperSignon(string signon)
+	{
+		_comType.InvokeMember("registerWebwrapperSignon", BindingFlags.InvokeMethod, null, _com, new object[] { signon });
 	}
 
 	public ExorLiveInterface(object com)

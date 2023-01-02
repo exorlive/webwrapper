@@ -38,7 +38,7 @@ Namespace Desktop.Procapita
 		End Function
 
 		Public Sub ReadCommandline(args() As String) Implements IHosted.ReadCommandline
-			Dim signon As String
+			Dim signon As String = String.Empty
 			Dim arg5 As String
 			Dim arg6 As String
 			Dim dto As New PersonDTO
@@ -50,7 +50,8 @@ Namespace Desktop.Procapita
 			If args.Length > 5 Then arg6 = args(5)
 
 			' Parameter 5 and 6 are ignored.
-			' Parameter 2 (signon) is ignored here. It is picked up in GetSignonUser() instead.
+			' Parameter 2 (signon) is sent to ExorLive here. It also is picked up and handled in GetSignonUser().
+			_host.RegisterWebwrapperSignon(signon)
 
 			_host.SelectPerson(dto)
 		End Sub

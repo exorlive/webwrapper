@@ -116,7 +116,10 @@ namespace ExorLive.Client.WebWrapper
 
 				var uiElement = await _browser.GetUiElement();
 				BrowserGrid.Children.Add(uiElement);
-				await (_browser as WebViewBrowser).Initialize();
+				if(_browser is WebViewBrowser)
+				{
+					await (_browser as WebViewBrowser).Initialize();
+				}
 
 				_browser.Navigated += Browser_Navigated;
 				_browser.SelectedUserChanged += _browser_SelectedUserChanged;
@@ -234,7 +237,7 @@ namespace ExorLive.Client.WebWrapper
 
 		public void SelectPerson(PersonDTO person)
 		{
-			_browser.SelectPerson(person.ExternalId, person.Firstname, person.Lastname, person.Email, person.DateOfBirth);
+			_browser.SelectPerson(person.ExternalId, person.Firstname, person.Lastname, person.Email, person.DateOfBirth, person.CaseId);
 			Restore();
 		}
 
@@ -305,7 +308,8 @@ namespace ExorLive.Client.WebWrapper
 					person.Employer,
 					person.Comment,
 					person.Country,
-					person.PhoneHome
+					person.PhoneHome,
+					person.CaseId
 				);
 			}
 			Restore();
@@ -338,7 +342,8 @@ namespace ExorLive.Client.WebWrapper
 					person.Country,
 					person.PhoneHome,
 					person.ProfileData,
-					person.Source
+					person.Source,
+					person.CaseId
 				);
 			}
 			Restore();
@@ -527,6 +532,7 @@ namespace ExorLive.Client.WebWrapper
 
 		public void GetWorkoutsForClient(int userId, string customId, DateTime from) => _browser.GetWorkoutsForClient(userId, customId, from);
 		public void GetSignonDetails() => _browser.GetSignonDetails();
+		public void RegisterWebwrapperSignon(string signon) => _browser.RegisterWebwrapperSignon(signon);
 
 		public void GetListOfUsers(string customId) => _browser.GetListOfUsers(customId);
 

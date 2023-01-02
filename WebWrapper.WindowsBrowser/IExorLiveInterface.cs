@@ -6,12 +6,16 @@ public interface IExorLiveInterface
 
 	void selectPersonById(int id);
 
+	void registerWebwrapperSignon(string signon);
+
 	void selectPerson(
 		string externalId,
 		string firstname,
 		string lastname,
 		string email,
-		string dateofbirth);
+		string dateofbirth,
+		string caseid
+	);
 	/// <summary>
 	/// Select / Create / Update contact in ExorLive
 	/// </summary>
@@ -47,7 +51,8 @@ public interface IExorLiveInterface
 		string employer,
 		string comment,
 		string country,
-		string phonehome
+		string phonehome,
+		string caseid
 	);
 	void selectPerson3(
 		int userId,
@@ -68,7 +73,8 @@ public interface IExorLiveInterface
 		string country,
 		string phonehome,
 		string profiledata,
-		string source
+		string source,
+		string caseid
 	);
 	void selectTab(string tab);
 	void queryWorkouts(string query);

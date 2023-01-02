@@ -29,8 +29,9 @@ Namespace Desktop.Arguments
 		Public Sub ReadCommandline(args() As String) Implements IHosted.ReadCommandline
 			Dim map As New Dictionary(Of String, String)
 			Dim atoms() As String
+			Dim splitchar As Char() = {"="c}
 			For Each arg As String In args
-				atoms = arg.Split("="c)
+				atoms = arg.Split(splitchar, 2, StringSplitOptions.None)
 				If atoms.Length = 2 Then map.Add(atoms(0), atoms(1))
 			Next
 			Dim dto As New PersonDTO
@@ -58,12 +59,17 @@ Namespace Desktop.Arguments
 				If map.ContainsKey("country") Then dto.Country = map("country")
 				If map.ContainsKey("zipcode") Then dto.ZipCode = map("zipcode")
 				If map.ContainsKey("location") Then dto.Location = map("location")
+				If map.ContainsKey("caseid") Then dto.CaseId = map("caseid")
 				_host.SelectPerson(dto)
 			End If
 			If map.ContainsKey("tab") Then _host.SelectTab(map("tab"))
 			If map.ContainsKey("queryworkouts") Then _host.QueryWorkouts(map("queryworkouts").Replace("""", ""))
 			If map.ContainsKey("queryexercises") Then _host.QueryExercises(map("queryexercises").Replace("""", ""))
 			If map.ContainsKey("openworkout") Then _host.OpenWorkout(map("openworkout").Replace("""", ""))
+
+			' Send a notification to ExorLive about who signed in using WebWrapper, even when signon is not specified.
+			' The 'signon' parameter it also picked up and handled in GetSignonUser().
+			If map.ContainsKey("signon") Then _host.RegisterWebwrapperSignon(map("signon")) Else _host.RegisterWebwrapperSignon("")
 		End Sub
 
 		Public Sub Initialize(host As IHost, currentDirectory As String) Implements IHosted.Initialize

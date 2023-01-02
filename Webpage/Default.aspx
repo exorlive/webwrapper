@@ -44,6 +44,17 @@
 			</ul>
 
 			<h2>Changelog</h2>
+			<h3>2.5 - November 2022</h3>
+			<ul>
+				<li>Add a background call to ExorLive with the signon-parameter.</li>
+			</ul>
+			<h3>2.4 - September 2022</h3>
+			<ul>
+				<li>Support for WebView2/Edge browser: "WebViewBrowser"</li>
+				<li>New parameter in commandline-argument api on user selection: "caseid=".</li>
+				<li>Updated EoBrowser.</li>
+				<li>Updated minimum requirements to .Net 4.6</li>
+			</ul>
 			<h3>2.2.9 - May 2021</h3>
 			<ul>
 				<li>Fixed a bug with the API integration.</li>
