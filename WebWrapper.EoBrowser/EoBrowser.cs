@@ -340,10 +340,10 @@ public class EoBrowser : IBrowser
 	private void WebView_LaunchUrl(object sender, LaunchUrlEventArgs e)
 	{
 		Log("WebView_LaunchUrl");
-		// Support OS handlers for some protocols.
+		// Support OS handlers for non-http uri schemes/protocols.
 		if (
-			e.Url.StartsWith("mailto://") ||
-			e.Url.StartsWith("netid://")
+			!e.Url.StartsWith("https://") &&
+			!e.Url.StartsWith("http://")
 		)
 		{
 			e.UseOSHandler = true;
