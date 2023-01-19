@@ -113,7 +113,7 @@ The configuration file in the application root (usually
 
 This will build the SetupProject, ExorLive.Client.WebWrapper, and
 ExorLive.Desktop. It will build it 3 times, each with a different configuration:
-Release, Procapita, Goteborg and VGR.
+Release, Procapita, Goteborg, Boras and VGR.
 
 ## Single Sign On
 

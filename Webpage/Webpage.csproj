@@ -46,6 +46,8 @@
     <Content Include="Default.css" />
     <Content Include="Goteborg\Default.aspx" />
     <Content Include="Goteborg\msi\version.txt" />
+    <Content Include="Boras\Default.aspx" />
+    <Content Include="Boras\msi\version.txt" />
     <Content Include="images\exorlive_logo.svg" />
     <Content Include="images\message.svg" />
     <Content Include="msi\version.txt" />
@@ -70,6 +72,13 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Goteborg\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Boras\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Boras\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Procapita\Default.aspx.cs">
@@ -167,41 +176,48 @@
     <MSBuild Projects="$(SolutionDir)ExorLive.Desktop\ExorLive.Desktop.vbproj" Properties="Configuration=VGR;Platform=Any CPU;OutputPath=bin\VGR" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)ExorLive.Desktop\ExorLive.Desktop.vbproj" Properties="Configuration=Procapita;Platform=Any CPU;OutputPath=bin\Procapita" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)ExorLive.Desktop\ExorLive.Desktop.vbproj" Properties="Configuration=Goteborg;Platform=Any CPU;OutputPath=bin\Goteborg" Targets="Build" StopOnFirstFailure="true" />
+    <MSBuild Projects="$(SolutionDir)ExorLive.Desktop\ExorLive.Desktop.vbproj" Properties="Configuration=Boras;Platform=Any CPU;OutputPath=bin\Boras" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)ExorLive.Desktop\ExorLive.Desktop.vbproj" Properties="Configuration=Uppsala;Platform=Any CPU;OutputPath=bin\Uppsala" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)ExorLive.WebWrapper.Interface\ExorLive.WebWrapper.Interface.csproj" Properties="Configuration=Release;Platform=Any CPU;OutputPath=bin\Release" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)ExorLive.WebWrapper.Interface\ExorLive.WebWrapper.Interface.csproj" Properties="Configuration=VGR;Platform=Any CPU;OutputPath=bin\VGR" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)ExorLive.WebWrapper.Interface\ExorLive.WebWrapper.Interface.csproj" Properties="Configuration=Procapita;Platform=Any CPU;OutputPath=bin\Procapita" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)ExorLive.WebWrapper.Interface\ExorLive.WebWrapper.Interface.csproj" Properties="Configuration=Goteborg;Platform=Any CPU;OutputPath=bin\Goteborg" Targets="Build" StopOnFirstFailure="true" />
+    <MSBuild Projects="$(SolutionDir)ExorLive.WebWrapper.Interface\ExorLive.WebWrapper.Interface.csproj" Properties="Configuration=Boras;Platform=Any CPU;OutputPath=bin\Boras" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)ExorLive.WebWrapper.Interface\ExorLive.WebWrapper.Interface.csproj" Properties="Configuration=Uppsala;Platform=Any CPU;OutputPath=bin\Uppsala" Targets="Build" StopOnFirstFailure="true" />
 		
     <MSBuild Projects="$(SolutionDir)WebWrapper.EoBrowser\WebWrapper.EoBrowser.csproj" Properties="Configuration=Release;Platform=Any CPU;OutputPath=bin\Release" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)WebWrapper.EoBrowser\WebWrapper.EoBrowser.csproj" Properties="Configuration=VGR;Platform=Any CPU;OutputPath=bin\VGR" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)WebWrapper.EoBrowser\WebWrapper.EoBrowser.csproj" Properties="Configuration=Procapita;Platform=Any CPU;OutputPath=bin\Procapita" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)WebWrapper.EoBrowser\WebWrapper.EoBrowser.csproj" Properties="Configuration=Goteborg;Platform=Any CPU;OutputPath=bin\Goteborg" Targets="Build" StopOnFirstFailure="true" />
+    <MSBuild Projects="$(SolutionDir)WebWrapper.EoBrowser\WebWrapper.EoBrowser.csproj" Properties="Configuration=Boras;Platform=Any CPU;OutputPath=bin\Boras" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)WebWrapper.EoBrowser\WebWrapper.EoBrowser.csproj" Properties="Configuration=Uppsala;Platform=Any CPU;OutputPath=bin\Uppsala" Targets="Build" StopOnFirstFailure="true" />
 		
     <MSBuild Projects="$(SolutionDir)WebWrapper.WebViewBrowser\WebWrapper.WebViewBrowser.csproj" Properties="Configuration=Release;Platform=Any CPU;OutputPath=bin\Release" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)WebWrapper.WebViewBrowser\WebWrapper.WebViewBrowser.csproj" Properties="Configuration=VGR;Platform=Any CPU;OutputPath=bin\VGR" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)WebWrapper.WebViewBrowser\WebWrapper.WebViewBrowser.csproj" Properties="Configuration=Procapita;Platform=Any CPU;OutputPath=bin\Procapita" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)WebWrapper.WebViewBrowser\WebWrapper.WebViewBrowser.csproj" Properties="Configuration=Goteborg;Platform=Any CPU;OutputPath=bin\Goteborg" Targets="Build" StopOnFirstFailure="true" />
+    <MSBuild Projects="$(SolutionDir)WebWrapper.WebViewBrowser\WebWrapper.WebViewBrowser.csproj" Properties="Configuration=Boras;Platform=Any CPU;OutputPath=bin\Boras" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)WebWrapper.WebViewBrowser\WebWrapper.WebViewBrowser.csproj" Properties="Configuration=Uppsala;Platform=Any CPU;OutputPath=bin\Uppsala" Targets="Build" StopOnFirstFailure="true" />
 		
     <MSBuild Projects="$(SolutionDir)WebWrapper.WindowsBrowser\WebWrapper.WindowsBrowser.csproj" Properties="Configuration=Release;Platform=Any CPU;OutputPath=bin\Release" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)WebWrapper.WindowsBrowser\WebWrapper.WindowsBrowser.csproj" Properties="Configuration=VGR;Platform=Any CPU;OutputPath=bin\VGR" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)WebWrapper.WindowsBrowser\WebWrapper.WindowsBrowser.csproj" Properties="Configuration=Procapita;Platform=Any CPU;OutputPath=bin\Procapita" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)WebWrapper.WindowsBrowser\WebWrapper.WindowsBrowser.csproj" Properties="Configuration=Goteborg;Platform=Any CPU;OutputPath=bin\Goteborg" Targets="Build" StopOnFirstFailure="true" />
+    <MSBuild Projects="$(SolutionDir)WebWrapper.WindowsBrowser\WebWrapper.WindowsBrowser.csproj" Properties="Configuration=Boras;Platform=Any CPU;OutputPath=bin\Boras" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)WebWrapper.WindowsBrowser\WebWrapper.WindowsBrowser.csproj" Properties="Configuration=Uppsala;Platform=Any CPU;OutputPath=bin\Uppsala" Targets="Build" StopOnFirstFailure="true" />
     <!-- <MSBuild Projects="$(SolutionDir)ExorLive.Client.WebWrapper.sln" Properties="Configuration=Release" Targets="Build" /> -->
     <MSBuild Projects="$(SolutionDir)ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper.csproj" Properties="Configuration=Release;Platform=Any CPU;OutputPath=bin\Release" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper.csproj" Properties="Configuration=VGR;Platform=Any CPU;OutputPath=bin\VGR" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper.csproj" Properties="Configuration=Procapita;Platform=Any CPU;OutputPath=bin\Procapita" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper.csproj" Properties="Configuration=Goteborg;Platform=Any CPU;OutputPath=bin\Goteborg" Targets="Build" StopOnFirstFailure="true" />
+    <MSBuild Projects="$(SolutionDir)ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper.csproj" Properties="Configuration=Boras;Platform=Any CPU;OutputPath=bin\Boras" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)ExorLive.Client.WebWrapper\ExorLive.Client.WebWrapper.csproj" Properties="Configuration=Uppsala;Platform=Any CPU;OutputPath=bin\Uppsala" Targets="Build" StopOnFirstFailure="true" />
 		
     <MSBuild Projects="$(SolutionDir)SetupProject\SetupProject.wixproj" Properties="Configuration=Release;Platform=x86;OutputPath=bin\Release" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)SetupProject\SetupProject.wixproj" Properties="Configuration=VGR;Platform=x86;OutputPath=bin\VGR" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)SetupProject\SetupProject.wixproj" Properties="Configuration=Procapita;Platform=x86;OutputPath=bin\Procapita" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)SetupProject\SetupProject.wixproj" Properties="Configuration=Goteborg;Platform=x86;OutputPath=bin\Goteborg" Targets="Build" StopOnFirstFailure="true" />
+    <MSBuild Projects="$(SolutionDir)SetupProject\SetupProject.wixproj" Properties="Configuration=Boras;Platform=x86;OutputPath=bin\Boras" Targets="Build" StopOnFirstFailure="true" />
     <MSBuild Projects="$(SolutionDir)SetupProject\SetupProject.wixproj" Properties="Configuration=Uppsala;Platform=x86;OutputPath=bin\Uppsala" Targets="Build" StopOnFirstFailure="true" />
   </Target>
   <Target Name="AfterBuild" DependsOnTargets="BuildWebwrapper">
@@ -211,11 +227,13 @@
     <Copy SourceFiles="$(SolutionDir)SetupProject\bin\Release\SetupProject.msi" DestinationFiles="$(ProjectDir)msi\ExorLiveWebwrapper.%(GetVersionAssemblyInfo.Version).msi" />
     <Copy SourceFiles="$(SolutionDir)SetupProject\bin\Procapita\SetupProject.msi" DestinationFiles="$(ProjectDir)Procapita\msi\ExorLiveWebwrapper.%(GetVersionAssemblyInfo.Version).msi" />
     <Copy SourceFiles="$(SolutionDir)SetupProject\bin\Goteborg\SetupProject.msi" DestinationFiles="$(ProjectDir)Goteborg\msi\ExorLiveWebwrapper.%(GetVersionAssemblyInfo.Version).msi" />
+    <Copy SourceFiles="$(SolutionDir)SetupProject\bin\Boras\SetupProject.msi" DestinationFiles="$(ProjectDir)Boras\msi\ExorLiveWebwrapper.%(GetVersionAssemblyInfo.Version).msi" />
     <Copy SourceFiles="$(SolutionDir)SetupProject\bin\Uppsala\SetupProject.msi" DestinationFiles="$(ProjectDir)Uppsala\msi\ExorLiveWebwrapper.%(GetVersionAssemblyInfo.Version).msi" />
     <Copy SourceFiles="$(SolutionDir)SetupProject\bin\VGR\SetupProject.msi" DestinationFiles="$(ProjectDir)VGR\msi\ExorLiveWebwrapper.%(GetVersionAssemblyInfo.Version).msi" />
     <WriteLinesToFile File="$(ProjectDir)msi\version.txt" Lines="%(GetVersionAssemblyInfo.Version)" Overwrite="true" Encoding="UTF-8" />
     <WriteLinesToFile File="$(ProjectDir)Procapita\msi\version.txt" Lines="%(GetVersionAssemblyInfo.Version)" Overwrite="true" Encoding="UTF-8" />
     <WriteLinesToFile File="$(ProjectDir)Goteborg\msi\version.txt" Lines="%(GetVersionAssemblyInfo.Version)" Overwrite="true" Encoding="UTF-8" />
+    <WriteLinesToFile File="$(ProjectDir)Boras\msi\version.txt" Lines="%(GetVersionAssemblyInfo.Version)" Overwrite="true" Encoding="UTF-8" />
     <WriteLinesToFile File="$(ProjectDir)Uppsala\msi\version.txt" Lines="%(GetVersionAssemblyInfo.Version)" Overwrite="true" Encoding="UTF-8" />
     <WriteLinesToFile File="$(ProjectDir)VGR\msi\version.txt" Lines="%(GetVersionAssemblyInfo.Version)" Overwrite="true" Encoding="UTF-8" />
   </Target>
