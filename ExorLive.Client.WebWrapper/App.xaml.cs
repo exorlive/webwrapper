@@ -165,7 +165,8 @@ namespace ExorLive.Client.WebWrapper
 		}
 		public void Log(string format, params object[] args)
 		{
-			var path = Directory.GetCurrentDirectory();
+			var fullPath = Assembly.GetExecutingAssembly().Location;
+			var path = Path.GetDirectoryName(fullPath);
 			var filename = Path.Combine(path, "ExorLive.Client.Webwrapper.log");
 			try
 			{
