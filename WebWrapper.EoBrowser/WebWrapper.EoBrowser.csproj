@@ -37,17 +37,17 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EO.Base, Version=22.2.49.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
-      <HintPath>..\packages\EO.WebBrowser.22.2.49\lib\EO.Base.dll</HintPath>
+    <Reference Include="EO.Base, Version=23.1.25.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
+      <HintPath>..\packages\EO.WebBrowser.23.1.25\lib\EO.Base.dll</HintPath>
     </Reference>
-    <Reference Include="EO.WebBrowser, Version=22.2.49.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
-      <HintPath>..\packages\EO.WebBrowser.22.2.49\lib\EO.WebBrowser.dll</HintPath>
+    <Reference Include="EO.WebBrowser, Version=23.1.25.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
+      <HintPath>..\packages\EO.WebBrowser.23.1.25\lib\EO.WebBrowser.dll</HintPath>
     </Reference>
-    <Reference Include="EO.WebBrowser.Wpf, Version=22.2.49.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
-      <HintPath>..\packages\EO.WebBrowser.Wpf.22.2.49\lib\EO.WebBrowser.Wpf.dll</HintPath>
+    <Reference Include="EO.WebBrowser.Wpf, Version=23.1.25.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
+      <HintPath>..\packages\EO.WebBrowser.Wpf.23.1.25\lib\EO.WebBrowser.Wpf.dll</HintPath>
     </Reference>
-    <Reference Include="EO.WebEngine, Version=22.2.49.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
-      <HintPath>..\packages\EO.WebBrowser.22.2.49\lib\EO.WebEngine.dll</HintPath>
+    <Reference Include="EO.WebEngine, Version=23.1.25.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
+      <HintPath>..\packages\EO.WebBrowser.23.1.25\lib\EO.WebEngine.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
