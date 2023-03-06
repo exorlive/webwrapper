@@ -229,7 +229,7 @@ namespace ExorLive.Client.WebWrapper
 		/// Handles the Startup event of the Application control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.Windows.StartupEventArgs" /> instance containing the event data.</param>
+		/// <param name="e">The <see cref="StartupEventArgs" /> instance containing the event data.</param>
 		private void Application_Startup(object sender, StartupEventArgs e)
 		{
 			var url = Settings.Default.AppUrl;
@@ -252,6 +252,10 @@ namespace ExorLive.Client.WebWrapper
 			if (_applicationArguments.ContainsKey("culture"))
 			{
 				url = AppendUrlArg(url, $"culture={_applicationArguments["culture"]}");
+			}
+			else if (!string.IsNullOrWhiteSpace(Settings.Default.Culture))
+			{
+				url = AppendUrlArg(url, $"culture={Settings.Default.Culture}");
 			}
 			var hasAutoSignonUser = false;
 			if (UserSettings.SignonWithWindowsUser)

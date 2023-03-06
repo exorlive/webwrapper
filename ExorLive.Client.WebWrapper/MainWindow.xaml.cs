@@ -116,7 +116,7 @@ namespace ExorLive.Client.WebWrapper
 
 				var uiElement = await _browser.GetUiElement();
 				BrowserGrid.Children.Add(uiElement);
-				if(_browser is WebViewBrowser)
+				if (_browser is WebViewBrowser)
 				{
 					await (_browser as WebViewBrowser).Initialize();
 				}
