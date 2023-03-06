@@ -1,5 +1,5 @@
 ﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" RequiredVersion="3.11.0.0" xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
-	<Package Language="1033" Manufacturer="ExorLive" Name="ExorLive Webwrapper" UpgradeCode="{B8A04A68-0E41-448A-BAC2-D31A56D9251D}" Version="$(fun.AutoVersion(2.5))" Scope="perUser">
+	<Package Language="1033" Manufacturer="ExorLive" Name="ExorLive Webwrapper" UpgradeCode="{B8A04A68-0E41-448A-BAC2-D31A56D9251D}" Version="$(fun.AutoVersion(2.6))" Scope="perUser">
 		<SummaryInformation Description="ExorLive Webwrapper" Keywords="Installer,MSI" Manufacturer="ExorLive" />
 		<MediaTemplate EmbedCab="yes" />
 		<ui:WixUI Id="WixUI_Minimal" />

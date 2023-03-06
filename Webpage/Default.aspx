@@ -44,6 +44,10 @@
 			</ul>
 
 			<h2>Changelog</h2>
+			<h3>2.6 - March 2023</h3>
+			<ul>
+				<li>Add a config option for default language.</li>
+			</ul>
 			<h3>2.5 - November 2022</h3>
 			<ul>
 				<li>Add a background call to ExorLive with the signon-parameter.</li>
