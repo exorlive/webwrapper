@@ -1,115 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" RequiredVersion="3.11.0.0">
-	<Product Id="*" Language="1033" Manufacturer="ExorLive" Name="ExorLive Webwrapper" UpgradeCode="{B8A04A68-0E41-448A-BAC2-D31A56D9251D}" Version="$(fun.AutoVersion(2.5))">
-		<Package InstallScope="perUser" InstallPrivileges="limited" Comments="(c) 2023 ExorLive AS" Description="ExorLive Webwrapper" InstallerVersion="500" Keywords="Installer,MSI" Languages="1033" Manufacturer="ExorLive" Platform="x86" Compressed="yes" />
-		<MediaTemplate EmbedCab="yes"/>
-		<UIRef Id="WixUI_Minimal" />
-		<WixVariable Id="WixUIBannerBmp" Value="Images\install.png"/>
-		<WixVariable Id="WixUIDialogBmp" Value="Images\install-big.png"/>
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" RequiredVersion="3.11.0.0" xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+	<Package Language="1033" Manufacturer="ExorLive" Name="ExorLive Webwrapper" UpgradeCode="{B8A04A68-0E41-448A-BAC2-D31A56D9251D}" Version="$(fun.AutoVersion(2.5))" Scope="perUser">
+		<SummaryInformation Description="ExorLive Webwrapper" Keywords="Installer,MSI" Manufacturer="ExorLive" />
+		<MediaTemplate EmbedCab="yes" />
+		<ui:WixUI Id="WixUI_Minimal" />
+		<WixVariable Id="WixUIBannerBmp" Value="Images\install.png" />
+		<WixVariable Id="WixUIDialogBmp" Value="Images\install-big.png" />
 		<WixVariable Id="WixUILicenseRtf" Value="Text\eula.rtf" />
-		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramMenuFolder">
-				<Directory Id="ProgramMenuDir" Name="ExorLive">
-				</Directory>
-			</Directory>
-			<Directory Id ="DesktopFolder" />
-			<Directory Id="AppDataFolder" SourceName="Application Data">
-				<Directory Id="Path_ManufacturerFolder" Name="ExorLive">
-					<Directory Id="INSTALLDIR" Name="ExorLive Webwrapper">
-						<Component Id ="Comp_RegistryPath" Guid="{600a177e-2721-4e0e-8aa4-85561d294333}">
-							<!-- Old version registry path that should point to the new install location -->
-							<RegistryValue Root="HKCU" Key="Software\Exor Live\Exor Live WebWrapper" Name="path" Type="string" Value="[INSTALLDIR]" KeyPath="yes" />
-							<RegistryValue Root="HKCU" Key="Software\Exor Live\Exor Live WebWrapper" Name="version" Type="string" Value="[ProductVersion]" />
-						</Component>
-						<Component Id ="Comp_ProductFolder" Guid="{f11e4c93-9c6a-4058-9e5a-6556424c76f2}" >
-							<RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="path" Type="string" Value="[INSTALLDIR]" KeyPath="yes" />
-							<RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="version" Type="string" Value="[ProductVersion]" />
-							<RemoveFolder Id="Remove_INSTALLDIR" On="uninstall" />
-						</Component>
-						<Component Id="Comp_EOBasedll" Guid="{3B19F727-7266-DB92-73AD-2C39A7F34663}">
-							<File Id="File_EO.Base.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)EO.Base.dll" />
-						</Component>
-						<Component Id="Comp_EOWebBrowserdll" Guid="{75C53201-1C40-DD75-123A-E275CBF104F5}">
-							<File Id="File_EO.WebBrowser.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)EO.WebBrowser.dll" />
-						</Component>
-						<Component Id="Comp_EOWebBrowserWpfdll" Guid="{B9D3BCF1-1EC3-38A7-EC63-5DC59A5F6123}">
-							<File Id="File_EO.WebBrowser.Wpf.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)EO.WebBrowser.Wpf.dll" />
-						</Component>
-						<Component Id="Comp_EOWebEnginedll" Guid="{4739F003-3E99-F50A-5CEB-88907F1000EC}">
-							<File Id="File_EO.WebEngine.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)EO.WebEngine.dll" />
-						</Component>
-						<Component Id="Comp_EoBrowserdll" Guid="{F46192F5-86D2-47CC-A057-4BE4DB29C272}">
-							<File Id="File_EoBrowser.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)EoBrowser.dll" />
-						</Component>
-						<Component Id="Comp_ExorLiveDesktopdll" Guid="{7F2C6FD3-3EB6-60E1-CB27-E3BE0294D0A7}">
-							<File Id="File_ExorLive.Desktop.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)ExorLive.Desktop.dll" />
-						</Component>
-						<Component Id="Comp_ExorLiveWebWrapperInterfacedll" Guid="{D0561D8F-AE5E-417B-AC09-B1A14E7C3A84}">
-							<File Id="File_ExorLive.WebWrapper.Interface.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)ExorLive.WebWrapper.Interface.dll" />
-						</Component>
-						<Component Id="Comp_HardcodetWpfTaskbarNotificationdll" Guid="{AC1CFE88-8AFB-6664-58B7-900CC9E20DF4}">
-							<File Id="File_Hardcodet.Wpf.TaskbarNotification.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)Hardcodet.Wpf.TaskbarNotification.dll" />
-						</Component>
-						<Component Id="Comp_MicrosoftWebWebView2Coredll" Guid="{204F0604-C46D-4BFE-A390-EE5AB8732351}">
-							<File Id="File_Microsoft.Web.WebView2.Core.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)Microsoft.Web.WebView2.Core.dll" />
-						</Component>
-						<Component Id="Comp_MicrosoftWebWebView2Wpfdll" Guid="{93F85234-70F7-4052-94C0-0EB19C8144C9}">
-							<File Id="File_Microsoft.Web.WebView2.Wpf.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)Microsoft.Web.WebView2.Wpf.dll" />
-						</Component>
-						<Component Id="Comp_NewtonsoftJsondll" Guid="{6434B9B6-61CA-51A5-E75F-CF7F4BA0DC88}">
-							<File Id="File_Newtonsoft.Json.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)Newtonsoft.Json.dll" />
-						</Component>
-						<Component Id="Comp_WebViewBrowserdll" Guid="{4EFDBC82-D807-45CE-8254-5A9BADC2650F}">
-							<File Id="File_WebViewBrowser.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)WebViewBrowser.dll" />
-						</Component>
-						<Component Id="Comp_WindowsBrowserdll" Guid="{CB7D5F0D-9778-47C1-B60D-69040DE04BC5}">
-							<File Id="File_WindowsBrowser.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)WindowsBrowser.dll" />
-						</Component>
-						<Directory Id="Dir_runtimes" Name="runtimes">
-							<Directory Id="Dir_winarm64" Name="win-arm64">
-								<Directory Id="Dir_winarm64native" Name="native">
-									<Component Id="Comp_runtimeswinarm64nativeWebView2Loaderdll" Guid="{63739E5D-AE4F-495B-A74D-8BA26345BF88}">
-										<File Id="File_runtimeswinarm64nativeWebView2Loaderdll.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)runtimes\win-arm64\native\WebView2Loader.dll" />
-										<RemoveFolder Directory="Dir_winarm64native" Id="RemoveDir5" On="uninstall" />
-										<RemoveFolder Directory="Dir_winarm64" Id="RemoveDir6" On="uninstall" />
-									</Component>
-								</Directory>
-							</Directory>
-							<Directory Id="Dir_winx64" Name="win-x64">
-								<Directory Id="Dir_winx64native" Name="native">
-									<Component Id="Comp_runtimeswinx64nativeWebView2Loaderdll" Guid="{9CDE0E86-A13F-41B8-ABC9-2DB6B64ED2D5}">
-										<File Id="File_runtimeswinx64nativeWebView2Loader.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)runtimes\win-x64\native\WebView2Loader.dll" />
-										<RemoveFolder Directory="Dir_winx64native" Id="RemoveDir3" On="uninstall" />
-										<RemoveFolder Directory="Dir_winx64" Id="RemoveDir4" On="uninstall" />
-									</Component>
-								</Directory>
-							</Directory>
-							<Directory Id="Dir_winx86" Name="win-x86">
-								<Directory Id="Dir_winx86native" Name="native">
-									<Component Id="Comp_runtimeswinx86nativeWebView2Loaderdll" Guid="{29BCA721-253A-4D09-BC19-03B84EFA1CE5}">
-										<File Id="File_.runtimeswinx86nativeWebView2Loaderdll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)runtimes\win-x86\native\WebView2Loader.dll" />
-										<RemoveFolder Directory="Dir_winx86native" Id="RemoveDir1" On="uninstall" />
-										<RemoveFolder Directory="Dir_winx86" Id="RemoveDir2" On="uninstall" />
-									</Component>
-								</Directory>
-							</Directory>
-						</Directory>
-						<Component Id="Comp_AppConfig" Guid="{c4662d05-e830-45f2-a4b5-281b700fc409}">
-							<File Id="File_AppConfig" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)ExorLive.Client.WebWrapper.exe.config" />
-						</Component>
-						<Component Id="Comp_ExorLiveClientWebWrapperexe" Guid="{a4c04c3f-c2cd-4aaf-b61c-28f659cd0738}">
-							<File Id="File_ExorLive.Client.WebWrapper.exe" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)ExorLive.Client.WebWrapper.exe" />
-							<Shortcut Id="Cmp_ProgramShortcut_Primary" Directory="ProgramMenuDir" Name="ExorLive" Icon="exorlive.ico" Advertise="yes" />
-							<Shortcut Id="Cmp_DesktopShortcut_Primary" Directory="DesktopFolder" Name="ExorLive" Icon="exorlive.ico" Advertise="yes" />
-							<RemoveFolder Directory="ProgramMenuDir" Id="RemoveProgramMenuDir" On="uninstall" />
-							<RemoveFolder Directory="Dir_runtimes" Id="RemoveDir7" On="uninstall" />
-						</Component>
-					</Directory>
-				</Directory>
-			</Directory>
-		</Directory>
-		<DirectoryRef Id ="Path_ManufacturerFolder">
-			<Component Id ="Comp_ManufacturerFolder" Guid="{0a33aaa2-9797-4617-9181-de38c461ac6b}" >
+
+		<DirectoryRef Id="Path_ManufacturerFolder">
+			<Component Id="Comp_ManufacturerFolder" Guid="{0a33aaa2-9797-4617-9181-de38c461ac6b}">
 				<RemoveFolder Id="Path_ManufacturerFolder" On="uninstall" />
 				<RegistryValue Root="HKCU" Key="Software\ExorLive" Name="installed" Type="integer" Value="1" KeyPath="yes" />
 			</Component>
@@ -139,5 +38,106 @@
 		</Feature>
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 		<Icon Id="exorlive.ico" SourceFile="Icon\exorlive.ico" />
-	</Product>
+		<Property Id="ARPPRODUCTICON" Value="exorlive.ico" />
+
+		<StandardDirectory Id="ProgramMenuFolder">
+			<Directory Id="ProgramMenuDir" Name="ExorLive">
+			</Directory>
+		</StandardDirectory>
+		<StandardDirectory Id="DesktopFolder" />
+		<StandardDirectory Id="AppDataFolder">
+			<Directory Id="Path_ManufacturerFolder" Name="ExorLive">
+				<Directory Id="INSTALLDIR" Name="ExorLive Webwrapper">
+					<Component Id="Comp_RegistryPath" Guid="{600a177e-2721-4e0e-8aa4-85561d294333}">
+						<!-- Old version registry path that should point to the new install location -->
+						<RegistryValue Root="HKCU" Key="Software\Exor Live\Exor Live WebWrapper" Name="path" Type="string" Value="[INSTALLDIR]" KeyPath="yes" />
+						<RegistryValue Root="HKCU" Key="Software\Exor Live\Exor Live WebWrapper" Name="version" Type="string" Value="[ProductVersion]" />
+					</Component>
+					<Component Id="Comp_ProductFolder" Guid="{f11e4c93-9c6a-4058-9e5a-6556424c76f2}">
+						<RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="path" Type="string" Value="[INSTALLDIR]" KeyPath="yes" />
+						<RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="version" Type="string" Value="[ProductVersion]" />
+						<RemoveFolder Id="Remove_INSTALLDIR" On="uninstall" />
+					</Component>
+					<Component Id="Comp_EOBasedll" Guid="{3B19F727-7266-DB92-73AD-2C39A7F34663}">
+						<File Id="File_EO.Base.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)EO.Base.dll" />
+					</Component>
+					<Component Id="Comp_EOWebBrowserdll" Guid="{75C53201-1C40-DD75-123A-E275CBF104F5}">
+						<File Id="File_EO.WebBrowser.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)EO.WebBrowser.dll" />
+					</Component>
+					<Component Id="Comp_EOWebBrowserWpfdll" Guid="{B9D3BCF1-1EC3-38A7-EC63-5DC59A5F6123}">
+						<File Id="File_EO.WebBrowser.Wpf.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)EO.WebBrowser.Wpf.dll" />
+					</Component>
+					<Component Id="Comp_EOWebEnginedll" Guid="{4739F003-3E99-F50A-5CEB-88907F1000EC}">
+						<File Id="File_EO.WebEngine.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)EO.WebEngine.dll" />
+					</Component>
+					<Component Id="Comp_EoBrowserdll" Guid="{F46192F5-86D2-47CC-A057-4BE4DB29C272}">
+						<File Id="File_EoBrowser.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)EoBrowser.dll" />
+					</Component>
+					<Component Id="Comp_ExorLiveDesktopdll" Guid="{7F2C6FD3-3EB6-60E1-CB27-E3BE0294D0A7}">
+						<File Id="File_ExorLive.Desktop.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)ExorLive.Desktop.dll" />
+					</Component>
+					<Component Id="Comp_ExorLiveWebWrapperInterfacedll" Guid="{D0561D8F-AE5E-417B-AC09-B1A14E7C3A84}">
+						<File Id="File_ExorLive.WebWrapper.Interface.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)ExorLive.WebWrapper.Interface.dll" />
+					</Component>
+					<Component Id="Comp_HardcodetWpfTaskbarNotificationdll" Guid="{AC1CFE88-8AFB-6664-58B7-900CC9E20DF4}">
+						<File Id="File_Hardcodet.Wpf.TaskbarNotification.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)Hardcodet.Wpf.TaskbarNotification.dll" />
+					</Component>
+					<Component Id="Comp_MicrosoftWebWebView2Coredll" Guid="{204F0604-C46D-4BFE-A390-EE5AB8732351}">
+						<File Id="File_Microsoft.Web.WebView2.Core.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)Microsoft.Web.WebView2.Core.dll" />
+					</Component>
+					<Component Id="Comp_MicrosoftWebWebView2Wpfdll" Guid="{93F85234-70F7-4052-94C0-0EB19C8144C9}">
+						<File Id="File_Microsoft.Web.WebView2.Wpf.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)Microsoft.Web.WebView2.Wpf.dll" />
+					</Component>
+					<Component Id="Comp_NewtonsoftJsondll" Guid="{6434B9B6-61CA-51A5-E75F-CF7F4BA0DC88}">
+						<File Id="File_Newtonsoft.Json.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)Newtonsoft.Json.dll" />
+					</Component>
+					<Component Id="Comp_WebViewBrowserdll" Guid="{4EFDBC82-D807-45CE-8254-5A9BADC2650F}">
+						<File Id="File_WebViewBrowser.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)WebViewBrowser.dll" />
+					</Component>
+					<Component Id="Comp_WindowsBrowserdll" Guid="{CB7D5F0D-9778-47C1-B60D-69040DE04BC5}">
+						<File Id="File_WindowsBrowser.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)WindowsBrowser.dll" />
+					</Component>
+					<Directory Id="Dir_runtimes" Name="runtimes">
+						<Directory Id="Dir_winarm64" Name="win-arm64">
+							<Directory Id="Dir_winarm64native" Name="native">
+								<Component Id="Comp_runtimeswinarm64nativeWebView2Loaderdll" Guid="{63739E5D-AE4F-495B-A74D-8BA26345BF88}">
+									<File Id="File_runtimeswinarm64nativeWebView2Loaderdll.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)runtimes\win-arm64\native\WebView2Loader.dll" />
+									<RemoveFolder Directory="Dir_winarm64native" Id="RemoveDir5" On="uninstall" />
+									<RemoveFolder Directory="Dir_winarm64" Id="RemoveDir6" On="uninstall" />
+								</Component>
+							</Directory>
+						</Directory>
+						<Directory Id="Dir_winx64" Name="win-x64">
+							<Directory Id="Dir_winx64native" Name="native">
+								<Component Id="Comp_runtimeswinx64nativeWebView2Loaderdll" Guid="{9CDE0E86-A13F-41B8-ABC9-2DB6B64ED2D5}">
+									<File Id="File_runtimeswinx64nativeWebView2Loader.dll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)runtimes\win-x64\native\WebView2Loader.dll" />
+									<RemoveFolder Directory="Dir_winx64native" Id="RemoveDir3" On="uninstall" />
+									<RemoveFolder Directory="Dir_winx64" Id="RemoveDir4" On="uninstall" />
+								</Component>
+							</Directory>
+						</Directory>
+						<Directory Id="Dir_winx86" Name="win-x86">
+							<Directory Id="Dir_winx86native" Name="native">
+								<Component Id="Comp_runtimeswinx86nativeWebView2Loaderdll" Guid="{29BCA721-253A-4D09-BC19-03B84EFA1CE5}">
+									<File Id="File_.runtimeswinx86nativeWebView2Loaderdll" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)runtimes\win-x86\native\WebView2Loader.dll" />
+									<RemoveFolder Directory="Dir_winx86native" Id="RemoveDir1" On="uninstall" />
+									<RemoveFolder Directory="Dir_winx86" Id="RemoveDir2" On="uninstall" />
+								</Component>
+							</Directory>
+						</Directory>
+					</Directory>
+					<Component Id="Comp_AppConfig" Guid="{c4662d05-e830-45f2-a4b5-281b700fc409}">
+						<File Id="File_AppConfig" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)ExorLive.Client.WebWrapper.exe.config" />
+					</Component>
+					<Component Id="Comp_ExorLiveClientWebWrapperexe" Guid="{a4c04c3f-c2cd-4aaf-b61c-28f659cd0738}">
+						<File Id="File_ExorLive.Client.WebWrapper.exe" KeyPath="yes" Source="$(var.ExorLive.Client.WebWrapper.TargetDir)ExorLive.Client.WebWrapper.exe" />
+						<Shortcut Id="Cmp_ProgramShortcut_Primary" Directory="ProgramMenuDir" Name="ExorLive" Icon="exorlive.ico" Advertise="yes" />
+						<Shortcut Id="Cmp_DesktopShortcut_Primary" Directory="DesktopFolder" Name="ExorLive" Icon="exorlive.ico" Advertise="yes" />
+						<RemoveFolder Directory="ProgramMenuDir" Id="RemoveProgramMenuDir" On="uninstall" />
+						<RemoveFolder Directory="Dir_runtimes" Id="RemoveDir7" On="uninstall" />
+					</Component>
+				</Directory>
+			</Directory>
+		</StandardDirectory>
+	</Package>
 </Wix>
