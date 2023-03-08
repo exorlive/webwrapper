@@ -11,7 +11,7 @@ arguments to the running instance.
 ## Installation
 
 An MSI installer is available at <webwrapper.exorlive.com>. It will install to
-the default path of `%appdata%\ExorLive\Webwrapper` but you can change
+the default path of `%appdata%\ExorLive\ExorLive Webwrapper` but you can change
 installation path by running the MSI package using the command line:
 
 ```bat
