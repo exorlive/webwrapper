@@ -1,5 +1,3 @@
-[TOC]
-
 # ExorLive WebWrapper
 
 [ExorLive](http://exorlive.com/) is an application delivered as a single page
@@ -35,6 +33,10 @@ runs the shortcut:
 msiexec /jm "ExorLiveWebwrapper.2.2.0.0.msi"
 ```
 
+### Package an installation for other purposes
+
+It is possible to package the installation for other purposes, ex. by storing it on a CD, or for distribution on a network. You can do this by finding the folder where the program is installed and packaging the content of that folder. You have to create the installation package and create the shortcut to the program yourself.
+
 ## Automatic update
 
 The webwrapper application will attempt to check the website
@@ -45,43 +47,41 @@ the default configuration file (see
 
 ## Configuration
 
-The application settings are saved in two locations, and have the following
-options:
+The application settings are currently saved in the default configuration file, _ExorLive.Client.WebWrapper.exe.config_, in the application root. Once a user have launched the application, a second per-user configuration file named "user.config" is created in a subfolder of _%localappdata%/ExorLive/_.
 
-The user configuration file is saved at
-"%localappdata%\ExorLive\ExorLive.Client.WebWrappe*Url*(applicationId)\\(version)\user.config".
-The config file is created after running the webwrapper for the first time.
+### User config
 
-- **BrowserEngine**: Default is **EoWebBrowser**, but this can be changed to
-  **InternetExplorer** if you prefer to run the local Internet Explorer engine.
-  If a value is missing, it copies the value from the global config file
-  (below).
-- **CheckForUpdates**: If the application should check for updates on launch,
+Found in a subfolder of `%localappdata%/ExorLive/`. If a value is blank, it copies the value from the global config file.
+
+- **BrowserEngine**: Default is `EoWebBrowser`, but this can be changed to
+  `InternetExplorer` if you prefer to run the local Internet Explorer browser engine, or `WebViewBrowser` 
+  if you prefer to run on the new Microsoft Edge browser engine.
+- **MinimizeOnExit**: Default is `True`. This will make the WebWrapper stay open in the 
+  context menu if the user closes it without signing out. This is to prevent the user having to sign in anew.
+- **CheckForUpdates**: Default is `True`. If the application should check for updates on launch,
   and show a banner notice if there is available updates.
-- **UpdatePath**: The current update channel.
+- **UpdatePath**: Default is blank. The current update channel.
 - **Top** / **Left** / **Height** / **Width** / **Maximized**: The webwrapper's
   window size and location on screen, saved for next time.
 - **ZoomFactor**: The current zoom level in the browser window.
-- **MinimizeOnExit**: Default is **True**. This will make the WebWrapper stay
-  open in the context menu if the user closes it without signing out. This is to
-  prevent the user having to sign in anew.
+
+### Application config
 
 The configuration file in the application root (usually
-"%appdata%\ExorLive\ExorLive Webwrapper\ExorLive.Client.WebWrapper.exe.config").
+`"%appdata%\ExorLive\ExorLive Webwrapper\ExorLive.Client.WebWrapper.exe.config"`). 
+These settings might be overriden by the user's config file (above).
 
 - **BrowserEngine**: Default is **EoWebBrowser**, but this can be changed to
   **InternetExplorer** if you prefer to run the local Internet Explorer engine.
-  This setting might be overriden by the user's config file (above).
 - **ProtocolProvider**: Default is **ExorLive.Desktop.Arguments.Component,
   ExorLive.Desktop**. This can be modified to use another API protocol provider.
   See [WebWrapper API Interface](#markdown-header-webwrapper-api-interface).
 - **DistributorName**: This should be set to whichever company built the
   executable. It will get sent back to ExorLive so we can recognize the app (and
   maybe provide app-specific updates or options).
-- **Debug**: Default is **False**. Shouldn't need to be changed. Enables browser
-  debugging.
-- **AppUrl**: Default is "<https://exorlive.com/app>". Can be changed to our
-  testing environments or localhost.
+- **Debug**: Default is `False`. If set to `True`, it will write logfiles to a folder 
+  in _%temp%_. If you are using EoBrowser, it will enable a chrome debugging server on port 9223.
+- **AppUrl**: Default is `https:\\auth.exorlive.com\signin\`. This is the initial url that the webwrapper launches.
 - **RememberLoggedInUser**: Default is **True**. See
   [Single-Sign-On](#markdown-header-single-sign-on) below.
 - **SignonWithWindowsUser**: Default is **False**. See
