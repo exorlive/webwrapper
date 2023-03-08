@@ -10,13 +10,11 @@ arguments to the running instance.
 
 ## Installation
 
-An MSI installer is available at <webwrapper.exorlive.com>. It will install to
-the default path of `%appdata%\ExorLive\ExorLive Webwrapper` but you can change
-installation path by running the MSI package using the command line:
+An MSI installer is available at <https://webwrapper.exorlive.com>. It will
+install to the default path of `%appdata%\ExorLive\ExorLive Webwrapper` but you
+can change installation path by running the MSI package using the command line:
 
 ```bat
-#!bat
-
 msiexec /i "ExorLiveWebWrapper.2.6.0.0.msi" INSTALLDIR="C:\myfolder" /q
 ```
 
@@ -26,8 +24,6 @@ which starts the installation with administrator permissions by the user when he
 runs the shortcut:
 
 ```bat
-#!bat
-
 msiexec /jm "ExorLiveWebwrapper.2.6.0.0.msi"
 ```
 
@@ -62,10 +58,10 @@ copies the value from the global config file.
   `InternetExplorer` if you prefer to run the local Internet Explorer browser
   engine, or `WebViewBrowser` if you prefer to run on the new Microsoft Edge
   browser engine.
-- **CheckForUpdates**: Default is `True`. If the application should check for
-  updates on launch, and show a banner notice if there is available updates.
-- **Top** / **Left** / **Height** / **Width** / **Maximized**: The webwrapper's
-  window size and location on screen, saved for next time.
+- **CheckForUpdates**: Default is `True`. This makes the webwrapper check for
+  updates and notify the user if any updates are found.
+- **Top / Left / Height / Width / Maximized**: The webwrapper's window size and
+  location on screen, saved for next time.
 - **MinimizeOnExit**: Default is `True`. This will make the WebWrapper stay open
   in the context menu if the user closes it without signing out. This is to
   prevent the user having to sign in anew.
@@ -75,15 +71,15 @@ copies the value from the global config file.
 ### Application config
 
 The configuration file in the application root (usually
-`"%appdata%\ExorLive\ExorLive Webwrapper\ExorLive.Client.WebWrapper.exe.config"`).
+`%appdata%\ExorLive\ExorLive Webwrapper\ExorLive.Client.WebWrapper.exe.config`).
 These settings might be overriden by the user's config file (above).
 
 - **AdfsUrl**: Default is blank. For ADFS login systems.
 - **AppUrl**: Default is `https:\\auth.exorlive.com\signin\`. This is the
   initial url that the webwrapper launches.
 - **Culture**: Default is blank. Overrides the default language for login.
-- **Debug**: Default is `False`. If set to `True`, it will write logfiles to a
-  folder in _%temp%_. If you are using EoBrowser, it will enable a chrome
+- **Debug**: Default is `False`. If set to `True`, it will also write logfiles
+  to a folder in _%temp%_. If you are using EoBrowser, it will enable a chrome
   debugging server on port 9223.
 - **ProtocolProvider**: Default is
   `ExorLive.Desktop.Arguments.Component, ExorLive.Desktop`. This can be modified
@@ -135,9 +131,7 @@ It is also possible to use the current logged in windows user on the computer
 the WebWrapper is running. It is enabled with the `SignonWithWindowsUser`
 setting. It behaves the same way as the `RememberLoggedInUser`.
 
-## WebWrapper API Interface
-
-### Architecture
+## Architecture
 
 Architecturally the WebWrapper do the following:
 
@@ -155,8 +149,10 @@ optional configuration file or by passing the name of the provider to the
 executable using `provider="[type]"`, for example
 `provider="ExorLive.Desktop.Arguments.Component, ExorLive.Desktop"`.
 
-The WebWrapper ships with two built-in protocol providers, one exposing a file
-based API, and one exposing a command line API.
+The WebWrapper ships with several protocol providers. See details in the
+"WebWrapper API Interface" section.
+
+## WebWrapper API Interface
 
 ### ExorLive.Desktop.Arguments
 
@@ -185,8 +181,6 @@ command line arguments in the form of `key=value` or `key="value value"`.
 #### Usage example
 
 ```bat
-#!bat
-
 ExorLive.Client.WebWrapper.exe provider="ExorLive.Desktop.Arguments.Component, ExorLive.Desktop" queryexercises="squat" id="user007" firstname="James" lastname="Bond" dateofbirth="1953-04-13"
 ExorLive.Client.WebWrapper.exe signon=myuser id="user007" firstname="James" lastname="Bond" dateofbirth="1953-04-13"
 ```
@@ -203,8 +197,6 @@ the xml-file as its first argument.
 **input.xml**
 
 ```xml
-#!xml
-
 <?xml version="1.0"?>
 <exorinput delete="true" exercisequery="" workoutquery="">
     <source_customerno>231</source_customerno>
@@ -228,12 +220,5 @@ the xml-file as its first argument.
 #### Usage example
 
 ```bat
-#!bat
-
 ExorLive.Client.WebWrapper.exe provider="ExorLive.Desktop.Exor3.Component, ExorLive.Desktop" input.xml
 ```
-
-### ExorLive.Desktop.Procapita
-
-A tailored version for the Procapita journal system by Tieto in Sweden is
-available on request.
