@@ -65,14 +65,14 @@ copies the value from the global config file.
   `InternetExplorer` if you prefer to run the local Internet Explorer browser
   engine, or `WebViewBrowser` if you prefer to run on the new Microsoft Edge
   browser engine.
+- **CheckForUpdates**: Default is `True`. If the application should check for
+  updates on launch, and show a banner notice if there is available updates.
+- **Top** / **Left** / **Height** / **Width** / **Maximized**: The webwrapper's
+  window size and location on screen, saved for next time.
 - **MinimizeOnExit**: Default is `True`. This will make the WebWrapper stay open
   in the context menu if the user closes it without signing out. This is to
   prevent the user having to sign in anew.
-- **CheckForUpdates**: Default is `True`. If the application should check for
-  updates on launch, and show a banner notice if there is available updates.
 - **UpdatePath**: Default is blank. The current update channel.
-- **Top** / **Left** / **Height** / **Width** / **Maximized**: The webwrapper's
-  window size and location on screen, saved for next time.
 - **ZoomFactor**: The current zoom level in the browser window.
 
 ### Application config
@@ -81,24 +81,21 @@ The configuration file in the application root (usually
 `"%appdata%\ExorLive\ExorLive Webwrapper\ExorLive.Client.WebWrapper.exe.config"`).
 These settings might be overriden by the user's config file (above).
 
-- **BrowserEngine**: Default is **EoWebBrowser**, but this can be changed to
-  **InternetExplorer** if you prefer to run the local Internet Explorer engine.
-- **ProtocolProvider**: Default is **ExorLive.Desktop.Arguments.Component,
-  ExorLive.Desktop**. This can be modified to use another API protocol provider.
-  See [WebWrapper API Interface](#markdown-header-webwrapper-api-interface).
-- **DistributorName**: This should be set to whichever company built the
-  executable. It will get sent back to ExorLive so we can recognize the app (and
-  maybe provide app-specific updates or options).
+- **AdfsUrl**: Default is blank. For ADFS login systems.
+- **AppUrl**: Default is `https:\\auth.exorlive.com\signin\`. This is the
+  initial url that the webwrapper launches.
+- **Culture**: Default is blank. Overrides the default language for login.
 - **Debug**: Default is `False`. If set to `True`, it will write logfiles to a
   folder in _%temp%_. If you are using EoBrowser, it will enable a chrome
   debugging server on port 9223.
-- **AppUrl**: Default is `https:\\auth.exorlive.com\signin\`. This is the
-  initial url that the webwrapper launches.
+- **ProtocolProvider**: Default is
+  `ExorLive.Desktop.Arguments.Component, ExorLive.Desktop`. This can be modified
+  to use another API protocol provider. See
+  [WebWrapper API Interface](#markdown-header-webwrapper-api-interface).
 - **RememberLoggedInUser**: Default is **True**. See
   [Single-Sign-On](#markdown-header-single-sign-on) below.
 - **SignonWithWindowsUser**: Default is **False**. See
   [Single-Sign-On](#markdown-header-single-sign-on) below.
-- **AdfsUrl**: For ADFS login systems.
 
 ## Requirements to build and publish
 
