@@ -10,16 +10,14 @@ arguments to the running instance.
 
 ## Installation
 
-An MSI installer is available at https://webwrapper.exorlive.com/
-
-This will install to the default path of _"%appdata%\ExorLive\Webwrapper"_ but
-you can change installation path by running the MSI package using the command
-line:
+An MSI installer is available at <webwrapper.exorlive.com>. It will install to
+the default path of `%appdata%\ExorLive\Webwrapper` but you can change
+installation path by running the MSI package using the command line:
 
 ```bat
 #!bat
 
-msiexec /i "ExorLiveWebWrapper.2.2.0.0.msi" INSTALLDIR="C:\myfolder" /q
+msiexec /i "ExorLiveWebWrapper.2.6.0.0.msi" INSTALLDIR="C:\myfolder" /q
 ```
 
 Or you can install it as an
@@ -30,7 +28,7 @@ runs the shortcut:
 ```bat
 #!bat
 
-msiexec /jm "ExorLiveWebwrapper.2.2.0.0.msi"
+msiexec /jm "ExorLiveWebwrapper.2.6.0.0.msi"
 ```
 
 ### Package an installation for other purposes
@@ -46,15 +44,14 @@ yourself.
 The webwrapper application will attempt to check the website
 https://webwrapper.exorlive.com/ at startup to see if there is an update. If so,
 it will show a download link to the user. This check can be disabled by editing
-the default configuration file (see
-[Configuration](#markdown-header-configuration)).
+the default configuration file (see [Configuration](#configuration)).
 
 ## Configuration
 
 The application settings are currently saved in the default configuration file,
-_ExorLive.Client.WebWrapper.exe.config_, in the application root. Once a user
+`ExorLive.Client.WebWrapper.exe.config`, in the application root. Once a user
 have launched the application, a second per-user configuration file named
-"user.config" is created in a subfolder of _%localappdata%/ExorLive/_.
+"user.config" is created in a subfolder of `%localappdata%/ExorLive/`.
 
 ### User config
 
@@ -91,11 +88,11 @@ These settings might be overriden by the user's config file (above).
 - **ProtocolProvider**: Default is
   `ExorLive.Desktop.Arguments.Component, ExorLive.Desktop`. This can be modified
   to use another API protocol provider. See
-  [WebWrapper API Interface](#markdown-header-webwrapper-api-interface).
+  [WebWrapper API Interface](#api-interface).
 - **RememberLoggedInUser**: Default is **True**. See
-  [Single-Sign-On](#markdown-header-single-sign-on) below.
+  [Single-Sign-On](#single-sign-on) below.
 - **SignonWithWindowsUser**: Default is **False**. See
-  [Single-Sign-On](#markdown-header-single-sign-on) below.
+  [Single-Sign-On](#single-sign-on) below.
 
 ## Requirements to build and publish
 
