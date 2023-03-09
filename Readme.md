@@ -1,3 +1,16 @@
+# ExorLive WebWrapper
+
+[ExorLive](http://exorlive.com/) is an application delivered as a single page
+application, and so in order for desktop applications to efficiently integrate
+with this, ExorLive provides an executable that wraps the web application in a
+controllable desktop application. This application is called
+"ExorLive.Client.WebWrapper", or only "WebWrapper". The WebWrapper executable is
+a single instance application, and if executed multiple times will pass all
+arguments to the running instance.
+
+User documentation is available at
+<a href="https://developer.exorlive.com/api/webwrapper.aspx">developer.exorlive.com/api/webwrapper.aspx</a>.
+
 # Building
 
 ## Requirements to build and publish
@@ -26,16 +39,3 @@
 This will build the SetupProject, ExorLive.Client.WebWrapper, and
 ExorLive.Desktop. It will build it 3 times, each with a different configuration:
 Release, Procapita, Goteborg, Boras and VGR.
-
-# ExorLive WebWrapper
-
-[ExorLive](http://exorlive.com/) is an application delivered as a single page
-application, and so in order for desktop applications to efficiently integrate
-with this, ExorLive provides an executable that wraps the web application in a
-controllable desktop application. This application is called
-"ExorLive.Client.WebWrapper", or only "WebWrapper". The WebWrapper executable is
-a single instance application, and if executed multiple times will pass all
-arguments to the running instance.
-
-User documentation is available at
-<a href="https://developer.exorlive.com/api/webwrapper.aspx">developer.exorlive.com/api/webwrapper.aspx</a>.
