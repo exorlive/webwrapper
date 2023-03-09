@@ -37,6 +37,9 @@ controllable desktop application. This application is called
 a single instance application, and if executed multiple times will pass all
 arguments to the running instance.
 
+User documentation is available at
+<a href="https://developer.exorlive.com/api/webwrapper.aspx">developer.exorlive.com/api/webwrapper.aspx</a>.
+
 ## Installation
 
 An MSI installer is available at <https://webwrapper.exorlive.com>. It will
