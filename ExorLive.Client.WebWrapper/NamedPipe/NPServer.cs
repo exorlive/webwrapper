@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -228,7 +229,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 								var json = "";
 								if (pair.Value is JArray data)
 								{
-									json = Newtonsoft.Json.JsonConvert.SerializeObject(pair.Value);
+									json = JsonConvert.SerializeObject(pair.Value);
 									StringBuilder sblog = new StringBuilder("SelectPerson.ProfileData").AppendLine();
 									foreach (var entry in data)
 									{
@@ -264,9 +265,9 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 				}
 				if (dto.UserId > 0 || (!string.IsNullOrWhiteSpace(dto.ExternalId)))
 				{
-					if (string.IsNullOrWhiteSpace(dto.Firstname) || string.IsNullOrWhiteSpace(dto.Lastname))
+					if (dto.Firstname == null || dto.Lastname == null)
 					{
-						directResult = JsonFormatError("Firstname and lastname are mandatory.");
+						directResult = JsonFormatError("Firstname and lastname are mandatory. They can be empty strings.");
 					}
 					else if (string.IsNullOrWhiteSpace(dto.Source))
 					{
@@ -279,7 +280,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 						{
 							_window.Restore();
 							_app.SelectPerson3(dto);
-							_app.Log("    SelectPerson Id:'{0}' ExternalId:'{1}' Firstname:'{2}', Lastname:'{3}', Email:'{4}', DoB: '{5}'", dto.UserId, dto.ExternalId, dto.Firstname, dto.Lastname, dto.Email, dto.DateOfBirth);
+							_app.Log($"    SelectPerson Id:'{dto.UserId}' ExternalId:'{dto.ExternalId}' Firstname:'{dto.Firstname}', Lastname:'{dto.Lastname}', Email:'{dto.Email}', DoB: '{dto.DateOfBirth}'");
 						}));
 						return true;
 					}
@@ -293,7 +294,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 			{
 				directResult = JsonFormatError("No arguments specified for method '{0}'.", request.Method);
 			}
-			_app.Log("    SelectPerson FAILED: " + directResult);
+			_app.Log($"    SelectPerson FAILED: {directResult}");
 			return false;
 		}
 
@@ -313,7 +314,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 				var indexMethodTest = requeststring.IndexOf("\"SelectPerson\"", StringComparison.OrdinalIgnoreCase);
 				if (indexMethodTest > 0 && indexMethodTest < indexArgs)
 				{
-					var request = Newtonsoft.Json.JsonConvert.DeserializeObject<NamedPipeRequest2>(requeststring);
+					var request = JsonConvert.DeserializeObject<NamedPipeRequest2>(requeststring);
 					if (request != null)
 					{
 						return HandleSelectPerson(request, out directResult);
@@ -326,7 +327,7 @@ namespace ExorLive.Client.WebWrapper.NamedPipe
 				}
 				else
 				{
-					var request = Newtonsoft.Json.JsonConvert.DeserializeObject<NamedPipeRequest>(requeststring);
+					var request = JsonConvert.DeserializeObject<NamedPipeRequest>(requeststring);
 					if (request != null)
 					{
 						if (!string.IsNullOrWhiteSpace(request.Method))

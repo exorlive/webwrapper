@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO.Pipes;
 using ExorLive.Client;
 using System.Diagnostics;
+using Newtonsoft.Json;
 
 namespace ExorLiveNamedPipeSampleClient
 {
@@ -374,7 +375,7 @@ namespace ExorLiveNamedPipeSampleClient
 				Console.WriteLine("------------------------------------------------------------");
 				if (response.StartsWith("["))
 				{
-					dynamic userslist = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(response);
+					dynamic userslist = JsonConvert.DeserializeObject<dynamic>(response);
 					Console.WriteLine("Users: " + userslist.Count);
 					foreach (var user in userslist)
 					{
@@ -382,8 +383,7 @@ namespace ExorLiveNamedPipeSampleClient
 						if (date.StartsWith("000")) {
 							date = "";
 						}
-
-						Console.WriteLine("  {0,8}: CustomId: {1,8} Date-of-birth: {2,11}  - {3} {4} - {5}", user.Id, user.CustomId, date, user.Firstname, user.Lastname, user.Email);
+						Console.WriteLine($"  {user.Id,8}: CustomId: {user.CustomId,8} Date-of-birth: {date,11}  - {user.Firstname} {user.Lastname} - {user.Email}");
 					}
 				}
 			}
